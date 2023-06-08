@@ -72,7 +72,7 @@ Type: `ViewStyle`
 ### `listTextStyle`
 Custom styles for the text inside the selector dropdown list. <br />
 Type: `ViewStyle`
-### `selectedTextStyle`
+### `selectedItemStyle`
 Custom styles for the active item inside the selection dropdown list. <br />
 Type: `ViewStyle`
 
