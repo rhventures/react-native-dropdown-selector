@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Dimensions,
   FlatList,
   Image,
   LayoutChangeEvent,
@@ -22,6 +21,8 @@ export type Data = {
 type SelectorProperties = {
   data: Data[];
   onSelect: Function;
+  scrollOffset?: number;
+  placeholderText?: string | JSX.Element;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
   listStyle?: ViewStyle;
@@ -40,6 +41,7 @@ type ListProperties = {
   display: boolean;
   setDisplay: Function;
   position: number[];
+  scrollOffset?: number;
 };
 
 const style = StyleSheet.create({
@@ -101,31 +103,25 @@ const SelectionList = (props: ListProperties): JSX.Element => {
     return <View />;
   }
 
-  const height: number = Dimensions.get("window").height;
+  const [height, setHeight] = useState<number>(200);
 
   return (
-    <Modal transparent={true}>
+    <Modal transparent={true} onRequestClose={() => props.setDisplay(false)}>
       <TouchableOpacity
         activeOpacity={1}
-        style={[
-          style.modalBackground,
-          {
-            marginTop:
-              height - props.position[1] > 200
-                ? props.position[1]
-                : props.position[0],
-          },
-        ]}
+        style={style.modalBackground}
         onPress={() => props.setDisplay(false)}
       >
         <View
+          onLayout={(e: LayoutChangeEvent) =>
+            height === 200 && setHeight(e.nativeEvent.layout.height)
+          }
           style={[
             style.list,
             {
               marginTop:
-                height - props.position[1] > 200
-                  ? props.position[1]
-                  : props.position[0],
+                (height < 200 ? props.position[0] : props.position[1]) -
+                (props.scrollOffset || 0),
             },
             props.styles.list,
           ]}
@@ -159,7 +155,9 @@ const SelectionList = (props: ListProperties): JSX.Element => {
 /* Renders a selector component. Takes in props defined in the SelectorProperties type. */
 const Selector = (props: SelectorProperties): JSX.Element => {
   const [listDisplay, setListDisplay] = useState<boolean>(false);
-  const [selected, setSelected] = useState<string | JSX.Element>("Click me");
+  const [selected, setSelected] = useState<string | JSX.Element>(
+    props.placeholderText ? props.placeholderText : "Click me"
+  );
   const [position, setPosition] = useState<number[]>([]);
 
   const clickSelector = () => {
@@ -181,7 +179,6 @@ const Selector = (props: SelectorProperties): JSX.Element => {
       ...data.filter((d) => !d.priority),
     ];
   };
-
   return (
     <View onLayout={getPos}>
       <TouchableOpacity
@@ -207,6 +204,7 @@ const Selector = (props: SelectorProperties): JSX.Element => {
         display={listDisplay}
         setDisplay={setListDisplay}
         position={position}
+        scrollOffset={props.scrollOffset}
       />
     </View>
   );

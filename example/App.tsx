@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 
-import Selector, { Data } from "../index";
+import Selector, { Data } from "../src/components/Selector";
 
 const data: Data[] = [
   { label: "Item 1" },
@@ -16,13 +16,30 @@ const data: Data[] = [
 
 function App(): JSX.Element {
   const [item, setItem] = React.useState<string | JSX.Element>("");
+  const [offset, setOffset] = React.useState<number>(0);
   const onDataSelect = (e: Data) => setItem(e.label);
 
   return (
-    <View style={{ marginTop: 40 }}>
-      <Selector data={data} onSelect={onDataSelect} />
+    <ScrollView
+      onScroll={(e) => setOffset(e.nativeEvent.contentOffset.y)}
+      scrollEventThrottle={50}
+    >
+      <View style={{ height: 40 }} />
+      <Selector data={data} onSelect={onDataSelect} scrollOffset={offset} />
       <Text>Selected: {item || "None"}</Text>
-    </View>
+      <View style={{ height: 700 }} />
+      <Text>
+        The dropdown menu will display above the input box when there isn't
+        enough space below
+      </Text>
+      <Selector
+        data={data}
+        onSelect={(e: Data) => console.log(e.label)}
+        scrollOffset={offset}
+        placeholderText="Select an item"
+      />
+      <View style={{ height: 700 }} />
+    </ScrollView>
   );
 }
 
