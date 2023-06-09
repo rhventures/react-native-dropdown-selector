@@ -41,6 +41,18 @@ Add a Selector component you your view.
 <Selector data={data} onSelect={onDataSelect} />
 ```
 
+If the Selector is inside a ScrollView component, include the scrollOffset prop.
+``` tsx
+const [offset, setOffset] = useState<number>(0);
+return (
+    <ScrollView
+      onScroll={({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => setOffset(nativeEvent.contentOffset.y)}
+      scrollEventThrottle={50}>
+        <Selector data={data} onSelect={onDataSelect} scrollOffset={offset}
+    </ScrollView>
+);
+```
+
 That's it! Run your app to see the selector in action.
 
 ## The `Data` Object
@@ -58,25 +70,31 @@ Type: `object`
 
 ## Props
 ### `data` **(required)**
-Holds the items used for the selector. <br />
+Holds the items used for the Selector. <br />
 Type: `Data[]`
+### `scrollOffset`
+Required when using a ScrollView component. Helps with setting list position. <br />
+Type: `number`
+### `placeholderText`
+Replace the default Selector text when an item hasn't been selected. <br />
+Type: `string | JSX.Element`
 ### `boxStyle`
-Custom styles for the main selector box. <br />
+Custom styles for the main Selector box. <br />
 Type: `ViewStyle`
 ### `boxTextStyle`
-Custom styles for the text inside the main selector box. <br />
+Custom styles for the text inside the main Selector box. <br />
 Type: `ViewStyle`
 ### `listStyle`
-Custom styles for the selector dropdown list. <br />
+Custom styles for the Selector dropdown list. <br />
 Type: `ViewStyle`
 ### `listTextStyle`
-Custom styles for the text inside the selector dropdown list. <br />
+Custom styles for the text inside the Selector dropdown list. <br />
 Type: `ViewStyle`
 ### `selectedItemStyle`
-Custom styles for the active item inside the selection dropdown list. <br />
+Custom styles for the active item inside the Selector dropdown list. <br />
 Type: `ViewStyle`
 
 ## Callbacks
 ### `onSelect` **(required)**
 Called when the user selects an item from the selector. <br />
-Type: `Function`
+Type: `Function (e: Data) => void`
