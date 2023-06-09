@@ -1,6 +1,6 @@
 {
   "name": "react-native-dropdown-selector",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "A react native component for creating dropdown lists",
   "main": "index.tsx",
   "scripts": {},
