@@ -104,6 +104,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
   }
 
   const [height, setHeight] = useState<number>(200);
+  const [heightChecked, setHeightChecked] = useState<boolean>(false);
 
   return (
     <Modal transparent={true} onRequestClose={() => props.setDisplay(false)}>
@@ -114,7 +115,10 @@ const SelectionList = (props: ListProperties): JSX.Element => {
       >
         <View
           onLayout={(e: LayoutChangeEvent) =>
-            height === 200 && setHeight(e.nativeEvent.layout.height)
+            !heightChecked && [
+              setHeight(e.nativeEvent.layout.height),
+              setHeightChecked(true),
+            ]
           }
           style={[
             style.list,
@@ -122,6 +126,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
               marginTop:
                 (height < 200 ? props.position[0] : props.position[1]) -
                 (props.scrollOffset || 0),
+              opacity: heightChecked ? 1 : 0,
             },
             props.styles.list,
           ]}

@@ -26,7 +26,7 @@ function App(): JSX.Element {
     >
       <View style={{ height: 40 }} />
       <Selector data={data} onSelect={onDataSelect} scrollOffset={offset} />
-      <Text>Selected: {item || "None"}</Text>
+      <Text>Selected: {item || "None"} (scroll down)</Text>
       <View style={{ height: 700 }} />
       <Text>
         The dropdown menu will display above the input box when there isn't
