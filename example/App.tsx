@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import Selector, { Data } from '../index';
+import Selector, { type Data } from '../index';
 
 const data: Data[] = [
   { label: 'Item 1' },
