@@ -1,5 +1,11 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import {
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 
 import Selector, { type Data } from '../src/components/Selector';
 
@@ -21,8 +27,10 @@ function App(): JSX.Element {
 
   return (
     <ScrollView
-      onScroll={(e) => {
-        setOffset(e.nativeEvent.contentOffset.y);
+      onScroll={({
+        nativeEvent,
+      }: NativeSyntheticEvent<NativeScrollEvent>): void => {
+        setOffset(nativeEvent.contentOffset.y);
       }}
       scrollEventThrottle={50}
     >
