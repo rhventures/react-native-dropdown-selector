@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
+  Dimensions,
   FlatList,
   Image,
-  type LayoutChangeEvent,
   Modal,
   StyleSheet,
   Text,
-  type TextStyle,
   TouchableOpacity,
   View,
+  type LayoutChangeEvent,
+  type TextStyle,
   type ViewStyle,
 } from 'react-native';
 import dropdownArrow from '../assets/down.png';
@@ -21,7 +22,6 @@ export interface Data {
 interface SelectorProperties {
   data: Data[];
   onSelect: (e: Data) => void;
-  scrollOffset?: number;
   placeholderText?: string | JSX.Element;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
@@ -40,8 +40,7 @@ interface ListProperties {
   selected: string | JSX.Element;
   display: boolean;
   setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
-  position: number[];
-  scrollOffset?: number;
+  selectorRef: React.RefObject<TouchableOpacity>;
 }
 
 const style = StyleSheet.create({
@@ -103,8 +102,15 @@ const SelectionList = (props: ListProperties): JSX.Element => {
     return <View />;
   }
 
-  const [height, setHeight] = useState<number>(200);
-  const [heightChecked, setHeightChecked] = useState<boolean>(false);
+  const [listHeight, setListHeight] = useState<number>(200),
+    [heightChecked, setHeightChecked] = useState<boolean>(false),
+    pos = { top: 0, bottom: 0 },
+    windowHeight = Dimensions.get('window').height;
+
+  props.selectorRef.current?.measureInWindow((_x, y, _width, height) => {
+    pos.top = y - 200;
+    pos.bottom = y + height;
+  });
 
   return (
     <Modal transparent={true} onRequestClose={() => props.setDisplay(false)}>
@@ -114,18 +120,16 @@ const SelectionList = (props: ListProperties): JSX.Element => {
         onPress={() => props.setDisplay(false)}
       >
         <View
-          onLayout={(e: LayoutChangeEvent) => {
-            if (!heightChecked) {
-              setHeight(e.nativeEvent.layout.height);
-              setHeightChecked(true);
-            }
-          }}
+          onLayout={(e: LayoutChangeEvent) => [
+            setHeightChecked(true),
+            setListHeight(
+              windowHeight - pos.bottom < 200 ? pos.top : pos.bottom
+            ),
+          ]}
           style={[
             style.list,
             {
-              marginTop:
-                (height < 200 ? props.position[0] : props.position[1]) -
-                (props.scrollOffset != null ? props.scrollOffset : 0),
+              marginTop: listHeight,
               opacity: heightChecked ? 1 : 0,
             },
             props.styles.list,
@@ -159,37 +163,31 @@ const SelectionList = (props: ListProperties): JSX.Element => {
 
 /* Renders a selector component. Takes in props defined in the SelectorProperties type. */
 const Selector = (props: SelectorProperties): JSX.Element => {
-  const [listDisplay, setListDisplay] = useState<boolean>(false);
-  const [selected, setSelected] = useState<string | JSX.Element>(
-    props.placeholderText ? props.placeholderText : 'Click me'
-  );
-  const [position, setPosition] = useState<number[]>([]);
-
-  const clickSelector = (): void => {
-    setListDisplay(!listDisplay);
-  };
-  const selectItem = (item: Data): void => {
-    setSelected(item.label);
-    props.onSelect(item);
-  };
-  const getPos = (e: LayoutChangeEvent): void => {
-    setPosition([
-      e.nativeEvent.layout.y - 200,
-      e.nativeEvent.layout.y + e.nativeEvent.layout.height,
-    ]);
-  };
-  const updatePriorities = (data: Data[]): Data[] => {
-    return [
-      ...data.filter((d) => d.priority),
-      ...data.filter((d) => !d.priority),
-    ];
-  };
+  const [listDisplay, setListDisplay] = useState<boolean>(false),
+    [selected, setSelected] = useState<string | JSX.Element>(
+      props.placeholderText ? props.placeholderText : 'Click me'
+    ),
+    clickSelector = (): void => {
+      setListDisplay(!listDisplay);
+    },
+    selectItem = (item: Data): void => {
+      setSelected(item.label);
+      props.onSelect(item);
+    },
+    updatePriorities = (data: Data[]): Data[] => {
+      return [
+        ...data.filter((d) => d.priority),
+        ...data.filter((d) => !d.priority),
+      ];
+    },
+    ref = useRef(null);
   return (
-    <View onLayout={getPos}>
+    <View>
       <TouchableOpacity
         activeOpacity={1}
         style={[style.selectorBox, props.boxStyle]}
         onPress={clickSelector}
+        ref={ref}
       >
         <Text style={[style.selectorText, props.boxTextStyle]}>{selected}</Text>
         <Image
@@ -210,8 +208,7 @@ const Selector = (props: SelectorProperties): JSX.Element => {
         selected={selected}
         display={listDisplay}
         setDisplay={setListDisplay}
-        position={position}
-        scrollOffset={props.scrollOffset}
+        selectorRef={ref}
       />
     </View>
   );
