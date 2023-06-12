@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
-import Selector, { type Data } from '../index';
+import Selector, { type Data } from '../';
 
 const data: Data[] = [
   { label: 'Item 1' },
@@ -26,7 +26,12 @@ function App(): JSX.Element {
         <Selector data={data} onSelect={onDataSelect} />
         <Text>Selected: {item || 'None'} (scroll down)</Text>
         <View style={{ height: 700 }} />
-        <Text>
+        <Text
+          style={{
+            alignSelf: 'center',
+            width: 350,
+          }}
+        >
           The dropdown menu will display above the input box when there
           isn&quot;t enough space below
         </Text>
@@ -36,6 +41,14 @@ function App(): JSX.Element {
             console.log(e.label);
           }}
           placeholderText="Select an item"
+          boxStyle={{
+            alignSelf: 'center',
+            width: 200,
+          }}
+          listStyle={{
+            alignSelf: 'center',
+            width: 200,
+          }}
         />
         <View style={{ height: 700 }} />
       </ScrollView>
