@@ -76,6 +76,16 @@ Type: `object`
 Holds the items used for the Selector. <br />
 Type: `Data[]`
 
+### `selected`
+
+Choose an item to be selected before the user interacts with the Selector. <br />
+Type: `Data`
+
+### `listHeight`
+
+The height of the dropdown list. Defaults to 200. <br />
+Type: `number`
+
 ### `placeholderText`
 
 Replace the default Selector text when an item hasn't been selected. <br />

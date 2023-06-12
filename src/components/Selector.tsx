@@ -22,6 +22,8 @@ export interface Data {
 interface SelectorProperties {
   data: Data[];
   onSelect: (e: Data) => void;
+  selected?: Data;
+  listHeight?: number;
   placeholderText?: string | JSX.Element;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
@@ -38,6 +40,7 @@ interface ListProperties {
   data: Data[];
   onSelect: (e: Data) => void;
   selected: string | JSX.Element;
+  listHeight: number;
   display: boolean;
   setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
   selectorRef: React.RefObject<TouchableOpacity>;
@@ -72,7 +75,6 @@ const style = StyleSheet.create({
   },
   list: {
     backgroundColor: 'white',
-    maxHeight: 200,
     flexGrow: 0,
     marginHorizontal: 5,
     borderColor: '#ddd',
@@ -102,13 +104,13 @@ const SelectionList = (props: ListProperties): JSX.Element => {
     return <View />;
   }
 
-  const [listHeight, setListHeight] = useState<number>(200),
+  const [listHeight, setListHeight] = useState<number>(-props.listHeight),
     [heightChecked, setHeightChecked] = useState<boolean>(false),
     pos = { top: 0, bottom: 0 },
     windowHeight = Dimensions.get('window').height;
 
   props.selectorRef.current?.measureInWindow((_x, y, _width, height) => {
-    pos.top = y - 200;
+    pos.top = y - props.listHeight;
     pos.bottom = y + height;
   });
 
@@ -123,17 +125,20 @@ const SelectionList = (props: ListProperties): JSX.Element => {
           onLayout={(e: LayoutChangeEvent) => [
             setHeightChecked(true),
             setListHeight(
-              windowHeight - pos.bottom < 200 ? pos.top : pos.bottom
+              windowHeight - pos.bottom < props.listHeight
+                ? pos.top - 5
+                : pos.bottom + 5
             ),
           ]}
-          style={[
+          style={StyleSheet.flatten([
             style.list,
+            props.styles.list,
             {
+              maxHeight: props.listHeight,
               marginTop: listHeight,
               opacity: heightChecked ? 1 : 0,
             },
-            props.styles.list,
-          ]}
+          ])}
         >
           <FlatList
             data={props.data}
@@ -143,11 +148,11 @@ const SelectionList = (props: ListProperties): JSX.Element => {
                   props.onSelect(item);
                   props.setDisplay(false);
                 }}
-                style={[
+                style={StyleSheet.flatten([
                   style.item,
                   props.selected === item.label && style.itemSelected,
                   props.selected === item.label && props.styles.itemSelected,
-                ]}
+                ])}
               >
                 <Text style={[style.text, props.styles.text]}>
                   {item.label}
@@ -165,7 +170,11 @@ const SelectionList = (props: ListProperties): JSX.Element => {
 const Selector = (props: SelectorProperties): JSX.Element => {
   const [listDisplay, setListDisplay] = useState<boolean>(false),
     [selected, setSelected] = useState<string | JSX.Element>(
-      props.placeholderText ? props.placeholderText : 'Click me'
+      props.selected && props.data.includes(props.selected)
+        ? props.selected.label
+        : props.placeholderText
+        ? props.placeholderText
+        : 'Click me'
     ),
     clickSelector = (): void => {
       setListDisplay(!listDisplay);
@@ -181,18 +190,26 @@ const Selector = (props: SelectorProperties): JSX.Element => {
       ];
     },
     ref = useRef(null);
+
   return (
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={[style.selectorBox, props.boxStyle]}
+        style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
         onPress={clickSelector}
         ref={ref}
       >
-        <Text style={[style.selectorText, props.boxTextStyle]}>{selected}</Text>
+        <Text
+          style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
+        >
+          {selected}
+        </Text>
         <Image
           source={dropdownArrow}
-          style={[style.arrow, listDisplay && style.arrowListDisplayed]}
+          style={StyleSheet.flatten([
+            style.arrow,
+            listDisplay && style.arrowListDisplayed,
+          ])}
         />
       </TouchableOpacity>
       <SelectionList
@@ -206,6 +223,7 @@ const Selector = (props: SelectorProperties): JSX.Element => {
         data={updatePriorities(props.data)}
         onSelect={selectItem}
         selected={selected}
+        listHeight={props.listHeight ? props.listHeight : 200}
         display={listDisplay}
         setDisplay={setListDisplay}
         selectorRef={ref}
