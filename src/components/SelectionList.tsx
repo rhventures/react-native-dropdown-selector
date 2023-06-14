@@ -18,12 +18,28 @@ const SelectionList = (props: ListProperties): JSX.Element => {
     return <View />;
   }
 
-  const [listHeight, setListHeight] = useState<number>(0),
-    [heightChecked, setHeightChecked] = useState<boolean>(false),
-    [selectedList, setSelectedList] = useState<Data[]>([]),
-    pos = { top: 0, bottom: 0 },
-    windowHeight = Dimensions.get('window').height,
-    windowWidth = Dimensions.get('window').width;
+  const [listHeight, setListHeight]: [
+      number,
+      React.Dispatch<React.SetStateAction<number>>
+    ] = useState<number>(0),
+    [heightChecked, setHeightChecked]: [
+      boolean,
+      React.Dispatch<React.SetStateAction<boolean>>
+    ] = useState<boolean>(false),
+    [selectedList, setSelectedList]: [
+      Data[],
+      React.Dispatch<React.SetStateAction<Data[]>>
+    ] = useState<Data[]>([]),
+    windowHeight: number = Dimensions.get('window').height,
+    windowWidth: number = Dimensions.get('window').width,
+    [orientation, setOrientation]: [
+      string,
+      React.Dispatch<React.SetStateAction<string>>
+    ] = useState<string>(windowHeight > windowWidth ? 'portrait' : 'landscape'),
+    pos: {
+      top: number;
+      bottom: number;
+    } = { top: 0, bottom: 0 };
 
   props.selectorRef.current?.measureInWindow((_x, y, _width, height) => {
     pos.top = y - props.listHeight;
@@ -53,6 +69,14 @@ const SelectionList = (props: ListProperties): JSX.Element => {
         'landscape-right',
       ]}
       animationType={windowWidth > windowHeight ? 'slide' : 'none'}
+      onOrientationChange={({
+        nativeEvent,
+      }: {
+        nativeEvent: { orientation: string };
+      }) => [
+        nativeEvent.orientation !== orientation && props.setDisplay(false),
+        setOrientation(nativeEvent.orientation),
+      ]}
     >
       <TouchableOpacity
         activeOpacity={1}

@@ -7,8 +7,14 @@ import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectorProperties type. */
 const Select = (props: SelectorProperties): JSX.Element => {
-  const [listDisplay, setListDisplay] = useState<boolean>(false),
-    [selected, setSelected] = useState<string | JSX.Element>(
+  const [listDisplay, setListDisplay]: [
+      boolean,
+      React.Dispatch<React.SetStateAction<boolean>>
+    ] = useState<boolean>(false),
+    [selected, setSelected]: [
+      string | JSX.Element,
+      React.Dispatch<React.SetStateAction<string | JSX.Element>>
+    ] = useState<string | JSX.Element>(
       props.defaultValue && props.data.includes(props.defaultValue)
         ? props.defaultValue.label
         : props.placeholderText
@@ -28,7 +34,7 @@ const Select = (props: SelectorProperties): JSX.Element => {
         ...data.filter((d) => !d.priority),
       ];
     },
-    ref = useRef(null);
+    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null);
 
   return (
     <View>

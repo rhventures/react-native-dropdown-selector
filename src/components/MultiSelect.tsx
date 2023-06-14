@@ -6,9 +6,15 @@ import type { Data, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
-  const [listDisplay, setListDisplay] = useState<boolean>(false),
-    defaultText = props.placeholderText ?? 'Click me',
-    [selected, setSelected] = useState<string | JSX.Element>(
+  const [listDisplay, setListDisplay]: [
+      boolean,
+      React.Dispatch<React.SetStateAction<boolean>>
+    ] = useState<boolean>(false),
+    defaultText: string | JSX.Element = props.placeholderText ?? 'Click me',
+    [selected, setSelected]: [
+      string | JSX.Element,
+      React.Dispatch<React.SetStateAction<string | JSX.Element>>
+    ] = useState<string | JSX.Element>(
       props.defaultValue
         ? props.defaultValue
             .map((item: Data): string | JSX.Element => item.label)
@@ -34,7 +40,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         ...data.filter((d: Data): boolean => !d.priority),
       ];
     },
-    ref = useRef(null);
+    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null);
 
   return (
     <View>
