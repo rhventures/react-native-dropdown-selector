@@ -22,7 +22,8 @@ const SelectionList = (props: ListProperties): JSX.Element => {
     [heightChecked, setHeightChecked] = useState<boolean>(false),
     [selectedList, setSelectedList] = useState<Data[]>([]),
     pos = { top: 0, bottom: 0 },
-    windowHeight = Dimensions.get('window').height;
+    windowHeight = Dimensions.get('window').height,
+    windowWidth = Dimensions.get('window').width;
 
   props.selectorRef.current?.measureInWindow((_x, y, _width, height) => {
     pos.top = y - props.listHeight;
@@ -41,7 +42,18 @@ const SelectionList = (props: ListProperties): JSX.Element => {
   }, [props.selected]);
 
   return (
-    <Modal transparent={true} onRequestClose={() => props.setDisplay(false)}>
+    <Modal
+      transparent={true}
+      onRequestClose={() => props.setDisplay(false)}
+      supportedOrientations={[
+        'portrait',
+        'portrait-upside-down',
+        'landscape',
+        'landscape-left',
+        'landscape-right',
+      ]}
+      animationType={windowWidth > windowHeight ? 'slide' : 'none'}
+    >
       <TouchableOpacity
         activeOpacity={1}
         style={style.modalBackground}
@@ -53,21 +65,33 @@ const SelectionList = (props: ListProperties): JSX.Element => {
               windowHeight - pos.bottom < props.listHeight
                 ? pos.top - 5
                 : pos.bottom + 5;
-            setHeightChecked(listHeight === newHeight);
+            setHeightChecked(
+              listHeight === newHeight || windowWidth > windowHeight
+            );
             setListHeight(newHeight);
           }}
           style={StyleSheet.flatten([
             style.list,
             props.styles.list,
-            {
-              maxHeight: props.listHeight,
-              marginTop: listHeight,
-              opacity: heightChecked ? 1 : 0,
-            },
+            windowHeight > windowWidth
+              ? {
+                  maxHeight: props.listHeight,
+                  marginTop: listHeight,
+                  opacity: heightChecked ? 1 : 0,
+                }
+              : {
+                  height: windowHeight - 40,
+                  marginTop: 40,
+                  marginHorizontal: 60,
+                  borderRadius: 10,
+                  borderBottomLeftRadius: 0,
+                  borderBottomRightRadius: 0,
+                },
           ])}
         >
           <FlatList
             data={props.data}
+            style={windowWidth > windowHeight && { marginBottom: 20 }}
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
