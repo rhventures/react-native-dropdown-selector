@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dimensions,
   FlatList,
@@ -18,7 +18,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
     return <View />;
   }
 
-  const [listHeight, setListHeight] = useState<number>(-props.listHeight),
+  const [listHeight, setListHeight] = useState<number>(0),
     [heightChecked, setHeightChecked] = useState<boolean>(false),
     [selectedList, setSelectedList] = useState<Data[]>([]),
     pos = { top: 0, bottom: 0 },
@@ -29,6 +29,17 @@ const SelectionList = (props: ListProperties): JSX.Element => {
     pos.bottom = y + height;
   });
 
+  useEffect(() => {
+    if (props.type === 'multi') {
+      setSelectedList(
+        (props.selected as string)
+          .split(', ')
+          .map((s) => props.data.find((d) => d.label === s))
+          .filter((d) => d !== undefined) as Data[]
+      );
+    }
+  }, [props.selected]);
+
   return (
     <Modal transparent={true} onRequestClose={() => props.setDisplay(false)}>
       <TouchableOpacity
@@ -37,14 +48,14 @@ const SelectionList = (props: ListProperties): JSX.Element => {
         onPress={() => props.setDisplay(false)}
       >
         <View
-          onLayout={(e: LayoutChangeEvent) => [
-            setHeightChecked(true),
-            setListHeight(
+          onLayout={(e: LayoutChangeEvent) => {
+            const newHeight =
               windowHeight - pos.bottom < props.listHeight
                 ? pos.top - 5
-                : pos.bottom + 5
-            ),
-          ]}
+                : pos.bottom + 5;
+            setHeightChecked(listHeight === newHeight);
+            setListHeight(newHeight);
+          }}
           style={StyleSheet.flatten([
             style.list,
             props.styles.list,
@@ -60,6 +71,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
+                  if (!heightChecked) return;
                   if (props.type === 'single') {
                     (props.onSelect as (e: Data) => void)(item);
                     props.setDisplay(false);

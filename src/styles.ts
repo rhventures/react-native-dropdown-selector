@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingLeft: 2,
     overflow: 'hidden',
+    paddingRight: 20,
   },
   arrow: {
     height: 20,

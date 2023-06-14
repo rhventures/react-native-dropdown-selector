@@ -22,7 +22,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       setSelected(
         items.length > 0
           ? items
-              .map((item: Data): string | JSX.Element => item.label)
+              .map((item: Data): string | JSX.Element => item?.label)
               .join(', ')
           : defaultText
       );
