@@ -3,7 +3,9 @@
   "version": "0.1.3",
   "description": "A react native component for creating dropdown lists",
   "main": "index.tsx",
-  "scripts": {},
+  "scripts": {
+    "build-dev": "npm pack"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rhventures/react-native-dropdown-selector.git"
