@@ -1,4 +1,7 @@
-import Selector, { type Data } from './src/components/Selector'
+import MultiSelect from './src/components/MultiSelect';
+import Select from './src/components/Select';
+import type { Data } from './src/types';
 
-export type { Data }
-export default Selector
+export type { Data };
+export { MultiSelect, Select };
+export default { MultiSelect, Select };
