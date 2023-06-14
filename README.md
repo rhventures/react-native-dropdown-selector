@@ -45,9 +45,11 @@ const onDataSelect = (data: Data) => {
 Add a Selector component you your view.
 
 ```tsx
-<Selector.Select data={data} onSelect={onDataSelect} />
-// or use the MultiSelect component
-<Selector.MultiSelect data={data} onSelect={onDataSelect} />
+<>
+  <Selector.Select data={data} onSelect={onDataSelect} />
+  // or use the MultiSelect component
+  <Selector.MultiSelect data={data} onSelect={onDataSelect} />
+</>
 ```
 
 That's it! Run your app to see the selector in action.
