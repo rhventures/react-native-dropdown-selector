@@ -10,7 +10,7 @@ import {
   type LayoutChangeEvent,
 } from 'react-native';
 import style from '../styles';
-import { type ListProperties } from '../types';
+import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): JSX.Element => {
@@ -20,6 +20,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
 
   const [listHeight, setListHeight] = useState<number>(-props.listHeight),
     [heightChecked, setHeightChecked] = useState<boolean>(false),
+    [selectedList, setSelectedList] = useState<Data[]>([]),
     pos = { top: 0, bottom: 0 },
     windowHeight = Dimensions.get('window').height;
 
@@ -59,13 +60,24 @@ const SelectionList = (props: ListProperties): JSX.Element => {
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
-                  props.onSelect(item);
-                  props.setDisplay(false);
+                  if (props.type === 'single') {
+                    (props.onSelect as (e: Data) => void)(item);
+                    props.setDisplay(false);
+                  } else {
+                    const list = selectedList.includes(item)
+                      ? selectedList.filter((i) => i !== item)
+                      : [...selectedList, item];
+                    setSelectedList(list);
+                    (props.onSelect as (e: Data[]) => void)(list);
+                  }
                 }}
                 style={StyleSheet.flatten([
                   style.item,
-                  props.selected === item.label && style.itemSelected,
-                  props.selected === item.label && props.styles.itemSelected,
+                  (props.selected === item.label ||
+                    selectedList.includes(item)) && [
+                    style.itemSelected,
+                    props.styles.itemSelected,
+                  ],
                 ])}
               >
                 <Text style={[style.text, props.styles.text]}>

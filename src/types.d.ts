@@ -17,7 +17,8 @@ export interface ListProperties {
     itemSelected: TextStyle | undefined;
   };
   data: Data[];
-  onSelect: (e: Data) => void;
+  type: 'single' | 'multi';
+  onSelect: ((e: Data) => void) | ((e: Data[]) => void);
   selected: string | JSX.Element;
   listHeight: number;
   display: boolean;
@@ -25,10 +26,23 @@ export interface ListProperties {
   selectorRef: React.RefObject<TouchableOpacity>;
 }
 
+export interface MultiSelectProperties {
+  data: Data[];
+  onSelect: (e: Data[]) => void;
+  defaultValue?: Data[];
+  listHeight?: number;
+  placeholderText?: string | JSX.Element;
+  boxStyle?: ViewStyle;
+  boxTextStyle?: TextStyle;
+  listStyle?: ViewStyle;
+  listTextStyle?: TextStyle;
+  selectedItemStyle?: TextStyle;
+}
+
 export interface SelectorProperties {
   data: Data[];
   onSelect: (e: Data) => void;
-  selected?: Data;
+  defaultValue?: Data;
   listHeight?: number;
   placeholderText?: string | JSX.Element;
   boxStyle?: ViewStyle;

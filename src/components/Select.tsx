@@ -9,8 +9,8 @@ import SelectionList from './SelectionList';
 const Select = (props: SelectorProperties): JSX.Element => {
   const [listDisplay, setListDisplay] = useState<boolean>(false),
     [selected, setSelected] = useState<string | JSX.Element>(
-      props.selected && props.data.includes(props.selected)
-        ? props.selected.label
+      props.defaultValue && props.data.includes(props.defaultValue)
+        ? props.defaultValue.label
         : props.placeholderText
         ? props.placeholderText
         : 'Click me'
@@ -40,6 +40,7 @@ const Select = (props: SelectorProperties): JSX.Element => {
       >
         <Text
           style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
+          numberOfLines={1}
         >
           {selected}
         </Text>
@@ -60,6 +61,7 @@ const Select = (props: SelectorProperties): JSX.Element => {
             : undefined,
         }}
         data={updatePriorities(props.data)}
+        type="single"
         onSelect={selectItem}
         selected={selected}
         listHeight={props.listHeight ? props.listHeight : 200}

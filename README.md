@@ -5,6 +5,7 @@ A custom react native component for dropdown lists. Emulates some functionality 
 ## Features
 
 - Cross-platform uniformity
+- Select one or more items from the list
 - Support for custom component styling
 - Import data with versatile structure
 - Item prioritization
@@ -47,8 +48,8 @@ Add a Selector component you your view.
 ```tsx
 <>
   <Selector.Select data={data} onSelect={onDataSelect} />
-  // or use the MultiSelect component
-  <Selector.MultiSelect data={data} onSelect={onDataSelect} />
+  {/* or use the MultiSelect component */}
+  <Selector.MultiSelect data={data} onSelect={onMultiDataSelect} />
 </>
 ```
 
@@ -80,10 +81,10 @@ Type: `object`
 Holds the items used for the Selector. <br />
 Type: `Data[]`
 
-### `selected`
+### `defaultValue`
 
 Choose an item to be selected before the user interacts with the Selector. <br />
-Type: `Data`
+Type: `Data` (single select) or `Data[]` (multi select)
 
 ### `listHeight`
 
@@ -125,4 +126,4 @@ Type: `ViewStyle`
 ### `onSelect` **(required)**
 
 Called when the user selects an item from the selector. <br />
-Type: `Function (e: Data) => void`
+Type: `Function (e: Data) => void` (single select) or `Function (e: Data[]) => void` (multi select)

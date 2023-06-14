@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
   selectorText: {
     fontSize: 16,
     paddingLeft: 2,
+    overflow: 'hidden',
   },
   arrow: {
     height: 20,

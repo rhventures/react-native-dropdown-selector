@@ -1,7 +1,6 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
-
-import { Select, type Data } from '../';
+import { MultiSelect, Select, type Data } from '../';
 
 const data: Data[] = [
   { label: 'Item 1' },
@@ -49,6 +48,11 @@ function App(): JSX.Element {
             alignSelf: 'center',
             width: 200,
           }}
+        />
+        <MultiSelect
+          data={data}
+          onSelect={(e: Data[]) => console.log(e)}
+          selectedItemStyle={{ backgroundColor: 'red' }}
         />
         <View style={{ height: 700 }} />
       </ScrollView>
