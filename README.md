@@ -48,18 +48,6 @@ Add a Selector component you your view.
 <Selector data={data} onSelect={onDataSelect} />
 ```
 
-If the Selector is inside a ScrollView component, include the scrollOffset prop.
-``` tsx
-const [offset, setOffset] = useState<number>(0);
-return (
-    <ScrollView
-      onScroll={({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => setOffset(nativeEvent.contentOffset.y)}
-      scrollEventThrottle={50}>
-        <Selector data={data} onSelect={onDataSelect} scrollOffset={offset}
-    </ScrollView>
-);
-```
-
 That's it! Run your app to see the selector in action.
 
 ## The `Data` Object
