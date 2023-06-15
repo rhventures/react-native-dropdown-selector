@@ -1,4 +1,4 @@
-import Selector, { Data } from './src/components/Selector';
+import Selector, { type Data } from './src/components/Selector'
 
-export type { Data };
-export default Selector;
+export type { Data }
+export default Selector

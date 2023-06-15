@@ -1,7 +1,12 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-
-import Selector, { Data } from '../index';
+import {
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
+import Selector, { type Data } from '../index';
 
 const data: Data[] = [
   { label: 'Item 1' },
@@ -16,16 +21,36 @@ const data: Data[] = [
 
 function App(): JSX.Element {
   const [item, setItem] = React.useState<string | JSX.Element>('');
-  const onDataSelect = (e: Data) => setItem(e.label);
+  const [offset, setOffset] = React.useState<number>(0);
+  const onDataSelect = (e: Data): void => setItem(e.label);
 
   return (
-    <View>
+    <ScrollView
+      onScroll={({
+        nativeEvent,
+      }: NativeSyntheticEvent<NativeScrollEvent>): void => {
+        setOffset(nativeEvent.contentOffset.y);
+      }}
+      scrollEventThrottle={50}
+    >
+      <View style={{ height: 40 }} />
+      <Selector data={data} onSelect={onDataSelect} scrollOffset={offset} />
+      <Text>Selected: {item || 'None'} (scroll down)</Text>
+      <View style={{ height: 700 }} />
+      <Text>
+        The dropdown menu will display above the input box when there isn&quot;t
+        enough space below
+      </Text>
       <Selector
         data={data}
-        onSelect={onDataSelect}
+        onSelect={(e: Data) => {
+          console.log(e.label);
+        }}
+        scrollOffset={offset}
+        placeholderText="Select an item"
       />
-      <Text>Selected: {item || 'None'}</Text>
-    </View>
+      <View style={{ height: 700 }} />
+    </ScrollView>
   );
 }
 
