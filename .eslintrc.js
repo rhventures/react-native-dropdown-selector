@@ -16,5 +16,6 @@ module.exports = {
     'comma-dangle': 0,
     '@typescript-eslint/no-confusing-void-expression': 0,
     '@typescript-eslint/strict-boolean-expressions': 0,
+    'one-var': 0,
   },
 };

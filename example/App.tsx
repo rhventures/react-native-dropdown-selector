@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  type NativeScrollEvent,
-  type NativeSyntheticEvent,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
-import Selector, { type Data } from '../index';
+import { ScrollView, Text, View } from 'react-native';
+
+import Selector, { type Data } from '../';
 
 const data: Data[] = [
   { label: 'Item 1' },
@@ -20,37 +15,44 @@ const data: Data[] = [
 ];
 
 function App(): JSX.Element {
-  const [item, setItem] = React.useState<string | JSX.Element>('');
-  const [offset, setOffset] = React.useState<number>(0);
-  const onDataSelect = (e: Data): void => setItem(e.label);
+  const [item, setItem] = React.useState<string | JSX.Element>(''),
+    onDataSelect = (e: Data): void => setItem(e.label);
 
   return (
-    <ScrollView
-      onScroll={({
-        nativeEvent,
-      }: NativeSyntheticEvent<NativeScrollEvent>): void => {
-        setOffset(nativeEvent.contentOffset.y);
-      }}
-      scrollEventThrottle={50}
-    >
+    <>
       <View style={{ height: 40 }} />
-      <Selector data={data} onSelect={onDataSelect} scrollOffset={offset} />
-      <Text>Selected: {item || 'None'} (scroll down)</Text>
-      <View style={{ height: 700 }} />
-      <Text>
-        The dropdown menu will display above the input box when there isn&quot;t
-        enough space below
-      </Text>
-      <Selector
-        data={data}
-        onSelect={(e: Data) => {
-          console.log(e.label);
-        }}
-        scrollOffset={offset}
-        placeholderText="Select an item"
-      />
-      <View style={{ height: 700 }} />
-    </ScrollView>
+      <ScrollView>
+        <View style={{ height: 40 }} />
+        <Selector data={data} onSelect={onDataSelect} />
+        <Text>Selected: {item || 'None'} (scroll down)</Text>
+        <View style={{ height: 700 }} />
+        <Text
+          style={{
+            alignSelf: 'center',
+            width: 350,
+          }}
+        >
+          The dropdown menu will display above the input box when there
+          isn&quot;t enough space below
+        </Text>
+        <Selector
+          data={data}
+          onSelect={(e: Data) => {
+            console.log(e.label);
+          }}
+          placeholderText="Select an item"
+          boxStyle={{
+            alignSelf: 'center',
+            width: 200,
+          }}
+          listStyle={{
+            alignSelf: 'center',
+            width: 200,
+          }}
+        />
+        <View style={{ height: 700 }} />
+      </ScrollView>
+    </>
   );
 }
 

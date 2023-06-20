@@ -3,98 +3,120 @@
 A custom react native component for dropdown lists. Emulates some functionality of the HTML `<select>` tag.
 
 ## Features
+
 - Cross-platform uniformity
 - Support for custom component styling
 - Import data with versatile structure
 - Item prioritization
 
 ## Demo
+
 Create a react native project with `example/App.tsx` as the main file. Running the application will look similar to the screenshots below.
 
 <img src="example/img/demo-dropdown.png" height="350px" /> <img src="example/img/demo-item-selected.png" height="350px" />
 
 ## Usage
+
 All example code is written in TypeScript. <br />
 Begin by importing the Selector component and Data type.
-``` tsx
+
+```tsx
 import Selector, { Data } from 'react-native-dropdown-selector';
 ```
 
 Define your Data array. The label field is required for each entry, but priority and data are optional.
-``` tsx
+
+```tsx
 const data: Data[] = [
   { label: 'Item 1' },
   { label: 'Item 2', data: { additionalParam: 'value' } },
-  { label: 'Item 3', priority: true }
+  { label: 'Item 3', priority: true },
 ];
 ```
 
 Define your onSelect function. Your function will only take in a Data object.
-``` tsx
+
+```tsx
 const onDataSelect = (data: Data) => {
-    // Do something
-}
+  // Do something
+};
 ```
 
 Add a Selector component you your view.
-``` tsx
-<Selector data={data} onSelect={onDataSelect} />
-```
 
-If the Selector is inside a ScrollView component, include the scrollOffset prop.
-``` tsx
-const [offset, setOffset] = useState<number>(0);
-return (
-    <ScrollView
-      onScroll={({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => setOffset(nativeEvent.contentOffset.y)}
-      scrollEventThrottle={50}>
-        <Selector data={data} onSelect={onDataSelect} scrollOffset={offset}
-    </ScrollView>
-);
+```tsx
+<Selector data={data} onSelect={onDataSelect} />
 ```
 
 That's it! Run your app to see the selector in action.
 
 ## The `Data` Object
+
 You must follow the formatting of this object for the selector component to function.
 
 ### `label` **(required)**
+
 The value of the item shown in the selector. <br />
 Type: `string | JSX.Element`
+
 ### `priority`
+
 If enabled, the element will move to the top of the list regardless of its current position. <br />
 Type: `boolean`
+
 ### `data`
+
 Additional data for the item. This is not directly used by the Selector component. <br />
 Type: `object`
 
 ## Props
+
 ### `data` **(required)**
+
 Holds the items used for the Selector. <br />
 Type: `Data[]`
-### `scrollOffset`
-Required when using a ScrollView component. Helps with setting list position. <br />
+
+### `selected`
+
+Choose an item to be selected before the user interacts with the Selector. <br />
+Type: `Data`
+
+### `listHeight`
+
+The height of the dropdown list. Defaults to 200. <br />
 Type: `number`
+
 ### `placeholderText`
+
 Replace the default Selector text when an item hasn't been selected. <br />
 Type: `string | JSX.Element`
+
 ### `boxStyle`
+
 Custom styles for the main Selector box. <br />
 Type: `ViewStyle`
+
 ### `boxTextStyle`
 Custom styles for the text inside the main Selector box. <br />
 Type: `ViewStyle`
+
 ### `listStyle`
 Custom styles for the Selector dropdown list. <br />
 Type: `ViewStyle`
+
 ### `listTextStyle`
+
 Custom styles for the text inside the Selector dropdown list. <br />
 Type: `ViewStyle`
+
 ### `selectedItemStyle`
+
 Custom styles for the active item inside the Selector dropdown list. <br />
 Type: `ViewStyle`
 
 ## Callbacks
+
 ### `onSelect` **(required)**
+
 Called when the user selects an item from the selector. <br />
 Type: `Function (e: Data) => void`
