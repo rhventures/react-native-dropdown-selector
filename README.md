@@ -127,3 +127,7 @@ Type: `ViewStyle`
 
 Called when the user selects an item from the selector. <br />
 Type: `Function (e: Data) => void` (single select) or `Function (e: Data[]) => void` (multi select)
+
+## Devlopment
+
+To contribute to the development of this project, please refer to the [development guide](./docs/Development.md).
