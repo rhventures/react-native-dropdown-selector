@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
-import { MultiSelect, Select, type Data } from '../';
+import { MultiSelect, Select, type Data } from 'react-native-dropdown-selector';
 
 const data: Data[] = [
   { label: 'Item 1' },

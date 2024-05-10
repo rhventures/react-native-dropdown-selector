@@ -14,7 +14,7 @@ A custom react native component for dropdown lists. Emulates some functionality 
 
 Create a react native project with `example/App.tsx` as the main file. Running the application will look similar to the screenshots below.
 
-<img src="example/img/demo-dropdown.png" height="350px" /> <img src="example/img/demo-item-selected.png" height="350px" />
+<img src="assets/demo-dropdown.png" height="350px" /> <img src="assets/demo-item-selected.png" height="350px" />
 
 ## Usage
 
