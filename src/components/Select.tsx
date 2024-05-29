@@ -51,13 +51,11 @@ const Select = (props: SelectorProperties): JSX.Element => {
         >
           {selected}
         </Text>
-        <Image
-          source={dropdownArrow}
-          style={StyleSheet.flatten([
-            style.arrow,
-            listDisplay && style.arrowListDisplayed,
-          ])}
-        />
+        <Text
+          style={StyleSheet.flatten([style.arrow])}
+        >
+          {listDisplay ? 'ᨈ' : 'ᨆ'}
+        </Text>
       </TouchableOpacity>
       <SelectionList
         styles={{
