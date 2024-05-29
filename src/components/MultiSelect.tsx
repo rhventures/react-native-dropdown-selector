@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
-import dropdownArrow from '../assets/down.png';
 import styles from '../styles';
 import type { Data, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
@@ -57,13 +56,11 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         >
           {selected}
         </Text>
-        <Image
-          source={dropdownArrow}
-          style={StyleSheet.flatten([
-            style.arrow,
-            listDisplay && style.arrowListDisplayed,
-          ])}
-        />
+        <Text
+          style={StyleSheet.flatten([style.arrow])}
+        >
+          {listDisplay ? 'ᨈ' : 'ᨆ'}
+        </Text>
       </TouchableOpacity>
       <SelectionList
         styles={{
