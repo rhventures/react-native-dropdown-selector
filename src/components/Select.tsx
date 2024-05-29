@@ -7,13 +7,11 @@ import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectorProperties type. */
 const Select = (props: SelectorProperties): JSX.Element => {
-  const style = props.theme === 'default' || props.theme === undefined
-    ? useColorScheme() === 'dark'
-      ? styles[1]
-      : styles[0]
-    : props.theme === 'dark'
-    ? styles[1]
-    : styles[0];
+  const style = (props.theme === 'default' || props.theme === undefined
+  ? useColorScheme()
+  : props.theme) === 'dark'
+  ? styles[1]
+  : styles[0];
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
