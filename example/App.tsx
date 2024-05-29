@@ -22,7 +22,18 @@ function App(): JSX.Element {
       <View style={{ height: 40 }} />
       <ScrollView>
         <View style={{ height: 40 }} />
-        <Select data={data} onSelect={onDataSelect} theme={'light'} /> 
+        <Text>
+          System default theme:
+        </Text>
+        <Select data={data} onSelect={onDataSelect} theme={'default'} />
+        <Text>
+          Forced light theme:
+        </Text>
+        <Select data={data} onSelect={onDataSelect} theme={'light'} />
+        <Text>
+          Forced dark theme:
+        </Text>
+        <Select data={data} onSelect={onDataSelect} theme={'dark'} /> 
         <Text>Selected: {item || 'None'} (scroll down)</Text>
         <View style={{ height: 500 }} />
         <Text
