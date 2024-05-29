@@ -15,7 +15,6 @@ export interface ListProperties {
     list: ViewStyle | undefined;
     text: TextStyle | undefined;
     itemSelected: TextStyle | undefined;
-    theme?: 'default' | 'light' | 'dark';
   };
   data: Data[];
   type: 'single' | 'multi';
@@ -38,7 +37,6 @@ export interface MultiSelectProperties {
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
-  theme?: 'default' | 'light' | 'dark';
 }
 
 export interface SelectorProperties {
@@ -52,5 +50,4 @@ export interface SelectorProperties {
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
-  theme?: 'default' | 'light' | 'dark';
 }
