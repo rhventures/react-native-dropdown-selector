@@ -15,20 +15,18 @@ const light = StyleSheet.create({
   },
   selectorText: {
     fontSize: 16,
-    paddingLeft: 2,
+    paddingLeft: 8,
     overflow: 'hidden',
     paddingRight: 20,
     color: '#444',
   },
   arrow: {
-    height: 20,
-    width: 20,
-    alignSelf: 'center',
     position: 'absolute',
-    right: 5,
-  },
-  arrowListDisplayed: {
-    transform: [{ rotate: '180deg' }],
+    right: 12,
+    top: 6,
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   list: {
     backgroundColor: 'white',
@@ -39,7 +37,7 @@ const light = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    paddingLeft: 5,
+    paddingLeft: 8,
     color: '#444',
   },
   itemSelected: {
@@ -71,20 +69,18 @@ const dark = StyleSheet.create({
   },
   selectorText: {
     fontSize: 16,
-    paddingLeft: 2,
+    paddingLeft: 8,
     overflow: 'hidden',
     paddingRight: 20,
     color: '#ddd',
   },
   arrow: {
-    height: 20,
-    width: 20,
-    alignSelf: 'center',
     position: 'absolute',
-    right: 5,
-  },
-  arrowListDisplayed: {
-    transform: [{ rotate: '180deg' }],
+    right: 12,
+    top: 6,
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   list: {
     backgroundColor: '#444',
@@ -95,7 +91,7 @@ const dark = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    paddingLeft: 5,
+    paddingLeft: 8,
     color: '#ddd',
   },
   itemSelected: {
