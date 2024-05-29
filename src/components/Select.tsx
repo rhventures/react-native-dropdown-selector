@@ -63,6 +63,7 @@ const Select = (props: SelectorProperties): JSX.Element => {
           itemSelected: props.selectedItemStyle
             ? props.selectedItemStyle
             : undefined,
+          theme: props.theme,
         }}
         data={updatePriorities(props.data)}
         type="single"
