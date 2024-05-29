@@ -14,7 +14,7 @@ A custom react native component for dropdown lists. Emulates some functionality 
 
 Create a react native project with `example/App.tsx` as the main file. Running the application will look similar to the screenshots below.
 
-<img src="example/img/demo-dropdown.png" height="350px" /> <img src="example/img/demo-item-selected.png" height="350px" />
+<img src="assets/demo-dropdown.png" height="350px" /> <img src="assets/demo-item-selected.png" height="350px" />
 
 ## Usage
 
@@ -127,3 +127,7 @@ Type: `ViewStyle`
 
 Called when the user selects an item from the selector. <br />
 Type: `Function (e: Data) => void` (single select) or `Function (e: Data[]) => void` (multi select)
+
+## Devlopment
+
+To contribute to the development of this project, please refer to the [development guide](./docs/Development.md).
