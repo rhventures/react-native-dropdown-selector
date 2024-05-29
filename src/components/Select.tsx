@@ -1,12 +1,19 @@
 import React, { useRef, useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
 import dropdownArrow from '../assets/down.png';
-import style from '../styles';
+import styles from '../styles';
 import type { Data, SelectorProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectorProperties type. */
 const Select = (props: SelectorProperties): JSX.Element => {
+  const style = props.theme === 'default' || props.theme === undefined
+    ? useColorScheme() === 'dark'
+      ? styles[1]
+      : styles[0]
+    : props.theme === 'dark'
+    ? styles[1]
+    : styles[0];
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
@@ -65,6 +72,7 @@ const Select = (props: SelectorProperties): JSX.Element => {
           itemSelected: props.selectedItemStyle
             ? props.selectedItemStyle
             : undefined,
+          theme: props.theme,
         }}
         data={updatePriorities(props.data)}
         type="single"
