@@ -18,7 +18,7 @@ const light = StyleSheet.create({
     paddingLeft: 2,
     overflow: 'hidden',
     paddingRight: 20,
-    color: 'gray',
+    color: '#444',
   },
   arrow: {
     height: 20,
@@ -40,7 +40,7 @@ const light = StyleSheet.create({
   text: {
     fontSize: 16,
     paddingLeft: 5,
-    color: 'gray',
+    color: '#444',
   },
   itemSelected: {
     backgroundColor: 'lightblue',
@@ -74,6 +74,7 @@ const dark = StyleSheet.create({
     paddingLeft: 2,
     overflow: 'hidden',
     paddingRight: 20,
+    color: '#ddd',
   },
   arrow: {
     height: 20,
@@ -95,6 +96,7 @@ const dark = StyleSheet.create({
   text: {
     fontSize: 16,
     paddingLeft: 5,
+    color: '#ddd',
   },
   itemSelected: {
     backgroundColor: 'teal',
