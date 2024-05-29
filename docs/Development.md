@@ -2,13 +2,17 @@
 
 ## Environment Setup
 
-Follow the the `React Native CLI Quickstart Guide` at [React Native Environment Setup](https://reactnative.dev/docs/environment-setup).
+Follow the `Installing dependencies` section at [React Native: Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment).
 
 
 ## Clone the Repository
 
 ```
 git clone git@github.com:rhventures/react-native-dropdown-selector.git
+```
+If the above doesn't work, try the following instead:
+```
+git clone https://github.com/rhventures/react-native-dropdown-selector.git
 ```
 
 ## Install Dependencies
@@ -27,11 +31,11 @@ npm install
 
 ## Run the Example Project
 
-Run the following command while inside the `./example` directory.
+Run the following command while inside the `./example` directory. If using an emulator, make sure that your emulator from Android Studio is already running.
 ```
 npm run android
 ```
 
-The example app should show up on your phone or emulator if you followed alll the steps in the [React Native setup guide](https://reactnative.dev/docs/environment-setup).
+The example app should show up on your phone or emulator if you followed all the steps in the [React Native setup guide](https://reactnative.dev/docs/environment-setup).
 
 Now, you should see changes you make to the component and example app show up on your device or emulator.
