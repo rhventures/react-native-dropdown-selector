@@ -6,11 +6,7 @@ import type { Data, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
-  const style = (props.theme === 'default' || props.theme === undefined
-  ? useColorScheme()
-  : props.theme) === 'dark'
-  ? styles[1]
-  : styles[0];
+  const style = useColorScheme() === 'dark' ? styles[1] : styles[0];
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
@@ -76,7 +72,6 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
           itemSelected: props.selectedItemStyle
             ? props.selectedItemStyle
             : undefined,
-          theme: props.theme,
         }}
         data={updatePriorities(props.data)}
         type="multi"
