@@ -18,13 +18,11 @@ const SelectionList = (props: ListProperties): JSX.Element => {
   if (!props.display) {
     return <View />;
   }
-  const style = props.styles.theme === 'default' || props.styles.theme === undefined
-    ? useColorScheme() === 'dark'
-      ? styles[1]
-      : styles[0]
-    : props.styles.theme === 'dark'
-    ? styles[1]
-    : styles[0];
+  const style = (props.styles.theme === 'default' || props.styles.theme === undefined
+  ? useColorScheme()
+  : props.styles.theme) === 'dark'
+  ? styles[1]
+  : styles[0];
   const [listHeight, setListHeight]: [
       number,
       React.Dispatch<React.SetStateAction<number>>
