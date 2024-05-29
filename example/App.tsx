@@ -22,7 +22,7 @@ function App(): JSX.Element {
       <View style={{ height: 40 }} />
       <ScrollView>
         <View style={{ height: 40 }} />
-        <Select data={data} onSelect={onDataSelect} theme={'dark'} /> 
+        <Select data={data} onSelect={onDataSelect} theme={'light'} /> 
         <Text>Selected: {item || 'None'} (scroll down)</Text>
         <View style={{ height: 500 }} />
         <Text
