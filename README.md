@@ -121,11 +121,6 @@ Type: `ViewStyle`
 Custom styles for the active item inside the Selector dropdown list. <br />
 Type: `ViewStyle`
 
-### `theme`
-
-Forces the selector to use a specific theme. Uses system default theme if not specified. <br />
-Type: `'default' | 'light' | 'dark'`
-
 ## Callbacks
 
 ### `onSelect` **(required)**
