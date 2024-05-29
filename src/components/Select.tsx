@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
-import dropdownArrow from '../assets/down.png';
+import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
 import styles from '../styles';
 import type { Data, SelectorProperties } from '../types';
 import SelectionList from './SelectionList';
