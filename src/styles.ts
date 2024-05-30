@@ -48,9 +48,8 @@ const light = StyleSheet.create({
   },
   list: {
     backgroundColor: 'white',
-    flexGrow: 0,
     marginHorizontal: 5,
-    borderColor: '#ddd',
+    borderColor: 'black',
     borderWidth: 0.5,
   },
   text: {
@@ -120,7 +119,6 @@ const dark = StyleSheet.create({
   },
   list: {
     backgroundColor: '#444',
-    flexGrow: 0,
     marginHorizontal: 5,
     borderColor: 'black',
     borderWidth: 0.5,
