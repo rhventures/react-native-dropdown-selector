@@ -61,18 +61,18 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
             .split(', ')
             .map((str) =>
               <View 
-                style={StyleSheet.flatten([style.selectedInMultiHighlight])}
+                style={style.selectedInMultiHighlight}
                 key={str}
               >
                 <Text
-                  style={StyleSheet.flatten([style.selectedInMulti])}
+                  style={style.selectedInMulti}
                 >
                   {str}
                 </Text>
               </View>
             )}
         <Text
-          style={StyleSheet.flatten([style.arrow])}
+          style={style.arrow}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>
