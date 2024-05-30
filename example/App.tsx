@@ -11,6 +11,8 @@ const data: Data[] = [
   { label: 'Item 6' },
   { label: 'Item 7', priority: true },
   { label: 'Item 8' },
+  { label: 'Item 9' },
+  { label: 'Item 10' },
 ];
 
 function App(): JSX.Element {
@@ -52,7 +54,6 @@ function App(): JSX.Element {
         <MultiSelect
           data={data}
           onSelect={(e: Data[]) => console.log(e)}
-          selectedItemStyle={{ backgroundColor: 'red' }}
         />
         <View style={{ height: 700 }} />
       </ScrollView>
