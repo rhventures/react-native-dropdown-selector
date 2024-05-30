@@ -70,7 +70,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
                   {str}
                 </Text>
               </View>
-            )}
+          )}
         <Text
           style={style.arrow}
         >
