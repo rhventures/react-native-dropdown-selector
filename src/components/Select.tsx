@@ -51,7 +51,7 @@ const Select = (props: SelectorProperties): JSX.Element => {
           {selected}
         </Text>
         <Text
-          style={StyleSheet.flatten([style.arrow])}
+          style={style.arrow}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>
