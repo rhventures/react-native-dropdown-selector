@@ -11,8 +11,6 @@ const data: Data[] = [
   { label: 'Item 6' },
   { label: 'Item 7', priority: true },
   { label: 'Item 8' },
-  { label: 'abc' },
-  { label: '123' },
 ];
 
 function App(): JSX.Element {
@@ -26,7 +24,7 @@ function App(): JSX.Element {
         <View style={{ height: 40 }} />
         <Select data={data} onSelect={onDataSelect} />
         <Text>Selected: {item || 'None'} (scroll down)</Text>
-        <View style={{ height: 500 }} />
+        <View style={{ height: 700 }} />
         <Text
           style={{
             alignSelf: 'center',
