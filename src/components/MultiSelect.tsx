@@ -57,7 +57,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
           {selected}
         </Text>
         <Text
-          style={StyleSheet.flatten([style.arrow])}
+          style={style.arrow}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>
