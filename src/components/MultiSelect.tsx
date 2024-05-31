@@ -57,8 +57,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         onPress={clickSelector}
         ref={ref}
         onLayout={(e: LayoutChangeEvent) => {
-          setExpanded(expanded+1);
-          console.log(expanded);
+          setExpanded(expanded === '' ? ' ' : '');
         }}
       >
         {selected === defaultText
