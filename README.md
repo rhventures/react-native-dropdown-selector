@@ -43,7 +43,7 @@ const onDataSelect = (data: Data) => {
 };
 ```
 
-Add a Selector component you your view.
+Add a Selector component to your view.
 
 ```tsx
 <>
