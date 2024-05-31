@@ -65,7 +65,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
               style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
               numberOfLines={1}
             >
-              {selected}
+              {defaultText}
             </Text>
           : (selected as string)
             .split(', ')
