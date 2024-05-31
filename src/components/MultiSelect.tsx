@@ -1,11 +1,18 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View, useColorScheme,
+  type LayoutChangeEvent
+} from 'react-native';
 import styles from '../styles';
 import type { Data, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
   const style = useColorScheme() === 'dark' ? styles[1] : styles[0];
+  const [expanded, setExpanded] = useState<string>('');
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
@@ -49,6 +56,10 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
         onPress={clickSelector}
         ref={ref}
+        onLayout={(e: LayoutChangeEvent) => {
+          setExpanded(expanded+1);
+          console.log(expanded);
+        }}
       >
         {selected === defaultText
           ? <Text
@@ -78,6 +89,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         </Text>
       </TouchableOpacity>
       <SelectionList
+        key = {expanded}
         styles={{
           list: props.listStyle ? props.listStyle : undefined,
           text: props.listTextStyle ? props.listTextStyle : undefined,
