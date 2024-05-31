@@ -52,6 +52,7 @@ function App(): JSX.Element {
         <MultiSelect
           data={data}
           onSelect={(e: Data[]) => console.log(e)}
+          selectedItemStyle={{ backgroundColor: 'red' }}
         />
         <View style={{ height: 700 }} />
       </ScrollView>
