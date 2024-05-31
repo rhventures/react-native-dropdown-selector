@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import {
+  Animated,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,7 +13,7 @@ import SelectionList from './SelectionList';
 
 const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
   const style = useColorScheme() === 'dark' ? styles[1] : styles[0];
-  const [expanded, setExpanded] = useState<string>('');
+  const [overflowNotif, setOverflowNotif] = useState<number>(0);
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
@@ -57,7 +58,8 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         onPress={clickSelector}
         ref={ref}
         onLayout={(e: LayoutChangeEvent) => {
-          setExpanded(expanded === '' ? ' ' : '');
+          console.log('making/deleting row...');
+          setOverflowNotif(overflowNotif ? 0 : 1);
         }}
       >
         {selected === defaultText
@@ -88,7 +90,6 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         </Text>
       </TouchableOpacity>
       <SelectionList
-        key = {expanded}
         styles={{
           list: props.listStyle ? props.listStyle : undefined,
           text: props.listTextStyle ? props.listTextStyle : undefined,
@@ -104,6 +105,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         display={listDisplay}
         setDisplay={setListDisplay}
         selectorRef={ref}
+        overflowNotif={overflowNotif}
       />
     </View>
   );
