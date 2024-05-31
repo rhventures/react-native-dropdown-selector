@@ -92,6 +92,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         </Text>
       </TouchableOpacity>
       <SelectionList
+        key = {expanded}
         styles={{
           list: props.listStyle ? props.listStyle : undefined,
           text: props.listTextStyle ? props.listTextStyle : undefined,
