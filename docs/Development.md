@@ -2,7 +2,7 @@
 
 ## Environment Setup
 
-Follow the `Installing dependencies` section at [React Native: Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment).
+Follow the the `React Native CLI Quickstart Guide` at [React Native Environment Setup](https://reactnative.dev/docs/environment-setup).
 
 
 ## Clone the Repository
@@ -36,7 +36,7 @@ npm install
 
 ## Run the Example Project
 
-Run the following command while inside the `./example` directory. If using an emulator, make sure that your emulator from Android Studio is already running.
+Run the following command while inside the `./example` directory.
 ```
 npm run android
 ```
