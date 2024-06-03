@@ -43,7 +43,7 @@ const onDataSelect = (data: Data) => {
 };
 ```
 
-Add a Selector component you your view.
+Add a Selector component to your view.
 
 ```tsx
 <>
@@ -93,7 +93,7 @@ Type: `number`
 
 ### `placeholderText`
 
-Replace the default Selector text when an item hasn't been selected. <br />
+Replace the default Selector text when an item hasn't been selected. The default value is `Click me`. <br />
 Type: `string | JSX.Element`
 
 ### `boxStyle`
@@ -138,6 +138,6 @@ Type: `string`
 Called when the user selects an item from the selector. <br />
 Type: `Function (e: Data) => void` (single select) or `Function (e: Data[]) => void` (multi select)
 
-## Devlopment
+## Development
 
 To contribute to the development of this project, please refer to the [development guide](./docs/Development.md).
