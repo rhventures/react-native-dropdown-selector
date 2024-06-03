@@ -11,6 +11,7 @@ const data: Data[] = [
   { label: 'Item 6' },
   { label: 'Item 7', priority: true },
   { label: 'Item, 8' },
+  { label: 'Houston, Texas, US' },
 ];
 
 function App(): JSX.Element {
