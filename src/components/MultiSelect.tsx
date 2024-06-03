@@ -5,7 +5,6 @@ import type { Data, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
-  const style = useColorScheme() === 'dark' ? styles[1] : styles[0];
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
@@ -40,7 +39,8 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         ...data.filter((d: Data): boolean => !d.priority),
       ];
     },
-    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null);
+    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
+    style = useColorScheme() === 'dark' ? styles[1] : styles[0];
 
   return (
     <View>

@@ -18,7 +18,6 @@ const SelectionList = (props: ListProperties): JSX.Element => {
   if (!props.display) {
     return <View />;
   }
-  const style = useColorScheme() === 'dark' ? styles[1] : styles[0];
   const [listHeight, setListHeight]: [
       number,
       React.Dispatch<React.SetStateAction<number>>
@@ -40,7 +39,8 @@ const SelectionList = (props: ListProperties): JSX.Element => {
     pos: {
       top: number;
       bottom: number;
-    } = { top: 0, bottom: 0 };
+    } = { top: 0, bottom: 0 },
+    style = useColorScheme() === 'dark' ? styles[1] : styles[0];
 
   props.selectorRef.current?.measureInWindow((_x, y, _width, height) => {
     pos.top = y - props.listHeight;
