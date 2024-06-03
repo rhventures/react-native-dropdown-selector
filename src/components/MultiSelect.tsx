@@ -13,7 +13,7 @@ import SelectionList from './SelectionList';
 
 const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
   const style = useColorScheme() === 'dark' ? styles[1] : styles[0];
-  const [overflowNotif, setOverflowNotif] = useState<boolean>(true);
+  const [overflowNotif, setOverflowNotif] = useState<string>('');
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
@@ -58,7 +58,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         onPress={clickSelector}
         ref={ref}
         onLayout={(e: LayoutChangeEvent) => {
-          setOverflowNotif(!overflowNotif);
+          setOverflowNotif(overflowNotif === '' ? ' ' : '');
         }}
       >
         {selected === defaultText
