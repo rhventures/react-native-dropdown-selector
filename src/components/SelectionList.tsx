@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useColorScheme } from 'react-native'
 import {
   Dimensions,
   FlatList,
@@ -9,7 +10,7 @@ import {
   View,
   type LayoutChangeEvent,
 } from 'react-native';
-import style from '../styles';
+import styles from '../styles';
 import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
@@ -17,7 +18,6 @@ const SelectionList = (props: ListProperties): JSX.Element => {
   if (!props.display) {
     return <View />;
   }
-
   const [listHeight, setListHeight]: [
       number,
       React.Dispatch<React.SetStateAction<number>>
@@ -39,7 +39,8 @@ const SelectionList = (props: ListProperties): JSX.Element => {
     pos: {
       top: number;
       bottom: number;
-    } = { top: 0, bottom: 0 };
+    } = { top: 0, bottom: 0 },
+    style = useColorScheme() === 'dark' ? styles[1] : styles[0];
 
   props.selectorRef.current?.measureInWindow((_x, y, _width, height) => {
     pos.top = y - props.listHeight;

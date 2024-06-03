@@ -24,7 +24,7 @@ function App(): JSX.Element {
         <View style={{ height: 40 }} />
         <Select data={data} onSelect={onDataSelect} />
         <Text>Selected: {item || 'None'} (scroll down)</Text>
-        <View style={{ height: 700 }} />
+        <View style={{ height: 500 }} />
         <Text
           style={{
             alignSelf: 'center',
