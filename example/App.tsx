@@ -10,7 +10,7 @@ const data: Data[] = [
   { label: 'Item 5' },
   { label: 'Item 6' },
   { label: 'Item 7', priority: true },
-  { label: 'Item 8' },
+  { label: 'Item, 8' },
 ];
 
 function App(): JSX.Element {
