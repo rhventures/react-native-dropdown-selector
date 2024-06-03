@@ -67,7 +67,6 @@ const SelectionList = (props: ListProperties): JSX.Element => {
       listHeight === newHeight || windowWidth > windowHeight
     );
     setListHeight(newHeight);
-    console.log('yo');
   }, [props.overflowNotif])
 
   return (
