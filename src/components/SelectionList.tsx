@@ -58,17 +58,6 @@ const SelectionList = (props: ListProperties): JSX.Element => {
     }
   }, [props.selected]);
 
-  useEffect(() => {
-    const newHeight =
-      windowHeight - pos.bottom < props.listHeight
-        ? pos.top - 5
-        : pos.bottom + 5;
-    setHeightChecked(
-      listHeight === newHeight || windowWidth > windowHeight
-    );
-    setListHeight(newHeight);
-  }, [props.overflowNotif])
-
   return (
     <Modal
       transparent={true}
@@ -96,6 +85,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
         onPress={() => props.setDisplay(false)}
       >
         <View
+        key={props.overflowNotif.toString()}
           onLayout={(e: LayoutChangeEvent) => {
             const newHeight =
               windowHeight - pos.bottom < props.listHeight
