@@ -46,12 +46,11 @@ const Select = (props: SelectorProperties): JSX.Element => {
       >
         <Text
           style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
-          numberOfLines={1}
         >
           {selected}
         </Text>
         <Text
-          style={style.arrow}
+          style={StyleSheet.flatten([style.arrow, props.dropdownArrowColor ?? {}])}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>

@@ -30,10 +30,6 @@ const light = StyleSheet.create({
     marginRight: 6,
     marginVertical: 2,
   },
-  selectedInMulti: {
-    fontSize: 16,
-    color: 'black',
-  },
   arrow: {
     width: 40,
     backgroundColor: '#fff8',
