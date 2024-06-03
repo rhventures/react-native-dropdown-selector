@@ -57,7 +57,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
               <View
                 style={StyleSheet.flatten([
                   style.selectedInMultiHighlight,
-                  props.selectedItemHighlightStyle])}
+                  props.boxTextHighlightStyle])}
                 key={data.label.toString()}
               >
                 <Text
