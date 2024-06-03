@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Animated, useColorScheme } from 'react-native'
+import { useColorScheme } from 'react-native'
 import {
   Dimensions,
   FlatList,
@@ -70,7 +70,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
         onPress={() => props.setDisplay(false)}
       >
         <View
-          key={props.overflowNotif.toString()}
+          key={props.overflowNotif}
           onLayout={(e: LayoutChangeEvent) => {
             const newHeight =
               windowHeight - pos.bottom < props.listHeight
