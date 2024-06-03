@@ -48,7 +48,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         onPress={clickSelector}
         ref={ref}
         onLayout={(e: LayoutChangeEvent) => {
-          setOverflowNotif(overflowNotif ? 0 : 1);
+          setOverflowNotif(!overflowNotif);
         }}
       >
         {selected.length
