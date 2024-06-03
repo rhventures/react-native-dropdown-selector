@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import dropdownArrow from '../assets/down.png';
-import style from '../styles';
+import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import styles from '../styles';
 import type { Data, SelectorProperties } from '../types';
 import SelectionList from './SelectionList';
 
@@ -34,7 +33,8 @@ const Select = (props: SelectorProperties): JSX.Element => {
         ...data.filter((d) => !d.priority),
       ];
     },
-    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null);
+    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
+    style = useColorScheme() === 'dark' ? styles[1] : styles[0];
 
   return (
     <View>
@@ -50,13 +50,11 @@ const Select = (props: SelectorProperties): JSX.Element => {
         >
           {selected}
         </Text>
-        <Image
-          source={dropdownArrow}
-          style={StyleSheet.flatten([
-            style.arrow,
-            listDisplay && style.arrowListDisplayed,
-          ])}
-        />
+        <Text
+          style={style.arrow}
+        >
+          {listDisplay ? 'ᨈ' : 'ᨆ'}
+        </Text>
       </TouchableOpacity>
       <SelectionList
         styles={{
