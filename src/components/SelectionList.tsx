@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Animated, useColorScheme } from 'react-native'
+import { useColorScheme } from 'react-native'
 import {
   Dimensions,
   FlatList,
