@@ -18,26 +18,14 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
     ] = useState<boolean>(false),
     defaultText: string | JSX.Element = props.placeholderText ?? 'Click me',
     [selected, setSelected]: [
-      string | JSX.Element,
-      React.Dispatch<React.SetStateAction<string | JSX.Element>>
-    ] = useState<string | JSX.Element>(
-      props.defaultValue
-        ? props.defaultValue
-            .map((item: Data): string | JSX.Element => item.label)
-            .join(', ')
-        : defaultText
-    ),
+      Data[],
+      React.Dispatch<React.SetStateAction<Data[]>>
+    ] = useState<Data[]>([]),
     clickSelector = (): void => {
       setListDisplay(!listDisplay);
     },
     selectItem = (items: Data[]): void => {
-      setSelected(
-        items.length > 0
-          ? items
-              .map((item: Data): string | JSX.Element => item?.label)
-              .join(', ')
-          : defaultText
-      );
+      setSelected(items);
       props.onSelect(items);
     },
     updatePriorities = (data: Data[]): Data[] => {
@@ -64,27 +52,26 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
           setOverflowNotif(overflowNotif ? 0 : 1);
         }}
       >
-        {selected === defaultText
-          ? <Text
+        {selected.length
+          ? selected.map((data) =>
+              <View
+                style={style.selectedInMultiHighlight}
+                key={data.label.toString()}
+              >
+                <Text
+                  style={style.selectedInMulti}
+                >
+                  {data.label}
+                </Text>
+              </View>
+            )
+          : <Text
               style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
               numberOfLines={1}
             >
               {defaultText}
             </Text>
-          : (selected as string)
-            .split(', ')
-            .map((str) =>
-              <View 
-                style={style.selectedInMultiHighlight}
-                key={str}
-              >
-                <Text
-                  style={style.selectedInMulti}
-                >
-                  {str}
-                </Text>
-              </View>
-          )}
+        }
         <Text
           style={style.arrow}
         >
@@ -102,7 +89,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         data={updatePriorities(props.data)}
         type="multi"
         onSelect={selectItem}
-        selected={selected || ''}
+        selected={selected}
         listHeight={props.listHeight ? props.listHeight : 200}
         display={listDisplay}
         setDisplay={setListDisplay}
