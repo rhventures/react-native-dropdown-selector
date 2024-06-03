@@ -58,7 +58,6 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         onPress={clickSelector}
         ref={ref}
         onLayout={(e: LayoutChangeEvent) => {
-          console.log('making/deleting row...');
           setOverflowNotif(overflowNotif ? 0 : 1);
         }}
       >
