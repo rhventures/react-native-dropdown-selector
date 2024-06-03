@@ -61,7 +61,14 @@ function App(): JSX.Element {
           selectedItemStyle={{ backgroundColor: 'red' }}
           boxTextStyle={{ color: 'black'}}
           boxTextHighlightStyle={{ backgroundColor: 'green'}}
-          dropdownArrowColor={'#0f0'}
+          dropdownArrowColor={'#f80'}
+        />
+        <Select
+          data={data}
+          onSelect={onDataSelect}
+          selectedItemStyle={{ backgroundColor: 'red' }}
+          boxTextStyle={{ color: 'black'}}
+          dropdownArrowColor={'#f80'}
         />
         <View style={{ height: 700 }} />
       </ScrollView>
