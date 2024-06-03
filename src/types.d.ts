@@ -2,6 +2,7 @@ import {
   type TextStyle,
   type TouchableOpacity,
   type ViewStyle,
+  type ColorValue
 } from 'react-native';
 
 export interface Data {
@@ -38,6 +39,8 @@ export interface MultiSelectProperties {
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
+  selectedItemHighlightStyle?: ViewStyle;
+  dropdownArrowColor?: ColorValue;
 }
 
 export interface SelectorProperties {
@@ -51,4 +54,5 @@ export interface SelectorProperties {
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
+  dropdownArrowColor?: ColorValue;
 }
