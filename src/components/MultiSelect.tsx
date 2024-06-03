@@ -52,6 +52,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       React.Dispatch<React.SetStateAction<number>>
     ] = useState<number>(0);
 
+
   return (
     <View>
       <TouchableOpacity
