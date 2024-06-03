@@ -59,8 +59,9 @@ function App(): JSX.Element {
           data={data}
           onSelect={(e: Data[]) => console.log(e)}
           selectedItemStyle={{ backgroundColor: 'red' }}
-          selectedItemHighlightStyle={{ backgroundColor: 'green'}}
-          dropdownArrowColor={'blue'}
+          boxTextStyle={{ color: 'black'}}
+          boxTextHighlightStyle={{ backgroundColor: 'green'}}
+          dropdownArrowColor={'#0f0'}
         />
         <View style={{ height: 700 }} />
       </ScrollView>

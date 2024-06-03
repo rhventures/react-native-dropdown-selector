@@ -36,10 +36,10 @@ export interface MultiSelectProperties {
   placeholderText?: string | JSX.Element;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
+  boxTextHighlightStyle?: ViewStyle;
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
-  selectedItemHighlightStyle?: ViewStyle;
   dropdownArrowColor?: ColorValue;
 }
 
