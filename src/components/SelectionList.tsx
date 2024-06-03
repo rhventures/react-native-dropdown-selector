@@ -85,7 +85,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
         onPress={() => props.setDisplay(false)}
       >
         <View
-          key={props.overflowNotif.toString()}
+          key={props.overflowNotif}
           onLayout={(e: LayoutChangeEvent) => {
             const newHeight =
               windowHeight - pos.bottom < props.listHeight
