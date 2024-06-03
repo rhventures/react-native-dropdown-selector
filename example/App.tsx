@@ -49,26 +49,10 @@ function App(): JSX.Element {
             width: 200,
           }}
         />
-        <Text>Default:</Text>
-        <MultiSelect
-          data={data}
-          onSelect={(e: Data[]) => console.log(e)}
-        />
-        <Text>Custom:</Text>
         <MultiSelect
           data={data}
           onSelect={(e: Data[]) => console.log(e)}
           selectedItemStyle={{ backgroundColor: 'red' }}
-          boxTextStyle={{ color: 'black'}}
-          boxTextHighlightStyle={{ backgroundColor: 'green'}}
-          dropdownArrowColor={'#f80'}
-        />
-        <Select
-          data={data}
-          onSelect={onDataSelect}
-          selectedItemStyle={{ backgroundColor: 'red' }}
-          boxTextStyle={{ color: 'black'}}
-          dropdownArrowColor={'#f80'}
         />
         <View style={{ height: 700 }} />
       </ScrollView>
