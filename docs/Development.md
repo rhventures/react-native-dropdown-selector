@@ -9,13 +9,15 @@ Follow the `Installing dependencies` section at [React Native: Set Up Your Envir
 
 There are 2 ways to do this, **SSH** or **HTTPS**.
 
-**SSH**: (terminals like Git Bash, Ubuntu, Powershell, etc.)
+### SSH:
+Use this command in terminals like Git Bash, Ubuntu, Powershell, etc.
 ```
 git clone git@github.com:rhventures/react-native-dropdown-selector.git
 ```
-**HTTPS**: (IDEs like VSCode, IntelliJ, etc.)
+### HTTPS:
+Use this link in IDEs like VSCode, IntelliJ, etc. to clone directly.
 ```
-git clone https://github.com/rhventures/react-native-dropdown-selector.git
+https://github.com/rhventures/react-native-dropdown-selector.git
 ```
 
 ## Install Dependencies
