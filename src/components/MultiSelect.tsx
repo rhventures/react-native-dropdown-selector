@@ -77,7 +77,9 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
             </Text>
         }
         <Text
-          style={StyleSheet.flatten([style.arrow, {color: props.dropdownArrowColor ?? style.arrow.color}])}
+          style={StyleSheet.flatten([
+            style.arrow,
+            {color: props.dropdownArrowColor ?? style.arrow.color}])}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>
