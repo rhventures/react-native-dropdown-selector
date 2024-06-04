@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Dimensions, LayoutChangeEvent, useColorScheme } from 'react-native'
+import {
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  type LayoutChangeEvent,
+} from 'react-native';
 import { View } from 'react-native';
 import styles from '../styles';
 import type { Data, ListProperties } from '../types';
@@ -18,8 +25,23 @@ const SelectionListNew = (props: ListProperties): JSX.Element => {
       onLayout={(e: LayoutChangeEvent) => {
         console.log(e.nativeEvent.layout);
       }}
+      style={StyleSheet.flatten([
+        style.list,
+        props.styles.list,
+        {height: props.display ? 100 : 0},
+      ])}
     >
-    
+      <FlatList
+        data={props.data}
+        renderItem={({item}) => (
+          <View>
+            <Text style={[style.text, props.styles.text]}>
+              {item.label}
+            </Text>
+          </View>
+        )}>
+
+      </FlatList>
     </View>
   );
 };
