@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dimensions, useColorScheme } from 'react-native'
+import { Dimensions, LayoutChangeEvent, useColorScheme } from 'react-native'
 import { View } from 'react-native';
 import styles from '../styles';
 import type { Data, ListProperties } from '../types';
@@ -13,9 +13,15 @@ const SelectionListNew = (props: ListProperties): JSX.Element => {
     windowWidth: number = Dimensions.get('window').width,
     style = useColorScheme() === 'dark' ? styles[1] : styles[0];
 
-  return (<View>
+  return (
+    <View
+      onLayout={(e: LayoutChangeEvent) => {
+        console.log(e.nativeEvent.layout);
+      }}
+    >
     
-  </View>);
+    </View>
+  );
 };
 
 export default SelectionListNew;

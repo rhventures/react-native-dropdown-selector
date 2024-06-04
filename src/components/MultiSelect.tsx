@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import styles from '../styles';
 import type { Data, MultiSelectProperties } from '../types';
-import SelectionList from './SelectionList';
+import SelectionListNew from './SelectionListNew';
 
 const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
   const [listDisplay, setListDisplay]: [
@@ -83,7 +83,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>
       </TouchableOpacity>
-      <SelectionList
+      <SelectionListNew
         styles={{
           list: props.listStyle ? props.listStyle : undefined,
           text: props.listTextStyle ? props.listTextStyle : undefined,
