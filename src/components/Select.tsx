@@ -6,7 +6,6 @@ import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectorProperties type. */
 const Select = (props: SelectorProperties): JSX.Element => {
-  const style = useColorScheme() === 'dark' ? styles[1] : styles[0];
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
@@ -34,7 +33,8 @@ const Select = (props: SelectorProperties): JSX.Element => {
         ...data.filter((d) => !d.priority),
       ];
     },
-    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null);
+    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
+    style = useColorScheme() === 'dark' ? styles[1] : styles[0];
 
   return (
     <View>
@@ -46,12 +46,13 @@ const Select = (props: SelectorProperties): JSX.Element => {
       >
         <Text
           style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
-          numberOfLines={1}
         >
           {selected}
         </Text>
         <Text
-          style={style.arrow}
+          style={StyleSheet.flatten([
+            style.arrow,
+            {color: props.dropdownArrowColor ?? style.arrow.color}])}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>

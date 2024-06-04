@@ -19,7 +19,7 @@ export interface ListProperties {
   data: Data[];
   type: 'single' | 'multi';
   onSelect: ((e: Data) => void) | ((e: Data[]) => void);
-  selected: string | JSX.Element;
+  selected: Data[] | string | JSX.Element;
   listHeight: number;
   display: boolean;
   setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,9 +35,11 @@ export interface MultiSelectProperties {
   placeholderText?: string | JSX.Element;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
+  boxTextHighlightStyle?: ViewStyle;
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
+  dropdownArrowColor?: string;
 }
 
 export interface SelectorProperties {
@@ -51,4 +53,5 @@ export interface SelectorProperties {
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
+  dropdownArrowColor?: string;
 }

@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import {
-  Animated,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,34 +11,20 @@ import type { Data, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
-  const style = useColorScheme() === 'dark' ? styles[1] : styles[0];
-  const [overflowNotif, setOverflowNotif] = useState<number>(0);
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
     ] = useState<boolean>(false),
     defaultText: string | JSX.Element = props.placeholderText ?? 'Click me',
     [selected, setSelected]: [
-      string | JSX.Element,
-      React.Dispatch<React.SetStateAction<string | JSX.Element>>
-    ] = useState<string | JSX.Element>(
-      props.defaultValue
-        ? props.defaultValue
-            .map((item: Data): string | JSX.Element => item.label)
-            .join(', ')
-        : defaultText
-    ),
+      Data[],
+      React.Dispatch<React.SetStateAction<Data[]>>
+    ] = useState<Data[]>([]),
     clickSelector = (): void => {
       setListDisplay(!listDisplay);
     },
     selectItem = (items: Data[]): void => {
-      setSelected(
-        items.length > 0
-          ? items
-              .map((item: Data): string | JSX.Element => item?.label)
-              .join(', ')
-          : defaultText
-      );
+      setSelected(items);
       props.onSelect(items);
     },
     updatePriorities = (data: Data[]): Data[] => {
@@ -48,7 +33,12 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         ...data.filter((d: Data): boolean => !d.priority),
       ];
     },
-    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null);
+    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
+    style = useColorScheme() === 'dark' ? styles[1] : styles[0],
+    [overflowNotif, setOverflowNotif]: [
+      number,
+      React.Dispatch<React.SetStateAction<number>>
+    ] = useState<number>(0);
 
   return (
     <View>
@@ -58,33 +48,37 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         onPress={clickSelector}
         ref={ref}
         onLayout={(e: LayoutChangeEvent) => {
-          console.log('making/deleting row...');
           setOverflowNotif(overflowNotif ? 0 : 1);
         }}
       >
-        {selected === defaultText
-          ? <Text
+        {selected.length
+          ? selected.map((data) =>
+              <View
+                style={StyleSheet.flatten([
+                  style.selectedInMultiHighlight,
+                  props.boxTextHighlightStyle])}
+                key={data.label.toString()}
+              >
+                <Text
+                  style={StyleSheet.flatten([
+                    style.selectorText,
+                    {marginVertical: 0},
+                    props.boxTextStyle])}
+                >
+                  {data.label}
+                </Text>
+              </View>
+            )
+          : <Text
               style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
-              numberOfLines={1}
             >
               {defaultText}
             </Text>
-          : (selected as string)
-            .split(', ')
-            .map((str) =>
-              <View 
-                style={style.selectedInMultiHighlight}
-                key={str}
-              >
-                <Text
-                  style={style.selectedInMulti}
-                >
-                  {str}
-                </Text>
-              </View>
-          )}
+        }
         <Text
-          style={style.arrow}
+          style={StyleSheet.flatten([
+            style.arrow,
+            {color: props.dropdownArrowColor ?? style.arrow.color}])}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>
@@ -100,7 +94,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         data={updatePriorities(props.data)}
         type="multi"
         onSelect={selectItem}
-        selected={selected || ''}
+        selected={selected}
         listHeight={props.listHeight ? props.listHeight : 200}
         display={listDisplay}
         setDisplay={setListDisplay}
