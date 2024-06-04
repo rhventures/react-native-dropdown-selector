@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import {
   Dimensions,
   FlatList,
-  SafeAreaView,
-  ScrollView,
+  Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   useColorScheme,
   type LayoutChangeEvent,
 } from 'react-native';
@@ -24,32 +24,38 @@ const SelectionListNew = (props: ListProperties): JSX.Element => {
     style = useColorScheme() === 'dark' ? styles[1] : styles[0];
 
   return (
-    <ScrollView
-      nestedScrollEnabled={true}
-      horizontal={false} 
-      style={StyleSheet.flatten([
-        style.list,
-        props.styles.list,
-        {height: props.display ? 100 : 0},
-      ])}
+    <Modal
+      transparent
+      visible={props.display}
+      onRequestClose={() => {
+        props.setDisplay(false);
+      }}
       onLayout={(e: LayoutChangeEvent) => {
         console.log(e.nativeEvent.layout);
       }}
     >
-    <ScrollView horizontal={true} nestedScrollEnabled={true}>
-    <FlatList
-      nestedScrollEnabled={true}
-       data={props.data}
-       renderItem={({item}) => (
-          <TouchableOpacity onPress={()=>{}}>
-            <Text style={[style.text, props.styles.text]}>
-              {item.label}
-            </Text>
-          </TouchableOpacity>
-      )}>
-    </FlatList>
-    </ScrollView>
-    </ScrollView>
+      <TouchableWithoutFeedback
+        onPressIn={() => {
+          props.setDisplay(false);
+        }}
+      >
+        <View
+        style={{backgroundColor:'green', flex:1}}>
+        <FlatList
+          style={{backgroundColor:'black', height: 200}}
+          nestedScrollEnabled={true}
+          data={props.data}
+          renderItem={({item}) => (
+            <TouchableOpacity onPress={()=>{}}>
+              <Text style={[style.text, props.styles.text]}>
+                {item.label}
+              </Text>
+            </TouchableOpacity>
+          )}>
+        </FlatList>
+        </View>
+      </TouchableWithoutFeedback>
+    </Modal>
   );
 };
 

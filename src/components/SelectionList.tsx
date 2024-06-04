@@ -15,9 +15,6 @@ import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): JSX.Element => {
-  if (!props.display) {
-    return <View />;
-  }
   const [listHeight, setListHeight]: [
       number,
       React.Dispatch<React.SetStateAction<number>>
@@ -45,6 +42,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
 
   return (
     <Modal
+      visible={props.display}
       transparent={true}
       onRequestClose={() => props.setDisplay(false)}
       supportedOrientations={[
