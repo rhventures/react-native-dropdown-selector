@@ -43,6 +43,7 @@ const light = StyleSheet.create({
     lineHeight: 999,
   },
   list: {
+    position: 'absolute',
     backgroundColor: 'white',
     marginHorizontal: 5,
     borderColor: 'black',

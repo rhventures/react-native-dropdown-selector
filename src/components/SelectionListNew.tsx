@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import {
   Dimensions,
   FlatList,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   useColorScheme,
   type LayoutChangeEvent,
 } from 'react-native';
@@ -21,28 +24,32 @@ const SelectionListNew = (props: ListProperties): JSX.Element => {
     style = useColorScheme() === 'dark' ? styles[1] : styles[0];
 
   return (
-    <View
-      onLayout={(e: LayoutChangeEvent) => {
-        console.log(e.nativeEvent.layout);
-      }}
+    <ScrollView
+      nestedScrollEnabled={true}
+      horizontal={false} 
       style={StyleSheet.flatten([
         style.list,
         props.styles.list,
         {height: props.display ? 100 : 0},
       ])}
+      onLayout={(e: LayoutChangeEvent) => {
+        console.log(e.nativeEvent.layout);
+      }}
     >
-      <FlatList
-        data={props.data}
-        renderItem={({item}) => (
-          <View>
+    <ScrollView horizontal={true} nestedScrollEnabled={true}>
+    <FlatList
+      nestedScrollEnabled={true}
+       data={props.data}
+       renderItem={({item}) => (
+          <TouchableOpacity onPress={()=>{}}>
             <Text style={[style.text, props.styles.text]}>
               {item.label}
             </Text>
-          </View>
-        )}>
-
-      </FlatList>
-    </View>
+          </TouchableOpacity>
+      )}>
+    </FlatList>
+    </ScrollView>
+    </ScrollView>
   );
 };
 
