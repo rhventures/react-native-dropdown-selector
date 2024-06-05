@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 
 export interface Data {
-  label: string | JSX.Element;
+  label: string | React.JSX.Element;
   priority?: boolean;
   data?: object;
 }
@@ -24,7 +24,7 @@ export interface ListProperties {
   data: Data[];
   type: 'single' | 'multi';
   onSelect: ((e: Data) => void) | ((e: Data[]) => void);
-  selected: Data[] | string | JSX.Element;
+  selected: Data[] | string | React.JSX.Element;
   listHeight: number;
   display: boolean;
   hide: () => void;
@@ -37,7 +37,7 @@ export interface MultiSelectProperties {
   onSelect: (e: Data[]) => void;
   defaultValue?: Data[];
   listHeight?: number;
-  placeholderText?: string | JSX.Element;
+  placeholderText?: string | React.JSX.Element;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
   boxTextHighlightStyle?: ViewStyle;
@@ -52,7 +52,7 @@ export interface SelectProperties {
   onSelect: (e: Data) => void;
   defaultValue?: Data;
   listHeight?: number;
-  placeholderText?: string | JSX.Element;
+  placeholderText?: string | React.JSX.Element;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
   listStyle?: ViewStyle;

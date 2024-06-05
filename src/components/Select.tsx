@@ -1,19 +1,19 @@
 import React, { useRef, useState } from 'react';
-import { Text, TouchableOpacity, View, ViewStyle, useColorScheme } from 'react-native';
+import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
 import styles from '../styles';
 import type { Data, SelectorPos, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
-const Select = (props: SelectProperties): JSX.Element => {
+const Select = (props: SelectProperties): React.JSX.Element => {
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
     ] = useState<boolean>(false),
     [selected, setSelected]: [
-      string | JSX.Element,
-      React.Dispatch<React.SetStateAction<string | JSX.Element>>
-    ] = useState<string | JSX.Element>(
+      string | React.JSX.Element,
+      React.Dispatch<React.SetStateAction<string | React.JSX.Element>>
+    ] = useState<string | React.JSX.Element>(
       props.defaultValue && props.data.includes(props.defaultValue)
         ? props.defaultValue.label
         : props.placeholderText

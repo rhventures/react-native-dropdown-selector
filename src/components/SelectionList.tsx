@@ -12,7 +12,7 @@ import styles from '../styles';
 import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
-const SelectionList = (props: ListProperties): JSX.Element => {
+const SelectionList = (props: ListProperties): React.JSX.Element => {
   const style: typeof styles[0] = styles[useColorScheme() === 'dark' ? 1 : 0],
     windowHeight: number = Dimensions.get('window').height,
     windowWidth: number = Dimensions.get('window').width,

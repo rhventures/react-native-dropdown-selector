@@ -5,12 +5,12 @@ import type { Data, SelectorPos, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
-const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
+const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
     ] = useState<boolean>(false),
-    defaultText: string | JSX.Element = props.placeholderText ?? 'Click me',
+    defaultText: string | React.JSX.Element = props.placeholderText ?? 'Click me',
     [selected, setSelected]: [
       Data[],
       React.Dispatch<React.SetStateAction<Data[]>>
