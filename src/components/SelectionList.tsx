@@ -26,7 +26,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
     <Modal
       visible={props.display}
       transparent={true}
-      onRequestClose={() => props.setDisplay(false)}
+      onRequestClose={props.hide}
       supportedOrientations={[
         'portrait',
         'portrait-upside-down',
@@ -40,14 +40,14 @@ const SelectionList = (props: ListProperties): JSX.Element => {
       }: {
         nativeEvent: { orientation: string };
       }) => [
-        nativeEvent.orientation !== orientation && props.setDisplay(false),
+        nativeEvent.orientation !== orientation && props.hide(),
         setOrientation(nativeEvent.orientation),
       ]}
     >
       <TouchableOpacity
         activeOpacity={1}
         style={style.modalBackground}
-        onPress={() => props.setDisplay(false)}
+        onPress={props.hide}
       >
         <View
           style={StyleSheet.flatten([
@@ -78,7 +78,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
                 onPress={() => {
                   if (props.type === 'single') {
                     (props.onSelect as (e: Data) => void)(item);
-                    props.setDisplay(false);
+                    props.hide();
                   } else {
                     const list = (props.selected as Data[]).includes(item)
                       ? (props.selected as Data[]).filter((i) => i !== item)

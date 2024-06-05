@@ -78,7 +78,7 @@ const Select = (props: SelectProperties): JSX.Element => {
         selected={selected}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
-        setDisplay={setListDisplay}
+        hide={() => setListDisplay(false)}
         selectorRef={ref}
         selectorPos={pos}
       />

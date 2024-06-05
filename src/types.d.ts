@@ -27,7 +27,7 @@ export interface ListProperties {
   selected: Data[] | string | JSX.Element;
   listHeight: number;
   display: boolean;
-  setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+  hide: () => void;
   selectorRef: React.RefObject<TouchableOpacity>;
   selectorPos: SelectorPos,
 }
