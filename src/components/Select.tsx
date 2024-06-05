@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, ViewStyle, useColorScheme } from 'react-native';
+import { Text, TouchableOpacity, View, ViewStyle, useColorScheme } from 'react-native';
 import styles from '../styles';
 import type { Data, SelectorPos, SelectProperties } from '../types';
 import SelectionList from './SelectionList';

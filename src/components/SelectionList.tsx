@@ -4,7 +4,6 @@ import {
   Dimensions,
   FlatList,
   Modal,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
