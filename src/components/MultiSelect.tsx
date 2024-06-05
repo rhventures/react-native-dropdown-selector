@@ -20,9 +20,6 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       Data[],
       React.Dispatch<React.SetStateAction<Data[]>>
     ] = useState<Data[]>([]),
-    clickSelector = (): void => {
-      setListDisplay(!listDisplay);
-    },
     selectItem = (items: Data[]): void => {
       setSelected(items);
       props.onSelect(items);
@@ -35,21 +32,28 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
     },
     ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
     style = useColorScheme() === 'dark' ? styles[1] : styles[0],
-    [overflowNotif, setOverflowNotif]: [
-      number,
-      React.Dispatch<React.SetStateAction<number>>
-    ] = useState<number>(0);
+    [pos, setPos]: [
+      {'top': number, 'bottom': number},
+      React.Dispatch<React.SetStateAction<{'top': number, 'bottom': number}>>
+    ] = useState<{'top': number, 'bottom': number}>({'top': 0, 'bottom': 0}),
+    updatePos = (): void => {
+      ref.current?.measureInWindow((_x, y, _width, height) => {
+        setPos({
+          'top': y - (props.listHeight ?? 200),
+          'bottom': pos.bottom = y + height
+        });
+        setListDisplay(true);
+      });
+    };
 
   return (
     <View>
       <TouchableOpacity
         activeOpacity={1}
         style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
-        onPress={clickSelector}
+        onPress={updatePos}
         ref={ref}
-        onLayout={(e: LayoutChangeEvent) => {
-          setOverflowNotif(overflowNotif ? 0 : 1);
-        }}
+        onLayout={updatePos}
       >
         {selected.length
           ? selected.map((data) =>
@@ -99,7 +103,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         display={listDisplay}
         setDisplay={setListDisplay}
         selectorRef={ref}
-        overflowNotif={overflowNotif}
+        selectorPos={pos}
       />
     </View>
   );

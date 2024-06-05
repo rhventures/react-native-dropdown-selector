@@ -41,6 +41,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
   props.selectorRef.current?.measureInWindow((_x, y, _width, height) => {
     pos.top = y - props.listHeight;
     pos.bottom = y + height;
+    console.log('remeasured');
   });
 
   return (
@@ -86,7 +87,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
             windowHeight > windowWidth
               ? {
                   maxHeight: props.listHeight,
-                  marginTop: listHeight + props.overflowNotif,
+                  marginTop: listHeight,
                   opacity: heightChecked ? 1 : 0,
                 }
               : {

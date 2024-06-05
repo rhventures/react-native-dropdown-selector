@@ -24,7 +24,7 @@ export interface ListProperties {
   display: boolean;
   setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
   selectorRef: React.RefObject<TouchableOpacity>;
-  overflowNotif: number,
+  selectorPos: {'top': number, 'bottom': number},
 }
 
 export interface MultiSelectProperties {
