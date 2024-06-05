@@ -50,12 +50,27 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         onPress={clickSelector}
         ref={ref}
       >
-        <Text
-          style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
-          numberOfLines={1}
-        >
-          {selected}
-        </Text>
+        {selected === defaultText
+          ? <Text
+              style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
+              numberOfLines={1}
+            >
+              {defaultText}
+            </Text>
+          : (selected as string)
+            .split(', ')
+            .map((str) =>
+              <View 
+                style={style.selectedInMultiHighlight}
+                key={str}
+              >
+                <Text
+                  style={style.selectedInMulti}
+                >
+                  {str}
+                </Text>
+              </View>
+            )}
         <Text
           style={style.arrow}
         >
