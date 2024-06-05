@@ -1,63 +1,65 @@
 describe("Integration Test", () => {
 
     const topSelector = '-android uiautomator:new UiSelector().text(\"ᨆ\").instance(0)';
-    const scrollCoordinates =[{'x': 642 , 'y1': 1050, 'y2': 900, 'y3': 560}]
+    const bottomSelector = '-android uiautomator:new UiSelector().text("ᨆ").instance(1)';
+    const scrollCoordinatesSet =[{'x': 642 , 'y1': 1050, 'y2': 900, 'y3': 560}, 
+    {'x': 642, 'y1': 2104, 'y2': 1880, 'y3': 1680}]
+    const itemsToTest = [['Item 3', 'Item 4', 'Item 6', 'abc'],['Item 7', 'Item 1', 'Item 5', 'Item 6']]
 
-    scrollAndSelectTest(topSelector, scrollCoordinates[0]);
+    scrollAndSelectTest(topSelector, scrollCoordinatesSet[0], itemsToTest[0]);
+    scrollAndSelectTest(bottomSelector, scrollCoordinatesSet[1], itemsToTest[1]);
 
-    function scrollAndSelectTest(dropdown, scrollCoordinates){
+    function scrollAndSelectTest(dropdown, scrollCoordinates, itemToTest){
 
         context("Test Select with scrolling", ()=> {
             
-            beforeEach("When the first drop down selector is open", async () => {
-                const selector = await driver.$(dropdown);
-                selector.click();
-                
-                await driver.pause(3000);
+        beforeEach("When the drop down selector is open", async () => {
+            const selector = await driver.$(dropdown);
+            selector.click();                
+            await driver.pause(3000);
         })
         
-        it("should display item 3 is selected", async () => {
-            const Item3 = await driver.$('accessibility id:Item 3')
+        it(`should display ${itemToTest[0]} is selected`, async () => {
+            const Item3 = await driver.$(`accessibility id:${itemToTest[0]}`)
             Item3.click();
-            const selector = await driver.$('accessibility id:Item 3, ᨆ');
+            const selector = await driver.$(`accessibility id:${itemToTest[0]}, ᨆ`);
             await expect(selector).toExist();
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
             console.log(selectorDisplay);
-            await expect(selectorDisplay).toHaveText('Item 3')
+            await expect(selectorDisplay).toHaveText(itemToTest[0])
         })
         
-        it("should display item 4 is selected", async () => {
-            const Item4 = await driver.$('accessibility id:Item 4')
+        it(`should display ${itemToTest[1]} is selected`, async () => {
+            const Item4 = await driver.$(`accessibility id:${itemToTest[1]}`)
             Item4.click();
-            const selector = await driver.$('accessibility id:Item 4, ᨆ');
+            const selector = await driver.$(`accessibility id:${itemToTest[1]}, ᨆ`);
             await expect(selector).toExist();
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
             console.log(selectorDisplay);
-            await expect(selectorDisplay).toHaveText('Item 4')
+            await expect(selectorDisplay).toHaveText(itemToTest[1])
         })        
         
-        it("should display item 6 is selected", async () => {
-            await driver.action('pointer', {parameters: {pointerType: 'touch'}})
-            .move({duration : 0, x: scrollCoordinates['x'] , y: scrollCoordinates['y1']})
-            .down({button: 0})
-            .move({duration : 100, x: scrollCoordinates['x'] , y: scrollCoordinates['y2']})
-            .up({button: 0})
-            .perform();
-            
-            await driver.action('pointer')
-            const Item6 = await driver.$('accessibility id:Item 6')
+        it(`should display ${itemToTest[2]} is selected`, async () => {
+        await driver.action('pointer', {parameters: {pointerType: 'touch'}})
+        .move({duration : 0, x: scrollCoordinates['x'] , y: scrollCoordinates['y1']})
+        .down({button: 0})
+        .move({duration : 100, x: scrollCoordinates['x'] , y: scrollCoordinates['y2']})
+        .up({button: 0})
+        .perform();
+        
+            const Item6 = await driver.$(`accessibility id:${itemToTest[2]}`)
             Item6.click();
-            const selector = await driver.$('accessibility id:Item 6, ᨆ');
+            const selector = await driver.$(`accessibility id:${itemToTest[2]}, ᨆ`);
             await expect(selector).toExist();
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
             console.log(selectorDisplay);
-            await expect(selectorDisplay).toHaveText('Item 6')
+            await expect(selectorDisplay).toHaveText(itemToTest[2])
         })
         
-        it("should display item abc is selected", async () => {
+        it(`should display ${itemToTest[3]} is selected`, async () => {
             await driver.action('pointer', {parameters: {pointerType: 'touch'}})
             .move({duration : 0, x: scrollCoordinates['x'] , y: scrollCoordinates['y1']})
             .down({button: 0})
@@ -65,16 +67,15 @@ describe("Integration Test", () => {
             .up({button: 0})
             .perform();
             
-            const ItemABC = await driver.$('accessibility id:abc')
-            ItemABC.click();
-            const selector = await driver.$('accessibility id:abc, ᨆ');
-            await expect(selector).toExist();
-            
-            const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
-            console.log(selectorDisplay);
-            await expect(selectorDisplay).toHaveText('abc');
-        })
-        
+                const ItemABC = await driver.$(`accessibility id:${itemToTest[3]}`)
+                ItemABC.click();
+                const selector = await driver.$(`accessibility id:${itemToTest[3]}, ᨆ`);
+                await expect(selector).toExist();
+                
+                const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
+                console.log(selectorDisplay);
+                await expect(selectorDisplay).toHaveText(itemToTest[3])
+            })
         })
     }
 })
