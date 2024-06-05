@@ -29,7 +29,7 @@ export const config = {
         // './test/SmallSingleSelect.js',
         // './test/MultiSelect.js',
         // './test/Technical.js',
-        './test/Integration.js',
+        './test/IntegrationSingle.js',
     ],
     // Patterns to exclude.
     exclude: [
