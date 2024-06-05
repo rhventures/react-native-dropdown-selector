@@ -28,7 +28,8 @@ export const config = {
         // './test/SingleSelect.js',
         // './test/SmallSingleSelect.js',
         // './test/MultiSelect.js',
-        './test/Technical.js'
+        // './test/Technical.js',
+        './test/Integration.js',
     ],
     // Patterns to exclude.
     exclude: [
@@ -50,7 +51,7 @@ export const config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+    maxInstances: 1,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:

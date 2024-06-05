@@ -4,7 +4,7 @@ describe("Scrolling", ()=> {
     const secondSelectorArrow = "-android uiautomator:new UiSelector().text(\"ᨆ\").instance(1)";
     const thirdSelectorArrow = "-android uiautomator:new UiSelector().text(\"ᨆ\").instance(2)";
     const dropDownArrows= [{'x': 1270, 'y': 463}, {'x': 910, 'y': 2283}, {'x': 1270, 'y': 2437}]
-    const scrollCoordinates = [{'x': 596, 'y1': 1110, 'y2': 429}, {'x': 624, 'y1': 2191, 'y2': 1522}, {'x': 624, 'y1': 2334, 'y2': 1700}]
+    const scrollCoordinates = [{'x': 596, 'y1': 1110, 'y2': 429}, {'x': 624, 'y1': 2191, 'y2': 1522}, {'x': 624, 'y1': 2334, 'y2': 1600}]
     TestDropDownSelectorTechnical(firstSelectorArrow, dropDownArrows[0], scrollCoordinates[0]);
     TestDropDownSelectorTechnical(secondSelectorArrow, dropDownArrows[1], scrollCoordinates[1]);
     TestDropDownSelectorTechnical(thirdSelectorArrow, dropDownArrows[2], scrollCoordinates[2]);
