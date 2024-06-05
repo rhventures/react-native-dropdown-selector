@@ -15,23 +15,17 @@ import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): JSX.Element => {
-  if (!props.display) {
-    return <View />;
-  }
-  const [listHeight, setListHeight]: [
-      number,
-      React.Dispatch<React.SetStateAction<number>>
-    ] = useState<number>(0),
+  const style = useColorScheme() === 'dark' ? styles[1] : styles[0],
     windowHeight: number = Dimensions.get('window').height,
     windowWidth: number = Dimensions.get('window').width,
     [orientation, setOrientation]: [
       string,
       React.Dispatch<React.SetStateAction<string>>
-    ] = useState<string>(windowHeight > windowWidth ? 'portrait' : 'landscape'),
-    style = useColorScheme() === 'dark' ? styles[1] : styles[0];
+    ] = useState<string>(windowHeight > windowWidth ? 'portrait' : 'landscape');
 
   return (
     <Modal
+      visible={props.display}
       transparent={true}
       onRequestClose={() => props.setDisplay(false)}
       supportedOrientations={[
@@ -58,12 +52,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
       >
         <View
           onLayout={(e: LayoutChangeEvent) => {
-            console.log('onLayout()');
-            const newHeight =
-              windowHeight - props.selectorPos.bottom < props.listHeight
-                ? props.selectorPos.top - 5
-                : props.selectorPos.bottom + 5;
-            setListHeight(newHeight);
+            console.log('onLayout');
           }}
           style={StyleSheet.flatten([
             style.list,
@@ -71,7 +60,9 @@ const SelectionList = (props: ListProperties): JSX.Element => {
             windowHeight > windowWidth
               ? {
                   maxHeight: props.listHeight,
-                  marginTop: props.selectorPos.bottom,
+                  marginTop: props.selectorPos.bottom + props.listHeight < windowHeight
+                    ? props.selectorPos.bottom
+                    : props.selectorPos.top,
                 }
               : {
                   height: windowHeight - 40,
