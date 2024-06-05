@@ -1,11 +1,5 @@
 import React, { useRef, useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  useColorScheme,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
 import styles from '../styles';
 import type { Data, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
@@ -43,8 +37,6 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
           'bottom': y + height + 5
         });
         if (display) setListDisplay(true);
-        console.log('MultiSelect:');
-        console.log(pos);
       });
     };
 
@@ -101,7 +93,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         type="multi"
         onSelect={selectItem}
         selected={selected}
-        listHeight={props.listHeight ? props.listHeight : 200}
+        listHeight={props.listHeight ?? 200}
         display={listDisplay}
         setDisplay={setListDisplay}
         selectorRef={ref}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useColorScheme } from 'react-native'
 import {
   Dimensions,
@@ -8,7 +8,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  type LayoutChangeEvent,
 } from 'react-native';
 import styles from '../styles';
 import type { Data, ListProperties } from '../types';
@@ -51,9 +50,6 @@ const SelectionList = (props: ListProperties): JSX.Element => {
         onPress={() => props.setDisplay(false)}
       >
         <View
-          onLayout={(e: LayoutChangeEvent) => {
-            console.log('onLayout');
-          }}
           style={StyleSheet.flatten([
             style.list,
             props.styles.list,
