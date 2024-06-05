@@ -34,17 +34,6 @@ const light = StyleSheet.create({
     fontSize: 16,
     color: 'black',
   },
-  selectedInMultiHighlight: {
-    backgroundColor: '#ccc',
-    paddingLeft: 8,
-    paddingRight: 8,
-    borderRadius: 12,
-    marginRight: 6,
-  },
-  selectedInMulti: {
-    fontSize: 16,
-    color: 'black',
-  },
   arrow: {
     width: 40,
     backgroundColor: '#fff8',
