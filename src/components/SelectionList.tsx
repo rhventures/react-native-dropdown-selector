@@ -22,10 +22,6 @@ const SelectionList = (props: ListProperties): JSX.Element => {
       number,
       React.Dispatch<React.SetStateAction<number>>
     ] = useState<number>(0),
-    [heightChecked, setHeightChecked]: [
-      boolean,
-      React.Dispatch<React.SetStateAction<boolean>>
-    ] = useState<boolean>(false),
     windowHeight: number = Dimensions.get('window').height,
     windowWidth: number = Dimensions.get('window').width,
     [orientation, setOrientation]: [
@@ -62,13 +58,11 @@ const SelectionList = (props: ListProperties): JSX.Element => {
       >
         <View
           onLayout={(e: LayoutChangeEvent) => {
+            console.log('onLayout()');
             const newHeight =
               windowHeight - props.selectorPos.bottom < props.listHeight
                 ? props.selectorPos.top - 5
                 : props.selectorPos.bottom + 5;
-            setHeightChecked(
-              listHeight === newHeight || windowWidth > windowHeight
-            );
             setListHeight(newHeight);
           }}
           style={StyleSheet.flatten([
@@ -77,7 +71,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
             windowHeight > windowWidth
               ? {
                   maxHeight: props.listHeight,
-                  marginTop: listHeight,
+                  marginTop: props.selectorPos.bottom,
                 }
               : {
                   height: windowHeight - 40,
@@ -95,7 +89,6 @@ const SelectionList = (props: ListProperties): JSX.Element => {
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
-                  if (!heightChecked) return;
                   if (props.type === 'single') {
                     (props.onSelect as (e: Data) => void)(item);
                     props.setDisplay(false);

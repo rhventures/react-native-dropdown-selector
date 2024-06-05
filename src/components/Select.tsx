@@ -39,8 +39,8 @@ const Select = (props: SelectorProperties): JSX.Element => {
     updatePos = (): void => {
       ref.current?.measureInWindow((_x, y, _width, height) => {
         setPos({
-          'top': y - (props.listHeight ?? 200),
-          'bottom': pos.bottom = y + height
+          'top': y - (props.listHeight ?? 200) - 5,
+          'bottom': y + height + 5
         });
         setListDisplay(true);
       });

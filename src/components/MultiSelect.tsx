@@ -39,10 +39,9 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
     updatePos = (): void => {
       ref.current?.measureInWindow((_x, y, _width, height) => {
         setPos({
-          'top': y - (props.listHeight ?? 200),
-          'bottom': pos.bottom = y + height
+          'top': y - (props.listHeight ?? 200) - 5,
+          'bottom': y + height + 5
         });
-        setListDisplay(true);
         console.log('MultiSelect:');
         console.log(pos);
       });
@@ -53,7 +52,10 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       <TouchableOpacity
         activeOpacity={1}
         style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
-        onPress={updatePos}
+        onPress={() => {
+          updatePos();
+          setListDisplay(true);
+        }}
         ref={ref}
         onLayout={updatePos}
       >
