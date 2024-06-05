@@ -55,14 +55,16 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
               <View
                 style={[
                   style.selectedInMultiHighlight,
-                  props.boxTextHighlightStyle]}
+                  props.boxTextHighlightStyle,
+                ]}
                 key={data.label.toString()}
               >
                 <Text
-                  style={[
-                    style.selectorText,
-                    {marginVertical: 0},
-                    props.boxTextStyle]}
+                  style={{
+                    ...style.selectorText,
+                    marginVertical: 0,
+                    ...props.boxTextStyle,
+                  }}
                 >
                   {data.label}
                 </Text>

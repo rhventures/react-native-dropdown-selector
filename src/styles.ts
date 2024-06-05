@@ -134,6 +134,6 @@ const dark = StyleSheet.create({
   },
 });
 
-const styles = [light, dark]
+const styles = [light, dark];
 
 export default styles;

@@ -11,8 +11,8 @@ export interface Data {
 }
 
 export interface SelectorPos {
-  top: number,
-  bottom: number,
+  top: number;
+  bottom: number;
 }
 
 export interface ListProperties {
@@ -29,7 +29,7 @@ export interface ListProperties {
   display: boolean;
   hide: () => void;
   selectorRef: React.RefObject<TouchableOpacity>;
-  selectorPos: SelectorPos,
+  selectorPos: SelectorPos;
 }
 
 export interface MultiSelectProperties {
