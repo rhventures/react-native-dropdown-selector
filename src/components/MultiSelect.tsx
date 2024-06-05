@@ -3,8 +3,8 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View, useColorScheme,
-  type LayoutChangeEvent
+  View,
+  useColorScheme,
 } from 'react-native';
 import styles from '../styles';
 import type { Data, MultiSelectProperties } from '../types';
@@ -36,12 +36,13 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       {'top': number, 'bottom': number},
       React.Dispatch<React.SetStateAction<{'top': number, 'bottom': number}>>
     ] = useState<{'top': number, 'bottom': number}>({'top': 0, 'bottom': 0}),
-    updatePos = (): void => {
+    updatePos = (display: boolean = false): void => {
       ref.current?.measureInWindow((_x, y, _width, height) => {
         setPos({
           'top': y - (props.listHeight ?? 200) - 5,
           'bottom': y + height + 5
         });
+        if (display) setListDisplay(true);
         console.log('MultiSelect:');
         console.log(pos);
       });
@@ -52,12 +53,9 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       <TouchableOpacity
         activeOpacity={1}
         style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
-        onPress={() => {
-          updatePos();
-          setListDisplay(true);
-        }}
+        onPress={() => updatePos(true)}
         ref={ref}
-        onLayout={updatePos}
+        onLayout={() => updatePos()}
       >
         {selected.length
           ? selected.map((data) =>
