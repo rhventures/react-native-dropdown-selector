@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
 import styles from '../styles';
-import type { Data, SelectProperties } from '../types';
+import type { Data, SelectorPos, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
@@ -33,9 +33,9 @@ const Select = (props: SelectProperties): JSX.Element => {
     ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
     style = styles[useColorScheme() === 'dark' ? 1 : 0],
     [pos, setPos]: [
-      {'top': number, 'bottom': number},
-      React.Dispatch<React.SetStateAction<{'top': number, 'bottom': number}>>
-    ] = useState<{'top': number, 'bottom': number}>({'top': 0, 'bottom': 0}),
+      SelectorPos,
+      React.Dispatch<React.SetStateAction<SelectorPos>>
+    ] = useState<SelectorPos>({'top': 0, 'bottom': 0}),
     updatePos = (): void => {
       ref.current?.measureInWindow((_x, y, _width, height) => {
         setPos({

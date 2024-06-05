@@ -10,6 +10,11 @@ export interface Data {
   data?: object;
 }
 
+export interface SelectorPos {
+  top: number,
+  bottom: number,
+}
+
 export interface ListProperties {
   styles: {
     list: ViewStyle | undefined;
@@ -24,7 +29,7 @@ export interface ListProperties {
   display: boolean;
   setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
   selectorRef: React.RefObject<TouchableOpacity>;
-  selectorPos: {'top': number, 'bottom': number},
+  selectorPos: SelectorPos,
 }
 
 export interface MultiSelectProperties {
