@@ -84,11 +84,9 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       </TouchableOpacity>
       <SelectionList
         styles={{
-          list: props.listStyle ? props.listStyle : undefined,
-          text: props.listTextStyle ? props.listTextStyle : undefined,
-          itemSelected: props.selectedItemStyle
-            ? props.selectedItemStyle
-            : undefined,
+          list: props.listStyle,
+          text: props.listTextStyle,
+          itemSelected: props.selectedItemStyle,
         }}
         data={updatePriorities(props.data)}
         type="multi"
