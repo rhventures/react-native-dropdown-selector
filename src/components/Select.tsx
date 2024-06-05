@@ -49,19 +49,19 @@ const Select = (props: SelectProperties): JSX.Element => {
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
+        style={[style.selectorBox, props.boxStyle]}
         onPress={updatePos}
         ref={ref}
       >
         <Text
-          style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
+          style={[style.selectorText, props.boxTextStyle]}
         >
           {selected}
         </Text>
         <Text
-          style={StyleSheet.flatten([
+          style={[
             style.arrow,
-            {color: props.dropdownArrowColor ?? style.arrow.color}])}
+            {color: props.dropdownArrowColor ?? style.arrow.color}]}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>

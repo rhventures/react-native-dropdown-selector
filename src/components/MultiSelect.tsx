@@ -45,7 +45,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
+        style={[style.selectorBox, props.boxStyle]}
         onPress={() => updatePos(true)}
         ref={ref}
         onLayout={() => updatePos()}
@@ -53,31 +53,31 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         {selected.length
           ? selected.map((data) =>
               <View
-                style={StyleSheet.flatten([
+                style={[
                   style.selectedInMultiHighlight,
-                  props.boxTextHighlightStyle])}
+                  props.boxTextHighlightStyle]}
                 key={data.label.toString()}
               >
                 <Text
-                  style={StyleSheet.flatten([
+                  style={[
                     style.selectorText,
                     {marginVertical: 0},
-                    props.boxTextStyle])}
+                    props.boxTextStyle]}
                 >
                   {data.label}
                 </Text>
               </View>
             )
           : <Text
-              style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
+              style={[style.selectorText, props.boxTextStyle]}
             >
               {defaultText}
             </Text>
         }
         <Text
-          style={StyleSheet.flatten([
+          style={[
             style.arrow,
-            {color: props.dropdownArrowColor ?? style.arrow.color}])}
+            {color: props.dropdownArrowColor ?? style.arrow.color}]}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>

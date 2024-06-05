@@ -50,7 +50,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
         onPress={props.hide}
       >
         <View
-          style={StyleSheet.flatten([
+          style={[
             style.list,
             props.styles.list,
             windowHeight > windowWidth
@@ -68,7 +68,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
                   borderBottomLeftRadius: 0,
                   borderBottomRightRadius: 0,
                 },
-          ])}
+          ]}
         >
           <FlatList
             data={props.data}
@@ -86,14 +86,14 @@ const SelectionList = (props: ListProperties): JSX.Element => {
                     (props.onSelect as (e: Data[]) => void)(list);
                   }
                 }}
-                style={StyleSheet.flatten([
+                style={[
                   style.item,
                   (props.selected === item.label ||
                     (props.selected as Data[]).includes(item)) && [
                     style.itemSelected,
                     props.styles.itemSelected,
                   ],
-                ])}
+                ]}
               >
                 <Text style={[style.text, props.styles.text]}>
                   {item.label}
