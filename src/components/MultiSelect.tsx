@@ -26,7 +26,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       ];
     },
     ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
-    style = useColorScheme() === 'dark' ? styles[1] : styles[0],
+    style = styles[useColorScheme() === 'dark' ? 1 : 0],
     [pos, setPos]: [
       {'top': number, 'bottom': number},
       React.Dispatch<React.SetStateAction<{'top': number, 'bottom': number}>>
