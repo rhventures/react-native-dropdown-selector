@@ -14,7 +14,7 @@ import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): JSX.Element => {
-  const style = styles[useColorScheme() === 'dark' ? 1 : 0],
+  const style: typeof styles[0] = styles[useColorScheme() === 'dark' ? 1 : 0],
     windowHeight: number = Dimensions.get('window').height,
     windowWidth: number = Dimensions.get('window').width,
     [orientation, setOrientation]: [
@@ -73,17 +73,17 @@ const SelectionList = (props: ListProperties): JSX.Element => {
           <FlatList
             data={props.data}
             style={windowWidth > windowHeight && { marginBottom: 20 }}
-            renderItem={({ item }) => (
+            renderItem={({ item }): React.JSX.Element => (
               <TouchableOpacity
-                onPress={() => {
+                onPress={(): void => {
                   if (props.type === 'single') {
-                    (props.onSelect as (e: Data) => void)(item);
+                    (props.onSelect as (d: Data) => void)(item);
                     props.hide();
                   } else {
                     const list = (props.selected as Data[]).includes(item)
-                      ? (props.selected as Data[]).filter((i) => i !== item)
+                      ? (props.selected as Data[]).filter((d: Data): boolean => d !== item)
                       : [...(props.selected as Data[]), item];
-                    (props.onSelect as (e: Data[]) => void)(list);
+                    (props.onSelect as (d: Data[]) => void)(list);
                   }
                 }}
                 style={[

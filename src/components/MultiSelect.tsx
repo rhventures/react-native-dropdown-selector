@@ -26,13 +26,13 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       ];
     },
     ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
-    style = styles[useColorScheme() === 'dark' ? 1 : 0],
+    style: typeof styles[0] = styles[useColorScheme() === 'dark' ? 1 : 0],
     [pos, setPos]: [
       SelectorPos,
       React.Dispatch<React.SetStateAction<SelectorPos>>
     ] = useState<SelectorPos>({'top': 0, 'bottom': 0}),
     updatePos = (display: boolean = false): void => {
-      ref.current?.measureInWindow((_x, y, _width, height) => {
+      ref.current?.measureInWindow((_x, y, _width, height): void => {
         setPos({
           'top': y - (props.listHeight ?? 200) - 5,
           'bottom': y + height + 5
@@ -46,12 +46,12 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       <TouchableOpacity
         activeOpacity={1}
         style={[style.selectorBox, props.boxStyle]}
-        onPress={() => updatePos(true)}
+        onPress={(): void => updatePos(true)}
         ref={ref}
-        onLayout={() => updatePos()}
+        onLayout={(): void => updatePos()}
       >
         {selected.length
-          ? selected.map((data) =>
+          ? selected.map((data): React.JSX.Element =>
               <View
                 style={[
                   style.selectedInMultiHighlight,
@@ -95,7 +95,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         selected={selected}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
-        hide={() => setListDisplay(false)}
+        hide={(): void => setListDisplay(false)}
         selectorRef={ref}
         selectorPos={pos}
       />
