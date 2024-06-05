@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useColorScheme } from 'react-native'
 import {
   Dimensions,
   FlatList,
@@ -7,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  useColorScheme
 } from 'react-native';
 import styles from '../styles';
 import type { Data, ListProperties } from '../types';

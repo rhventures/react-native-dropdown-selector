@@ -1,7 +1,7 @@
-import {
-  type TextStyle,
-  type TouchableOpacity,
-  type ViewStyle,
+import type {
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
 } from 'react-native';
 
 export interface Data {
