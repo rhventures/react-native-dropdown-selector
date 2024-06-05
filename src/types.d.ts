@@ -42,7 +42,7 @@ export interface MultiSelectProperties {
   dropdownArrowColor?: string;
 }
 
-export interface SelectorProperties {
+export interface SelectProperties {
   data: Data[];
   onSelect: (e: Data) => void;
   defaultValue?: Data;

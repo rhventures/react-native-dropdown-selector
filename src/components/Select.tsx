@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
 import styles from '../styles';
-import type { Data, SelectorProperties } from '../types';
+import type { Data, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
-/* Renders a selector component. Takes in props defined in the SelectorProperties type. */
-const Select = (props: SelectorProperties): JSX.Element => {
+/* Renders a selector component. Takes in props defined in the SelectProperties type. */
+const Select = (props: SelectProperties): JSX.Element => {
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
