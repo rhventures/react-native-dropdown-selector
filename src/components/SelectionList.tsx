@@ -3,6 +3,7 @@ import {
   Dimensions,
   FlatList,
   Modal,
+  NativeSyntheticEvent,
   Text,
   TouchableOpacity,
   View,
@@ -34,14 +35,13 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
         'landscape-right',
       ]}
       animationType={windowWidth > windowHeight ? 'slide' : 'none'}
-      onOrientationChange={({
-        nativeEvent,
-      }: {
-        nativeEvent: { orientation: string };
-      }) => [
-        nativeEvent.orientation !== orientation && props.hide(),
-        setOrientation(nativeEvent.orientation),
-      ]}
+      onOrientationChange={(
+        { nativeEvent }: NativeSyntheticEvent<any>
+      ): void => {
+        if (nativeEvent.orientation !== orientation)
+          props.hide();
+        setOrientation(nativeEvent.orientation);
+      }}
     >
       <TouchableOpacity
         activeOpacity={1}
