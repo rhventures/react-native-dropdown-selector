@@ -14,6 +14,7 @@ describe("Integration Test", () => {
         context("Test Select with scrolling", ()=> {
             
         beforeEach("When the drop down selector is open", async () => {
+            await driver.pause(1000);
             const selector = await driver.$(dropdown);
             selector.click();                
             await driver.pause(3000);
@@ -22,40 +23,48 @@ describe("Integration Test", () => {
         it(`should display ${itemToTest[0]} is selected`, async () => {
             const Item3 = await driver.$(`accessibility id:${itemToTest[0]}`)
             Item3.click();
+            await driver.pause(500);
+    
             const selector = await driver.$(`accessibility id:${itemToTest[0]}, ᨆ`);
             await expect(selector).toExist();
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
-            console.log(selectorDisplay);
+            //console.log(selectorDisplay);
             await expect(selectorDisplay).toHaveText(itemToTest[0])
         })
         
         it(`should display ${itemToTest[1]} is selected`, async () => {
             const Item4 = await driver.$(`accessibility id:${itemToTest[1]}`)
             Item4.click();
+
+            await driver.pause(500);
+
             const selector = await driver.$(`accessibility id:${itemToTest[1]}, ᨆ`);
             await expect(selector).toExist();
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
-            console.log(selectorDisplay);
+            //console.log(selectorDisplay);
             await expect(selectorDisplay).toHaveText(itemToTest[1])
         })        
         
         it(`should display ${itemToTest[2]} is selected`, async () => {
-        await driver.action('pointer', {parameters: {pointerType: 'touch'}})
-        .move({duration : 0, x: scrollCoordinates['x'] , y: scrollCoordinates['y1']})
-        .down({button: 0})
-        .move({duration : 100, x: scrollCoordinates['x'] , y: scrollCoordinates['y2']})
-        .up({button: 0})
-        .perform();
+            await driver.action('pointer', {parameters: {pointerType: 'touch'}})
+            .move({duration : 0, x: scrollCoordinates['x'] , y: scrollCoordinates['y1']})
+            .down({button: 0})
+            .move({duration : 100, x: scrollCoordinates['x'] , y: scrollCoordinates['y2']})
+            .up({button: 0})
+            .perform();
+            await driver.pause(500);
         
             const Item6 = await driver.$(`accessibility id:${itemToTest[2]}`)
             Item6.click();
+            await driver.pause(500);
+
             const selector = await driver.$(`accessibility id:${itemToTest[2]}, ᨆ`);
             await expect(selector).toExist();
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
-            console.log(selectorDisplay);
+            //console.log(selectorDisplay);
             await expect(selectorDisplay).toHaveText(itemToTest[2])
         })
         
@@ -66,15 +75,18 @@ describe("Integration Test", () => {
             .move({duration : 100, x: scrollCoordinates['x'] , y: scrollCoordinates['y3']})
             .up({button: 0})
             .perform();
+            await driver.pause(500);
+
+            const ItemABC = await driver.$(`accessibility id:${itemToTest[3]}`)
+            ItemABC.click();
+            await driver.pause(500);
             
-                const ItemABC = await driver.$(`accessibility id:${itemToTest[3]}`)
-                ItemABC.click();
-                const selector = await driver.$(`accessibility id:${itemToTest[3]}, ᨆ`);
-                await expect(selector).toExist();
-                
-                const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
-                console.log(selectorDisplay);
-                await expect(selectorDisplay).toHaveText(itemToTest[3])
+            const selector = await driver.$(`accessibility id:${itemToTest[3]}, ᨆ`);
+            await expect(selector).toExist();
+            
+            const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
+            //console.log(selectorDisplay);
+            await expect(selectorDisplay).toHaveText(itemToTest[3])
             })
         })
     }
