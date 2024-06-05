@@ -32,17 +32,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
       string,
       React.Dispatch<React.SetStateAction<string>>
     ] = useState<string>(windowHeight > windowWidth ? 'portrait' : 'landscape'),
-    pos: {
-      top: number;
-      bottom: number;
-    } = { top: 0, bottom: 0 },
     style = useColorScheme() === 'dark' ? styles[1] : styles[0];
-
-  props.selectorRef.current?.measureInWindow((_x, y, _width, height) => {
-    pos.top = y - props.listHeight;
-    pos.bottom = y + height;
-    console.log('remeasured');
-  });
 
   return (
     <Modal
@@ -73,9 +63,9 @@ const SelectionList = (props: ListProperties): JSX.Element => {
         <View
           onLayout={(e: LayoutChangeEvent) => {
             const newHeight =
-              windowHeight - pos.bottom < props.listHeight
-                ? pos.top - 5
-                : pos.bottom + 5;
+              windowHeight - props.selectorPos.bottom < props.listHeight
+                ? props.selectorPos.top - 5
+                : props.selectorPos.bottom + 5;
             setHeightChecked(
               listHeight === newHeight || windowWidth > windowHeight
             );
@@ -88,7 +78,6 @@ const SelectionList = (props: ListProperties): JSX.Element => {
               ? {
                   maxHeight: props.listHeight,
                   marginTop: listHeight,
-                  opacity: heightChecked ? 1 : 0,
                 }
               : {
                   height: windowHeight - 40,

@@ -43,6 +43,8 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
           'bottom': pos.bottom = y + height
         });
         setListDisplay(true);
+        console.log('MultiSelect:');
+        console.log(pos);
       });
     };
 
