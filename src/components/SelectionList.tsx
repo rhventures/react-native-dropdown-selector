@@ -101,20 +101,22 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             )}
           />
         </View>
-        <View
-          style={{
-            ...style.clearButton,
-            top: props.selectorPos.bottom + props.listHeight < windowHeight
-                    ? props.selectorPos.top + props.listHeight - 40
-                    : props.selectorPos.bottom,
-          }}
-        >
-          <Text
-            style={style.clearIcon}
+        {props.type === 'multi' && (props.selected as Data[]).length ?
+          <View
+            style={{
+              ...style.clearButton,
+              top: props.selectorPos.bottom + props.listHeight < windowHeight
+                ? props.selectorPos.top + props.listHeight - 40
+                : props.selectorPos.bottom,
+            }}
           >
-            {'×'}
-          </Text>
-        </View>
+            <Text
+              style={style.clearIcon}
+            >
+              {'×'}
+            </Text>
+          </View> : undefined
+        }
       </TouchableOpacity>
     </Modal>
   );
