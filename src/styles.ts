@@ -50,6 +50,7 @@ const light = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 0.5,
     borderRadius: 8,
+    right: 5,
   },
   clearIcon: {
     alignSelf: 'center',
@@ -131,6 +132,7 @@ const dark = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 0.5,
     borderRadius: 8,
+    right: 5,
   },
   clearIcon: {
     alignSelf: 'center',

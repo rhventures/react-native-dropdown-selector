@@ -102,7 +102,12 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
           />
         </View>
         <View
-          style={style.clearButton}
+          style={{
+            ...style.clearButton,
+            top: props.selectorPos.bottom + props.listHeight < windowHeight
+                    ? props.selectorPos.top + props.listHeight - 40
+                    : props.selectorPos.bottom,
+          }}
         >
           <Text
             style={style.clearIcon}
