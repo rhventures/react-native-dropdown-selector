@@ -14,6 +14,7 @@ describe("Scrolling", ()=> {
         context("scrolling through the drop down bar", () => {
             
             beforeEach(async () => {
+                await driver.pause(1000);
                 const dropDownButton = await driver.$(SelectorArrow);
                 dropDownButton.click();
                 // do not use mouse actions on before each. 
@@ -33,6 +34,7 @@ describe("Scrolling", ()=> {
                     .down({button: 0})
                     .up({button: 0})
                     .perform();
+                await driver.pause(500);
             })
             
             function testNumberOfItems(selector){
@@ -68,6 +70,8 @@ describe("Scrolling", ()=> {
                     .move({duration : 100, x: scrollCoordinate['x'], y: scrollCoordinate['y2']})
                     .up({button: 0})
                     .perform();
+
+                    await driver.pause(500);
                     
                     
                     const list = ['Item 5', 'Item 6', 'Item 8', 'abc', 123];

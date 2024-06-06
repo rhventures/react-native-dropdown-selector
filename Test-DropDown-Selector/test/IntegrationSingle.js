@@ -30,6 +30,7 @@ describe("Integration Test", () => {
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
             //console.log(selectorDisplay);
+            await selectorDisplay.waitForExist(500);
             await expect(selectorDisplay).toHaveText(itemToTest[0])
         })
         
@@ -44,14 +45,15 @@ describe("Integration Test", () => {
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
             //console.log(selectorDisplay);
+            await selectorDisplay.waitForExist(500);
             await expect(selectorDisplay).toHaveText(itemToTest[1])
         })        
         
         it(`should display ${itemToTest[2]} is selected`, async () => {
             await driver.action('pointer', {parameters: {pointerType: 'touch'}})
-            .move({duration : 0, x: scrollCoordinates['x'] , y: scrollCoordinates['y1']})
+            .move({duration : 100, x: scrollCoordinates['x'] , y: scrollCoordinates['y1']})
             .down({button: 0})
-            .move({duration : 100, x: scrollCoordinates['x'] , y: scrollCoordinates['y2']})
+            .move({duration : 500, x: scrollCoordinates['x'] , y: scrollCoordinates['y2']})
             .up({button: 0})
             .perform();
             await driver.pause(500);
@@ -65,14 +67,15 @@ describe("Integration Test", () => {
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
             //console.log(selectorDisplay);
+            await selectorDisplay.waitForExist(500);
             await expect(selectorDisplay).toHaveText(itemToTest[2])
         })
         
         it(`should display ${itemToTest[3]} is selected`, async () => {
             await driver.action('pointer', {parameters: {pointerType: 'touch'}})
-            .move({duration : 0, x: scrollCoordinates['x'] , y: scrollCoordinates['y1']})
+            .move({duration : 100, x: scrollCoordinates['x'] , y: scrollCoordinates['y1']})
             .down({button: 0})
-            .move({duration : 100, x: scrollCoordinates['x'] , y: scrollCoordinates['y3']})
+            .move({duration : 500, x: scrollCoordinates['x'] , y: scrollCoordinates['y3']})
             .up({button: 0})
             .perform();
             await driver.pause(500);
@@ -86,6 +89,7 @@ describe("Integration Test", () => {
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
             //console.log(selectorDisplay);
+            await selectorDisplay.waitForExist(500);
             await expect(selectorDisplay).toHaveText(itemToTest[3])
             })
         })

@@ -29,8 +29,8 @@ export const config = {
         // './test/SmallSingleSelect.js',
         // './test/MultiSelect.js',
         // './test/Technical.js',
-         './test/IntegrationSingle.js',
-        // './test/IntegrationMulti.js',
+        //  './test/IntegrationSingle.js',
+        './test/IntegrationMulti.js',
     ],
     // Patterns to exclude.
     exclude: [
