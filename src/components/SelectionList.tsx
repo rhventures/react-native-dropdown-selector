@@ -3,7 +3,6 @@ import {
   Dimensions,
   FlatList,
   Modal,
-  NativeSyntheticEvent,
   Text,
   TouchableOpacity,
   View,
