@@ -1,8 +1,8 @@
 describe("Integration test for the multi selector", () => {
 
-    const itemCombo = [['Item 3', 'Item 8']]
+    const itemCombo = [['Item 3', 'Item 8', 'Item 7']]
     const multiSelectArrow = '-android uiautomator:new UiSelector().text(\"ᨆ\").instance(2)';
-    const scrollCoordinatesSet = {'x' :645, 'y1': 2320, 'y2': 1715};
+    const scrollCoordinatesSet = [{'x' :645, 'y1': 2320, 'y2': 1715},{'x' :625, 'y1': 1810, 'y2': 2445}];
     multipleItemSelectTest(itemCombo, multiSelectArrow, scrollCoordinatesSet);
 
     function multipleItemSelectTest(itemCombo, dropDownArrow, scrollCoordinates){
@@ -16,13 +16,22 @@ describe("Integration test for the multi selector", () => {
                 await driver.pause(3000);
             })
 
-            function scroll(){
+            function downScroll(){
                 return driver.action('pointer', {parameters: {pointerType: 'touch'}})
-                .move({duration : 100, x: scrollCoordinates['x'] , y: scrollCoordinates['y1']})
+                .move({duration : 100, x: scrollCoordinates[0]['x'] , y: scrollCoordinates[0]['y1']})
                 .down({button: 0})
-                .move({duration : 500, x: scrollCoordinates['x'] , y: scrollCoordinates['y2']})
+                .move({duration : 500, x: scrollCoordinates[0]['x'] , y: scrollCoordinates[0]['y2']})
                 .up({button: 0});
             }
+
+            function upScroll(){
+                return driver.action('pointer', {parameters: {pointerType: 'touch'}})
+                .move({duration : 100, x: scrollCoordinates[1]['x'] , y: scrollCoordinates[1]['y1']})
+                .down({button: 0})
+                .move({duration : 500, x: scrollCoordinates[1]['x'] , y: scrollCoordinates[1]['y2']})
+                .up({button: 0});
+            }
+
             function getBackScreen() {
                 return '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(3)';
             }
@@ -32,23 +41,49 @@ describe("Integration test for the multi selector", () => {
             function getItemGroup(){
                 return '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(5)';
             }
+
             multipleItemTest(itemCombo[0]);
         
             function multipleItemTest(items){
                 it(`should have ${items.join(', ')} selected`, async () => {
                     //Finding the Currently displaying Items on the list
-                    const group = await driver.$(getItemGroup());
-                    const displayedContent = await group.$$('.android.view.ViewGroup');
-                    const displayedItemList = [];
+                    var top = true;
+                    var group = await driver.$(getItemGroup());
+                    var displayedContent = await group.$$('.android.view.ViewGroup');
+                    var displayedItemList = [];
                     for(let i = 1; i< displayedContent.length; i+=2){
                         displayedItemList.push(await displayedContent[i].getAttribute('content-desc'));
                     }
                     console.log(displayedItemList);
 
                     for(let i = 0; i < items.length; i ++){
-                        if(displayedItemList.indexOf(items[i]) == -1){
-                            await scroll().perform();
+                        if(displayedItemList.indexOf(items[i]) == -1 && top){
+                            await downScroll().perform();
+                            driver.pause(1000);
+                            group = await driver.$(getItemGroup());
+                            displayedContent = await group.$$('.android.view.ViewGroup');
+                            displayedItemList = [];
+                            for(let i = 1; i< displayedContent.length; i+=2){
+                                displayedItemList.push(await displayedContent[i].getAttribute('content-desc'));
+                            }
+                            console.log(displayedItemList);
+                            top = false;
+                            driver.pause(1000);
                         }
+                        else if(displayedItemList.indexOf(items[i]) == -1 && !top){
+                            await upScroll().perform();
+                            driver.pause(1000);
+                            group = await driver.$(getItemGroup());
+                            displayedContent = await group.$$('.android.view.ViewGroup');
+                            displayedItemList = [];
+                            for(let i = 1; i< displayedContent.length; i+=2){
+                                displayedItemList.push(await displayedContent[i].getAttribute('content-desc'));
+                            }
+                            console.log(displayedItemList);
+                            top = true;
+                            driver.pause(1000);
+                        }
+                        
                         const item = await driver.$(`accessibility id:${items[i]}`);
                         //await item.waitForExist(1000);
                         item.click();
