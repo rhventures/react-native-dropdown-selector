@@ -1,5 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View, useColorScheme,
+  type LayoutChangeEvent
+} from 'react-native';
 import styles from '../styles';
 import type { Data, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
@@ -40,7 +46,9 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       ];
     },
     ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
-    style = useColorScheme() === 'dark' ? styles[1] : styles[0];
+    style = useColorScheme() === 'dark' ? styles[1] : styles[0],
+    [overflowNotif, setOverflowNotif] = useState<number>(0);
+
 
   return (
     <View>
@@ -49,6 +57,9 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
         onPress={clickSelector}
         ref={ref}
+        onLayout={(e: LayoutChangeEvent) => {
+          setOverflowNotif(overflowNotif ? 0 : 1);
+        }}
       >
         {selected === defaultText
           ? <Text
@@ -70,7 +81,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
                   {str}
                 </Text>
               </View>
-            )}
+          )}
         <Text
           style={style.arrow}
         >
@@ -93,6 +104,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         display={listDisplay}
         setDisplay={setListDisplay}
         selectorRef={ref}
+        overflowNotif={overflowNotif}
       />
     </View>
   );

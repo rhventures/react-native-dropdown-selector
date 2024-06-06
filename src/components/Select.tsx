@@ -72,6 +72,7 @@ const Select = (props: SelectorProperties): JSX.Element => {
         display={listDisplay}
         setDisplay={setListDisplay}
         selectorRef={ref}
+        overflowNotif={0}
       />
     </View>
   );
