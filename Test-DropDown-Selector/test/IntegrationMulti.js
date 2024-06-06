@@ -1,9 +1,7 @@
-import { back } from "appium-uiautomator2-driver/build/lib/commands/navigation";
-
 describe("Integration test for the multi selector", () => {
 
     const itemCombo = [['Item 3', 'Item 7'], ['Item 4', 'Item 2'], ['Item 1', 'Item 2', 'Item 3']
-    ,['Item 5', 'Item 8'], ['Item 6', '123', 'abc']]
+    ,['Item 5', 'Item 8'], ['Item 6', 'Item 5', 'Item 8']]
     const multiSelectArrow = '-android uiautomator:new UiSelector().text(\"ᨆ\").instance(2)';
     const scrollCoordinatesSet = [{'x' :645, 'y1': 2320, 'y2': 1715}];
     multipleItemSelectTest(itemCombo, multiSelectArrow, scrollCoordinatesSet);
@@ -11,14 +9,6 @@ describe("Integration test for the multi selector", () => {
     function multipleItemSelectTest(itemCombo, dropDownArrow, scrollCoordinates){
         context("When choosing multiple items at once", () => {
             
-            beforeEach(async () => {
-                await driver.pause(2000);
-                const multiSelector = await driver.$(dropDownArrow);
-                //multiSelector.waitForExist(1000);
-                multiSelector.click();
-                await driver.pause(3000);
-            })
-
             function scroll(scrollCoordinates){
                 return driver.action('pointer', {parameters: {pointerType: 'touch'}})
                 .move({duration : 100, x: scrollCoordinates['x'] , y: scrollCoordinates['y1']})
@@ -29,10 +19,21 @@ describe("Integration test for the multi selector", () => {
             function getBackScreen() {
                 return '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(3)';
             }
+            function getSelector(){
+                return '-android uiautomator:new UiSelector().description("Click me, ᨆ").instance(1)';
+            }
 
-            //multipleItemTest(itemCombo[0]);
-            //multipleItemTest(itemCombo[1]);
-            //multipleItemTest(itemCombo[2]);
+            beforeEach(async () => {
+                await driver.pause(2000);
+                const multiSelector = await driver.$(dropDownArrow);
+                //multiSelector.waitForExist(1000);
+                multiSelector.click();
+                await driver.pause(3000);
+            })
+
+            multipleItemTest(itemCombo[0]);
+            multipleItemTest(itemCombo[1]);
+            multipleItemTest(itemCombo[2]);
             multipleItemTest(itemCombo[3], scrollCoordinates[0]);
             multipleItemTest(itemCombo[4], scrollCoordinates[0]);
         
@@ -82,6 +83,11 @@ describe("Integration test for the multi selector", () => {
                     //await Screen.waitForExist(1000);
                     Screen.click();
                     await driver.pause(500);
+
+                    const originalSelector = await driver.$(getSelector());
+                    const originalSelectorDisplay = await originalSelector.$$('.android.widget.TextView')[0];
+
+                    await expect(originalSelectorDisplay).toHaveText('Click me');
                 })
             }
         })

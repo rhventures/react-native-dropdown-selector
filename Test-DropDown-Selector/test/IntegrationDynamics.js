@@ -1,0 +1,99 @@
+describe("Integration test for the multi selector", () => {
+
+    const itemCombo = [['Item 3', 'Item 8']]
+    const multiSelectArrow = '-android uiautomator:new UiSelector().text(\"ᨆ\").instance(2)';
+    const scrollCoordinatesSet = {'x' :645, 'y1': 2320, 'y2': 1715};
+    multipleItemSelectTest(itemCombo, multiSelectArrow, scrollCoordinatesSet);
+
+    function multipleItemSelectTest(itemCombo, dropDownArrow, scrollCoordinates){
+        context("When choosing multiple items at once", () => {
+            
+            beforeEach(async () => {
+                await driver.pause(2000);
+                const multiSelector = await driver.$(dropDownArrow);
+                //multiSelector.waitForExist(1000);
+                multiSelector.click();
+                await driver.pause(3000);
+            })
+
+            function scroll(){
+                return driver.action('pointer', {parameters: {pointerType: 'touch'}})
+                .move({duration : 100, x: scrollCoordinates['x'] , y: scrollCoordinates['y1']})
+                .down({button: 0})
+                .move({duration : 500, x: scrollCoordinates['x'] , y: scrollCoordinates['y2']})
+                .up({button: 0});
+            }
+            function getBackScreen() {
+                return '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(3)';
+            }
+            function getSelector(){
+                return '-android uiautomator:new UiSelector().description("Click me, ᨆ").instance(1)';
+            }
+            function getItemGroup(){
+                return '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(5)';
+            }
+            multipleItemTest(itemCombo[0]);
+        
+            function multipleItemTest(items){
+                it(`should have ${items.join(', ')} selected`, async () => {
+                    //Finding the Currently displaying Items on the list
+                    const group = await driver.$(getItemGroup());
+                    const displayedContent = await group.$$('.android.view.ViewGroup');
+                    const displayedItemList = [];
+                    for(let i = 1; i< displayedContent.length; i+=2){
+                        displayedItemList.push(await displayedContent[i].getAttribute('content-desc'));
+                    }
+                    console.log(displayedItemList);
+
+                    for(let i = 0; i < items.length; i ++){
+                        if(displayedItemList.indexOf(items[i]) == -1){
+                            await scroll().perform();
+                        }
+                        const item = await driver.$(`accessibility id:${items[i]}`);
+                        //await item.waitForExist(1000);
+                        item.click();
+                        await driver.pause(500);
+                    }
+
+                    // const backScreen = await driver.$(getBackScreen());
+                    // //await backScreen.waitForExist(1000);
+                    // backScreen.click();
+                    // await driver.pause(500);
+
+                    // const selector = await driver.$(`accessibility id:${items.join(', ')}, ᨆ`);
+                    // //await selector.waitForExist(1000);
+                    // const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
+                    // await selectorDisplay.waitForExist(500);
+
+                    // await expect(selectorDisplay).toHaveText(items.join(', '));
+
+                    // const multiSelector = await driver.$(dropDownArrow);
+                    // //await multiSelector.waitForExist(1000);
+                    // multiSelector.click();
+                    // await driver.pause(1000);
+
+                    // if(scrollCoordinates != null){
+                    //     await scroll(scrollCoordinates).perform();
+                    //     await driver.pause(500);
+                    // }
+
+                    // for(let i = 0; i < items.length; i ++){
+                    //     const item = await driver.$(`accessibility id:${items[i]}`);
+                    //     //await item.waitForExist(1000);
+                    //     item.click();
+                    //     await driver.pause(500);
+                    // } 
+                    // const Screen = await driver.$(getBackScreen());
+                    // //await Screen.waitForExist(1000);
+                    // Screen.click();
+                    // await driver.pause(500);
+
+                    // const originalSelector = await driver.$(getSelector());
+                    // const originalSelectorDisplay = await originalSelector.$$('.android.widget.TextView')[0];
+
+                    // await expect(originalSelectorDisplay).toHaveText('Click me');
+                })
+            }
+        })
+    }
+})
