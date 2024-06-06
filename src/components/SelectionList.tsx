@@ -15,11 +15,7 @@ import type { Data, ListProperties } from '../types';
 const SelectionList = (props: ListProperties): React.JSX.Element => {
   const style: typeof styles[0] = styles[useColorScheme() === 'dark' ? 1 : 0],
     windowHeight: number = Dimensions.get('window').height,
-    windowWidth: number = Dimensions.get('window').width,
-    [orientation, setOrientation]: [
-      string,
-      React.Dispatch<React.SetStateAction<string>>
-    ] = useState<string>(windowHeight > windowWidth ? 'portrait' : 'landscape');
+    windowWidth: number = Dimensions.get('window').width;
 
   return (
     <Modal
@@ -34,13 +30,6 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
         'landscape-right',
       ]}
       animationType={windowWidth > windowHeight ? 'slide' : 'none'}
-      onOrientationChange={(
-        { nativeEvent }: { nativeEvent: { orientation: string } }
-      ): void => {
-        if (nativeEvent.orientation !== orientation)
-          props.hide();
-        setOrientation(nativeEvent.orientation);
-      }}
     >
       <TouchableOpacity
         activeOpacity={1}
