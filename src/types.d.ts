@@ -1,34 +1,29 @@
-import type {
-  TextStyle,
-  TouchableOpacity,
-  ViewStyle,
+import {
+  type TextStyle,
+  type TouchableOpacity,
+  type ViewStyle,
 } from 'react-native';
 
 export interface Data {
-  label: string | React.JSX.Element;
+  label: string | JSX.Element;
   priority?: boolean;
-}
-
-export interface SelectorPos {
-  top: number;
-  bottom: number;
+  data?: object;
 }
 
 export interface ListProperties {
   styles: {
-    list?: ViewStyle;
-    text?: TextStyle;
-    itemSelected?: TextStyle;
+    list: ViewStyle | undefined;
+    text: TextStyle | undefined;
+    itemSelected: TextStyle | undefined;
   };
   data: Data[];
   type: 'single' | 'multi';
   onSelect: ((e: Data) => void) | ((e: Data[]) => void);
-  selected: Data[] | string | React.JSX.Element;
+  selected: string | JSX.Element;
   listHeight: number;
   display: boolean;
-  hide: () => void;
+  setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
   selectorRef: React.RefObject<TouchableOpacity>;
-  selectorPos: SelectorPos;
 }
 
 export interface MultiSelectProperties {
@@ -36,26 +31,23 @@ export interface MultiSelectProperties {
   onSelect: (e: Data[]) => void;
   defaultValue?: Data[];
   listHeight?: number;
-  placeholderText?: string | React.JSX.Element;
+  placeholderText?: string | JSX.Element;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
-  boxTextHighlightStyle?: ViewStyle;
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
-  dropdownArrowColor?: string;
 }
 
-export interface SelectProperties {
+export interface SelectorProperties {
   data: Data[];
   onSelect: (e: Data) => void;
   defaultValue?: Data;
   listHeight?: number;
-  placeholderText?: string | React.JSX.Element;
+  placeholderText?: string | JSX.Element;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
-  dropdownArrowColor?: string;
 }

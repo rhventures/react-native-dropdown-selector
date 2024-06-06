@@ -1,22 +1,36 @@
 import React, { useRef, useState } from 'react';
-import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
 import styles from '../styles';
-import type { Data, SelectorPos, MultiSelectProperties } from '../types';
+import type { Data, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
-/* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
-const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
+const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
   const [listDisplay, setListDisplay]: [
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
     ] = useState<boolean>(false),
-    defaultText: string | React.JSX.Element = props.placeholderText ?? 'Click me',
+    defaultText: string | JSX.Element = props.placeholderText ?? 'Click me',
     [selected, setSelected]: [
-      Data[],
-      React.Dispatch<React.SetStateAction<Data[]>>
-    ] = useState<Data[]>([]),
+      string | JSX.Element,
+      React.Dispatch<React.SetStateAction<string | JSX.Element>>
+    ] = useState<string | JSX.Element>(
+      props.defaultValue
+        ? props.defaultValue
+            .map((item: Data): string | JSX.Element => item.label)
+            .join(', ')
+        : defaultText
+    ),
+    clickSelector = (): void => {
+      setListDisplay(!listDisplay);
+    },
     selectItem = (items: Data[]): void => {
-      setSelected(items);
+      setSelected(
+        items.length > 0
+          ? items
+              .map((item: Data): string | JSX.Element => item?.label)
+              .join(', ')
+          : defaultText
+      );
       props.onSelect(items);
     },
     updatePriorities = (data: Data[]): Data[] => {
@@ -26,81 +40,59 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
       ];
     },
     ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
-    style: typeof styles[0] = styles[useColorScheme() === 'dark' ? 1 : 0],
-    [pos, setPos]: [
-      SelectorPos,
-      React.Dispatch<React.SetStateAction<SelectorPos>>
-    ] = useState<SelectorPos>({'top': 0, 'bottom': 0}),
-    updatePos = (display: boolean = false): void => {
-      ref.current?.measureInWindow((_x, y, _width, height): void => {
-        setPos({
-          'top': y - (props.listHeight ?? 200) - 5,
-          'bottom': y + height + 5
-        });
-        if (display)
-          setListDisplay(true);
-      });
-    };
+    style = useColorScheme() === 'dark' ? styles[1] : styles[0];
 
   return (
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={[style.selectorBox, props.boxStyle]}
-        onPress={(): void => updatePos(true)}
+        style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
+        onPress={clickSelector}
         ref={ref}
-        onLayout={(): void => updatePos()}
       >
-        {selected.length
-          ? selected.map((data): React.JSX.Element =>
-              <View
-                key={data.label as string}
-                style={[
-                  style.selectedInMultiHighlight,
-                  props.boxTextHighlightStyle,
-                ]}
-              >
-                <Text
-                  style={{
-                    ...style.selectorText,
-                    marginVertical: 0,
-                    ...props.boxTextStyle,
-                  }}
-                >
-                  {data.label}
-                </Text>
-              </View>
-            )
-          : <Text
-              style={[style.selectorText, props.boxTextStyle]}
+        {selected === defaultText
+          ? <Text
+              style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
+              numberOfLines={1}
             >
               {defaultText}
             </Text>
-        }
+          : (selected as string)
+            .split(', ')
+            .map((str) =>
+              <View 
+                style={style.selectedInMultiHighlight}
+                key={str}
+              >
+                <Text
+                  style={style.selectedInMulti}
+                >
+                  {str}
+                </Text>
+              </View>
+            )}
         <Text
-          style={{
-            ...style.arrow,
-            color: props.dropdownArrowColor ?? style.arrow.color,
-          }}
+          style={style.arrow}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>
       </TouchableOpacity>
       <SelectionList
         styles={{
-          list: props.listStyle,
-          text: props.listTextStyle,
-          itemSelected: props.selectedItemStyle,
+          list: props.listStyle ? props.listStyle : undefined,
+          text: props.listTextStyle ? props.listTextStyle : undefined,
+          itemSelected: props.selectedItemStyle
+            ? props.selectedItemStyle
+            : undefined,
         }}
         data={updatePriorities(props.data)}
         type="multi"
         onSelect={selectItem}
-        selected={selected}
-        listHeight={props.listHeight ?? 200}
+        selected={selected || ''}
+        listHeight={props.listHeight ? props.listHeight : 200}
         display={listDisplay}
-        hide={(): void => setListDisplay(false)}
+        setDisplay={setListDisplay}
         selectorRef={ref}
-        selectorPos={pos}
       />
     </View>
   );
