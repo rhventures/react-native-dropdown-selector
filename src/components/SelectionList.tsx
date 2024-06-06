@@ -101,6 +101,15 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             )}
           />
         </View>
+        <View
+          style={style.clearButton}
+        >
+          <Text
+            style={style.clearIcon}
+          >
+            {'×'}
+          </Text>
+        </View>
       </TouchableOpacity>
     </Modal>
   );
