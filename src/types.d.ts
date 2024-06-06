@@ -16,9 +16,9 @@ export interface SelectorPos {
 
 export interface ListProperties {
   styles: {
-    list: ViewStyle | undefined;
-    text: TextStyle | undefined;
-    itemSelected: TextStyle | undefined;
+    list?: ViewStyle;
+    text?: TextStyle;
+    itemSelected?: TextStyle;
   };
   data: Data[];
   type: 'single' | 'multi';
