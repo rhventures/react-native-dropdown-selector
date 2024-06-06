@@ -47,10 +47,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
     },
     ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
     style = useColorScheme() === 'dark' ? styles[1] : styles[0],
-    [overflowNotif, setOverflowNotif]: [
-      number,
-      React.Dispatch<React.SetStateAction<number>>
-    ] = useState<number>(0);
+    [overflowNotif, setOverflowNotif] = useState<number>(0);
 
 
   return (
