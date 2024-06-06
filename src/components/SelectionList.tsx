@@ -101,7 +101,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
             windowHeight > windowWidth
               ? {
                   maxHeight: props.listHeight,
-                  marginTop: listHeight,
+                  marginTop: listHeight + props.overflowNotif,
                   opacity: heightChecked ? 1 : 0,
                 }
               : {
