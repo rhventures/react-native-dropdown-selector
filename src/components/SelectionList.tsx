@@ -36,7 +36,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
       ]}
       animationType={windowWidth > windowHeight ? 'slide' : 'none'}
       onOrientationChange={(
-        { nativeEvent }: NativeSyntheticEvent<any>
+        { nativeEvent }: { nativeEvent: { orientation: string } }
       ): void => {
         if (nativeEvent.orientation !== orientation)
           props.hide();
