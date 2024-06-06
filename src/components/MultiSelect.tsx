@@ -37,7 +37,8 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
           'top': y - (props.listHeight ?? 200) - 5,
           'bottom': y + height + 5
         });
-        if (display) setListDisplay(true);
+        if (display)
+          setListDisplay(true);
       });
     };
 
@@ -53,11 +54,11 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         {selected.length
           ? selected.map((data): React.JSX.Element =>
               <View
+                key={data.label as string}
                 style={[
                   style.selectedInMultiHighlight,
                   props.boxTextHighlightStyle,
                 ]}
-                key={data.label.toString()}
               >
                 <Text
                   style={{
