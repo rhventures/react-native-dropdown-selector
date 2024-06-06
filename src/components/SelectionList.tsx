@@ -79,10 +79,11 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                     (props.onSelect as (d: Data) => void)(item);
                     props.hide();
                   } else {
-                    const list = (props.selected as Data[]).includes(item)
-                      ? (props.selected as Data[]).filter((d: Data): boolean => d !== item)
-                      : [...(props.selected as Data[]), item];
-                    (props.onSelect as (d: Data[]) => void)(list);
+                    const selected: Data[] = props.selected as Data[],
+                      newSelected: Data[] = selected.includes(item)
+                        ? selected.filter((d: Data): boolean => d !== item)
+                        : [...selected, item];
+                    (props.onSelect as (d: Data[]) => void)(newSelected);
                   }
                 }}
                 style={[
