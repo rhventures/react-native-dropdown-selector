@@ -88,11 +88,11 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                 }}
                 style={[
                   style.item,
-                  (props.selected === item.label ||
-                    (props.selected as Data[]).includes(item)) && [
-                    style.itemSelected,
-                    props.styles.itemSelected,
-                  ],
+                  (props.selected === item.label || (props.selected as Data[]).includes(item))
+                    && [
+                      style.itemSelected,
+                      props.styles.itemSelected,
+                    ],
                 ]}
               >
                 <Text style={[style.text, props.styles.text]}>
