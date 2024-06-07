@@ -17,7 +17,7 @@ https://appium.io/docs/en/latest/intro/
 
 ## Android Setup
 -   [Install Android Studio](https://developer.android.com/studio?hl=es-419&gclsrc=aw.ds&gclid=Cj0KCQjwyOuYBhCGARIsAIdGQRNrDv20QvoOy_-I5E1LoZdOLu3nvhlwX_7EjPeHcE1kGQNNcIVOme0aAqckEALw_wcB) 
--   [Android Home Setup](https://www.testingdocs.com/setting-android_home-environment-variable-on-windows)
+-   [Android Home Setup](https://www.testingdocs.com/setting-android_home-environment-variable-on-windows) -> this could already be done if you have android studio set up already.
 
 ### Install Appium Inspector
 -   [Download the compatable Appium Inspector here](https://github.com/appium/appium-inspector/releases)
@@ -55,6 +55,20 @@ You can check the installed drivers using:
 appium driver list
 ```
 
+### Generate a debug app to test.
+If you already have the app as an apk file, then you can skip this step
+
+If you do not have an apk file to test:
+1. cd into your root of the project terminal and run:
+```
+react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+```
+2. cd into your android directory and run:
+```
+./gradlew assembleDebug
+```
+3. You should be able to find your app-debug.apk inside
+yourProject/android/app/build/outputs/apk/debug/app-debug.apk
 
 
 
