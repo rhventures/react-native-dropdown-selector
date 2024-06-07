@@ -103,7 +103,7 @@ This will trigger the installation process. Now move on to the configurations
 ## Configure your wdio.config.js file
 There should be a **wdio.conf.js** file generated in the testing folder you previously created
 
-Now in create a folder named test in newly made testing folder. This is where all the test files will go.
+Now in create a folder named **test** in newly made testing folder. This is where all the test files will go.
 Anything not mentioned here can be left as default
 
 -   **local** : 4723
