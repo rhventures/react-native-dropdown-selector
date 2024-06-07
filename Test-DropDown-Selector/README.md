@@ -100,7 +100,7 @@ This will trigger the installation process. Now move on to the configurations
 - Run npm install
 - Continue with Appium setup using appium-installer?: NO
 
-### configure your wdio.config.js file
+## Configure your wdio.config.js file
 There should be a **wdio.conf.js** file generated in the testing folder you previously created
 
 Now in create a folder named test in newly made testing folder. This is where all the test files will go.
@@ -121,6 +121,7 @@ specs : [
     -   **appium:platformVersion**: Check your Android Studio
     -   **appium:automationName**: UiAutomator2
     -   **appium:app**: the path to the debug app you generated earlier.
+
 My code snippet looks like:
 ```
 capabilities: [{
@@ -132,6 +133,17 @@ capabilities: [{
         'appium:app': "C:/Users/jungh/app-debug.apk",
     }],
 ```
+-   **framework** : Make sure this is *mocha*
+-   **mochaOpts** : the timeout here sets the time limit on the test case.
+    -   I set mine to :
+    ```
+    mochaOpts: {
+        ui: 'bdd',
+        timeout: 60000
+    },
+    ```
+-   Remaning can be left default
+
 
 
 
