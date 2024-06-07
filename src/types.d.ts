@@ -1,7 +1,6 @@
 import {
   type ColorValue,
   type TextStyle,
-  type TouchableOpacity,
   type ViewStyle,
 } from 'react-native';
 
