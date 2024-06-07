@@ -27,7 +27,7 @@ const Select = (props: SelectProperties) => {
       ref.current?.measureInWindow((_x, y, _width, height) => {
         setPos({
           top: y - (props.listHeight ?? 200) - 5,
-          bottom: y + height + 5
+          bottom: y + height + 5,
         });
         setListDisplay(true);
       });
