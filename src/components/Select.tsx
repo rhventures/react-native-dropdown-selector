@@ -5,37 +5,28 @@ import type { Data, SelectorPos, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
-const Select = (props: SelectProperties): React.JSX.Element => {
-  const [listDisplay, setListDisplay]: [
-      boolean,
-      React.Dispatch<React.SetStateAction<boolean>>
-    ] = useState<boolean>(false),
-    [selected, setSelected]: [
-      Data,
-      React.Dispatch<React.SetStateAction<Data>>
-    ] = useState<Data>(
+const Select = (props: SelectProperties) => {
+  const [listDisplay, setListDisplay] = useState<boolean>(false),
+    [selected, setSelected] = useState<Data>(
       props.defaultValue && props.data.includes(props.defaultValue)
         ? props.defaultValue
         : {label: props.placeholderText ?? 'Click me'}
     ),
-    selectItem = (item: Data): void => {
+    selectItem = (item: Data) => {
       setSelected(item);
       props.onSelect(item);
     },
-    updatePriorities = (data: Data[]): Data[] => {
+    updatePriorities = (data: Data[]) => {
       return [
         ...data.filter((d: Data): boolean => !!d.priority),
         ...data.filter((d: Data): boolean => !d.priority),
       ];
     },
-    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
-    style: typeof styles[0] = styles[useColorScheme() === 'dark' ? 1 : 0],
-    [pos, setPos]: [
-      SelectorPos,
-      React.Dispatch<React.SetStateAction<SelectorPos>>
-    ] = useState<SelectorPos>({'top': 0, 'bottom': 0}),
-    updatePos = (): void => {
-      ref.current?.measureInWindow((_x, y, _width, height): void => {
+    ref = useRef<TouchableOpacity>(null),
+    style = styles[useColorScheme() === 'dark' ? 1 : 0],
+    [pos, setPos] = useState<SelectorPos>({'top': 0, 'bottom': 0}),
+    updatePos = () => {
+      ref.current?.measureInWindow((_x, y, _width, height) => {
         setPos({
           'top': y - (props.listHeight ?? 200) - 5,
           'bottom': y + height + 5
@@ -78,7 +69,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         selected={selected}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
-        hide={(): void => setListDisplay(false)}
+        hide={() => setListDisplay(false)}
         selectorRef={ref}
         selectorPos={pos}
       />

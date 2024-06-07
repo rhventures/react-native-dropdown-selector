@@ -13,9 +13,9 @@ import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): React.JSX.Element => {
-  const style: typeof styles[0] = styles[useColorScheme() === 'dark' ? 1 : 0],
-    windowHeight: number = Dimensions.get('window').height,
-    windowWidth: number = Dimensions.get('window').width;
+  const style = styles[useColorScheme() === 'dark' ? 1 : 0],
+    windowHeight = Dimensions.get('window').height,
+    windowWidth = Dimensions.get('window').width;
 
   return (
     <Modal
@@ -62,14 +62,14 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             style={windowWidth > windowHeight && { marginBottom: 20 }}
             renderItem={({ item }): React.JSX.Element => (
               <TouchableOpacity
-                onPress={(): void => {
+                onPress={() => {
                   if (props.type === 'single') {
                     (props.onSelect as (d: Data) => void)(item);
                     props.hide();
                   } else {
-                    const selected: Data[] = props.selected as Data[],
-                      newSelected: Data[] = selected.includes(item)
-                        ? selected.filter((d: Data): boolean => d !== item)
+                    const selected = props.selected as Data[],
+                      newSelected = selected.includes(item)
+                        ? selected.filter((d: Data) => d !== item)
                         : [...selected, item];
                     (props.onSelect as (d: Data[]) => void)(newSelected);
                   }
