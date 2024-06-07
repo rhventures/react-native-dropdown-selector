@@ -92,7 +92,7 @@ const SelectionList = (props: ListProperties) => {
             )}
           />
         </View>
-        {props.type === 'multi' && (props.selected as Data[]).length ?
+        {props.type === 'multi' && !!(props.selected as Data[]).length &&
           <View
             style={{
               ...style.clearButton,
@@ -110,7 +110,7 @@ const SelectionList = (props: ListProperties) => {
                 {'×'}
               </Text>
             </TouchableOpacity>
-          </View> : undefined
+          </View>
         }
       </TouchableOpacity>
     </Modal>
