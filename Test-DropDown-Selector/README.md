@@ -14,7 +14,15 @@ https://appium.io/docs/en/latest/intro/
 ### Install Node.JS
 -   https://nodejs.org/en
 
-### Android Setup
+
+## Android Setup
 -   [Install Android Studio](https://developer.android.com/studio?hl=es-419&gclsrc=aw.ds&gclid=Cj0KCQjwyOuYBhCGARIsAIdGQRNrDv20QvoOy_-I5E1LoZdOLu3nvhlwX_7EjPeHcE1kGQNNcIVOme0aAqckEALw_wcB) 
--   [Android Home Setup](https://www.testingdocs.com/ setting-android_home-environment-variable-on-windows/)
+-   [Android Home Setup](https://www.testingdocs.com/setting-android_home-environment-variable-on-windows)
+
+### Install Appium Inspector
+-   [Download the compatable Appium Inspector here](https://github.com/appium/appium-inspector/releases)
+-   * I used the win.x64.exe
+
+
+
 
