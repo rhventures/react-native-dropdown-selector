@@ -1,4 +1,5 @@
 import {
+  type ColorValue,
   type TextStyle,
   type TouchableOpacity,
   type ViewStyle,
@@ -39,7 +40,7 @@ export interface MultiSelectProperties {
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
-  dropdownArrowColor?: string;
+  dropdownArrowColor?: ColorValue;
 }
 
 export interface SelectorProperties {
@@ -53,5 +54,5 @@ export interface SelectorProperties {
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
-  dropdownArrowColor?: string;
+  dropdownArrowColor?: ColorValue;
 }
