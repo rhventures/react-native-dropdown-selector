@@ -129,7 +129,7 @@ Type: `ViewStyle`
 ### `dropdownArrowColor`
 
 Custom color for the dropdown arrow inside the main Selector box. <br />
-Type: `string`
+Type: `ColorValue`
 
 ## Callbacks
 
