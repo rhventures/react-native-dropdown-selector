@@ -54,7 +54,41 @@ function App(): JSX.Element {
           onSelect={(e: Data[]) => console.log(e)}
           selectedItemStyle={{ backgroundColor: 'red' }}
         />
-        <View style={{ height: 700 }} />
+        <View />
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 1 }}>
+            <MultiSelect
+              data={data}
+              onSelect={(e: Data[]) => console.log(e)}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <MultiSelect
+              data={data}
+              onSelect={(e: Data[]) => console.log(e)}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <MultiSelect
+              data={data}
+              onSelect={(e: Data[]) => console.log(e)}
+            />
+          </View>
+        </View>
+        <View style={{ height: 500, flexDirection: 'row' }}>
+          <View style={{ flex: 1 }}>
+            <MultiSelect
+              data={data}
+              onSelect={(e: Data[]) => console.log(e)}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <MultiSelect
+              data={data}
+              onSelect={(e: Data[]) => console.log(e)}
+            />
+          </View>
+        </View>
       </ScrollView>
     </>
   );
