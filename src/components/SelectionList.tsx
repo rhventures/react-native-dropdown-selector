@@ -101,11 +101,15 @@ const SelectionList = (props: ListProperties) => {
                 : props.selectorPos.bottom,
             }}
           >
-            <Text
-              style={style.clearIcon}
+            <TouchableOpacity
+              onPress={console.log}
             >
-              {'×'}
-            </Text>
+              <Text
+                style={style.clearIcon}
+              >
+                {'×'}
+              </Text>
+            </TouchableOpacity>
           </View> : undefined
         }
       </TouchableOpacity>
