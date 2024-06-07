@@ -68,7 +68,6 @@ const Select = (props: SelectProperties) => {
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}
-        selectorRef={ref}
         selectorPos={pos}
       />
     </View>

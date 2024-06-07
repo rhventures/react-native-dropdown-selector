@@ -27,7 +27,6 @@ export interface ListProperties {
   listHeight: number;
   display: boolean;
   hide: () => void;
-  selectorRef: React.RefObject<TouchableOpacity>;
   selectorPos: SelectorPos;
 }
 
