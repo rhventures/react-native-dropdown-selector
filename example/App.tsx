@@ -53,8 +53,6 @@ function App(): JSX.Element {
           data={data}
           onSelect={(e: Data[]) => console.log(e)}
           selectedItemStyle={{ backgroundColor: 'red' }}
-          clearButtonStyle={{ backgroundColor: 'teal' }}
-          clearButtonIconColor={'yellow'}
         />
         <View style={{ height: 700 }} />
       </ScrollView>
