@@ -6,8 +6,16 @@ Well... Selenium does not support mobile apps for test yet... Appium can not onl
 If you would like to know more information about Appium Software, here is the URL:
 https://appium.io/docs/en/latest/intro/
 
-### Prerequisites for using APPIUM
+## General Prerequisites for using APPIUM
+
+### Programming Proficiency
 -   Acceptable Knowledge in Javascript, Java, or Python.
 
-## Step 1 : Install Node.JS
+### Install Node.JS
+-   https://nodejs.org/en
+
+### Android Setup
+-   Install Android Studio 
+-   Android Home Setup(https://www.testingdocs.com/setting-android_home-environment-variable-on-windows/)
+
 
