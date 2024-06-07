@@ -173,6 +173,11 @@ appium -p <Port Number>
 ```
 3. Now the server for appium inspector should be running
 4. Now click **Start Session** in the bottom right corner. 
+5. If it connects, congradulations! Move on to the next section.
+
+
+# Using the Appium Inspector
+
 
 
 
