@@ -44,6 +44,8 @@ export interface MultiSelectProperties {
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
   dropdownArrowColor?: string;
+  clearButtonStyle?: ViewStyle;
+  clearButtonIconColor?: string;
 }
 
 export interface SelectProperties {
