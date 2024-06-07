@@ -93,7 +93,7 @@ This will trigger the installation process. Now move on to the configurations
 - Framework: I used Mocha, but feel free to use what you need 
 - No Compiler
 - No autogenerate
-- Reporter: ** spec **
+- Reporter: **spec**
 - Plugins: NONE. Just press Enter
 - Visual testing: Default
 - Add a service: Appium
@@ -101,19 +101,31 @@ This will trigger the installation process. Now move on to the configurations
 - Continue with Appium setup using appium-installer?: NO
 
 ### configure your wdio.config.js file
-There should be a "wdio.conf.js" file generated in the testing folder you previously created
+There should be a **wdio.conf.js** file generated in the testing folder you previously created
 
 Now in create a folder named test in newly made testing folder. This is where all the test files will go.
 Anything not mentioned here can be left as default
 
--   local: 4723
--   specs: this is where your test files go. If your test file name is "HelloWorld.js, then the snippet might look like:
+-   **local** : 4723
+-   **Specs** : this is where your test files go. If your test file name is **HelloWorld.js**, then the snippet might look like:
 ```
 specs : [
     './test/HelloWorld.js'
 ]
 
 ``` 
+-  **Max Instances** : Read the description
+-  **Capabilities**: This can change based on your development settings
+```
+capabilities: [{
+        // capabilities for local Appium web tests on an Android Emulator
+        platformName: 'Android',
+        'appium:deviceName': 'Pixel 8 Pro API 34',
+        'appium:platformVersion': '14.0',
+        'appium:automationName': 'UiAutomator2',
+        'appium:app': "C:/Users/jungh/app-debug.apk",
+    }],
+```
 
 
 
