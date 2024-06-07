@@ -13,12 +13,10 @@ const MultiSelect = (props: MultiSelectProperties) => {
       setSelected(items);
       props.onSelect(items);
     },
-    updatePriorities = (data: Data[]) => {
-      return [
-        ...data.filter((d: Data): boolean => !!d.priority),
-        ...data.filter((d: Data): boolean => !d.priority),
-      ];
-    },
+    updatePriorities = (data: Data[]) => [
+        ...data.filter((d: Data) => d.priority),
+        ...data.filter((d: Data) => !d.priority),
+    ],
     ref = useRef<TouchableOpacity>(null),
     style = styles[useColorScheme() === 'dark' ? 1 : 0],
     [pos, setPos] = useState<SelectorPos>({'top': 0, 'bottom': 0}),
