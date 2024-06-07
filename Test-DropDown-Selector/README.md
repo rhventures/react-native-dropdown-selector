@@ -72,24 +72,24 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
 
 ### Make a Test Folder in your project
 1. From the root of your project directory, create a new folder for testing.
-2. In the new folder, create new folders named "app" and "test"
+2. In the new folder, create new folders named "app"
 3. In the app folder, copy and paste your debug app you generated above.
 
-My folder hierchy looks like this:
-![alt text](image.png)
+-   My folder hierchy looks like this:
+-   ![alt text](image.png)
 
 ## Setup the WebDriverIO
 1. Run the following command in the new testing folder in the root directory. In my case, it would be the "Test-DropDown-Selector"
 ```
 npm init wdio
 ```
-This will trigger the installation process. Now move on the configurations
+This will trigger the installation process. Now move on to the configurations
 ### Configurations
 - Project name: Assuming you are in the right folder...: Yes
 - E2E Testing
 - On my local machine
 - Mobile - native, hybrid and mobile web apps ... -> If its a web application, choose Web
-- Android : Mobile Environemtn
+- Android : Mobile Environment
 - Framework: I used Mocha, but feel free to use what you need 
 - No Compiler
 - No autogenerate
@@ -99,6 +99,23 @@ This will trigger the installation process. Now move on the configurations
 - Add a service: Appium
 - Run npm install
 - Continue with Appium setup using appium-installer?: NO
+
+### configure your wdio.config.js file
+There should be a "wdio.conf.js" file generated in the testing folder you previously created
+
+Now in create a folder named test in newly made testing folder. This is where all the test files will go.
+Anything not mentioned here can be left as default
+
+-   local: 4723
+-   specs: this is where your test files go. If your test file name is "HelloWorld.js, then the snippet might look like:
+```
+specs : [
+    './test/HelloWorld.js'
+]
+
+``` 
+
+
 
 
 
