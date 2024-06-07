@@ -116,11 +116,11 @@ specs : [
 ``` 
 -  **Max Instances** : Read the description
 -  **Capabilities**: This can change based on your development settings.
-**platformName**: Android
-**appium:deviceName**: The emulator name you are using. CHeck Android Studio
-**appium:platformVersion**: Check your Android Studio
-**appium:automationName**: UiAutomator2
-**appium:app**: the path to the debug app you generated earlier.
+    -   **platformName**: Android
+    -   **appium:deviceName**: The emulator name you are using. CHeck Android Studio
+    -   **appium:platformVersion**: Check your Android Studio
+    -   **appium:automationName**: UiAutomator2
+    -   **appium:app**: the path to the debug app you generated earlier.
 My code snippet looks like:
 ```
 capabilities: [{
