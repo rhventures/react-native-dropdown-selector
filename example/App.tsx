@@ -102,6 +102,17 @@ function App(): JSX.Element {
             {'Select more than one item and see me move!'}
           </Text>
         </View>
+        <Text>{'Styled Single Select:'}</Text>
+        <Select
+          data={data}
+          onSelect={(e: Data) => console.log(e)}
+        />
+        <Text>{'Styled Multi Select:'}</Text>
+        <MultiSelect
+          data={data}
+          onSelect={(e: Data[]) => console.log(e)}
+        />
+        <View style={{ height: 400 }} />
       </ScrollView>
     </>
   );
