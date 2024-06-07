@@ -96,6 +96,7 @@ const SelectionList = (props: ListProperties) => {
           <View
             style={{
               ...style.clearButton,
+              ...props.styles.clearButtonStyle,
               top: props.selectorPos.bottom + props.listHeight < windowHeight
                 ? props.selectorPos.top + props.listHeight - 40
                 : props.selectorPos.bottom,
@@ -105,7 +106,10 @@ const SelectionList = (props: ListProperties) => {
               onPress={props.clearSelected}
             >
               <Text
-                style={style.clearIcon}
+                style={{
+                  ...style.clearIcon,
+                  color: props.styles.clearButtonIconColor ?? style.clearIcon.color,
+                }}
               >
                 {'×'}
               </Text>

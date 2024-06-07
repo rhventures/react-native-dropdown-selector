@@ -1,7 +1,8 @@
-import type {
-  TextStyle,
-  TouchableOpacity,
-  ViewStyle,
+import {
+  type ColorValue,
+  type TextStyle,
+  type TouchableOpacity,
+  type ViewStyle,
 } from 'react-native';
 
 export interface Data {
@@ -20,7 +21,7 @@ export interface ListProperties {
     text?: TextStyle;
     itemSelected?: TextStyle;
     clearButtonStyle?: ViewStyle;
-    clearButtonIconColor?: string;
+    clearButtonIconColor?: ColorValue;
   };
   data: Data[];
   type: 'single' | 'multi';
@@ -45,9 +46,9 @@ export interface MultiSelectProperties {
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
-  dropdownArrowColor?: string;
+  dropdownArrowColor?: ColorValue;
   clearButtonStyle?: ViewStyle;
-  clearButtonIconColor?: string;
+  clearButtonIconColor?: ColorValue;
 }
 
 export interface SelectProperties {
@@ -61,5 +62,5 @@ export interface SelectProperties {
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
-  dropdownArrowColor?: string;
+  dropdownArrowColor?: ColorValue;
 }
