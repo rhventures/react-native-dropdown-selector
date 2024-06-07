@@ -1,6 +1,6 @@
 import path from 'path';
 const androidAltermateAppPath = path.join(process.cwd(), "app/app-debug.apk");
-const androidAppPath = "C:/Users/jungh/react-native-dropdown-selector-1/example/android/app/build/outputs/apk/debug/app-debug.apk";
+const androidAppPath = "C:/Users/jungh/app-debug.apk"
 export const config = {
     //
     // ====================
@@ -144,7 +144,7 @@ export const config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 20000
+        timeout: 60000
     },
 
     //
