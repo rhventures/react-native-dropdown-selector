@@ -92,7 +92,7 @@ const SelectionList = (props: ListProperties) => {
             )}
           />
         </View>
-        {props.type === 'multi' && !!(props.selected as Data[]).length &&
+        {props.type === 'multi' && (props.selected as Data[]).length > 0 &&
           <View
             style={{
               ...style.clearButton,
