@@ -102,7 +102,7 @@ const SelectionList = (props: ListProperties) => {
             }}
           >
             <TouchableOpacity
-              onPress={console.log}
+              onPress={props.clearSelected}
             >
               <Text
                 style={style.clearIcon}

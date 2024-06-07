@@ -85,6 +85,7 @@ const MultiSelect = (props: MultiSelectProperties) => {
         type="multi"
         onSelect={selectItem}
         selected={selected}
+        clearSelected={() => setSelected([])}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}
