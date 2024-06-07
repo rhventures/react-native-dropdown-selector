@@ -5,37 +5,26 @@ import type { Data, SelectorPos, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
-const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
-  const [listDisplay, setListDisplay]: [
-      boolean,
-      React.Dispatch<React.SetStateAction<boolean>>
-    ] = useState<boolean>(false),
-    defaultText: string | React.JSX.Element = props.placeholderText ?? 'Click me',
-    [selected, setSelected]: [
-      Data[],
-      React.Dispatch<React.SetStateAction<Data[]>>
-    ] = useState<Data[]>([]),
-    selectItem = (items: Data[]): void => {
+const MultiSelect = (props: MultiSelectProperties) => {
+  const [listDisplay, setListDisplay] = useState<boolean>(false),
+    defaultText = props.placeholderText ?? 'Click me',
+    [selected, setSelected] = useState<Data[]>([]),
+    selectItem = (items: Data[]) => {
       setSelected(items);
       props.onSelect(items);
     },
-    updatePriorities = (data: Data[]): Data[] => {
-      return [
-        ...data.filter((d: Data): boolean => !!d.priority),
-        ...data.filter((d: Data): boolean => !d.priority),
-      ];
-    },
-    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
-    style: typeof styles[0] = styles[useColorScheme() === 'dark' ? 1 : 0],
-    [pos, setPos]: [
-      SelectorPos,
-      React.Dispatch<React.SetStateAction<SelectorPos>>
-    ] = useState<SelectorPos>({'top': 0, 'bottom': 0}),
-    updatePos = (display: boolean = false): void => {
-      ref.current?.measureInWindow((_x, y, _width, height): void => {
+    updatePriorities = (data: Data[]) => [
+        ...data.filter((d: Data) => d.priority),
+        ...data.filter((d: Data) => !d.priority),
+    ],
+    ref = useRef<TouchableOpacity>(null),
+    style = styles[useColorScheme() === 'dark' ? 1 : 0],
+    [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0}),
+    updatePos = (display = false) => {
+      ref.current?.measureInWindow((_x, y, _width, height) => {
         setPos({
-          'top': y - (props.listHeight ?? 200) - 5,
-          'bottom': y + height + 5
+          top: y - (props.listHeight ?? 200) - 5,
+          bottom: y + height + 5
         });
         if (display)
           setListDisplay(true);
@@ -47,12 +36,12 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
       <TouchableOpacity
         activeOpacity={1}
         style={[style.selectorBox, props.boxStyle]}
-        onPress={(): void => updatePos(true)}
+        onPress={() => updatePos(true)}
         ref={ref}
-        onLayout={(): void => updatePos()}
+        onLayout={() => updatePos()}
       >
         {selected.length
-          ? selected.map((data): React.JSX.Element =>
+          ? selected.map((data) =>
               <View
                 key={data.label as string}
                 style={[
@@ -98,7 +87,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         selected={selected}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
-        hide={(): void => setListDisplay(false)}
+        hide={() => setListDisplay(false)}
         selectorRef={ref}
         selectorPos={pos}
       />
