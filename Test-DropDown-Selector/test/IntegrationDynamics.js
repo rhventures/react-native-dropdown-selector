@@ -1,6 +1,6 @@
 describe("Integration test for the multi selector", () => {
 
-    const itemCombo = [['Item 3', 'Item 8', 'Item 7', 'Item 6']]
+    const itemCombo = [['Item 3', 'Item 1', 'Item 6', 'Item 7']]
     const multiSelectArrow = '-android uiautomator:new UiSelector().text(\"ᨆ\").instance(2)';
     const scrollCoordinatesSet = [{'x' :645, 'y1': 2320, 'y2': 1715},{'x' :625, 'y1': 1810, 'y2': 2445}];
     multipleItemSelectTest(itemCombo, multiSelectArrow, scrollCoordinatesSet);
