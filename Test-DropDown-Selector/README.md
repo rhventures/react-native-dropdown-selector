@@ -73,10 +73,32 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
 ### Make a Test Folder in your project
 1. From the root of your project directory, create a new folder for testing.
 2. In the new folder, create new folders named "app" and "test"
-3. In the app folder, copy and paste your debug app you generated above
+3. In the app folder, copy and paste your debug app you generated above.
+
 My folder hierchy looks like this:
 ![alt text](image.png)
 
+## Setup the WebDriverIO
+1. Run the following command in the new testing folder in the root directory. In my case, it would be the "Test-DropDown-Selector"
+```
+npm init wdio
+```
+This will trigger the installation process. Now move on the configurations
+### Configurations
+- Project name: Assuming you are in the right folder...: Yes
+- E2E Testing
+- On my local machine
+- Mobile - native, hybrid and mobile web apps ... -> If its a web application, choose Web
+- Android : Mobile Environemtn
+- Framework: I used Mocha, but feel free to use what you need 
+- No Compiler
+- No autogenerate
+- Reporter: ** spec **
+- Plugins: NONE. Just press Enter
+- Visual testing: Default
+- Add a service: Appium
+- Run npm install
+- Continue with Appium setup using appium-installer?: NO
 
 
 
