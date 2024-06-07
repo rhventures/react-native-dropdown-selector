@@ -153,15 +153,26 @@ capabilities: [{
 1. Open your Appium Inspector you installed earlier. 
 2. go to Appium Inspector Tab
 
-**Remote Host** : default. -> Mine is 127.0.0.1
-**Remote Port** : Set it to some number besides 4723. Mine is 3000
-**Remote Path** : default. -> Mine is /
+-   **Remote Host** : default. -> Mine is 127.0.0.1
+-   **Remote Port** : Set it to some number besides 4723. Mine is 3000
+-   **Remote Path** : default. -> Mine is /
 
-3. Now in the JSON Representation Tab, copy the specs code snippet from *wdio.conf.js* file and paste it.
+3. Now in the JSON Representation Tab, copy the **specs** code snippet from *wdio.conf.js* file and paste it.
+4. Now in the capacity builder, make sure all the middle boxes are showing *text*
+5. click *save*
 
--   After copying, your set up should looks similar to this:
+-   After everything, your set up should looks similar to this:
 -   ![alt text](AppiumInspector.png)
+6. Leave the Inspector open for the Next Step
 
+### Connect your Appium Inspector with your app
+1. Open up terminal. 
+2. Run this snippet in your terminal, with the *Port Number* being your number from the **Remote Port** number from Appium Inspector Setup:
+```
+appium -p <Port Number>
+```
+3. Now the server for appium inspector should be running
+4. Now click **Start Session** in the bottom right corner. 
 
 
 
