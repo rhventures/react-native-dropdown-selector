@@ -167,7 +167,7 @@ capabilities: [{
 
 ### Connect your Appium Inspector with your app
 1. Open up terminal. 
-2. Run this snippet in your terminal, with the *Port Number* being your number from the **Remote Port** number from Appium Inspector Setup:
+2. Run this snippet in your terminal, with the *<Port Number>* being your number from the **Remote Port** number from Appium Inspector Setup:
 ```
 appium -p <Port Number>
 ```
