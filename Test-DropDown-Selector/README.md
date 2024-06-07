@@ -79,24 +79,24 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
 -   ![alt text](image.png)
 
 ## Setup the WebDriverIO
-1. Run the following command in the new testing folder in the root directory. In my case, it would be the "Test-DropDown-Selector"
+1. Run the following command in the new testing folder in the root directory. In my case, it would be the **Test-DropDown-Selector**
 ```
 npm init wdio
 ```
 This will trigger the installation process. Now move on to the configurations
 ### Configurations
-- Project name: Assuming you are in the right folder...: Yes
-- E2E Testing
-- On my local machine
-- Mobile - native, hybrid and mobile web apps ... -> If its a web application, choose Web
-- Android : Mobile Environment
-- Framework: I used Mocha, but feel free to use what you need 
+- **Project name**: Assuming you are in the right folder...: Yes
+- **E2E Testing**
+- **Where**: On my local machine
+- **Mobile** - native, hybrid and mobile web apps ... -> If its a web application, choose Web
+- **Android** : Mobile Environment
+- **Framework**: I used Mocha, but feel free to use what you need 
 - No Compiler
 - No autogenerate
-- Reporter: **spec**
-- Plugins: NONE. Just press Enter
-- Visual testing: Default
-- Add a service: Appium
+- **Reporter**: **spec**
+- **Plugins**: NONE. Just press Enter
+- **Visual testing**: Default
+- **Add a service**: Appium
 - Run npm install
 - Continue with Appium setup using appium-installer?: NO
 
@@ -144,7 +144,10 @@ capabilities: [{
     ```
 -   Remaning can be left default
 
-
+-   Now install Appium in your testing folder, **not the "test" folder**
+```
+    npm install --save-dev appium@next
+```
 
 
 
