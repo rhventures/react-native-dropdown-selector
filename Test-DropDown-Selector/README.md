@@ -149,6 +149,20 @@ capabilities: [{
     npm install --save-dev appium@next
 ```
 
+## Setting up your Appium Inspector
+1. Open your Appium Inspector you installed earlier. 
+2. go to Appium Inspector Tab
+
+**Remote Host** : default. -> Mine is 127.0.0.1
+**Remote Port** : Set it to some number besides 4723. Mine is 3000
+**Remote Path** : default. -> Mine is /
+
+3. Now in the JSON Representation Tab, copy the specs code snippet from *wdio.conf.js* file and paste it.
+
+-   After copying, your set up should looks similar to this:
+-   ![alt text](AppiumInspector.png)
+
+
 
 
 
