@@ -19,8 +19,8 @@ export interface ListProperties {
     list?: ViewStyle;
     text?: TextStyle;
     itemSelected?: TextStyle;
-    clearStyle?: ViewStyle;
-    clearIconColor?: string;
+    clearButtonStyle?: ViewStyle;
+    clearButtonIconColor?: string;
   };
   data: Data[];
   type: 'single' | 'multi';
