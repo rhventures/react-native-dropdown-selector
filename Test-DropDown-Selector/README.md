@@ -74,6 +74,7 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
 1. From the root of your project directory, create a new folder for testing.
 2. In the new folder, create new folders named "app" and "test"
 3. In the app folder, copy and paste your debug app you generated above
+My folder hierchy looks like this:
 ![alt text](image.png)
 
 
