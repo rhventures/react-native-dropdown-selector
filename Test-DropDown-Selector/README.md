@@ -15,7 +15,6 @@ https://appium.io/docs/en/latest/intro/
 -   https://nodejs.org/en
 
 ### Android Setup
--   Install Android Studio 
--   Android Home Setup(https://www.testingdocs.com/setting-android_home-environment-variable-on-windows/)
-
+-   [Install Android Studio](https://developer.android.com/studio?hl=es-419&gclsrc=aw.ds&gclid=Cj0KCQjwyOuYBhCGARIsAIdGQRNrDv20QvoOy_-I5E1LoZdOLu3nvhlwX_7EjPeHcE1kGQNNcIVOme0aAqckEALw_wcB) 
+-   [Android Home Setup](https://www.testingdocs.com/ setting-android_home-environment-variable-on-windows/)
 
