@@ -76,7 +76,9 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                 }}
                 style={[
                   style.item,
-                  (props.selected === item.label || (props.selected as Data[]).includes(item))
+                  (props.type === 'single'
+                    ? props.selected === item
+                    : (props.selected as Data[]).includes(item))
                     && [
                       style.itemSelected,
                       props.styles.itemSelected,

@@ -23,7 +23,7 @@ export interface ListProperties {
   data: Data[];
   type: 'single' | 'multi';
   onSelect: ((e: Data) => void) | ((e: Data[]) => void);
-  selected: Data[] | string | React.JSX.Element;
+  selected: Data[] | Data;
   listHeight: number;
   display: boolean;
   hide: () => void;

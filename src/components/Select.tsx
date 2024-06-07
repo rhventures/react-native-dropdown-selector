@@ -11,16 +11,15 @@ const Select = (props: SelectProperties): React.JSX.Element => {
       React.Dispatch<React.SetStateAction<boolean>>
     ] = useState<boolean>(false),
     [selected, setSelected]: [
-      string | React.JSX.Element,
-      React.Dispatch<React.SetStateAction<string | React.JSX.Element>>
-    ] = useState<string | React.JSX.Element>(
+      Data,
+      React.Dispatch<React.SetStateAction<Data>>
+    ] = useState<Data>(
       props.defaultValue && props.data.includes(props.defaultValue)
-        ? props.defaultValue.label
-        : props.placeholderText
-        ?? 'Click me'
+        ? props.defaultValue
+        : {label: props.placeholderText ?? 'Click me'}
     ),
     selectItem = (item: Data): void => {
-      setSelected(item.label);
+      setSelected(item);
       props.onSelect(item);
     },
     updatePriorities = (data: Data[]): Data[] => {
@@ -56,7 +55,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         <Text
           style={[style.selectorText, props.boxTextStyle]}
         >
-          {selected}
+          {selected.label}
         </Text>
         <Text
           style={{
