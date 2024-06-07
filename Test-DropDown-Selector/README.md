@@ -67,8 +67,14 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
 ```
 ./gradlew assembleDebug
 ```
-3. You should be able to find your app-debug.apk inside
-yourProject/android/app/build/outputs/apk/debug/app-debug.apk
+3. You should be able to find your app-debug.apk inside \n
+"yourProject/android/app/build/outputs/apk/debug/app-debug.apk"
+
+### Make a Test Folder in your project
+1. From the root of your project directory, create a new folder for testing.
+2. In the new folder, create new folders named "app" and "test"
+3. In the app folder, copy and paste your debug app you generated above
+![alt text](image.png)
 
 
 
