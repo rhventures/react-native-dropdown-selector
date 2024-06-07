@@ -151,7 +151,7 @@ capabilities: [{
 
 ## Setting up your Appium Inspector
 1. Open your Appium Inspector you installed earlier. 
-2. go to Appium Inspector Tab
+2. go to Appium Inspector Tab, configure your boxes:
 
 -   **Remote Host** : default. -> Mine is 127.0.0.1
 -   **Remote Port** : Set it to some number besides 4723. Mine is 3000
@@ -161,7 +161,7 @@ capabilities: [{
 4. Now in the capacity builder, make sure all the middle boxes are showing *text*
 5. click *save*
 
--   After everything, your set up should looks similar to this:
+-   After everything, your set up should look similar to this:
 -   ![alt text](AppiumInspector.png)
 6. Leave the Inspector open for the Next Step
 
@@ -176,7 +176,7 @@ appium -p <Port Number>
 5. If it connects, congradulations! Move on to the next section.
 
 
-# Using the Appium Inspector
+# Using the APPIUM Inspector
 
 
 
