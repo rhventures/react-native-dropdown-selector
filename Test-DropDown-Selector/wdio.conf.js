@@ -31,7 +31,8 @@ export const config = {
         // './test/Technical.js',
         // './test/IntegrationSingle.js',
         // './test/IntegrationMulti.js',
-        './test/IntegrationDynamics.js'
+        // './test/IntegrationDynamics.js'
+        './test/System_Algorithm.js'
     ],
     // Patterns to exclude.
     exclude: [
