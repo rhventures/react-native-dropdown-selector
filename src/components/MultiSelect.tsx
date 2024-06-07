@@ -19,12 +19,12 @@ const MultiSelect = (props: MultiSelectProperties) => {
     ],
     ref = useRef<TouchableOpacity>(null),
     style = styles[useColorScheme() === 'dark' ? 1 : 0],
-    [pos, setPos] = useState<SelectorPos>({'top': 0, 'bottom': 0}),
+    [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0}),
     updatePos = (display = false) => {
       ref.current?.measureInWindow((_x, y, _width, height) => {
         setPos({
-          'top': y - (props.listHeight ?? 200) - 5,
-          'bottom': y + height + 5
+          top: y - (props.listHeight ?? 200) - 5,
+          bottom: y + height + 5
         });
         if (display)
           setListDisplay(true);
