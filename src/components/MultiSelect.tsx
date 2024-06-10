@@ -1,110 +1,103 @@
 import React, { useRef, useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View, useColorScheme,
-  type LayoutChangeEvent
-} from 'react-native';
+import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
 import styles from '../styles';
-import type { Data, MultiSelectProperties } from '../types';
+import type { Data, SelectorPos, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
-const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
-  const [listDisplay, setListDisplay]: [
-      boolean,
-      React.Dispatch<React.SetStateAction<boolean>>
-    ] = useState<boolean>(false),
-    defaultText: string | JSX.Element = props.placeholderText ?? 'Click me',
-    [selected, setSelected]: [
-      string | JSX.Element,
-      React.Dispatch<React.SetStateAction<string | JSX.Element>>
-    ] = useState<string | JSX.Element>(
-      props.defaultValue
-        ? props.defaultValue
-            .map((item: Data): string | JSX.Element => item.label)
-            .join(', ')
-        : defaultText
-    ),
-    clickSelector = (): void => {
-      setListDisplay(!listDisplay);
-    },
-    selectItem = (items: Data[]): void => {
-      setSelected(
-        items.length > 0
-          ? items
-              .map((item: Data): string | JSX.Element => item?.label)
-              .join(', ')
-          : defaultText
-      );
+/* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
+const MultiSelect = (props: MultiSelectProperties) => {
+  const [listDisplay, setListDisplay] = useState<boolean>(false),
+    defaultText = props.placeholderText ?? 'Click me',
+    [selected, setSelected] = useState<Data[]>([]),
+    selectItem = (items: Data[]) => {
+      setSelected(items);
       props.onSelect(items);
     },
-    updatePriorities = (data: Data[]): Data[] => {
-      return [
-        ...data.filter((d: Data): boolean => !!d.priority),
-        ...data.filter((d: Data): boolean => !d.priority),
-      ];
-    },
-    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
-    style = useColorScheme() === 'dark' ? styles[1] : styles[0],
-    [overflowNotif, setOverflowNotif] = useState<number>(0);
-
+    updatePriorities = (data: Data[]) => [
+        ...data.filter((d: Data) => d.priority),
+        ...data.filter((d: Data) => !d.priority),
+    ],
+    ref = useRef<TouchableOpacity>(null),
+    [listWidth, setListWidth] = useState<number>(0),
+    [listX, setListX] = useState<number>(0),
+    style = styles[useColorScheme() === 'dark' ? 1 : 0],
+    [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0}),
+    updatePos = (display = false) => {
+      ref.current?.measureInWindow((x, y, width, height) => {
+        setListX(x);
+        setListWidth(width);
+        setPos({
+          top: y - (props.listHeight ?? 200) - 5,
+          bottom: y + height + 5,
+        });
+        if (display)
+          setListDisplay(true);
+      });
+    };
 
   return (
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
-        onPress={clickSelector}
+        style={[style.selectorBox, props.boxStyle]}
+        onPress={() => updatePos(true)}
         ref={ref}
-        onLayout={(e: LayoutChangeEvent) => {
-          setOverflowNotif(overflowNotif ? 0 : 1);
-        }}
+        onLayout={() => updatePos()}
       >
-        {selected === defaultText
-          ? <Text
-              style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
-              numberOfLines={1}
+        {selected.length
+          ? selected.map((data) =>
+              <View
+                key={data.label as string}
+                style={[
+                  style.selectedInMultiHighlight,
+                  props.boxTextHighlightStyle,
+                ]}
+              >
+                <Text
+                  style={{
+                    ...style.selectorText,
+                    marginVertical: 0,
+                    ...props.boxTextStyle,
+                  }}
+                >
+                  {data.label}
+                </Text>
+              </View>
+            )
+          : <Text
+              style={[style.selectorText, props.boxTextStyle]}
             >
               {defaultText}
             </Text>
-          : (selected as string)
-            .split(', ')
-            .map((str) =>
-              <View 
-                style={style.selectedInMultiHighlight}
-                key={str}
-              >
-                <Text
-                  style={style.selectedInMulti}
-                >
-                  {str}
-                </Text>
-              </View>
-          )}
+        }
         <Text
-          style={style.arrow}
+          style={{
+            ...style.arrow,
+            color: props.dropdownArrowColor ?? style.arrow.color,
+          }}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>
       </TouchableOpacity>
       <SelectionList
         styles={{
-          list: props.listStyle ? props.listStyle : undefined,
-          text: props.listTextStyle ? props.listTextStyle : undefined,
-          itemSelected: props.selectedItemStyle
-            ? props.selectedItemStyle
-            : undefined,
+          list: props.listStyle,
+          text: props.listTextStyle,
+          itemSelected: props.selectedItemStyle,
+          clearButtonStyle: props.clearButtonStyle,
+          clearButtonIconColor: props.clearButtonIconColor,
         }}
         data={updatePriorities(props.data)}
         type="multi"
         onSelect={selectItem}
-        selected={selected || ''}
-        listHeight={props.listHeight ? props.listHeight : 200}
+        selected={selected}
+        clearSelected={() => setSelected([])}
+        listX={listX}
+        listWidth={listWidth}
+        listHeight={props.listHeight ?? 200}
         display={listDisplay}
-        setDisplay={setListDisplay}
-        selectorRef={ref}
-        overflowNotif={overflowNotif}
+        hide={() => setListDisplay(false)}
+        selectorPos={pos}
       />
     </View>
   );
