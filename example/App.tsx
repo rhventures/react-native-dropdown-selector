@@ -34,7 +34,6 @@ function App(): JSX.Element {
           The dropdown menu will display above the input box when there
           isn&quot;t enough space below
         </Text>
-{/*
         <Select
           data={data}
           onSelect={(e: Data) => {
@@ -45,12 +44,7 @@ function App(): JSX.Element {
             alignSelf: 'center',
             width: 200,
           }}
-          listStyle={{
-            alignSelf: 'center',
-            width: 200,
-          }}
         />
-*/}
         <MultiSelect
           data={data}
           onSelect={(e: Data[]) => console.log(e)}
