@@ -80,8 +80,8 @@ describe("Integration Test", () => {
             .perform();
             await driver.pause(500);
 
-            const ItemABC = await driver.$(`accessibility id:${itemToTest[3]}`)
-            ItemABC.click();
+            const Item = await driver.$(`accessibility id:${itemToTest[3]}`)
+            Item.click();
             await driver.pause(500);
             
             const selector = await driver.$(`accessibility id:${itemToTest[3]}, ᨆ`);
