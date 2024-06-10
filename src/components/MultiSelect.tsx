@@ -19,6 +19,7 @@ const MultiSelect = (props: MultiSelectProperties) => {
     ],
     ref = useRef<TouchableOpacity>(null),
     [listWidth, setListWidth] = useState<number>(0),
+    [listX, setListX] = useState<number>(0),
     style = styles[useColorScheme() === 'dark' ? 1 : 0],
     [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0}),
     updatePos = (display = false) => {
@@ -90,6 +91,7 @@ const MultiSelect = (props: MultiSelectProperties) => {
         onSelect={selectItem}
         selected={selected}
         clearSelected={() => setSelected([])}
+        listX={listX}
         listWidth={listWidth}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
