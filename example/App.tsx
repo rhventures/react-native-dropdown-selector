@@ -32,7 +32,7 @@ function App(): JSX.Element {
           }}
         >
           The dropdown menu will display above the input box when there
-          isn&quot;t enough space below
+          isn&apos;t enough space below
         </Text>
         <Select
           data={data}
