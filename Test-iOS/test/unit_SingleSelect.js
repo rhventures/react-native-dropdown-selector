@@ -16,7 +16,9 @@ describe('selecting one element', () => {
             .up({button : 0})
             .perform();
             await driver.pause(1000);
-            
+
+            const dropDown = await driver.$('-ios class chain:**/XCUIElementTypeOther[`name == "Item 3 ᨆ"`][2]');
+            expect (dropDown).toExist();
         })
     })
 })
