@@ -1,7 +1,13 @@
 import React, { useRef, useState } from 'react';
-import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+  type NativeScrollRectangle,
+} from 'react-native';
 import styles from '../styles';
-import type { Data, SelectorPos, SelectProperties } from '../types';
+import type { Data, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
@@ -21,21 +27,23 @@ const Select = (props: SelectProperties) => {
       ...data.filter((d: Data) => !d.priority),
     ],
     ref = useRef<TouchableOpacity>(null),
-    [listWidth, setListWidth] = useState<number>(0),
-    [listX, setListX] = useState<number>(0),
     style = styles[useColorScheme() === 'dark' ? 1 : 0],
-    [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0}),
-    updatePos = () => {
+    [refRect, setRefRect] = useState<NativeScrollRectangle>({
+      left: 0,
+      top: 0,
+      right: 0,
+      bottom: 0,
+    }),
+    updatePos = () =>
       ref.current?.measureInWindow((x, y, width, height) => {
-        setListX(x);
-        setListWidth(width);
-        setPos({
-          top: y - (props.listHeight ?? 200) - 5,
+        setRefRect({
+          left: x,
+          top: y - 5,
+          right: x + width,
           bottom: y + height + 5,
         });
         setListDisplay(true);
       });
-    };
 
   return (
     <View>
@@ -69,12 +77,10 @@ const Select = (props: SelectProperties) => {
         type="single"
         onSelect={selectItem}
         selected={selected}
-        listX={listX}
-        listWidth={listWidth}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}
-        selectorPos={pos}
+        selectorRect={refRect}
       />
     </View>
   );

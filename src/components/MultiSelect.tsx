@@ -1,7 +1,13 @@
 import React, { useRef, useState } from 'react';
-import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+  type NativeScrollRectangle,
+} from 'react-native';
 import styles from '../styles';
-import type { Data, SelectorPos, MultiSelectProperties } from '../types';
+import type { Data, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
@@ -18,22 +24,24 @@ const MultiSelect = (props: MultiSelectProperties) => {
         ...data.filter((d: Data) => !d.priority),
     ],
     ref = useRef<TouchableOpacity>(null),
-    [listWidth, setListWidth] = useState<number>(0),
-    [listX, setListX] = useState<number>(0),
     style = styles[useColorScheme() === 'dark' ? 1 : 0],
-    [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0}),
-    updatePos = (display = false) => {
+    [refRect, setRefRect] = useState<NativeScrollRectangle>({
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+    }),
+    updatePos = (display = false) =>
       ref.current?.measureInWindow((x, y, width, height) => {
-        setListX(x);
-        setListWidth(width);
-        setPos({
-          top: y - (props.listHeight ?? 200) - 5,
+        setRefRect({
+          left: x,
+          top: y - 5,
+          right: x + width,
           bottom: y + height + 5,
         });
         if (display)
           setListDisplay(true);
       });
-    };
 
   return (
     <View>
@@ -92,12 +100,10 @@ const MultiSelect = (props: MultiSelectProperties) => {
         onSelect={selectItem}
         selected={selected}
         clearSelected={() => setSelected([])}
-        listX={listX}
-        listWidth={listWidth}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}
-        selectorPos={pos}
+        selectorRect={refRect}
       />
     </View>
   );

@@ -2,16 +2,12 @@ import {
   type ColorValue,
   type TextStyle,
   type ViewStyle,
+  type NativeScrollRectangle,
 } from 'react-native';
 
 export interface Data {
   label: string | React.JSX.Element;
   priority?: boolean;
-}
-
-export interface SelectorPos {
-  top: number;
-  bottom: number;
 }
 
 export interface ListProperties {
@@ -27,12 +23,10 @@ export interface ListProperties {
   onSelect: ((e: Data) => void) | ((e: Data[]) => void);
   selected: Data[] | Data;
   clearSelected?: () => void;
-  listX: number;
-  listWidth: number;
   listHeight: number;
   display: boolean;
   hide: () => void;
-  selectorPos: SelectorPos;
+  selectorRect: NativeScrollRectangle;
 }
 
 export interface MultiSelectProperties {
