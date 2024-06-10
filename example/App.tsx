@@ -20,7 +20,7 @@ function App(): JSX.Element {
   return (
     <>
       <View style={{ height: 40 }} />
-      <ScrollView>
+      <ScrollView style={{ paddingHorizontal: 8 }}>
         <View style={{ height: 40 }} />
         <Select data={data} onSelect={onDataSelect} />
         <Text>Selected: {item || 'None'} (scroll down)</Text>
@@ -50,7 +50,7 @@ function App(): JSX.Element {
           onSelect={(e: Data[]) => console.log(e)}
         />
         <View style={{ height: 400 }}/>
-        <Text>{'Single Selects:'}</Text>
+        <Text>{ 'Single Selects:' }</Text>
         <View style={{ flexDirection: 'row', height: 100 }}>
           <View style={{ flex: 1 }}>
             <Select
@@ -71,7 +71,7 @@ function App(): JSX.Element {
             />
           </View>
         </View>
-        <Text>{'Multi Selects:'}</Text>
+        <Text>{ 'Multi Selects:' }</Text>
         <View style={{ height: 400 }}>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1 }}>
@@ -94,16 +94,16 @@ function App(): JSX.Element {
             </View>
           </View>
           <Text style={{ textAlign: 'center' }}>
-            {'Select more than one item and see me move!'}
+            { 'Select more than one item and see me move!' }
           </Text>
         </View>
-        <Text>{'Styled Single Select:'}</Text>
+        <Text>{ 'Styled Single Select:' }</Text>
         <Select
           data={data}
           onSelect={(e: Data) => console.log(e)}
           defaultValue={data[0]}
           listHeight={300}
-          placeholderText={'I am very stylish'}
+          placeholderText={ 'I am very stylish' }
           boxStyle={{
             alignSelf: 'center',
             backgroundColor: '#48c',
@@ -127,7 +127,7 @@ function App(): JSX.Element {
             fontWeight: 'bold',
             paddingHorizontal: 8,
             textShadowColor: 'brown',
-            textShadowOffset: {width: -2, height: 2},
+            textShadowOffset: { width: -2, height: 2 },
             textShadowRadius: 4,
           }}
           listStyle={{
@@ -156,7 +156,7 @@ function App(): JSX.Element {
             borderTopWidth: 2,
             borderBottomWidth: 2,
           }}
-          dropdownArrowColor={'darkgreen'}
+          dropdownArrowColor={ 'darkgreen' }
         />
         <View style={{height: 50}} />
         <Text>{'Styled Multi Select:'}</Text>
@@ -165,7 +165,7 @@ function App(): JSX.Element {
           onSelect={(e: Data[]) => console.log(e)}
           defaultValue={data}
           listHeight={300}
-          placeholderText={'I am very stylish'}
+          placeholderText={ 'I am very stylish' }
           boxStyle={{
             alignSelf: 'center',
             backgroundColor: '#48c',
@@ -189,7 +189,7 @@ function App(): JSX.Element {
             fontWeight: 'bold',
             paddingHorizontal: 8,
             textShadowColor: 'brown',
-            textShadowOffset: {width: -2, height: 2},
+            textShadowOffset: { width: -2, height: 2 },
             textShadowRadius: 4,
           }}
           boxTextHighlightStyle={{
@@ -229,7 +229,7 @@ function App(): JSX.Element {
             borderTopWidth: 2,
             borderBottomWidth: 2,
           }}
-          dropdownArrowColor={'darkgreen'}
+          dropdownArrowColor={ 'darkgreen' }
           clearButtonStyle={{
             backgroundColor: 'darkgreen',
             borderTopLeftRadius: 34,
@@ -238,7 +238,7 @@ function App(): JSX.Element {
             borderBottomLeftRadius: 6,
             borderColor: 'darkgreen'
           }}
-          clearButtonIconColor={'#abc'}
+          clearButtonIconColor={ '#abc' }
         />
         <View style={{ height: 400 }} />
       </ScrollView>
