@@ -32,7 +32,6 @@ const light = StyleSheet.create({
   },
   arrow: {
     width: 40,
-    backgroundColor: '#fff8',
     position: 'absolute',
     right: 0,
     paddingLeft: 12,
@@ -113,7 +112,6 @@ const dark = StyleSheet.create({
   },
   arrow: {
     width: 40,
-    backgroundColor: '#4448',
     position: 'absolute',
     right: 0,
     paddingLeft: 12,
