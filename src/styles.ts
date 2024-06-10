@@ -59,7 +59,6 @@ const light = StyleSheet.create({
   },
   list: {
     backgroundColor: 'white',
-    marginHorizontal: 5,
     borderColor: 'black',
     borderWidth: 0.5,
   },
@@ -141,7 +140,6 @@ const dark = StyleSheet.create({
   },
   list: {
     backgroundColor: '#444',
-    marginHorizontal: 5,
     borderColor: 'black',
     borderWidth: 0.5,
   },

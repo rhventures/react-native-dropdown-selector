@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Dimensions,
   FlatList,
@@ -42,10 +42,12 @@ const SelectionList = (props: ListProperties) => {
             props.styles.list,
             windowHeight > windowWidth
               ? {
+                  left: props.selectorRect.left,
+                  width: props.selectorRect.right - props.selectorRect.left,
                   maxHeight: props.listHeight,
-                  marginTop: props.selectorPos.bottom + props.listHeight < windowHeight
-                    ? props.selectorPos.bottom
-                    : props.selectorPos.top,
+                  marginTop: props.selectorRect.bottom + props.listHeight < windowHeight
+                    ? props.selectorRect.bottom
+                    : props.selectorRect.top - props.listHeight,
                 }
               : {
                   height: windowHeight - 40,
@@ -97,9 +99,10 @@ const SelectionList = (props: ListProperties) => {
             style={{
               ...style.clearButton,
               ...props.styles.clearButtonStyle,
-              top: props.selectorPos.bottom + props.listHeight < windowHeight
-                ? props.selectorPos.top + props.listHeight - 40
-                : props.selectorPos.bottom,
+              top: props.selectorRect.bottom + props.listHeight < windowHeight
+                ? props.selectorRect.top - 40
+                : props.selectorRect.bottom,
+              left: props.selectorRect.right - 40,
             }}
           >
             <TouchableOpacity
