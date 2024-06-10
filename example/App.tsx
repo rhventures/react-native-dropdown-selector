@@ -56,7 +56,7 @@ function App(): JSX.Element {
         />
         <View style={{ height: 400 }}/>
         <Text>{'Single Selects:'}</Text>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', height: 100 }}>
           <View style={{ flex: 1 }}>
             <Select
               data={data}
@@ -77,25 +77,30 @@ function App(): JSX.Element {
           </View>
         </View>
         <Text>{'Multi Selects:'}</Text>
-        <View style={{ flexDirection: 'row', height: 400 }}>
-          <View style={{ flex: 1 }}>
-            <MultiSelect
-              data={data}
-              onSelect={(e: Data[]) => console.log(e)}
-            />
+        <View style={{ height: 400 }}>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1 }}>
+              <MultiSelect
+                data={data}
+                onSelect={(e: Data[]) => console.log(e)}
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <MultiSelect
+                data={data}
+                onSelect={(e: Data[]) => console.log(e)}
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <MultiSelect
+                data={data}
+                onSelect={(e: Data[]) => console.log(e)}
+              />
+            </View>
           </View>
-          <View style={{ flex: 1 }}>
-            <MultiSelect
-              data={data}
-              onSelect={(e: Data[]) => console.log(e)}
-            />
-          </View>
-          <View style={{ flex: 1 }}>
-            <MultiSelect
-              data={data}
-              onSelect={(e: Data[]) => console.log(e)}
-            />
-          </View>
+          <Text style={{ textAlign: 'center' }}>
+            {'Select more than one item and see me move!'}
+          </Text>
         </View>
       </ScrollView>
     </>
