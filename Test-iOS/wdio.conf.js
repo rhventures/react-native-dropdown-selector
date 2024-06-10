@@ -1,3 +1,4 @@
+const iosAppPath = '/Users/accountone/Library/Developer/Xcode/DerivedData/example-gzqhxqepqotwelallfhuyjztqsnp/Build/Products/Debug-iphonesimulator/example.app'
 export const config = {
     //
     // ====================
@@ -23,6 +24,7 @@ export const config = {
     //
     specs: [
         // ToDo: define location for spec files here
+        './test/unit_SingleSelect.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -55,8 +57,9 @@ export const config = {
         platformName: 'iOS',
         // browserName: 'Safari',
         'appium:deviceName': 'iPhone 15 Pro',
-        'appium:platformVersion': '17.0',
-        'appium:automationName': 'XCUITest'
+        'appium:platformVersion': '17.5',
+        'appium:automationName': 'XCUITest',
+        'appium:app' : iosAppPath
     }],
 
     //
@@ -100,7 +103,7 @@ export const config = {
     connectionRetryTimeout: 120000,
     //
     // Default request retries count
-    connectionRetryCount: 3,
+    connectionRetryCount: 2,
     //
     // Test runner services
     // Services take over a specific job you don't want to take care of. They enhance
