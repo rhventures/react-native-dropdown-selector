@@ -23,7 +23,8 @@ const MultiSelect = (props: MultiSelectProperties) => {
     style = styles[useColorScheme() === 'dark' ? 1 : 0],
     [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0}),
     updatePos = (display = false) => {
-      ref.current?.measureInWindow((_x, y, width, height) => {
+      ref.current?.measureInWindow((x, y, width, height) => {
+        setListX(x);
         setListWidth(width);
         setPos({
           top: y - (props.listHeight ?? 200) - 5,
