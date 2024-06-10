@@ -158,6 +158,7 @@ function App(): JSX.Element {
           }}
           dropdownArrowColor={'darkgreen'}
         />
+        <View style={{height: 50}} />
         <Text>{'Styled Multi Select:'}</Text>
         <MultiSelect
           data={data}
