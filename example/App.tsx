@@ -54,28 +54,36 @@ function App(): JSX.Element {
           onSelect={(e: Data[]) => console.log(e)}
           selectedItemStyle={{ backgroundColor: 'red' }}
         />
-        <View />
+        <View style={{ height: 400 }}/>
+        <Text>{'Single Selects:'}</Text>
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1 }}>
-            <MultiSelect
+            <Select
               data={data}
-              onSelect={(e: Data[]) => console.log(e)}
+              onSelect={(e: Data) => console.log(e)}
             />
           </View>
           <View style={{ flex: 1 }}>
-            <MultiSelect
+            <Select
               data={data}
-              onSelect={(e: Data[]) => console.log(e)}
+              onSelect={(e: Data) => console.log(e)}
             />
           </View>
           <View style={{ flex: 1 }}>
-            <MultiSelect
+            <Select
               data={data}
-              onSelect={(e: Data[]) => console.log(e)}
+              onSelect={(e: Data) => console.log(e)}
             />
           </View>
         </View>
-        <View style={{ height: 500, flexDirection: 'row' }}>
+        <Text>{'Multi Selects:'}</Text>
+        <View style={{ flexDirection: 'row', height: 400 }}>
+          <View style={{ flex: 1 }}>
+            <MultiSelect
+              data={data}
+              onSelect={(e: Data[]) => console.log(e)}
+            />
+          </View>
           <View style={{ flex: 1 }}>
             <MultiSelect
               data={data}
