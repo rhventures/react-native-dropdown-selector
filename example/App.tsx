@@ -116,7 +116,6 @@ function App(): JSX.Element {
             borderRightWidth: 2,
             borderTopWidth: 1,
             borderBottomWidth: 4,
-            height: 50,
             width: 300,
           }}
           boxTextStyle={{
@@ -178,7 +177,6 @@ function App(): JSX.Element {
             borderRightWidth: 2,
             borderTopWidth: 1,
             borderBottomWidth: 4,
-            height: 50,
             width: 300,
           }}
           boxTextStyle={{
