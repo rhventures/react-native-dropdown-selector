@@ -48,7 +48,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
           setOverflowNotif(overflowNotif ? 0 : 1);
         }}
       >
-        {selected.length
+        {selected.length > 0
           ? selected.map((data) =>
               <View
                 style={style.selectedInMultiHighlight}
