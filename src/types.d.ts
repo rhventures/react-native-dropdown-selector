@@ -1,30 +1,32 @@
 import {
+  type ColorValue,
   type TextStyle,
-  type TouchableOpacity,
   type ViewStyle,
+  type NativeScrollRectangle,
 } from 'react-native';
 
 export interface Data {
-  label: string | JSX.Element;
+  label: string | React.JSX.Element;
   priority?: boolean;
-  data?: object;
 }
 
 export interface ListProperties {
   styles: {
-    list: ViewStyle | undefined;
-    text: TextStyle | undefined;
-    itemSelected: TextStyle | undefined;
+    list?: ViewStyle;
+    text?: TextStyle;
+    itemSelected?: TextStyle;
+    clearButtonStyle?: ViewStyle;
+    clearButtonIconColor?: ColorValue;
   };
   data: Data[];
   type: 'single' | 'multi';
   onSelect: ((e: Data) => void) | ((e: Data[]) => void);
-  selected: Data[] | string | JSX.Element;
+  selected: Data[] | Data;
+  clearSelected?: () => void;
   listHeight: number;
   display: boolean;
-  setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
-  selectorRef: React.RefObject<TouchableOpacity>;
-  overflowNotif: number,
+  hide: () => void;
+  selectorRect: NativeScrollRectangle;
 }
 
 export interface MultiSelectProperties {
@@ -32,23 +34,28 @@ export interface MultiSelectProperties {
   onSelect: (e: Data[]) => void;
   defaultValue?: Data[];
   listHeight?: number;
-  placeholderText?: string | JSX.Element;
+  placeholderText?: string | React.JSX.Element;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
+  boxTextHighlightStyle?: ViewStyle;
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
+  dropdownArrowColor?: ColorValue;
+  clearButtonStyle?: ViewStyle;
+  clearButtonIconColor?: ColorValue;
 }
 
-export interface SelectorProperties {
+export interface SelectProperties {
   data: Data[];
   onSelect: (e: Data) => void;
   defaultValue?: Data;
   listHeight?: number;
-  placeholderText?: string | JSX.Element;
+  placeholderText?: string | React.JSX.Element;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
+  dropdownArrowColor?: ColorValue;
 }

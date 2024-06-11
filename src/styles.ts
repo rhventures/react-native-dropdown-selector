@@ -9,6 +9,7 @@ const light = StyleSheet.create({
     alignContent: 'space-between',
     paddingVertical: 4,
     paddingLeft: 8,
+    paddingRight: 24,
     borderColor: 'black',
     borderWidth: 0.5,
     margin: 5,
@@ -30,27 +31,35 @@ const light = StyleSheet.create({
     marginRight: 6,
     marginVertical: 2,
   },
-  selectedInMulti: {
-    fontSize: 16,
-    color: 'black',
-  },
   arrow: {
-    width: 40,
-    backgroundColor: '#fff8',
+    width: 28,
     position: 'absolute',
     right: 0,
-    paddingLeft: 12,
     paddingBottom: 4,
     color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
-    lineHeight: 999,
+  },
+  clearButton: {
+    width: 40,
+    height: 40,
+    backgroundColor: 'white',
+    position: 'absolute',
+    borderColor: 'black',
+    borderWidth: 0.5,
+    borderRadius: 8,
+    right: 5,
+  },
+  clearIcon: {
+    alignSelf: 'center',
+    fontSize: 26,
+    color: 'black',
   },
   list: {
     backgroundColor: 'white',
-    marginHorizontal: 5,
     borderColor: 'black',
     borderWidth: 0.5,
+    overflow: 'hidden',
   },
   text: {
     fontSize: 16,
@@ -80,6 +89,7 @@ const dark = StyleSheet.create({
     alignContent: 'space-between',
     paddingVertical: 4,
     paddingLeft: 8,
+    paddingRight: 24,
     borderColor: 'black',
     borderWidth: 0.5,
     margin: 5,
@@ -101,27 +111,35 @@ const dark = StyleSheet.create({
     marginRight: 6,
     marginVertical: 2,
   },
-  selectedInMulti: {
-    fontSize: 16,
-    color: '#ddd',
-  },
   arrow: {
-    width: 40,
-    backgroundColor: '#4448',
+    width: 28,
     position: 'absolute',
     right: 0,
-    paddingLeft: 12,
     paddingBottom: 4,
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-    lineHeight: 999,
+  },
+  clearButton: {
+    width: 40,
+    height: 40,
+    backgroundColor: '#444',
+    position: 'absolute',
+    borderColor: 'black',
+    borderWidth: 0.5,
+    borderRadius: 8,
+    right: 5,
+  },
+  clearIcon: {
+    alignSelf: 'center',
+    fontSize: 26,
+    color: 'white',
   },
   list: {
     backgroundColor: '#444',
-    marginHorizontal: 5,
     borderColor: 'black',
     borderWidth: 0.5,
+    overflow: 'hidden',
   },
   text: {
     fontSize: 16,
@@ -142,6 +160,6 @@ const dark = StyleSheet.create({
   },
 });
 
-const styles = [light, dark]
+const styles = [light, dark];
 
 export default styles;

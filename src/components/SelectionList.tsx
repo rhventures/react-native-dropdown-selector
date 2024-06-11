@@ -1,52 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { useColorScheme } from 'react-native'
+import React from 'react';
 import {
   Dimensions,
   FlatList,
   Modal,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  type LayoutChangeEvent,
+  useColorScheme
 } from 'react-native';
 import styles from '../styles';
 import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
-const SelectionList = (props: ListProperties): JSX.Element => {
-  if (!props.display) {
-    return <View />;
-  }
-  const [listHeight, setListHeight]: [
-      number,
-      React.Dispatch<React.SetStateAction<number>>
-    ] = useState<number>(0),
-    [heightChecked, setHeightChecked]: [
-      boolean,
-      React.Dispatch<React.SetStateAction<boolean>>
-    ] = useState<boolean>(false),
-    windowHeight: number = Dimensions.get('window').height,
-    windowWidth: number = Dimensions.get('window').width,
-    [orientation, setOrientation]: [
-      string,
-      React.Dispatch<React.SetStateAction<string>>
-    ] = useState<string>(windowHeight > windowWidth ? 'portrait' : 'landscape'),
-    pos: {
-      top: number;
-      bottom: number;
-    } = { top: 0, bottom: 0 },
-    style = useColorScheme() === 'dark' ? styles[1] : styles[0];
-
-  props.selectorRef.current?.measureInWindow((_x, y, _width, height) => {
-    pos.top = y - props.listHeight;
-    pos.bottom = y + height;
-  });
+const SelectionList = (props: ListProperties) => {
+  const style = styles[useColorScheme() === 'dark' ? 1 : 0],
+    windowHeight = Dimensions.get('window').height,
+    windowWidth = Dimensions.get('window').width,
+    listBottom = Math.min(
+      props.listHeight,
+      props.data.length * style.item.height
+    ) + props.selectorRect.bottom;
 
   return (
     <Modal
+      visible={props.display}
       transparent={true}
-      onRequestClose={() => props.setDisplay(false)}
+      onRequestClose={props.hide}
       supportedOrientations={[
         'portrait',
         'portrait-upside-down',
@@ -55,40 +34,45 @@ const SelectionList = (props: ListProperties): JSX.Element => {
         'landscape-right',
       ]}
       animationType={windowWidth > windowHeight ? 'slide' : 'none'}
-      onOrientationChange={({
-        nativeEvent,
-      }: {
-        nativeEvent: { orientation: string };
-      }) => [
-        nativeEvent.orientation !== orientation && props.setDisplay(false),
-        setOrientation(nativeEvent.orientation),
-      ]}
     >
       <TouchableOpacity
         activeOpacity={1}
         style={style.modalBackground}
-        onPress={() => props.setDisplay(false)}
+        onPress={props.hide}
       >
         <View
-          onLayout={(e: LayoutChangeEvent) => {
-            const newHeight =
-              windowHeight - pos.bottom < props.listHeight
-                ? pos.top - 5
-                : pos.bottom + 5;
-            setHeightChecked(
-              listHeight === newHeight || windowWidth > windowHeight
-            );
-            setListHeight(newHeight);
-          }}
-          style={StyleSheet.flatten([
+          style={[
             style.list,
             props.styles.list,
             windowHeight > windowWidth
-              ? {
-                  maxHeight: props.listHeight,
-                  marginTop: listHeight + props.overflowNotif,
-                  opacity: heightChecked ? 1 : 0,
-                }
+              ? [
+                  {
+                    maxHeight: props.listHeight,
+                    width: props.styles.list?.width
+                      ?? props.selectorRect.right - props.selectorRect.left,
+                    marginLeft: props.styles.list?.alignSelf === 'center'
+                      ? 0
+                      : props.styles.list?.width
+                      ? props.selectorRect.left
+                        + (props.selectorRect.right
+                          - props.selectorRect.left
+                          - (typeof props.styles.list.width === 'number'
+                            ? props.styles.list.width
+                            : Number(props.styles.list.width.replace('%', ''))
+                              / 100
+                              * windowWidth))
+                        / 2
+                      : props.selectorRect.left,
+                  },
+                  listBottom < windowHeight
+                    ? {
+                        top: props.selectorRect.bottom,
+                      }
+                    : {
+                        bottom: windowHeight - props.selectorRect.top,
+                        marginTop: 'auto',
+                      },
+                ]
               : {
                   height: windowHeight - 40,
                   marginTop: 40,
@@ -97,7 +81,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
                   borderBottomLeftRadius: 0,
                   borderBottomRightRadius: 0,
                 },
-          ])}
+          ]}
         >
           <FlatList
             data={props.data}
@@ -105,25 +89,27 @@ const SelectionList = (props: ListProperties): JSX.Element => {
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
-                  if (!heightChecked) return;
                   if (props.type === 'single') {
-                    (props.onSelect as (e: Data) => void)(item);
-                    props.setDisplay(false);
+                    (props.onSelect as (d: Data) => void)(item);
+                    props.hide();
                   } else {
-                    const list = (props.selected as Data[]).includes(item)
-                      ? (props.selected as Data[]).filter((i) => i !== item)
-                      : [...(props.selected as Data[]), item];
-                    (props.onSelect as (e: Data[]) => void)(list);
+                    const selected = props.selected as Data[],
+                      newSelected = selected.includes(item)
+                        ? selected.filter((d: Data) => d !== item)
+                        : [...selected, item];
+                    (props.onSelect as (d: Data[]) => void)(newSelected);
                   }
                 }}
-                style={StyleSheet.flatten([
+                style={[
                   style.item,
-                  (props.selected === item.label ||
-                    (props.selected as Data[]).includes(item)) && [
-                    style.itemSelected,
-                    props.styles.itemSelected,
-                  ],
-                ])}
+                  (props.type === 'single'
+                    ? props.selected === item
+                    : (props.selected as Data[]).includes(item))
+                    && [
+                      style.itemSelected,
+                      props.styles.itemSelected,
+                    ],
+                ]}
               >
                 <Text style={[style.text, props.styles.text]}>
                   {item.label}
@@ -132,6 +118,39 @@ const SelectionList = (props: ListProperties): JSX.Element => {
             )}
           />
         </View>
+        {props.type === 'multi' && (props.selected as Data[]).length > 0 &&
+          <View
+            style={[
+              style.clearButton,
+              props.styles.clearButtonStyle,
+              windowHeight > windowWidth
+                ? {
+                    top: listBottom < windowHeight
+                      ? props.selectorRect.top - 40
+                      : props.selectorRect.bottom,
+                    left: props.selectorRect.right - 40,
+                  }
+                : {
+                    top: 40,
+                    right: 10,
+                  }
+              
+            ]}
+          >
+            <TouchableOpacity
+              onPress={props.clearSelected}
+            >
+              <Text
+                style={{
+                  ...style.clearIcon,
+                  color: props.styles.clearButtonIconColor ?? style.clearIcon.color,
+                }}
+              >
+                {'×'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        }
       </TouchableOpacity>
     </Modal>
   );
