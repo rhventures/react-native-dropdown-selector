@@ -78,7 +78,7 @@ brew install carthage
 
 
 ### Generating the debug app
--   Once you run:
+-   Once you run the command at the proper directory:
 ```
 npm run ios
 ```
@@ -90,9 +90,10 @@ Installing "/path/to/your/debug/app/example.app"
 
 ## Setup the WebDriverIO
 -   Create a new folder named like "Test-<'CustomName'> under your root project directory
--   My folder heirarchy looks like: ![alt text](Hierarchy.png)
+-   My folder heirarchy looks like: 
+-   ![alt text](Hierarchy.png)
 -   In my case, it would be the **Test-iOS**
-2. Run the following command in the new testing folder in the root directory. 
+2. Run the following command in the new folder you just created
 ```
 npm init wdio
 ```
@@ -190,7 +191,7 @@ appium -p <Port Number>
 
 
 # Using the APPIUM Inspector
-
-## Initial Screen
-1. Once the connection is successful, the initial screen of your app will load. *Significant chance that you will spot a bug here, where your screen in the appium inspector might be stuck on the loading screen, like this following image.*
-    -   In this case, click the red 
+**GO WATCH:**
+-   [Tutorial](https://www.youtube.com/watch?v=Q5Oy8axA8Qw&t=1225s) start from 17:40
+-   There are much more ways to find elements and generate assertions through using appium inspector. Take a look at this [WebdriverIO Docs](https://webdriver.io/docs/api/browser)
+-   Now go and mess with test cases and see what is the most optimized method for your project.
