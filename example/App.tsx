@@ -130,6 +130,7 @@ function App(): JSX.Element {
             textShadowRadius: 4,
           }}
           listStyle={{
+            alignSelf: 'center',
             backgroundColor: '#abc',
             borderTopRightRadius: 16,
             borderBottomRightRadius: 34,

@@ -42,9 +42,10 @@ const SelectionList = (props: ListProperties) => {
             props.styles.list,
             windowHeight > windowWidth
               ? {
-                  left: props.selectorRect.left,
                   width: props.selectorRect.right - props.selectorRect.left,
                   maxHeight: props.listHeight,
+                  marginLeft: props.selectorRect.left,
+                  marginRight: windowWidth - props.selectorRect.right,
                   marginTop: props.selectorRect.bottom + props.listHeight < windowHeight
                     ? props.selectorRect.bottom
                     : props.selectorRect.top - props.listHeight,
