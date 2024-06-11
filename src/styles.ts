@@ -39,7 +39,6 @@ const light = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
-    lineHeight: 999,
   },
   clearButton: {
     width: 40,
@@ -119,7 +118,6 @@ const dark = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-    lineHeight: 999,
   },
   clearButton: {
     width: 40,
