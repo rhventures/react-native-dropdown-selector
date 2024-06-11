@@ -51,11 +51,16 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         {selected.length > 0
           ? selected.map((data) =>
               <View
-                style={style.selectedInMultiHighlight}
+                style={StyleSheet.flatten([
+                  style.selectedInMultiHighlight,
+                  props.boxTextHighlightStyle])}
                 key={data.label.toString()}
               >
                 <Text
-                  style={style.selectedInMulti}
+                  style={StyleSheet.flatten([
+                    style.selectorText,
+                    {marginVertical: 0},
+                    props.boxTextStyle])}
                 >
                   {data.label}
                 </Text>
@@ -63,13 +68,14 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
             )
           : <Text
               style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
-              numberOfLines={1}
             >
               {defaultText}
             </Text>
         }
         <Text
-          style={style.arrow}
+          style={StyleSheet.flatten([
+            style.arrow,
+            {color: props.dropdownArrowColor ?? style.arrow.color}])}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>
