@@ -44,7 +44,7 @@ const SelectionList = (props: ListProperties) => {
               ? {
                   width: props.selectorRect.right - props.selectorRect.left,
                   maxHeight: props.listHeight,
-                  marginLeft: props.styles.list?.alignSelf
+                  marginLeft: props.styles.list?.alignSelf === 'center'
                     ? 0
                     : props.selectorRect.left,
                   marginTop: props.selectorRect.bottom + props.listHeight < windowHeight
