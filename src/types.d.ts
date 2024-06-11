@@ -8,6 +8,7 @@ import {
 export interface Data {
   label: string | React.JSX.Element;
   priority?: boolean;
+  data?: object;
 }
 
 export interface ListProperties {
