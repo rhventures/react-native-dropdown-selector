@@ -43,10 +43,19 @@ const SelectionList = (props: ListProperties) => {
             windowHeight > windowWidth
               ? [
                   {
-                    width: props.selectorRect.right - props.selectorRect.left,
                     maxHeight: props.listHeight,
+                    width: props.styles.list?.width
+                      ?? props.selectorRect.right - props.selectorRect.left,
                     marginLeft: props.styles.list?.alignSelf === 'center'
                       ? 0
+                      : props.styles.list?.width
+                      ? props.selectorRect.left
+                        + (props.selectorRect.right
+                          - props.selectorRect.left
+                          - (typeof props.styles.list?.width === 'number'
+                            ? props.styles.list.width
+                            : Number(props.styles.list.width.replace('%', '')) / 100 * windowWidth))
+                        / 2
                       : props.selectorRect.left,
                   },
                   props.selectorRect.bottom + props.listHeight < windowHeight
