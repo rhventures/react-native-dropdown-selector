@@ -116,8 +116,8 @@ specs : [
 ]
 
 ``` 
--  **Max Instances** : Read the description
--  **Capabilities**: This can change based on your development settings.
+-  **Max Instances** : Read the description this can change based on test environment.
+-  **Capabilities**: *This can change based on your development settings.*
     -   **platformName**: Android
     -   **appium:deviceName**: The emulator name you are using. CHeck Android Studio
     -   **appium:platformVersion**: Check your Android Studio
@@ -180,6 +180,9 @@ appium -p <Port Number>
 
 # Using the APPIUM Inspector
 
+## Initial Screen
+1. Once the connection is successful, the initial screen of your app will load. *Significant chance that you will spot a bug here, where your screen in the appium inspector might be stuck on the loading screen, like this following image.*
+    -   In this case, click the red 
 
 
 
