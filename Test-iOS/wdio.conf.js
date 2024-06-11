@@ -59,7 +59,6 @@ export const config = {
     capabilities: [{
         // capabilities for local Appium web tests on iOS
         platformName: 'iOS',
-        // browserName: 'Safari',
         'appium:deviceName': 'iPhone 15 Pro',
         'appium:platformVersion': '17.5',
         'appium:automationName': 'XCUITest',
