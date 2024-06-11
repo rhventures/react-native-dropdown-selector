@@ -60,7 +60,10 @@ const SelectionList = (props: ListProperties) => {
                         / 2
                       : props.selectorRect.left,
                   },
-                  props.selectorRect.bottom + props.listHeight < windowHeight
+                  Math.min(
+                    props.listHeight,
+                    props.data.length * 40
+                  ) + props.selectorRect.bottom < windowHeight
                     ? {
                         top: props.selectorRect.bottom,
                       }
@@ -121,7 +124,10 @@ const SelectionList = (props: ListProperties) => {
               props.styles.clearButtonStyle,
               windowHeight > windowWidth
                 ? {
-                    top: props.selectorRect.bottom + props.listHeight < windowHeight
+                    top: Math.min(
+                      props.listHeight,
+                      props.data.length * 40
+                    ) + props.selectorRect.bottom < windowHeight
                       ? props.selectorRect.top - 40
                       : props.selectorRect.bottom,
                     left: props.selectorRect.right - 40,
