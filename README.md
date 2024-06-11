@@ -14,7 +14,9 @@ A custom react native component for dropdown lists. Emulates some functionality 
 
 Create a react native project with `example/App.tsx` as the main file. Running the application will look similar to the screenshots below.
 
-<img src="assets/demo-dropdown.png" height="350px" /> <img src="assets/demo-item-selected.png" height="350px" />
+<img src="assets/demo-top.png" height="350px" />
+<img src="assets/demo-bottom.png" height="350px" />
+<img src="assets/demo-interaction.gif" height="350px" />
 
 ## Usage
 
@@ -57,7 +59,15 @@ That's it! Run your app to see the selector in action.
 
 ## The `Data` Object
 
-You must follow the formatting of this object for the selector component to function.
+Sample usage:
+
+```tsx
+const data: Data = {
+  label: 'displayed text',
+  priority: true,
+  data: { country: 'USA' },
+};
+```
 
 ### `label` **(required)**
 
@@ -74,7 +84,36 @@ Type: `boolean`
 Additional data for the item. This is not directly used by the Selector component. <br />
 Type: `object`
 
-## Props
+## Selector Props
+
+Sample usage:
+
+```tsx
+<Select
+  data={data}
+  onSelect={console.log}
+  defaultValue={data[0]}
+  listHeight={300}
+  placeholderText='Hello!'
+  boxStyle={{
+    backgroundColor: '#48c',
+  }}
+  boxTextStyle={{
+    fontFamily: 'times new roman',
+  }}
+  listStyle={{
+    backgroundColor: '#abc',
+  }}
+  listTextStyle={{
+    color: 'brown',
+    fontFamily: 'times new roman',
+  }}
+  selectedItemStyle={{
+    backgroundColor: 'green',
+  }}
+  dropdownArrowColor='darkgreen'
+/>
+```
 
 ### `data` **(required)**
 
