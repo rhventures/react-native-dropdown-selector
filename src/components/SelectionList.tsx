@@ -41,16 +41,23 @@ const SelectionList = (props: ListProperties) => {
             style.list,
             props.styles.list,
             windowHeight > windowWidth
-              ? {
-                  width: props.selectorRect.right - props.selectorRect.left,
-                  maxHeight: props.listHeight,
-                  marginLeft: props.styles.list?.alignSelf === 'center'
-                    ? 0
-                    : props.selectorRect.left,
-                  marginTop: props.selectorRect.bottom + props.listHeight < windowHeight
-                    ? props.selectorRect.bottom
-                    : props.selectorRect.top - props.listHeight,
-                }
+              ? [
+                  {
+                    width: props.selectorRect.right - props.selectorRect.left,
+                    maxHeight: props.listHeight,
+                    marginLeft: props.styles.list?.alignSelf === 'center'
+                      ? 0
+                      : props.selectorRect.left,
+                  },
+                  props.selectorRect.bottom + props.listHeight < windowHeight
+                    ? {
+                        top: props.selectorRect.bottom,
+                      }
+                    : {
+                        bottom: windowHeight - props.selectorRect.top,
+                        marginTop: 'auto',
+                      },
+                ]
               : {
                   height: windowHeight - 40,
                   marginTop: 40,
