@@ -105,14 +105,22 @@ const SelectionList = (props: ListProperties) => {
         </View>
         {props.type === 'multi' && (props.selected as Data[]).length > 0 &&
           <View
-            style={{
-              ...style.clearButton,
-              ...props.styles.clearButtonStyle,
-              top: props.selectorRect.bottom + props.listHeight < windowHeight
-                ? props.selectorRect.top - 40
-                : props.selectorRect.bottom,
-              left: props.selectorRect.right - 40,
-            }}
+            style={[
+              style.clearButton,
+              props.styles.clearButtonStyle,
+              windowHeight > windowWidth
+                ? {
+                    top: props.selectorRect.bottom + props.listHeight < windowHeight
+                      ? props.selectorRect.top - 40
+                      : props.selectorRect.bottom,
+                    left: props.selectorRect.right - 40,
+                  }
+                : {
+                    top: 40,
+                    right: 10,
+                  }
+              
+            ]}
           >
             <TouchableOpacity
               onPress={props.clearSelected}
