@@ -14,7 +14,10 @@ import SelectionList from './SelectionList';
 const MultiSelect = (props: MultiSelectProperties) => {
   const [listDisplay, setListDisplay] = useState<boolean>(false),
     defaultText = props.placeholderText ?? 'Click me',
-    [selected, setSelected] = useState<Data[]>([]),
+    [selected, setSelected] = useState<Data[]>(
+      props.data.filter((d: Data) =>
+        props.defaultValue?.includes(d))
+    ),
     selectItem = (items: Data[]) => {
       setSelected(items);
       props.onSelect(items);
