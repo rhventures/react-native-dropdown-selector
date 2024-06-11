@@ -59,6 +59,7 @@ const light = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: 'black',
     borderWidth: 0.5,
+    overflow: 'hidden',
   },
   text: {
     fontSize: 16,
@@ -138,6 +139,7 @@ const dark = StyleSheet.create({
     backgroundColor: '#444',
     borderColor: 'black',
     borderWidth: 0.5,
+    overflow: 'hidden',
   },
   text: {
     fontSize: 16,
