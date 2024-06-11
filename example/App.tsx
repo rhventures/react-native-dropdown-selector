@@ -139,6 +139,7 @@ function App(): JSX.Element {
             borderTopWidth: 8,
             borderBottomWidth: 1,
             height: 250,
+            width: '50%',
           }}
           listTextStyle={{
             alignSelf: 'center',
@@ -211,6 +212,7 @@ function App(): JSX.Element {
             borderTopWidth: 8,
             borderBottomWidth: 1,
             height: 250,
+            width: '50%',
           }}
           listTextStyle={{
             alignSelf: 'center',
