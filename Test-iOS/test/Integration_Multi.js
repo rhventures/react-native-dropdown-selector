@@ -36,12 +36,15 @@ describe('Integrations testing on the multi select bar', () => {
 
        
         beforeEach(async () => {
-                await driver.pause(1500);
-                await clickSelector().perform();
-                await driver.pause(2000);
+            await driver.pause(1500);
+            await clickSelector().perform();
+            await driver.pause(2000);
         })
         selectAndScrollTest(items[0], itemCoordinates);
-        selectAndScrollTest(items[1], itemCoordinates); // cant trap these in a loop, because it would throw off the order
+        selectAndScrollTest(items[1], itemCoordinates);
+        selectAndScrollTest(items[3], itemCoordinates); 
+        selectAndScrollTest(items[2], itemCoordinates); 
+        // cant trap these in a loop, because it would throw off the order
         
         function selectAndScrollTest(items, itemCoordinates){
             it(`should have ${items.join(', ')} selected`, async() => {
@@ -53,6 +56,10 @@ describe('Integrations testing on the multi select bar', () => {
                 }
                 await clickScreen().perform();
                 await driver.pause(500);
+
+                const selector = await driver.$(`-ios class chain:**/XCUIElementTypeOther[\`name == "${items.join(', ')} ᨆ"\`][2]`)
+                await selector.waitForExist(500);
+                await expect(selector).toExist();
 
                 await driver.pause(1000);
                 await clickSelector().perform();
