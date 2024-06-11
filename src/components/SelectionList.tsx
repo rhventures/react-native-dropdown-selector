@@ -54,7 +54,9 @@ const SelectionList = (props: ListProperties) => {
                           - props.selectorRect.left
                           - (typeof props.styles.list?.width === 'number'
                             ? props.styles.list.width
-                            : Number(props.styles.list.width.replace('%', '')) / 100 * windowWidth))
+                            : Number(props.styles.list.width.replace('%', ''))
+                              / 100
+                              * windowWidth))
                         / 2
                       : props.selectorRect.left,
                   },
