@@ -55,7 +55,7 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         ref={ref}
         onLayout={() => updatePos()}
       >
-        {selected.length
+        {selected.length > 0
           ? selected.map((data) =>
               <View
                 style={StyleSheet.flatten([
