@@ -24,7 +24,8 @@ export const config = {
     //
     specs: [
         // ToDo: define location for spec files here
-        './test/unit_SingleSelect.js'
+        // './test/unit_SingleSelect.js'
+        './test/unit_SmallSingleSelect.js'
     ],
     // Patterns to exclude.
     exclude: [
