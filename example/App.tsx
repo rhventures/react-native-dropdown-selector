@@ -36,9 +36,7 @@ function App(): JSX.Element {
         </Text>
         <Select
           data={data}
-          onSelect={(e: Data) => {
-            console.log(e.label);
-          }}
+          onSelect={console.log}
           placeholderText="Select an item"
           boxStyle={{
             alignSelf: 'center',
@@ -47,7 +45,7 @@ function App(): JSX.Element {
         />
         <MultiSelect
           data={data}
-          onSelect={(e: Data[]) => console.log(e)}
+          onSelect={console.log}
         />
         <View style={{ height: 400 }}/>
         <Text>Single Selects:</Text>
@@ -55,19 +53,19 @@ function App(): JSX.Element {
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={(e: Data) => console.log(e)}
+              onSelect={console.log}
             />
           </View>
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={(e: Data) => console.log(e)}
+              onSelect={console.log}
             />
           </View>
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={(e: Data) => console.log(e)}
+              onSelect={console.log}
             />
           </View>
         </View>
@@ -77,19 +75,19 @@ function App(): JSX.Element {
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={(e: Data[]) => console.log(e)}
+                onSelect={console.log}
               />
             </View>
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={(e: Data[]) => console.log(e)}
+                onSelect={console.log}
               />
             </View>
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={(e: Data[]) => console.log(e)}
+                onSelect={console.log}
               />
             </View>
           </View>
@@ -100,7 +98,7 @@ function App(): JSX.Element {
         <Text>Styled Single Select:</Text>
         <Select
           data={data}
-          onSelect={(e: Data) => console.log(e)}
+          onSelect={console.log}
           defaultValue={data[0]}
           listHeight={300}
           placeholderText='I am very stylish'
@@ -161,7 +159,7 @@ function App(): JSX.Element {
         <Text>Styled Multi Select:</Text>
         <MultiSelect
           data={data}
-          onSelect={(e: Data[]) => console.log(e)}
+          onSelect={console.log}
           defaultValue={data}
           listHeight={300}
           placeholderText='I am very stylish'
