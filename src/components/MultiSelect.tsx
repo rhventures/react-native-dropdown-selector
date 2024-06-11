@@ -44,7 +44,7 @@ const MultiSelect = (props: MultiSelectProperties) => {
         ref={ref}
         onLayout={() => updatePos()}
       >
-        {selected.length
+        {selected.length > 0
           ? selected.map((data) =>
               <View
                 key={data.label as string}
