@@ -51,6 +51,7 @@ const MultiSelect = (props: MultiSelectProperties) => {
       <TouchableOpacity
         activeOpacity={1}
         style={[style.selectorBox, props.boxStyle]}
+        disabled={props.disabled}
         onPress={() => updatePos(true)}
         ref={ref}
         onLayout={() => updatePos()}

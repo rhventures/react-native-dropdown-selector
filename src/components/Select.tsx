@@ -50,6 +50,7 @@ const Select = (props: SelectProperties) => {
       <TouchableOpacity
         activeOpacity={1}
         style={[style.selectorBox, props.boxStyle]}
+        disabled={props.disabled}
         onPress={updatePos}
         ref={ref}
       >
