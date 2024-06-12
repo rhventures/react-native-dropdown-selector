@@ -2,7 +2,7 @@ describe("Integration Test", () => {
 
     const topSelector = '-android uiautomator:new UiSelector().text(\"ᨆ\").instance(0)';
     const bottomSelector = '-android uiautomator:new UiSelector().text("ᨆ").instance(1)';
-    const scrollCoordinatesSet =[{'x': 642 , 'y1': 1050, 'y2': 900, 'y3': 560}, 
+    const scrollCoordinatesSet =[{'x': 642 , 'y1': 1050, 'y2': 880, 'y3': 560}, 
     {'x': 642, 'y1': 2104, 'y2': 1880, 'y3': 1680}]
     const itemsToTest = [['Item 3', 'Item 4', 'Item 6', 'Item 8'],['Item 7', 'Item 1', 'Item 5', 'Item 6']]
 
