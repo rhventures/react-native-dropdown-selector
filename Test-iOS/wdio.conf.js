@@ -24,7 +24,13 @@ export const config = {
     //
     specs: [
         // ToDo: define location for spec files here
-        './test/unit_SingleSelect.js'
+        './test/unit_SingleSelect.js',
+        './test/unit_SmallSingleSelect.js',
+        './test/unit_MultiSelect.js',
+        './test/Integration_Single.js',
+        './test/Integration_Multi.js',
+        './test/Integration_DynamicSelect.js',
+        './test/System_Algorithm.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -55,7 +61,6 @@ export const config = {
     capabilities: [{
         // capabilities for local Appium web tests on iOS
         platformName: 'iOS',
-        // browserName: 'Safari',
         'appium:deviceName': 'iPhone 15 Pro',
         'appium:platformVersion': '17.5',
         'appium:automationName': 'XCUITest',
@@ -138,7 +143,7 @@ export const config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 120000
     },
 
     //
