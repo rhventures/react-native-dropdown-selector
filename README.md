@@ -77,12 +77,14 @@ Type: `string | JSX.Element`
 ### `priority`
 
 If enabled, the element will move to the top of the list regardless of its current position. <br />
-Type: `boolean`
+Type: `boolean` <br />
+**Default value:** `undefined`
 
 ### `data`
 
 Additional data for the item. This is not directly used by the Selector component. <br />
-Type: `object`
+Type: `object` <br />
+**Default value:** `undefined`
 
 ## Selector Props
 
@@ -192,6 +194,11 @@ Custom styles for the text highlight inside the main Selector box. <br />
 }
 ```
 
+### `boxTextHighlightStyle` (MultiSelect only)
+
+Custom styles for the text highlight inside the main Selector box. <br />
+Type: `ViewStyle`
+
 ### `listStyle`
 
 Custom styles for the Selector dropdown list. <br />
@@ -260,6 +267,11 @@ Custom color for the clear button. <br />
 Custom color for the icon inside the clear button. <br />
 **Type:** `ColorValue` <br />
 **Default value:** `black` or `white` for dark mode
+
+### `dropdownArrowColor`
+
+Custom color for the dropdown arrow inside the main Selector box. <br />
+Type: `ColorValue`
 
 ## Callbacks
 
