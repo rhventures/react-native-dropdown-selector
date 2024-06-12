@@ -21,6 +21,7 @@ describe('Multi Select Testing Including Scrolling Capability', () => {
             .move({duration : 500, x: 200 , y: 720})
             .up({button: 0});
         }
+        
         function downScroll(){
             return driver.action('pointer', {parameters: {pointerType: 'touch'}})
             .move({duration : 100, x: 200 , y: 720})

@@ -24,12 +24,12 @@ export const config = {
     //
     specs: [
         // ToDo: define location for spec files here
-        // './test/unit_SingleSelect.js',
-        // './test/unit_SmallSingleSelect.js',
-        // './test/unit_MultiSelect.js',
-        // './test/Integration_Single.js',
-        // './test/Integration_Multi.js',
-        // './test/Integration_DynamicSelect.js'
+        './test/unit_SingleSelect.js',
+        './test/unit_SmallSingleSelect.js',
+        './test/unit_MultiSelect.js',
+        './test/Integration_Single.js',
+        './test/Integration_Multi.js',
+        './test/Integration_DynamicSelect.js',
         './test/System_Algorithm.js'
     ],
     // Patterns to exclude.
@@ -143,7 +143,7 @@ export const config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 120000
     },
 
     //
