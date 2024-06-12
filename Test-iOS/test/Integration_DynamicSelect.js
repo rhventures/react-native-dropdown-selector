@@ -10,7 +10,7 @@ describe('Multi Select Testing Including Scrolling Capability', () => {
         'Item 8': {'x': 200, 'y': 710}};
         const topItems = ['Item 3', 'Item 7', 'Item 1', 'Item 2', 'Item 4'];
         const bottomItems = ['Item 2', 'Item 4', 'Item 5', 'Item 6', 'Item 8'];
-
+        const itemsToTest = [['Item 3', 'Item 6', 'Item 1']]
 
         function upScroll(){
             return driver.action('pointer', {parameters: {pointerType: 'touch'}})
@@ -54,11 +54,43 @@ describe('Multi Select Testing Including Scrolling Capability', () => {
             await driver.pause(2000);
         })
 
-        function selectAndScrollTest(items, itemCoordinates){
-            for(let i = 0; i < items.length; i++){
+        selectAndScrollTest(itemsToTest[0])
+
+        function selectAndScrollTest(items){
+            it(`should have ${items.join(', ')} selected`, async () => {                
                 var top = true;
-                
-            }
+                var displayedItems= topItems
+                for(let i = 0; i < items.length; i++){
+                    if(displayedItems.indexOf(items[i]) == -1 && top){
+                        await downScroll().perform();
+                        await driver.pause(1000);
+                        await clickItem(bottomItemCoordinates[items[i]]).perform();
+                        displayedItems = bottomItems;
+                        top = false;
+                    }
+                    else if(displayedItems.indexOf(items[i]) == -1 && !top){
+                        await upScroll().perform();
+                        await driver.pause(1000);
+                        await clickItem(topItemCoordinates[items[i]]).perform();
+                        displayedItems = topItems;
+                        top = true;
+                    }
+                    else{
+                        if(top){
+                            await clickItem(topItemCoordinates[items[i]]).perform();
+                        }
+                        else{
+                            await clickItem(bottomItemCoordinates[items[i]]).perform();
+                        }
+                    }
+                    await driver.pause(500);
+                }
+                await clickScreen().perform();
+                await driver.pause(500);
+
+                const selector = await driver.$(`-ios class chain:**/XCUIElementTypeOther[\`name == "${items.join(', ')} ᨆ"\`][2]`);
+                expect(selector).toExist();
+            })
         }
     })
 })
