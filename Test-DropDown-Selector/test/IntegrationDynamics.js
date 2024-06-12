@@ -90,20 +90,21 @@ describe("Integration test for the multi selector", () => {
                         const item = await driver.$(`accessibility id:${items[i]}`);
                         //await item.waitForExist(1000);
                         item.click();
-                        await driver.pause(500);
+                        await driver.pause(1000);
                     }
 
                     const backScreen = await driver.$(getBackScreen());
                     //await backScreen.waitForExist(1000);
                     backScreen.click();
-                    await driver.pause(500);
+                    await driver.pause(1000);
 
                     const selector = await driver.$(`accessibility id:${items.join(', ')}, ᨆ`);
                     //await selector.waitForExist(1000);
-                    const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
-                    await selectorDisplay.waitForExist(500);
+                    const selectorDisplay = await selector.$$('.android.widget.TextView');
 
-                    await expect(selectorDisplay).toHaveText(items.join(', '));
+                    for(let i = 0; i < items.length; i++){
+                        await expect(selectorDisplay[i]).toHaveText(items[i]);
+                    }
 
                     await driver.pause(500);
                     const multiSelector = await driver.$(getDropDownArrow());
