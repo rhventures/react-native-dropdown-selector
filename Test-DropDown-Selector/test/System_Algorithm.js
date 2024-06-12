@@ -55,6 +55,7 @@ describe("Integration test for the multi selector", () => {
                     var group = await driver.$(getItemGroup());
                     var displayedContent = await group.$$('.android.view.ViewGroup');
                     var displayedItemList = [];
+                    const selectedItems = [];
                     for(let i = 1; i< displayedContent.length; i+=2){
                         displayedItemList.push(await displayedContent[i].getAttribute('content-desc'));
                     }
@@ -91,6 +92,15 @@ describe("Integration test for the multi selector", () => {
                         const item = await driver.$(`accessibility id:${pattern[i]}`);
                         //await item.waitForExist(1000);
                         item.click();
+                        await driver.pause(1000);
+                        let index = selectedItems.indexOf(pattern[i]);
+                        if(index == -1){
+                            selectedItems.push(pattern[i]);
+                        }
+                        else{
+                            selectedItems.splice(index, 1);
+                        }
+                        //console.log(selectedItems);
                         await driver.pause(500);
                     }
 
@@ -99,13 +109,14 @@ describe("Integration test for the multi selector", () => {
                     backScreen.click();
                     await driver.pause(500);
 
-                    const selector = await driver.$(`accessibility id:${items.join(', ')}, ᨆ`);
-                    //await selector.waitForExist(1000);
-                    const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
-                    await selectorDisplay.waitForExist(500);
-
-                    await expect(selectorDisplay).toHaveText(items.join(', '));
-
+                    const selector = await driver.$(`accessibility id:${selectedItems.join(', ')}, ᨆ`);
+                    await selector.waitForExist(1000);
+                    const selectorDisplay = await selector.$$('.android.widget.TextView');
+                    
+                    for(let i = 0; i < selectedItems.length; i++){
+                        await expect(selectorDisplay[i]).toHaveAttribute('text', selectedItems[i]);
+                    }
+                    
                     await driver.pause(500);
                     const multiSelector = await driver.$(getDropDownArrow());
                     //await multiSelector.waitForExist(1000);
