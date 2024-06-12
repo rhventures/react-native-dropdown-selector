@@ -66,7 +66,7 @@ Create a react native project with `example/App.tsx` as the main file. Running t
 
 <img src="assets/demo-top.png" height="350px" /> <img src="assets/demo-bottom.png" height="350px" /> <img src="assets/demo-interaction.gif" height="350px" />
 
-For an in-depth walkthrough, start from the "[Install Dependencies](https://github.com/rhventures/react-native-dropdown-selector/wiki/Development#install-dependencies)" section on the development guide.
+For an in-depth walkthrough, follow the link in the Development section.
 
 ## Development
 
