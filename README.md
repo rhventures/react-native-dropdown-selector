@@ -77,12 +77,14 @@ Type: `string | JSX.Element`
 ### `priority`
 
 If enabled, the element will move to the top of the list regardless of its current position. <br />
-Type: `boolean`
+Type: `boolean` <br />
+**Default value:** `undefined`
 
 ### `data`
 
 Additional data for the item. This is not directly used by the Selector component. <br />
-Type: `object`
+Type: `object` <br />
+**Default value:** `undefined`
 
 ## Selector Props
 
