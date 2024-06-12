@@ -186,6 +186,15 @@ appium -p <Port Number>
 ## ToDO
 1. Go Watch the [Appium Inspector Tutorial](https://www.youtube.com/watch?v=KN1sTvvX0mM&t=2s) from 32:07
 2. There are many ways to find elements, properties and create assertions using appium inspector. You can find more docs here: [WebDriverIO Docs](https://webdriver.io/docs/api/expect-webdriverio)
+3. You can run your test files by running:
+```
+npx wdio
+```
+-    if you run into an error: *"ts-node/esm/trasnpile-only 'resolve' did not call the next hook.."*
+-   Running the following command will fix it.
+```
+npm i -D typescript ts-node
+```
 3. Now go play around with the test cases and see what fits the best for your app.
 
 
