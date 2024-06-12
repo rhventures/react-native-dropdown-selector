@@ -199,6 +199,11 @@ Custom styles for the text highlight inside the main Selector box. <br />
 Custom styles for the text highlight inside the main Selector box. <br />
 Type: `ViewStyle`
 
+### `boxTextHighlightStyle` (MultiSelect only)
+
+Custom styles for the text highlight inside the main Selector box. <br />
+Type: `ViewStyle`
+
 ### `listStyle`
 
 Custom styles for the Selector dropdown list. <br />
@@ -267,6 +272,11 @@ Custom color for the clear button. <br />
 Custom color for the icon inside the clear button. <br />
 **Type:** `ColorValue` <br />
 **Default value:** `black` or `white` for dark mode
+
+### `dropdownArrowColor`
+
+Custom color for the dropdown arrow inside the main Selector box. <br />
+Type: `ColorValue`
 
 ### `dropdownArrowColor`
 
