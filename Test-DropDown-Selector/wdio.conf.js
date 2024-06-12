@@ -30,8 +30,8 @@ export const config = {
         // './test/MultiSelect.js',
         // './test/Technical.js',
         // './test/IntegrationSingle.js',
-        // './test/IntegrationMulti.js',
-        './test/IntegrationDynamics.js'
+        './test/IntegrationMulti.js',
+        // './test/IntegrationDynamics.js'
         // './test/System_Algorithm.js'
     ],
     // Patterns to exclude.
