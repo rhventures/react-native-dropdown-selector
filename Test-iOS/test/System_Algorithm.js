@@ -12,7 +12,7 @@ describe('Multi Select Testing Including Scrolling Capability', () => {
         const bottomItems = ['Item 2', 'Item 4', 'Item 5', 'Item 6', 'Item 8'];
         const itemsToTest = [['Item 3', 'Item 4', 'Item 8', 'Item 7'],
         ['Item 1', 'Item 6', 'Item 2', 'Item 5']]
-        const pattern = [['Item 3', 'Item 1', 'Item 2', 'Item 4', 'Item 2', 'Item 8', 'Item 1', 'Item 7'],
+        const pattern = [['Item 1', 'Item 4', 'Item 2', 'Item 3', 'Item 2', 'Item 7', 'Item 1', 'Item 8'],
         ['Item 6', 'Item 4', 'Item 3', 'Item 5', 'Item 2', 'Item 1', 'Item 3' ,'Item 4']]
         function upScroll(){
             return driver.action('pointer', {parameters: {pointerType: 'touch'}})
@@ -56,8 +56,9 @@ describe('Multi Select Testing Including Scrolling Capability', () => {
             await driver.pause(2000);
         })
 
-        //selectWithAlgorithmTest(itemsToTest[0], pattern[0]);
-        selectWithAlgorithmTest(itemsToTest[1], pattern[1]);
+        // do one at a time, because if the test cases go to long, it might timeout.
+        selectWithAlgorithmTest(itemsToTest[0], pattern[0]);
+        //selectWithAlgorithmTest(itemsToTest[1], pattern[1]);
 
         function selectWithAlgorithmTest(items , algorithm){
             it(`should have ${items.join(', ')} selected`, async () => {                
