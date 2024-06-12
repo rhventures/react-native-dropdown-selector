@@ -26,10 +26,6 @@ const SelectionList = (props: ListProperties): JSX.Element => {
       boolean,
       React.Dispatch<React.SetStateAction<boolean>>
     ] = useState<boolean>(false),
-    [selectedList, setSelectedList]: [
-      Data[],
-      React.Dispatch<React.SetStateAction<Data[]>>
-    ] = useState<Data[]>([]),
     windowHeight: number = Dimensions.get('window').height,
     windowWidth: number = Dimensions.get('window').width,
     [orientation, setOrientation]: [
@@ -46,17 +42,6 @@ const SelectionList = (props: ListProperties): JSX.Element => {
     pos.top = y - props.listHeight;
     pos.bottom = y + height;
   });
-
-  useEffect(() => {
-    if (props.type === 'multi') {
-      setSelectedList(
-        (props.selected as string)
-          .split(', ')
-          .map((s) => props.data.find((d) => d.label === s))
-          .filter((d) => d !== undefined) as Data[]
-      );
-    }
-  }, [props.selected]);
 
   return (
     <Modal
@@ -101,7 +86,7 @@ const SelectionList = (props: ListProperties): JSX.Element => {
             windowHeight > windowWidth
               ? {
                   maxHeight: props.listHeight,
-                  marginTop: listHeight,
+                  marginTop: listHeight + props.overflowNotif,
                   opacity: heightChecked ? 1 : 0,
                 }
               : {
@@ -125,17 +110,16 @@ const SelectionList = (props: ListProperties): JSX.Element => {
                     (props.onSelect as (e: Data) => void)(item);
                     props.setDisplay(false);
                   } else {
-                    const list = selectedList.includes(item)
-                      ? selectedList.filter((i) => i !== item)
-                      : [...selectedList, item];
-                    setSelectedList(list);
+                    const list = (props.selected as Data[]).includes(item)
+                      ? (props.selected as Data[]).filter((i) => i !== item)
+                      : [...(props.selected as Data[]), item];
                     (props.onSelect as (e: Data[]) => void)(list);
                   }
                 }}
                 style={StyleSheet.flatten([
                   style.item,
                   (props.selected === item.label ||
-                    selectedList.includes(item)) && [
+                    (props.selected as Data[]).includes(item)) && [
                     style.itemSelected,
                     props.styles.itemSelected,
                   ],
