@@ -118,74 +118,155 @@ Sample usage:
 ### `data` **(required)**
 
 Holds the items used for the Selector. <br />
-Type: `Data[]`
+**Type:** `Data[]`
 
 ### `defaultValue`
 
 Choose an item to be selected before the user interacts with the Selector. <br />
-Type: `Data` (single select) or `Data[]` (multi select)
+**Type:** `Data` (single select) or `Data[]` (multi select) <br />
+**Default value:** `undefined`
 
 ### `listHeight`
 
-The height of the dropdown list. Defaults to 200. <br />
-Type: `number`
+The height of the dropdown list. <br />
+**Type:** `number` <br />
+**Default value:** `200`
 
 ### `placeholderText`
 
-Replace the default Selector text when an item hasn't been selected. The default value is `Click me`. <br />
-Type: `string | JSX.Element`
+Replace the default Selector text when an item hasn't been selected. <br />
+**Type:** `string | JSX.Element` <br />
+**Default value:** `'Click me'`
 
 ### `boxStyle`
 
 Custom styles for the main Selector box. <br />
-Type: `ViewStyle`
+**Type:** `ViewStyle` <br />
+**Default value:** 
+```tsx
+{
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  alignContent: 'space-between',
+  paddingVertical: 4,
+  paddingLeft: 8,
+  paddingRight: 24,
+  borderColor: 'black',
+  borderWidth: 0.5,
+  margin: 5,
+  backgroundColor: 'white', // '#444' for dark mode
+  overflow: 'hidden',
+  flexWrap: 'wrap',
+}
+```
 
 ### `boxTextStyle`
 
 Custom styles for the text inside the main Selector box. <br />
-Type: `ViewStyle`
+**Type:** `ViewStyle` <br />
+**Default value:** 
+```tsx
+{
+  fontSize: 16,
+  overflow: 'hidden',
+  color: '#444', // '#ddd' for dark mode
+  marginVertical: 4,
+}
+```
 
 ### `boxTextHighlightStyle` (MultiSelect only)
 
 Custom styles for the text highlight inside the main Selector box. <br />
-Type: `ViewStyle`
+**Type:** `ViewStyle` <br />
+**Default value:** 
+```tsx
+{
+  backgroundColor: '#ccc', // '#222' for dark mode
+  paddingHorizontal: 8,
+  paddingVertical: 2,
+  borderRadius: 12,
+  marginRight: 6,
+  marginVertical: 2,
+}
+```
 
 ### `listStyle`
 
 Custom styles for the Selector dropdown list. <br />
-Type: `ViewStyle`
+**Type:** `ViewStyle` <br />
+**Default value:** 
+```tsx
+{
+  backgroundColor: 'white', // '#444' for dark mode
+  borderColor: 'black',
+  borderWidth: 0.5,
+  overflow: 'hidden',
+}
+```
 
 ### `listTextStyle`
 
 Custom styles for the text inside the Selector dropdown list. <br />
-Type: `ViewStyle`
+**Type:** `ViewStyle` <br />
+**Default value:** 
+```tsx
+{
+  fontSize: 16,
+  paddingLeft: 8,
+  color: '#444', // '#ddd' for dark mode
+}
+```
 
 ### `selectedItemStyle`
 
 Custom styles for the active item inside the Selector dropdown list. <br />
-Type: `ViewStyle`
+**Type:** `ViewStyle` <br />
+**Default value:** 
+```tsx
+{
+  backgroundColor: 'lightblue',
+  fontWeight: 'bold',
+}
+```
 
 ### `dropdownArrowColor`
 
 Custom color for the dropdown arrow inside the main Selector box. <br />
-Type: `ColorValue`
+**Type:** `ColorValue` <br />
+**Default value:** `black` or `white` for dark mode
 
 ### `clearButtonStyle` (MultiSelect only)
 
 Custom color for the clear button. <br />
-Type: `ViewStyle`
+**Type:** `ViewStyle` <br />
+**Default value:** 
+```tsx
+{
+  width: 40,
+  height: 40,
+  backgroundColor: 'white', // '#444' for dark mode
+  position: 'absolute',
+  borderColor: 'black',
+  borderWidth: 0.5,
+  borderRadius: 8,
+  right: 5,
+}
+```
 
 ### `clearButtonIconColor` (MultiSelect only)
 
 Custom color for the icon inside the clear button. <br />
-Type: `ColorValue`
+**Type:** `ColorValue` <br />
+**Default value:** `black` or `white` for dark mode
 
 ## Callbacks
 
 ### `onSelect` **(required)**
 
 Called when the user selects an item from the selector. <br />
-Type: `Function (e: Data) => void` (single select) or `Function (e: Data[]) => void` (multi select)
+**Type:** `Function (e: Data) => void` (single select) or `Function (e: Data[]) => void` (multi select) <br />
 
 ## Development
 
