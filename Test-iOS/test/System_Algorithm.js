@@ -1,6 +1,6 @@
 describe('Multi Select Testing Including Scrolling Capability', () => {
     
-    context('Using dynamics', () => {
+    context('Using dynamics and algorithms', () => {
     
         const topItemCoordinates = {'Item 3' : {'x': 200 , 'y': 550}, 'Item 7': {'x': 200, 'y': 590}, 
         'Item 1': {'x': 200, 'y': 630}, 'Item 2': {'x': 200, 'y': 670}, 
@@ -10,8 +10,11 @@ describe('Multi Select Testing Including Scrolling Capability', () => {
         'Item 8': {'x': 200, 'y': 710}};
         const topItems = ['Item 3', 'Item 7', 'Item 1', 'Item 2', 'Item 4'];
         const bottomItems = ['Item 2', 'Item 4', 'Item 5', 'Item 6', 'Item 8'];
-        const itemsToTest = [['Item 3', 'Item 4', 'Item 8', 'Item 7'],['Item 1', 'Item 6', 'Item 2', 'Item 5']]
-        const pattern = [['Item 3', 'Item 1', 'Item 2', 'Item 4', 'Item 2', 'Item 8', 'Item 1', 'Item 7']]
+        const itemsToTest = [['Item 3', 'Item 4', 'Item 8', 'Item 7'],
+        ['Item 1', 'Item 6', 'Item 2', 'Item 5']]
+        const pattern = [['Item 3', 'Item 1', 'Item 2', 'Item 4', 
+        'Item 2', 'Item 8', 'Item 1', 'Item 7'],
+        ['Item 6', 'Item 4', 'Item 3', 'Item 5', 'Item 2', 'Item 1', 'Item 3' ,'Item 4']]
         function upScroll(){
             return driver.action('pointer', {parameters: {pointerType: 'touch'}})
             .move({duration : 100, x: 200 , y: 560})
@@ -54,13 +57,14 @@ describe('Multi Select Testing Including Scrolling Capability', () => {
             await driver.pause(2000);
         })
 
-        // selectAndScrollTest(itemsToTest[0])
-        selectWithAlgorithmTest(itemsToTest[0], pattern[0])
+        //selectWithAlgorithmTest(itemsToTest[0], pattern[0]);
+        selectWithAlgorithmTest(itemsToTest[1], pattern[1]);
 
         function selectWithAlgorithmTest(items , algorithm){
             it(`should have ${items.join(', ')} selected`, async () => {                
                 var top = true;
                 var displayedItems= topItems
+                var selectedItems = [];
                 for(let i = 0; i < algorithm.length; i++){
                     if(displayedItems.indexOf(algorithm[i]) == -1 && top){
                         await downScroll().perform();
@@ -84,14 +88,26 @@ describe('Multi Select Testing Including Scrolling Capability', () => {
                             await clickItem(bottomItemCoordinates[algorithm[i]]).perform();
                         }
                     }
+                    await driver.pause(1000);
+                    let index = selectedItems.indexOf(algorithm[i]);
+                    if(index == -1){
+                        selectedItems.push(algorithm[i]);
+                    }
+                    else{
+                        selectedItems.splice(index, 1);
+                    }
+                    console.log(selectedItems);
                     await driver.pause(500);
                 }
                 await clickScreen().perform();
                 await driver.pause(500);
 
-                const selector = await driver.$(`-ios class chain:**/XCUIElementTypeOther[\`name == "${items.join(', ')} ᨆ"\`][2]`);
-                expect(selector).toExist();
+                const selector = await driver.$(`-ios class chain:**/XCUIElementTypeOther[\`name == "${selectedItems.join(', ')} ᨆ"\`][2]`);
                 await driver.pause(500);
+                for(let i = 0; i < items.length; i++){
+                    await expect(selector).toHaveAttribute('name', expect.stringContaining(items[i]));
+                    await driver.pause(500);
+                }
                 //reset
                 await clickSelector().perform();
                 await driver.pause(1000);
