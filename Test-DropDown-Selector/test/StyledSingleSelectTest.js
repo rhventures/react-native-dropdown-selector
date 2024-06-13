@@ -33,6 +33,9 @@ describe('Example App Testing', () => {
 
         selectItem('Item 6');
         selectItem('Item 1');
+        selectItem('Item 3');
+        selectItem('Item 4');
+        selectItem('Item 8');
 
         function selectItem(item){
             it(`'should have ${item} selected`, async () => {
