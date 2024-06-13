@@ -85,6 +85,7 @@ const SelectionList = (props: ListProperties) => {
         >
           <TextInput
             placeholder='Search'
+            style={style.searchBox}
           />
           <FlatList
             data={props.data}
