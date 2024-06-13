@@ -33,7 +33,8 @@ export const config = {
         // './test/IntegrationMulti.js',
         // './test/IntegrationDynamics.js'
         //  './test/System_Algorithm.js'
-        './test/StyledSingleSelectTest.js'
+        // './test/StyledSingleSelectTest.js'
+        './test/SearchTest.js'
     ],
     // Patterns to exclude.
     exclude: [
