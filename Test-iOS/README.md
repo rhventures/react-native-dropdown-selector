@@ -109,7 +109,7 @@ This will trigger the installation process. Now move on to the configurations
 - No autogenerate
 - **Reporter**: **spec**
 - **Plugins**: NONE. Just press Enter
-- **Visual testing**: Default
+- **Visual testing**: Default. Just Press Enter
 - **Add a service**: Appium
 - Run npm install
 - Continue with Appium setup using appium-installer?: NO
@@ -120,7 +120,7 @@ There should be a **wdio.conf.js** file generated in the testing folder you prev
 Now in create a folder named **test** in newly made testing folder. This is where all the test files will go.
 Anything not mentioned here can be left as default
 
--   **local** : 4723
+-   **Port** : 4723
 -   **Specs** : this is where your test files go. If your test file name is **HelloWorld.js**, then the snippet might look like:
 ```
 specs : [
@@ -131,6 +131,7 @@ specs : [
 -  **Max Instances** : Read the description this can change based on test environment.
 -  **Capabilities**: *This can change based on your development settings.*
     -   **platformName**: iOS
+    -   **BrowserName** : *Delete this line, we are not using a browser driver*
     -   **appium:deviceName**: The emulator name you are using. Check iOS Simulator
     -   **appium:platformVersion**: Check your iOS Simulator
     -   **appium:automationName**: = XCUItest
@@ -147,7 +148,7 @@ capabilities: [{
         'appium:app' : iosAppPath
     }],
 ```
--   **framework** : Make sure this is *mocha*
+-   **framework** : Since I choose Mocha, I have it as *Mocha*, However, make sure this matches the testing framework you choose 
 -   **mochaOpts** : the timeout here sets the time limit on the test case.
     -   I set mine to :
     ```
@@ -171,13 +172,15 @@ capabilities: [{
 -   **Remote Port** : Set it to some number besides 4723. Mine is 3000
 -   **Remote Path** : default. -> Mine is /
 
-3. Now in the JSON Representation Tab, copy the **specs** code snippet from *wdio.conf.js* file and paste it.
-4. Now in the capacity builder, make sure all the middle boxes are showing *text*
-5. click *save*
+3. Now in the JSON Representation Tab, copy the **Capabilities** code snippet from *wdio.conf.js* file and paste it.
+4. *platformName* should also be in quotes.* Click save
+5. Your capacity builder should be filled. If it is not automatically filled, it must be manually filled.
+6. Now in the capacity builder, make sure all the middle boxes are showing *text*
+7. Save the capability set
 
 -   After everything, your set up should look similar to this:
 -   ![alt text](AInspector.png)
-6. Leave the Inspector open for the Next Step
+8. Leave the Inspector open for the Next Step
 
 ### Connect your Appium Inspector with your app
 1. Open up terminal. 
@@ -186,8 +189,13 @@ capabilities: [{
 appium -p <Port Number>
 ```
 3. Now the server for appium inspector should be running
-4. Now click **Start Session** in the bottom right corner. 
-5. If it connects, congradulations! Move on to the next section.
+4. **Make sure your simulator is up and running.**
+5. **Make sure the app is running on the simulator-> run this command at your ios directory**
+```
+npm run ios
+```
+6. Now click **Start Session** in the bottom right corner. 
+7. If it connects, congradulations! Move on to the next section.
 
 
 # Using the APPIUM Inspector
@@ -195,3 +203,25 @@ appium -p <Port Number>
 -   [Tutorial](https://www.youtube.com/watch?v=Q5Oy8axA8Qw&t=1225s) start from 17:40
 -   There are much more ways to find elements and generate assertions through using appium inspector. Take a look at this [WebdriverIO Docs](https://webdriver.io/docs/api/browser)
 -   Now go and mess with test cases and see what is the most optimized method for your project.
+
+### To Run the Test files
+-   Run:
+```
+npx wdio
+```
+
+## Error Handling*
+-   If you run into an error: *"No spec files to run"* 
+    -   You do not have your test files specified in specs at *wdio.conf.js*
+
+-   If you run into an error: *"Connection Refuse error"*
+    -   That means the server port is occupied. Run this command to kill all the active ports:
+    ```
+    pkill -9 -f appium
+    ```
+-    if you run into an error: *"ts-node/esm/trasnpile-only 'resolve' did not call the next hook.."*
+    -   Running the following command will fix it.
+    ```
+    npm i -D typescript ts-node
+    ```
+

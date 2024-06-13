@@ -172,13 +172,13 @@ capabilities: [{
 
 3. Now in the JSON Representation Tab, copy the **Capabilities** code snippet from *wdio.conf.js* file and paste it. 
 4. *platformName* should also be in quotes.* Click save
-4. Your capacity builder should be filled. If it is not automatically filled, it must be manually filled.
-4. Now in the capacity builder, make sure all the middle boxes are showing *text*
-5. Save the capability set
+5. Your capacity builder should be filled. If it is not automatically filled, it must be manually filled.
+6. Now in the capacity builder, make sure all the middle boxes are showing *text*
+7. Save the capability set
 
 -   After everything, your set up should look similar to this:
 -   ![alt text](AppiumInspector.png)
-6. Leave the Inspector open for the Next Step
+8. Leave the Inspector open for the Next Step
 
 ### Connect your Appium Inspector with your app
 1. Open up terminal. 
@@ -211,13 +211,9 @@ npx wdio
 ```
 -   If you run into an error: *"No spec files to run"* 
     -   You do not have your test files specified in specs at *wdio.conf.js*
--   If you run into an error: *"Connection Refuse error"*
-    -   That means the server port is occupied. Run this command to kill all the active ports:
-    ```
-    pkill -9 -f appium
-    ```
-    -   If you dont have pkill
-        -   Run the test (npx wdio) again, and Ctrl + C while the test is running the to manually terminate the active port. This will fix it.
+
+-   If you dont have pkill
+     -   Run the test (npx wdio) again, and Ctrl + C while the test is running the to manually terminate the active port. This will fix it.
 -    if you run into an error: *"ts-node/esm/trasnpile-only 'resolve' did not call the next hook.."*
     -   Running the following command will fix it.
     ```
