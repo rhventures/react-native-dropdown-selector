@@ -83,16 +83,18 @@ const SelectionList = (props: ListProperties) => {
                   borderBottomRightRadius: 0,
                 },
           ]}
-        >
-          <TextInput
-            placeholder='Search'
-            style={style.searchBox}
-            onChangeText={(input: string) => {
-              setEntries(props.data.filter((data: Data) => 
-                typeof data.label === 'string' && data.label.includes(input)
-              ));
-            }}
-          />
+        > 
+          {props.searchable &&
+            <TextInput
+              placeholder='Search'
+              style={style.searchBox}
+              onChangeText={(input: string) => {
+                setEntries(props.data.filter((data: Data) => 
+                  typeof data.label === 'string' && data.label.includes(input)
+                ));
+              }}
+            />
+          }
           <FlatList
             data={entries}
             style={windowWidth > windowHeight && { marginBottom: 20 }}
