@@ -3,14 +3,14 @@ import { ScrollView, Text, View } from 'react-native';
 import { MultiSelect, Select, type Data } from 'react-native-dropdown-selector';
 
 const data: Data[] = [
-  { label: 'Item 1' },
-  { label: 'Item 2' },
-  { label: 'Item 3', priority: true },
-  { label: 'Item 4' },
-  { label: 'Item 5' },
-  { label: 'Item 6' },
-  { label: 'Item 7', priority: true },
-  { label: 'Item 8' },
+  { label: 'ABC' },
+  { label: 'abc' },
+  { label: 'ABCDEF', priority: true },
+  { label: 'abcdef' },
+  { label: 'ABCXYZ' },
+  { label: 'abcxyz' },
+  { label: 'xyzabc', priority: true },
+  { label: 'XYZABC' },
 ];
 
 function App(): JSX.Element {
