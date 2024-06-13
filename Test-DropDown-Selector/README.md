@@ -45,6 +45,16 @@ and then run:
 ```
 appium-doctor
 ```
+-   You might encounter some issues such as: 
+    -   apkanalyzer not found, or Android not found in ../sdk
+-   **you can ignore the *Android not found* error. It is deprecated.**
+-   **For the apkanalyzer not found:**
+    1.  Open Android Studio
+    2.  Go to Settings 
+    3.  Find Android SDK tab
+    4.  Go to SDK Tools
+    5.  Check Android Command Line Tools, (if not installed, go install it.)
+
 -   If there is necessary fix that must be done, it must be done. For optional fixes, it can be ignored.
 
 ### Install Appium Drivers
@@ -85,7 +95,7 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
 ```
 npm init wdio
 ```
-This will trigger the installation process. Now move on to the configurations
+This will trigger the installation process. Now move on to the configurations:
 ### Configurations
 - **Project name**: Assuming you are in the right folder...: Yes
 - **E2E Testing**
@@ -97,7 +107,7 @@ This will trigger the installation process. Now move on to the configurations
 - No autogenerate
 - **Reporter**: **spec**
 - **Plugins**: NONE. Just press Enter
-- **Visual testing**: Default
+- **Visual testing**: Default. Just press Enter
 - **Add a service**: Appium
 - Run npm install
 - Continue with Appium setup using appium-installer?: NO
