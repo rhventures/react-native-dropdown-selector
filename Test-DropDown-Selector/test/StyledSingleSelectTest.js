@@ -20,17 +20,19 @@ describe('Example App Testing', () => {
             return driver.$(`accessibility id:${item}`)
         }
     
-        beforeEach(async () => {
-            await driver.pause(1500);
+        before(async () => {
+            await driver.pause(1000);
             await scroll({x: 950, y: 2600}, {x: 950, y: 600}).perform();
             await driver.pause(1000);
             await scroll({x: 950, y: 2600}, {x: 950, y: 600}).perform();
+        })
+        beforeEach(async () => {
             const dropDown = await dropDownArrow()
             dropDown.click();
         })
 
-
         selectItem('Item 6');
+        selectItem('Item 1');
 
         function selectItem(item){
             it(`'should have ${item} selected`, async () => {
@@ -50,7 +52,7 @@ describe('Example App Testing', () => {
                 }
                 else{
                     const topItem = displayedContent[0];
-                    const bottomItem = displayedContent[displayedContent.length-1];
+                    const bottomItem = displayedContent[displayedContent.length-3];
                     const locTop = await topItem.getLocation();
                     const locBottom = await bottomItem.getLocation();
                     console.log(locTop);
@@ -61,6 +63,10 @@ describe('Example App Testing', () => {
                     selected.click();
                     await driver.pause(500);
                 }
+
+                const selector = await getItem(`${item}, ᨆ`);
+                const selectorDisplay = await selector.$$('android.widget.TextView')[0];
+                await expect(selectorDisplay).toHaveText(item);
 
             })
         }
