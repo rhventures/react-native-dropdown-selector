@@ -88,11 +88,10 @@ const SelectionList = (props: ListProperties) => {
             <TextInput
               placeholder='Search'
               style={style.searchBox}
-              onChangeText={(input: string) => {
+              onChangeText={(input: string) => 
                 setEntries(props.data.filter((data: Data) => 
                   typeof data.label === 'string' && data.label.includes(input)
-                ));
-              }}
+              ))}
               onLayout={() => setEntries(props.data)}
             />
           }
