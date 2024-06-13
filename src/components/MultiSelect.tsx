@@ -102,6 +102,7 @@ const MultiSelect = (props: MultiSelectProperties) => {
           itemSelected: props.selectedItemStyle,
           clearButtonStyle: props.clearButtonStyle,
           clearButtonIconColor: props.clearButtonIconColor,
+          searchBox: props.searchBoxStyle,
         }}
         data={updatePriorities(props.data)}
         type="multi"

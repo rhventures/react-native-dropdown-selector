@@ -77,6 +77,7 @@ const Select = (props: SelectProperties) => {
           list: props.listStyle,
           text: props.listTextStyle,
           itemSelected: props.selectedItemStyle,
+          searchBox: props.searchBoxStyle,
         }}
         data={updatePriorities(props.data)}
         type="single"
