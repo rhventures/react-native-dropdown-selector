@@ -187,14 +187,20 @@ capabilities: [{
 appium -p <Port Number>
 ```
 3. Now the server for appium inspector should be running
-4. Now click **Start Session** in the bottom right corner. 
-5. If it connects, congradulations! Move on to the next section.
+4. **Make sure your emulator is up and running.**
+5. **Make sure the app is running on the emulator, run this command at your android directory**
+```
+npm run android
+```
+6. Now click **Start Session** in the bottom right corner. 
+7. If it connects, congradulations! Move on to the next section.
 
 
 # Using the APPIUM Inspector
 
 ## Initial Screen
 -   Once the connection is successful, the initial screen of your app will load. *Significant chance that you will spot a bug here, where your screen in the appium inspector might be stuck on the loading screen, like this following image.*
+-   ![alt text](InitialPage.png)
     -   In this case, click anywhere on the inspector screen and it will be fixed.
 ## ToDO
 1. Go Watch the [Appium Inspector Tutorial](https://www.youtube.com/watch?v=KN1sTvvX0mM&t=2s) from 32:07
