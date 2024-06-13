@@ -86,6 +86,11 @@ const SelectionList = (props: ListProperties) => {
           <TextInput
             placeholder='Search'
             style={style.searchBox}
+            onChangeText={(input: string) => {
+              console.log(props.data.filter((data: Data) => 
+                typeof data.label === 'string' && data.label.includes(input)
+              ));
+            }}
           />
           <FlatList
             data={props.data}
