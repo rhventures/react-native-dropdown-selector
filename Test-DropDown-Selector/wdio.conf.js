@@ -29,10 +29,10 @@ export const config = {
         // './test/SmallSingleSelect.js',
         // './test/MultiSelect.js',
         // './test/Technical.js',
-         './test/IntegrationSingle.js',
+        //  './test/IntegrationSingle.js',
         // './test/IntegrationMulti.js',
         // './test/IntegrationDynamics.js'
-        // './test/System_Algorithm.js'
+         './test/System_Algorithm.js'
     ],
     // Patterns to exclude.
     exclude: [
