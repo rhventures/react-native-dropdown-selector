@@ -101,6 +101,7 @@ function App(): JSX.Element {
           onSelect={console.log}
           defaultValue={data[0]}
           listHeight={300}
+          searchable={true}
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
@@ -154,6 +155,17 @@ function App(): JSX.Element {
             borderBottomWidth: 2,
           }}
           dropdownArrowColor='darkgreen'
+          searchBoxStyle={{
+            borderTopLeftRadius: 26,
+            borderTopRightRadius: 14,
+            borderBottomLeftRadius: 14,
+            borderBottomRightRadius: 26,
+            borderColor: 'darkgreen',
+            borderTopWidth: 4,
+            borderLeftWidth: 2,
+            borderRightWidth: 2,
+            paddingHorizontal: 12,
+          }}
         />
         <View style={{height: 50}} />
         <Text>Styled Multi Select:</Text>
@@ -236,6 +248,17 @@ function App(): JSX.Element {
             borderColor: 'darkgreen'
           }}
           clearButtonIconColor='#abc'
+          searchBoxStyle={{
+            borderTopLeftRadius: 26,
+            borderTopRightRadius: 14,
+            borderBottomLeftRadius: 14,
+            borderBottomRightRadius: 26,
+            borderColor: 'darkgreen',
+            borderTopWidth: 4,
+            borderLeftWidth: 2,
+            borderRightWidth: 2,
+            paddingHorizontal: 12,
+          }}
         />
         <View style={{ height: 400 }} />
       </ScrollView>
