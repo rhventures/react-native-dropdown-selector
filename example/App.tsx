@@ -179,7 +179,7 @@ function App(): JSX.Element {
             width: 300,
           }}
           boxTextStyle={{
-            color: 'limegreen',
+            color: 'yellow',
             fontFamily: 'courier new',
             fontSize: 24,
             fontStyle: 'italic',
@@ -221,7 +221,7 @@ function App(): JSX.Element {
             fontSize: 20,
           }}
           selectedItemStyle={{
-            backgroundColor: 'limegreen',
+            backgroundColor: 'yellow',
             borderTopColor: 'darkgreen',
             borderBottomColor: 'darkgreen',
             borderTopWidth: 2,
