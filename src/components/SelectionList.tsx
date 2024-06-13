@@ -4,6 +4,7 @@ import {
   FlatList,
   Modal,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
   useColorScheme
@@ -69,8 +70,7 @@ const SelectionList = (props: ListProperties) => {
                         top: props.selectorRect.bottom,
                       }
                     : {
-                        bottom: windowHeight - props.selectorRect.top,
-                        marginTop: 'auto',
+                        top: props.selectorRect.top - props.listHeight,
                       },
                 ]
               : {

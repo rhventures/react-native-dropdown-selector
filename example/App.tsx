@@ -138,7 +138,6 @@ function App(): JSX.Element {
             borderRightWidth: 4,
             borderTopWidth: 8,
             borderBottomWidth: 1,
-            height: 250,
             width: '50%',
           }}
           listTextStyle={{
@@ -211,7 +210,6 @@ function App(): JSX.Element {
             borderRightWidth: 4,
             borderTopWidth: 8,
             borderBottomWidth: 1,
-            height: 250,
             width: '50%',
           }}
           listTextStyle={{
@@ -221,7 +219,7 @@ function App(): JSX.Element {
             fontSize: 20,
           }}
           selectedItemStyle={{
-            backgroundColor: 'limegreen',
+            backgroundColor: 'limegreen ',
             borderTopColor: 'darkgreen',
             borderBottomColor: 'darkgreen',
             borderTopWidth: 2,
