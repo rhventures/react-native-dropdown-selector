@@ -131,6 +131,16 @@ Type: `ViewStyle`
 Custom color for the dropdown arrow inside the main Selector box. <br />
 Type: `ColorValue`
 
+### `clearButtonStyle` (MultiSelect only)
+
+Custom color for the clear button. <br />
+Type: `ViewStyle`
+
+### `clearButtonIconColor` (MultiSelect only)
+
+Custom color for the icon inside the clear button. <br />
+Type: `ColorValue`
+
 ## Callbacks
 
 ### `onSelect` **(required)**
