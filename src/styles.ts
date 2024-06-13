@@ -56,9 +56,10 @@ const light = StyleSheet.create({
     color: 'black',
   },
   searchBox: {
-    paddingLeft: 8,
+    paddingHorizontal: 8,
     height: 40,
-    borderBottomWidth: 1,
+    borderWidth: 1,
+    margin: 8,
   },
   list: {
     backgroundColor: 'white',
@@ -141,9 +142,10 @@ const dark = StyleSheet.create({
     color: 'white',
   },
   searchBox: {
-    paddingLeft: 8,
+    paddingHorizontal: 8,
     height: 40,
-    borderBottomWidth: 1,
+    borderWidth: 1,
+    margin: 8,
   },
   list: {
     backgroundColor: '#444',
