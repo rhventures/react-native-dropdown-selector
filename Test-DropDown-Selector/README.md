@@ -171,7 +171,7 @@ capabilities: [{
 -   **Remote Path** : default. -> Mine is /
 
 3. Now in the JSON Representation Tab, copy the **Capabilities** code snippet from *wdio.conf.js* file and paste it. 
-4. *platformName* should not be in quotes.* Click save
+4. *platformName* should also be in quotes.* Click save
 4. Your capacity builder should be filled. If it is not automatically filled, it must be manually filled.
 4. Now in the capacity builder, make sure all the middle boxes are showing *text*
 5. Save the capability set
@@ -217,7 +217,7 @@ npx wdio
     pkill -9 -f appium
     ```
     -   If you dont have pkill
-        -   Run the test (npx wdio) again, and Ctrl + C while the test is running the to terminate the active port. This will fix it.
+        -   Run the test (npx wdio) again, and Ctrl + C while the test is running the to manually terminate the active port. This will fix it.
 -    if you run into an error: *"ts-node/esm/trasnpile-only 'resolve' did not call the next hook.."*
     -   Running the following command will fix it.
     ```
