@@ -201,19 +201,26 @@ npm run android
 ## Initial Screen
 -   Once the connection is successful, the initial screen of your app will load. *Significant chance that you will spot a bug here, where your screen in the appium inspector might be stuck on the loading screen, like this following image.*
 -   ![alt text](InitialPage.png)
-    -   In this case, click anywhere on the inspector screen and it will be fixed.
+    -   In this case, click anywhere on the inspector screen one the left and it will be fixed.
 ## ToDO
 1. Go Watch the [Appium Inspector Tutorial](https://www.youtube.com/watch?v=KN1sTvvX0mM&t=2s) from 32:07
 2. There are many ways to find elements, properties and create assertions using appium inspector. You can find more docs here: [WebDriverIO Docs](https://webdriver.io/docs/api/expect-webdriverio)
-3. You can run your test files by running:
+3. You can run your test files by running this command at your testing folder directory:
 ```
 npx wdio
 ```
+-   If you run into an error: *"No spec files to run"* 
+    -   You do not have your test files specified in specs at *wdio.conf.js*
+-   If you run into an error: *"Connection Refuse error"*
+    -   That means the server port is occupied. Run this command to kill all the active ports:
+    ```
+    pkill -9 -f appium
+    ```
 -    if you run into an error: *"ts-node/esm/trasnpile-only 'resolve' did not call the next hook.."*
--   Running the following command will fix it.
-```
-npm i -D typescript ts-node
-```
+    -   Running the following command will fix it.
+    ```
+    npm i -D typescript ts-node
+    ```
 3. Now go play around with the test cases and see what fits the best for your app.
 
 
