@@ -26,6 +26,7 @@ export interface ListProperties {
   clearSelected?: () => void;
   listHeight: number;
   display: boolean;
+  searchable: boolean;
   hide: () => void;
   selectorRect: NativeScrollRectangle;
 }
@@ -37,6 +38,7 @@ export interface MultiSelectProperties {
   listHeight?: number;
   placeholderText?: string | React.JSX.Element;
   disabled?: boolean;
+  searchable?: boolean;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
   boxTextHighlightStyle?: ViewStyle;
@@ -55,6 +57,7 @@ export interface SelectProperties {
   listHeight?: number;
   placeholderText?: string | React.JSX.Element;
   disabled?: boolean;
+  searchable?: boolean;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
   listStyle?: ViewStyle;

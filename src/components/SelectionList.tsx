@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dimensions,
   FlatList,
   Modal,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
   useColorScheme
@@ -16,25 +17,11 @@ const SelectionList = (props: ListProperties) => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0],
     windowHeight = Dimensions.get('window').height,
     windowWidth = Dimensions.get('window').width,
+    [entries, setEntries] = useState<Data[]>(props.data),
     listBottom = Math.min(
       props.listHeight,
-      props.data.length * style.item.height
-    ) + props.selectorRect.bottom,
-    centeredListX = () => {
-      const listX = props.selectorRect.left;
-      let listWidth: number;
-      if (props.styles.list?.width) {
-        if (typeof props.styles.list.width === 'number') {
-          listWidth = props.styles.list.width;
-        }
-        else {
-          listWidth = Number(props.styles.list.width.replace('%', '')) / 100 * windowWidth;
-        }
-        const offset = (props.selectorRect.right - props.selectorRect.left - listWidth) / 2;
-        return listX + offset;
-      }
-      return listX;
-    };
+      entries.length * style.item.height
+    ) + props.selectorRect.bottom;
 
   return (
     <Modal
@@ -67,15 +54,24 @@ const SelectionList = (props: ListProperties) => {
                       ?? props.selectorRect.right - props.selectorRect.left,
                     marginLeft: props.styles.list?.alignSelf === 'center'
                       ? 0
-                      : centeredListX(),
+                      : props.styles.list?.width
+                      ? props.selectorRect.left
+                        + (props.selectorRect.right
+                          - props.selectorRect.left
+                          - (typeof props.styles.list.width === 'number'
+                            ? props.styles.list.width
+                            : Number(props.styles.list.width.replace('%', ''))
+                              / 100
+                              * windowWidth))
+                        / 2
+                      : props.selectorRect.left,
                   },
                   listBottom < windowHeight
                     ? {
                         top: props.selectorRect.bottom,
                       }
                     : {
-                        bottom: windowHeight - props.selectorRect.top,
-                        marginTop: 'auto',
+                        top: props.selectorRect.top - props.listHeight,
                       },
                 ]
               : {
@@ -87,9 +83,20 @@ const SelectionList = (props: ListProperties) => {
                   borderBottomRightRadius: 0,
                 },
           ]}
-        >
+        > 
+          {props.searchable &&
+            <TextInput
+              placeholder='Search'
+              style={style.searchBox}
+              onChangeText={(input: string) => 
+                setEntries(props.data.filter((data: Data) => 
+                  typeof data.label === 'string' && data.label.includes(input)
+              ))}
+              onLayout={() => setEntries(props.data)}
+            />
+          }
           <FlatList
-            data={props.data}
+            data={entries}
             style={windowWidth > windowHeight && { marginBottom: 20 }}
             renderItem={({ item }) => (
               <TouchableOpacity

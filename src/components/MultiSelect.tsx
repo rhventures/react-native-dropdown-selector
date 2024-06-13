@@ -110,6 +110,7 @@ const MultiSelect = (props: MultiSelectProperties) => {
         clearSelected={() => setSelected([])}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
+        searchable={!!props.searchable}
         hide={() => setListDisplay(false)}
         selectorRect={refRect}
       />

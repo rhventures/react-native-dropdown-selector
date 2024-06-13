@@ -3,14 +3,14 @@ import { ScrollView, Text, View } from 'react-native';
 import { MultiSelect, Select, type Data } from 'react-native-dropdown-selector';
 
 const data: Data[] = [
-  { label: 'Item 1' },
-  { label: 'Item 2' },
-  { label: 'Item 3', priority: true },
-  { label: 'Item 4' },
-  { label: 'Item 5' },
-  { label: 'Item 6' },
-  { label: 'Item 7', priority: true },
-  { label: 'Item 8' },
+  { label: 'ABC' },
+  { label: 'abc' },
+  { label: 'ABCDEF', priority: true },
+  { label: 'abcdef' },
+  { label: 'ABCXYZ' },
+  { label: 'abcxyz' },
+  { label: 'xyzabc', priority: true },
+  { label: 'XYZABC' },
 ];
 
 function App(): JSX.Element {
@@ -137,8 +137,7 @@ function App(): JSX.Element {
             borderLeftWidth: 4,
             borderRightWidth: 4,
             borderTopWidth: 8,
-            borderBottomWidth: 2,
-            height: 250,
+            borderBottomWidth: 1,
             width: '50%',
           }}
           listTextStyle={{
@@ -163,6 +162,7 @@ function App(): JSX.Element {
           onSelect={console.log}
           defaultValue={data}
           listHeight={300}
+          searchable={true}
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
@@ -179,7 +179,7 @@ function App(): JSX.Element {
             width: 300,
           }}
           boxTextStyle={{
-            color: 'limegreen',
+            color: 'yellow',
             fontFamily: 'courier new',
             fontSize: 24,
             fontStyle: 'italic',
@@ -211,7 +211,6 @@ function App(): JSX.Element {
             borderRightWidth: 4,
             borderTopWidth: 8,
             borderBottomWidth: 1,
-            height: 250,
             width: '50%',
           }}
           listTextStyle={{
@@ -221,7 +220,7 @@ function App(): JSX.Element {
             fontSize: 20,
           }}
           selectedItemStyle={{
-            backgroundColor: 'limegreen',
+            backgroundColor: 'yellow',
             borderTopColor: 'darkgreen',
             borderBottomColor: 'darkgreen',
             borderTopWidth: 2,

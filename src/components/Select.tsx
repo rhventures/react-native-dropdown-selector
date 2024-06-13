@@ -84,6 +84,7 @@ const Select = (props: SelectProperties) => {
         selected={selected}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
+        searchable={!!props.searchable}
         hide={() => setListDisplay(false)}
         selectorRect={refRect}
       />
