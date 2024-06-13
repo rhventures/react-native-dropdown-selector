@@ -21,7 +21,7 @@ describe('Example App Testing', () => {
         }
     
         before(async () => {
-            await driver.pause(1000);
+            await driver.pause(1500);
             await scroll({x: 950, y: 2600}, {x: 950, y: 600}).perform();
             await driver.pause(1000);
             await scroll({x: 950, y: 2600}, {x: 950, y: 600}).perform();
@@ -31,11 +31,10 @@ describe('Example App Testing', () => {
             dropDown.click();
         })
 
-        selectItem('Item 6');
-        selectItem('Item 1');
-        selectItem('Item 3');
-        selectItem('Item 4');
-        selectItem('Item 8');
+        selectItem('ABCDEF');
+        selectItem('ABC');
+        selectItem('abc');
+        selectItem('ABCXYZ');
 
         function selectItem(item){
             it(`'should have ${item} selected`, async () => {
@@ -70,7 +69,6 @@ describe('Example App Testing', () => {
                 const selector = await getItem(`${item}, ᨆ`);
                 const selectorDisplay = await selector.$$('android.widget.TextView')[0];
                 await expect(selectorDisplay).toHaveText(item);
-
             })
         }
     })
