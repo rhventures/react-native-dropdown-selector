@@ -129,6 +129,7 @@ specs : [
 -  **Max Instances** : Read the description this can change based on test environment.
 -  **Capabilities**: *This can change based on your development settings.*
     -   **platformName**: Android
+    -   **BrowserName** : *Delete this line, we are not using a browser driver*
     -   **appium:deviceName**: The emulator name you are using. CHeck Android Studio
     -   **appium:platformVersion**: Check your Android Studio
     -   **appium:automationName**: UiAutomator2
@@ -142,10 +143,10 @@ capabilities: [{
         'appium:deviceName': 'Pixel 8 Pro API 34',
         'appium:platformVersion': '14.0',
         'appium:automationName': 'UiAutomator2',
-        'appium:app': "C:/Users/jungh/app-debug.apk",
+        'appium:app': "C:/Users/jungh/MyProject/testFolder/app/app-debug.apk",
     }],
 ```
--   **framework** : Make sure this is *mocha*
+-   **framework** : Since I choose Mocha, I have it as *Mocha*, However, make sure this matches the testing framework you choose 
 -   **mochaOpts** : the timeout here sets the time limit on the test case.
     -   I set mine to :
     ```
@@ -163,15 +164,17 @@ capabilities: [{
 
 ## Setting up your Appium Inspector
 1. Open your Appium Inspector you installed earlier. 
-2. go to Appium Inspector Tab, configure your boxes:
+2. go to Appium Server Tab, configure your boxes:
 
 -   **Remote Host** : default. -> Mine is 127.0.0.1
 -   **Remote Port** : Set it to some number besides 4723. Mine is 3000
 -   **Remote Path** : default. -> Mine is /
 
-3. Now in the JSON Representation Tab, copy the **specs** code snippet from *wdio.conf.js* file and paste it.
+3. Now in the JSON Representation Tab, copy the **Capabilities** code snippet from *wdio.conf.js* file and paste it. 
+4. *platformName* should not be in quotes.* Click save
+4. Your capacity builder should be filled. If it is not automatically filled, it must be manually filled.
 4. Now in the capacity builder, make sure all the middle boxes are showing *text*
-5. click *save*
+5. Save the capability set
 
 -   After everything, your set up should look similar to this:
 -   ![alt text](AppiumInspector.png)
