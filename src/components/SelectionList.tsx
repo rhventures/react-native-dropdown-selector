@@ -83,6 +83,9 @@ const SelectionList = (props: ListProperties) => {
                 },
           ]}
         >
+          <TextInput
+            placeholder='Search'
+          />
           <FlatList
             data={props.data}
             style={windowWidth > windowHeight && { marginBottom: 20 }}
