@@ -18,6 +18,7 @@ export interface ListProperties {
     itemSelected?: TextStyle;
     clearButtonStyle?: ViewStyle;
     clearButtonIconColor?: ColorValue;
+    searchBox?: TextStyle & ViewStyle;
   };
   data: Data[];
   type: 'single' | 'multi';
@@ -48,6 +49,7 @@ export interface MultiSelectProperties {
   dropdownArrowColor?: ColorValue;
   clearButtonStyle?: ViewStyle;
   clearButtonIconColor?: ColorValue;
+  searchBoxStyle?: TextStyle & ViewStyle;
 }
 
 export interface SelectProperties {
@@ -64,4 +66,5 @@ export interface SelectProperties {
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
   dropdownArrowColor?: ColorValue;
+  searchBoxStyle?: TextStyle & ViewStyle;
 }
