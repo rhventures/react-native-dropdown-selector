@@ -162,6 +162,7 @@ function App(): JSX.Element {
           onSelect={console.log}
           defaultValue={data}
           listHeight={300}
+          searchable={true}
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
