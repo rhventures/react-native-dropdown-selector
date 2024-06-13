@@ -137,7 +137,7 @@ function App(): JSX.Element {
             borderLeftWidth: 4,
             borderRightWidth: 4,
             borderTopWidth: 8,
-            borderBottomWidth: 1,
+            borderBottomWidth: 2,
             height: 250,
             width: '50%',
           }}
