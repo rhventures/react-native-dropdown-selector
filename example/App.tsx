@@ -219,7 +219,7 @@ function App(): JSX.Element {
             fontSize: 20,
           }}
           selectedItemStyle={{
-            backgroundColor: 'limegreen ',
+            backgroundColor: 'limegreen',
             borderTopColor: 'darkgreen',
             borderBottomColor: 'darkgreen',
             borderTopWidth: 2,
