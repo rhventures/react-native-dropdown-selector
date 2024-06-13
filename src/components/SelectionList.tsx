@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dimensions,
   FlatList,
@@ -17,9 +17,10 @@ const SelectionList = (props: ListProperties) => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0],
     windowHeight = Dimensions.get('window').height,
     windowWidth = Dimensions.get('window').width,
+    [entries, setEntries] = useState<Data[]>(props.data),
     listBottom = Math.min(
       props.listHeight,
-      props.data.length * style.item.height
+      entries.length * style.item.height
     ) + props.selectorRect.bottom;
 
   return (
@@ -87,13 +88,13 @@ const SelectionList = (props: ListProperties) => {
             placeholder='Search'
             style={style.searchBox}
             onChangeText={(input: string) => {
-              console.log(props.data.filter((data: Data) => 
+              setEntries(props.data.filter((data: Data) => 
                 typeof data.label === 'string' && data.label.includes(input)
               ));
             }}
           />
           <FlatList
-            data={props.data}
+            data={entries}
             style={windowWidth > windowHeight && { marginBottom: 20 }}
             renderItem={({ item }) => (
               <TouchableOpacity
