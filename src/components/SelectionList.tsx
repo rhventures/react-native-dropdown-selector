@@ -93,6 +93,7 @@ const SelectionList = (props: ListProperties) => {
                   typeof data.label === 'string' && data.label.includes(input)
                 ));
               }}
+              onLayout={() => setEntries(props.data)}
             />
           }
           <FlatList
