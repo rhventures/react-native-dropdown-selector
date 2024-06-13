@@ -19,7 +19,22 @@ const SelectionList = (props: ListProperties) => {
     listBottom = Math.min(
       props.listHeight,
       props.data.length * style.item.height
-    ) + props.selectorRect.bottom;
+    ) + props.selectorRect.bottom,
+    centeredListX = () => {
+      const listX = props.selectorRect.left;
+      let listWidth: number;
+      if (props.styles.list?.width) {
+        if (typeof props.styles.list.width === 'number') {
+          listWidth = props.styles.list.width;
+        }
+        else {
+          listWidth = Number(props.styles.list.width.replace('%', '')) / 100 * windowWidth;
+        }
+        const offset = (props.selectorRect.right - props.selectorRect.left - listWidth) / 2;
+        return listX + offset;
+      }
+      return listX;
+    };
 
   return (
     <Modal
@@ -52,17 +67,7 @@ const SelectionList = (props: ListProperties) => {
                       ?? props.selectorRect.right - props.selectorRect.left,
                     marginLeft: props.styles.list?.alignSelf === 'center'
                       ? 0
-                      : props.styles.list?.width
-                      ? props.selectorRect.left
-                        + (props.selectorRect.right
-                          - props.selectorRect.left
-                          - (typeof props.styles.list.width === 'number'
-                            ? props.styles.list.width
-                            : Number(props.styles.list.width.replace('%', ''))
-                              / 100
-                              * windowWidth))
-                        / 2
-                      : props.selectorRect.left,
+                      : centeredListX(),
                   },
                   listBottom < windowHeight
                     ? {
