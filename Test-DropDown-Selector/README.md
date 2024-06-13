@@ -217,7 +217,7 @@ npx wdio
     pkill -9 -f appium
     ```
     -   If you dont have pkill
-        -   Run the server again, and Ctrl + C to terminate the current server. This will fix it.
+        -   Run the server (npx wdio) again, and Ctrl + C to terminate the current server. This will fix it.
 -    if you run into an error: *"ts-node/esm/trasnpile-only 'resolve' did not call the next hook.."*
     -   Running the following command will fix it.
     ```
