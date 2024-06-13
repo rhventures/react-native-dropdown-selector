@@ -209,6 +209,13 @@ npm run android
 ```
 npx wdio
 ```
+
+## Running the Tests
+
+### Prerequisites for this specific project
+-   **The test cases for this project was built based on Pixel 8 Pro Frame.** To ensure all the test cases pass, make sure the emulator is *Pixel 8 Pro.*
+
+### Error Handling
 -   If you run into an error: *"No spec files to run"* 
     -   You do not have your test files specified in specs at *wdio.conf.js*
 

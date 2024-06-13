@@ -209,8 +209,10 @@ npm run ios
 ```
 npx wdio
 ```
+### Important
+-   **The test cases for this project was built based on iPhone 15 Pro Frame.** To ensure all the test cases pass, make sure the simulator uses *iPhone 15 Pro.*
 
-## Error Handling*
+### Error Handling*
 -   If you run into an error: *"No spec files to run"* 
     -   You do not have your test files specified in specs at *wdio.conf.js*
 
