@@ -118,7 +118,7 @@ There should be a **wdio.conf.js** file generated in the testing folder you prev
 Now in create a folder named **test** in newly made testing folder. This is where all the test files will go.
 Anything not mentioned here can be left as default
 
--   **local** : 4723
+-   **Port** : 4723
 -   **Specs** : this is where your test files go. If your test file name is **HelloWorld.js**, then the snippet might look like:
 ```
 specs : [
