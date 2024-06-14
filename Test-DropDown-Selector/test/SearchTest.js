@@ -31,15 +31,16 @@ describe('Using the Search Option', () => {
             await scroll({x: 950, y: 2600}, {x: 950, y: 450}).perform();
             await driver.pause(1000);
             await scroll({x: 950, y: 2600}, {x: 950, y: 450}).perform();
-        })
-        beforeEach(async () => {
-            await driver.pause(500);
+
+            await driver.pause(1000);
             const dropDown = await dropDownArrow()
             dropDown.click();
             await driver.pause(1000);
         })
 
         searchItem('ABC');
+        searchItem('XYZ');
+        searchItem('cd');
 
         function searchItem(item){
             it(`'should have items containing ${item} shown`, async () => {
