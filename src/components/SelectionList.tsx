@@ -20,10 +20,8 @@ const SelectionList = (props: ListProperties) => {
     windowWidth = Dimensions.get('window').width,
     [entries, setEntries] = useState<Data[]>(props.data),
     [keyboardActive, setKeyboardActive] = useState<boolean>(false),
-    listBottom = Math.min(
-      props.listHeight,
-      entries.length * style.item.height + style.searchBox.height + style.searchBox.margin*2
-    ) + props.selectorRect.bottom;
+    [currentHeight, setCurrentHeight] = useState<number>(0),
+    listBottom = currentHeight + props.selectorRect.bottom;
     
   Keyboard.addListener(
     'keyboardDidShow',
@@ -54,6 +52,10 @@ const SelectionList = (props: ListProperties) => {
         onPress={props.hide}
       >
         <View
+          onLayout={
+            ({ nativeEvent }) =>
+              setCurrentHeight(nativeEvent.layout.height)
+          }
           style={[
             style.list,
             props.styles.list,
@@ -77,8 +79,7 @@ const SelectionList = (props: ListProperties) => {
                         / 2
                       : props.selectorRect.left,
                   },
-                  keyboardActive && listBottom > (Keyboard.metrics()?.screenY ?? 0)
-                    - style.searchBox.height - style.searchBox.margin*2
+                  keyboardActive && listBottom > (Keyboard.metrics()?.screenY ?? 0) - 50
                     ? {
                         bottom: 5,
                       }
@@ -87,7 +88,7 @@ const SelectionList = (props: ListProperties) => {
                         top: props.selectorRect.bottom,
                       }
                     : {
-                        bottom: windowHeight - props.selectorRect.top,
+                        top: props.selectorRect.top - currentHeight,
                       },
                 ]
               : {

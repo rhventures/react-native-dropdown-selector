@@ -3,14 +3,14 @@ import { ScrollView, Text, View } from 'react-native';
 import { MultiSelect, Select, type Data } from 'react-native-dropdown-selector';
 
 const data: Data[] = [
-  { label: 'Item 1' },
-  { label: 'Item 2' },
-  { label: 'Item 3', priority: true },
-  { label: 'Item 4' },
-  { label: 'Item 5' },
-  { label: 'Item 6' },
-  { label: 'Item 7', priority: true },
-  { label: 'Item 8' },
+  { label: 'ABC' },
+  { label: 'abc' },
+  { label: 'ABCDEF', priority: true },
+  { label: 'abcdef' },
+  { label: 'ABCXYZ' },
+  { label: 'abcxyz' },
+  { label: 'xyzabc', priority: true },
+  { label: 'XYZABC' },
 ];
 
 function App(): JSX.Element {
@@ -54,6 +54,7 @@ function App(): JSX.Element {
             <Select
               data={data}
               onSelect={console.log}
+              searchable
             />
           </View>
           <View style={{ flex: 1 }}>
@@ -76,6 +77,7 @@ function App(): JSX.Element {
               <MultiSelect
                 data={data}
                 onSelect={console.log}
+                searchable
               />
             </View>
             <View style={{ flex: 1 }}>
@@ -101,6 +103,7 @@ function App(): JSX.Element {
           onSelect={console.log}
           defaultValue={data[0]}
           listHeight={300}
+          searchable={true}
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
@@ -138,7 +141,6 @@ function App(): JSX.Element {
             borderRightWidth: 4,
             borderTopWidth: 8,
             borderBottomWidth: 1,
-            height: 250,
             width: '50%',
           }}
           listTextStyle={{
@@ -155,6 +157,22 @@ function App(): JSX.Element {
             borderBottomWidth: 2,
           }}
           dropdownArrowColor='darkgreen'
+          searchBoxStyle={{
+            backgroundColor: 'lightgray',
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 16,
+            borderBottomLeftRadius: 16,
+            borderBottomRightRadius: 30,
+            borderColor: 'darkgreen',
+            borderTopWidth: 4,
+            borderLeftWidth: 2,
+            borderRightWidth: 2,
+            color: 'brown',
+            fontSize: 16,
+            height: 46,
+            paddingHorizontal: 12,
+            paddingTop: 14,
+          }}
         />
         <View style={{height: 50}} />
         <Text>Styled Multi Select:</Text>
@@ -163,6 +181,7 @@ function App(): JSX.Element {
           onSelect={console.log}
           defaultValue={data}
           listHeight={300}
+          searchable={true}
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
@@ -179,7 +198,7 @@ function App(): JSX.Element {
             width: 300,
           }}
           boxTextStyle={{
-            color: 'limegreen',
+            color: 'yellow',
             fontFamily: 'courier new',
             fontSize: 24,
             fontStyle: 'italic',
@@ -211,7 +230,6 @@ function App(): JSX.Element {
             borderRightWidth: 4,
             borderTopWidth: 8,
             borderBottomWidth: 1,
-            height: 250,
             width: '50%',
           }}
           listTextStyle={{
@@ -221,7 +239,7 @@ function App(): JSX.Element {
             fontSize: 20,
           }}
           selectedItemStyle={{
-            backgroundColor: 'limegreen',
+            backgroundColor: 'yellow',
             borderTopColor: 'darkgreen',
             borderBottomColor: 'darkgreen',
             borderTopWidth: 2,
@@ -237,6 +255,22 @@ function App(): JSX.Element {
             borderColor: 'darkgreen'
           }}
           clearButtonIconColor='#abc'
+          searchBoxStyle={{
+            backgroundColor: 'lightgray',
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 16,
+            borderBottomLeftRadius: 16,
+            borderBottomRightRadius: 30,
+            borderColor: 'darkgreen',
+            borderTopWidth: 4,
+            borderLeftWidth: 2,
+            borderRightWidth: 2,
+            color: 'brown',
+            fontSize: 16,
+            height: 46,
+            paddingHorizontal: 12,
+            paddingTop: 14,
+          }}
         />
         <View style={{ height: 400 }} />
       </ScrollView>
