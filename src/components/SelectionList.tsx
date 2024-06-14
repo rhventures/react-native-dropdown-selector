@@ -146,6 +146,7 @@ const SelectionList = (props: ListProperties) => {
                       ? props.selectorRect.top - 40
                       : props.selectorRect.bottom,
                     left: props.selectorRect.right - 40,
+                    opacity: keyboardHeight > 0 ? 0 : 1,
                   }
                 : {
                     top: 40,
