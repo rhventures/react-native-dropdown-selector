@@ -95,7 +95,8 @@ const SelectionList = (props: ListProperties) => {
               style={[style.searchBox, props.styles.searchBox]}
               onChangeText={(input: string) => 
                 setEntries(props.data.filter((data: Data) => 
-                  typeof data.label === 'string' && data.label.includes(input)
+                  typeof data.label === 'string' &&
+                  data.label.toLowerCase().includes(input.toLowerCase())
               ))}
               onLayout={() => setEntries(props.data)}
             />
