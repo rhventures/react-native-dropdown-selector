@@ -20,9 +20,6 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       Data[],
       React.Dispatch<React.SetStateAction<Data[]>>
     ] = useState<Data[]>([]),
-    clickSelector = (): void => {
-      setListDisplay(!listDisplay);
-    },
     selectItem = (items: Data[]): void => {
       setSelected(items);
       props.onSelect(items);
@@ -35,18 +32,28 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
     },
     ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
     style = useColorScheme() === 'dark' ? styles[1] : styles[0],
-    [overflowNotif, setOverflowNotif] = useState<number>(0);
+    [pos, setPos]: [
+      {'top': number, 'bottom': number},
+      React.Dispatch<React.SetStateAction<{'top': number, 'bottom': number}>>
+    ] = useState<{'top': number, 'bottom': number}>({'top': 0, 'bottom': 0}),
+    updatePos = (display: boolean = false): void => {
+      ref.current?.measureInWindow((_x, y, _width, height) => {
+        setPos({
+          'top': y - (props.listHeight ?? 200) - 5,
+          'bottom': y + height + 5
+        });
+        if (display) setListDisplay(true);
+      });
+    };
 
   return (
     <View>
       <TouchableOpacity
         activeOpacity={1}
         style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
-        onPress={clickSelector}
+        onPress={() => updatePos(true)}
         ref={ref}
-        onLayout={(e: LayoutChangeEvent) => {
-          setOverflowNotif(overflowNotif ? 0 : 1);
-        }}
+        onLayout={() => updatePos()}
       >
         {selected.length > 0
           ? selected.map((data) =>
@@ -92,11 +99,11 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         type="multi"
         onSelect={selectItem}
         selected={selected}
-        listHeight={props.listHeight ? props.listHeight : 200}
+        listHeight={props.listHeight ?? 200}
         display={listDisplay}
         setDisplay={setListDisplay}
         selectorRef={ref}
-        overflowNotif={overflowNotif}
+        selectorPos={pos}
       />
     </View>
   );
