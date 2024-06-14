@@ -22,7 +22,7 @@ const SelectionList = (props: ListProperties) => {
     [keyboardActive, setKeyboardActive] = useState<boolean>(false),
     listBottom = Math.min(
       props.listHeight,
-      entries.length * style.item.height
+      entries.length * style.item.height + style.searchBox.height + style.searchBox.margin*2
     ) + props.selectorRect.bottom;
     
     Keyboard.addListener(
@@ -77,7 +77,8 @@ const SelectionList = (props: ListProperties) => {
                         / 2
                       : props.selectorRect.left,
                   },
-                  keyboardActive && listBottom > (Keyboard.metrics()?.screenY ?? 0) - 100
+                  keyboardActive && listBottom > (Keyboard.metrics()?.screenY ?? 0)
+                    - style.searchBox.height - style.searchBox.margin*2
                     ? {
                         bottom: 5,
                       }
