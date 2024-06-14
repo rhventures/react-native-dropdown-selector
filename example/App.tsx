@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { MultiSelect, Select, type Data } from 'react-native-dropdown-selector';
 
@@ -12,6 +12,14 @@ const data: Data[] = [
   { label: 'Item 7', priority: true },
   { label: 'Item 8' },
 ];
+
+const options: Data[] = [
+  { label: 'Disabled' },
+  { label: 'Searchable' },
+];
+
+const [disabled, setDisabled] = useState(false);
+const [searchable, setSearchable] = useState(false);
 
 function App(): JSX.Element {
   const [item, setItem] = React.useState<string | JSX.Element>(''),
@@ -94,6 +102,10 @@ function App(): JSX.Element {
           <Text style={{ textAlign: 'center' }}>
             Select more than one item and see me move!
           </Text>
+          <MultiSelect
+            data={options}
+            onSelect={()=>1}
+          />
         </View>
         <Text>Styled Single Select:</Text>
         <Select
