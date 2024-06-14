@@ -100,7 +100,7 @@ function App(): JSX.Element {
           data={data}
           onSelect={console.log}
           defaultValue={data[0]}
-          listHeight={300}
+          listHeight={250}
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
@@ -137,8 +137,7 @@ function App(): JSX.Element {
             borderLeftWidth: 4,
             borderRightWidth: 4,
             borderTopWidth: 8,
-            borderBottomWidth: 1,
-            height: 250,
+            borderBottomWidth: 2,
             width: '50%',
           }}
           listTextStyle={{
@@ -162,7 +161,7 @@ function App(): JSX.Element {
           data={data}
           onSelect={console.log}
           defaultValue={data}
-          listHeight={300}
+          listHeight={250}
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
@@ -210,8 +209,7 @@ function App(): JSX.Element {
             borderLeftWidth: 4,
             borderRightWidth: 4,
             borderTopWidth: 8,
-            borderBottomWidth: 1,
-            height: 250,
+            borderBottomWidth: 2,
             width: '50%',
           }}
           listTextStyle={{
