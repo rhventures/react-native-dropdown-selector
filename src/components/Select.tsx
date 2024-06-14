@@ -1,89 +1,93 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+  type NativeScrollRectangle,
+} from 'react-native';
 import styles from '../styles';
-import type { Data, SelectorProperties } from '../types';
+import type { Data, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
-/* Renders a selector component. Takes in props defined in the SelectorProperties type. */
-const Select = (props: SelectorProperties): JSX.Element => {
-  const [listDisplay, setListDisplay]: [
-      boolean,
-      React.Dispatch<React.SetStateAction<boolean>>
-    ] = useState<boolean>(false),
-    [selected, setSelected]: [
-      string | JSX.Element,
-      React.Dispatch<React.SetStateAction<string | JSX.Element>>
-    ] = useState<string | JSX.Element>(
+/* Renders a selector component. Takes in props defined in the SelectProperties type. */
+const Select = (props: SelectProperties) => {
+  const [listDisplay, setListDisplay] = useState<boolean>(false),
+    [selected, setSelected] = useState<Data>(
       props.defaultValue && props.data.includes(props.defaultValue)
-        ? props.defaultValue.label
-        : props.placeholderText
-        ? props.placeholderText
-        : 'Click me'
+        ? props.defaultValue
+        : {label: props.placeholderText ?? 'Click me'}
     ),
-    selectItem = (item: Data): void => {
-      setSelected(item.label);
+    selectItem = (item: Data) => {
+      setSelected(item);
       props.onSelect(item);
     },
-    updatePriorities = (data: Data[]): Data[] => {
-      return [
-        ...data.filter((d) => d.priority),
-        ...data.filter((d) => !d.priority),
-      ];
-    },
-    ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
-    style = useColorScheme() === 'dark' ? styles[1] : styles[0],
-    [pos, setPos]: [
-      {'top': number, 'bottom': number},
-      React.Dispatch<React.SetStateAction<{'top': number, 'bottom': number}>>
-    ] = useState<{'top': number, 'bottom': number}>({'top': 0, 'bottom': 0}),
-    updatePos = (): void => {
-      ref.current?.measureInWindow((_x, y, _width, height) => {
-        setPos({
-          'top': y - (props.listHeight ?? 200) - 5,
-          'bottom': y + height + 5
+    updatePriorities = (data: Data[]) => [
+      ...data.filter((d: Data) => d.priority),
+      ...data.filter((d: Data) => !d.priority),
+    ],
+    ref = useRef<TouchableOpacity>(null),
+    style = styles[useColorScheme() === 'dark' ? 1 : 0],
+    [refRect, setRefRect] = useState<NativeScrollRectangle>({
+      left: 0,
+      top: 0,
+      right: 0,
+      bottom: 0,
+    }),
+    updatePos = () =>
+      ref.current?.measureInWindow((x, y, width, height) => {
+        setRefRect({
+          left: x,
+          top: y - 5,
+          right: x + width,
+          bottom: y + height + 5,
         });
         setListDisplay(true);
       });
-    };
 
   return (
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
+        style={[
+          style.selectorBox,
+          props.boxStyle,
+          {opacity: props.disabled ? .5 : 1},
+        ]}
+        disabled={props.disabled}
         onPress={updatePos}
         ref={ref}
       >
         <Text
-          style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
+          style={[style.selectorText, props.boxTextStyle]}
         >
-          {selected}
+          {selected.label}
         </Text>
         <Text
-          style={StyleSheet.flatten([
-            style.arrow,
-            {color: props.dropdownArrowColor ?? style.arrow.color}])}
+          style={{
+            ...style.arrow,
+            color: props.dropdownArrowColor ?? style.arrow.color,
+          }}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>
       </TouchableOpacity>
       <SelectionList
         styles={{
-          list: props.listStyle ? props.listStyle : undefined,
-          text: props.listTextStyle ? props.listTextStyle : undefined,
-          itemSelected: props.selectedItemStyle
-            ? props.selectedItemStyle
-            : undefined,
+          list: props.listStyle,
+          text: props.listTextStyle,
+          itemSelected: props.selectedItemStyle,
+          searchBox: props.searchBoxStyle,
         }}
         data={updatePriorities(props.data)}
         type="single"
         onSelect={selectItem}
         selected={selected}
-        listHeight={props.listHeight ? props.listHeight : 200}
+        listHeight={props.listHeight ?? 200}
         display={listDisplay}
-        setDisplay={setListDisplay}
-        selectorRef={ref}
-        selectorPos={pos}
+        searchable={!!props.searchable}
+        hide={() => setListDisplay(false)}
+        selectorRect={refRect}
       />
     </View>
   );
