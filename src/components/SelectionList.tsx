@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dimensions,
   FlatList,
@@ -16,25 +16,8 @@ const SelectionList = (props: ListProperties) => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0],
     windowHeight = Dimensions.get('window').height,
     windowWidth = Dimensions.get('window').width,
-    listBottom = Math.min(
-      props.listHeight,
-      props.data.length * style.item.height
-    ) + props.selectorRect.bottom,
-    centeredListX = () => {
-      const listX = props.selectorRect.left;
-      let listWidth: number;
-      if (props.styles.list?.width) {
-        if (typeof props.styles.list.width === 'number') {
-          listWidth = props.styles.list.width;
-        }
-        else {
-          listWidth = Number(props.styles.list.width.replace('%', '')) / 100 * windowWidth;
-        }
-        const offset = (props.selectorRect.right - props.selectorRect.left - listWidth) / 2;
-        return listX + offset;
-      }
-      return listX;
-    };
+    [currentListHeight, setCurrentListHeight] = useState<number>(0),
+    listBottom = currentListHeight + props.selectorRect.bottom;
 
   return (
     <Modal
@@ -56,6 +39,10 @@ const SelectionList = (props: ListProperties) => {
         onPress={props.hide}
       >
         <View
+          onLayout={
+            ({ nativeEvent }) =>
+              setCurrentListHeight(nativeEvent.layout.height)
+          }
           style={[
             style.list,
             props.styles.list,
@@ -65,9 +52,19 @@ const SelectionList = (props: ListProperties) => {
                     maxHeight: props.listHeight,
                     width: props.styles.list?.width
                       ?? props.selectorRect.right - props.selectorRect.left,
-                    marginLeft: props.styles.list?.alignSelf === 'center'
+                      marginLeft: props.styles.list?.alignSelf === 'center'
                       ? 0
-                      : centeredListX(),
+                      : props.styles.list?.width
+                      ? props.selectorRect.left
+                        + (props.selectorRect.right
+                          - props.selectorRect.left
+                          - (typeof props.styles.list.width === 'number'
+                            ? props.styles.list.width
+                            : Number(props.styles.list.width.replace('%', ''))
+                              / 100
+                              * windowWidth))
+                        / 2
+                        : props.selectorRect.left,
                   },
                   listBottom < windowHeight
                     ? {
