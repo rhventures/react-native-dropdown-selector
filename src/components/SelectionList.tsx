@@ -60,37 +60,29 @@ const SelectionList = (props: ListProperties) => {
             style.list,
             props.styles.list,
             windowHeight > windowWidth
-              ? [
-                  {
-                    maxHeight: props.listHeight,
-                    width: props.styles.list?.width
-                      ?? props.selectorRect.right - props.selectorRect.left,
-                    marginLeft: props.styles.list?.alignSelf === 'center'
-                      ? 0
-                      : props.styles.list?.width
-                      ? props.selectorRect.left
-                        + (props.selectorRect.right
-                          - props.selectorRect.left
-                          - (typeof props.styles.list.width === 'number'
-                            ? props.styles.list.width
-                            : Number(props.styles.list.width.replace('%', ''))
-                              / 100
-                              * windowWidth))
-                        / 2
-                      : props.selectorRect.left,
-                  },
-                  keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
-                    ? {
-                        top: windowHeight - keyboardHeight - currentListHeight - 5,
-                      }
+              ? {
+                  maxHeight: props.listHeight,
+                  width: props.styles.list?.width
+                    ?? props.selectorRect.right - props.selectorRect.left,
+                  marginLeft: props.styles.list?.alignSelf === 'center'
+                    ? 0
+                    : props.styles.list?.width
+                    ? props.selectorRect.left
+                      + (props.selectorRect.right
+                        - props.selectorRect.left
+                        - (typeof props.styles.list.width === 'number'
+                          ? props.styles.list.width
+                          : Number(props.styles.list.width.replace('%', ''))
+                            / 100
+                            * windowWidth))
+                      / 2
+                    : props.selectorRect.left,
+                  top: keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
+                    ? windowHeight - keyboardHeight - currentListHeight - 5
                     : listBottom < windowHeight
-                    ? {
-                        top: props.selectorRect.bottom,
-                      }
-                    : {
-                        top: props.selectorRect.top - currentListHeight,
-                      },
-                ]
+                    ? props.selectorRect.bottom
+                    : props.selectorRect.top - currentListHeight,
+                }
               : {
                   height: windowHeight - 40,
                   marginTop: 40,
