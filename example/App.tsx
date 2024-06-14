@@ -101,6 +101,7 @@ function App(): JSX.Element {
           onSelect={console.log}
           defaultValue={data[0]}
           listHeight={300}
+          searchable
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
@@ -154,6 +155,22 @@ function App(): JSX.Element {
             borderBottomWidth: 2,
           }}
           dropdownArrowColor='darkgreen'
+          searchBoxStyle={{
+            backgroundColor: 'lightgray',
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 16,
+            borderBottomLeftRadius: 16,
+            borderBottomRightRadius: 30,
+            borderColor: 'darkgreen',
+            borderTopWidth: 4,
+            borderLeftWidth: 2,
+            borderRightWidth: 2,
+            color: 'brown',
+            fontSize: 16,
+            height: 46,
+            paddingHorizontal: 12,
+            paddingTop: 14,
+          }}
         />
         <View style={{height: 50}} />
         <Text>Styled Multi Select:</Text>
@@ -162,6 +179,7 @@ function App(): JSX.Element {
           onSelect={console.log}
           defaultValue={data}
           listHeight={300}
+          searchable
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
@@ -235,6 +253,22 @@ function App(): JSX.Element {
             borderColor: 'darkgreen'
           }}
           clearButtonIconColor='#abc'
+          searchBoxStyle={{
+            backgroundColor: 'lightgray',
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 16,
+            borderBottomLeftRadius: 16,
+            borderBottomRightRadius: 30,
+            borderColor: 'darkgreen',
+            borderTopWidth: 4,
+            borderLeftWidth: 2,
+            borderRightWidth: 2,
+            color: 'brown',
+            fontSize: 16,
+            height: 46,
+            paddingHorizontal: 12,
+            paddingTop: 14,
+          }}
         />
         <View style={{ height: 400 }} />
       </ScrollView>
