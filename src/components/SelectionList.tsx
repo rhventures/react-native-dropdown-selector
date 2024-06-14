@@ -25,14 +25,14 @@ const SelectionList = (props: ListProperties) => {
       entries.length * style.item.height + style.searchBox.height + style.searchBox.margin*2
     ) + props.selectorRect.bottom;
     
-    Keyboard.addListener(
-      'keyboardDidShow',
-      () => setKeyboardActive(true)
-    );
-    Keyboard.addListener(
-      'keyboardDidHide',
-      () => setKeyboardActive(false)
-    );
+  Keyboard.addListener(
+    'keyboardDidShow',
+    () => setKeyboardActive(true)
+  );
+  Keyboard.addListener(
+    'keyboardDidHide',
+    () => setKeyboardActive(false)
+  );
 
   return (
     <Modal
