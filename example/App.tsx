@@ -54,6 +54,7 @@ function App(): JSX.Element {
             <Select
               data={data}
               onSelect={console.log}
+              searchable
             />
           </View>
           <View style={{ flex: 1 }}>
@@ -76,6 +77,7 @@ function App(): JSX.Element {
               <MultiSelect
                 data={data}
                 onSelect={console.log}
+                searchable
               />
             </View>
             <View style={{ flex: 1 }}>
