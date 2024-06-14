@@ -17,6 +17,7 @@ const SelectionList = (props: ListProperties) => {
     windowHeight = Dimensions.get('window').height,
     windowWidth = Dimensions.get('window').width,
     [currentListHeight, setCurrentListHeight] = useState<number>(0),
+    [currentListWidth, setCurrentListWidth] = useState<number>(0),
     listBottom = currentListHeight + props.selectorRect.bottom;
 
   return (
@@ -39,10 +40,10 @@ const SelectionList = (props: ListProperties) => {
         onPress={props.hide}
       >
         <View
-          onLayout={
-            ({ nativeEvent }) =>
-              setCurrentListHeight(nativeEvent.layout.height)
-          }
+          onLayout={({ nativeEvent }) => {
+            setCurrentListHeight(nativeEvent.layout.height);
+            setCurrentListWidth(nativeEvent.layout.width);
+          }}
           style={[
             style.list,
             props.styles.list,
@@ -58,13 +59,8 @@ const SelectionList = (props: ListProperties) => {
                       ? props.selectorRect.left
                         + (props.selectorRect.right
                           - props.selectorRect.left
-                          - (typeof props.styles.list.width === 'number'
-                            ? props.styles.list.width
-                            : Number(props.styles.list.width.replace('%', ''))
-                              / 100
-                              * windowWidth))
-                        / 2
-                        : props.selectorRect.left,
+                          - currentListWidth) / 2
+                      : props.selectorRect.left,
                   },
                   listBottom < windowHeight
                     ? {
