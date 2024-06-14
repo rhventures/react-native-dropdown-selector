@@ -48,29 +48,22 @@ const SelectionList = (props: ListProperties) => {
             style.list,
             props.styles.list,
             windowHeight > windowWidth
-              ? [
-                  {
-                    maxHeight: props.listHeight,
-                    width: props.styles.list?.width
-                      ?? props.selectorRect.right - props.selectorRect.left,
-                      marginLeft: props.styles.list?.alignSelf === 'center'
-                      ? 0
-                      : props.styles.list?.width
-                      ? props.selectorRect.left
-                        + (props.selectorRect.right
-                          - props.selectorRect.left
-                          - currentListWidth) / 2
-                      : props.selectorRect.left,
-                  },
-                  listBottom < windowHeight
-                    ? {
-                        top: props.selectorRect.bottom,
-                      }
-                    : {
-                        bottom: windowHeight - props.selectorRect.top,
-                        marginTop: 'auto',
-                      },
-                ]
+              ? {
+                  maxHeight: props.listHeight,
+                  width: props.styles.list?.width
+                    ?? props.selectorRect.right - props.selectorRect.left,
+                    marginLeft: props.styles.list?.alignSelf === 'center'
+                    ? 0
+                    : props.styles.list?.width
+                    ? props.selectorRect.left
+                      + (props.selectorRect.right
+                        - props.selectorRect.left
+                        - currentListWidth) / 2
+                    : props.selectorRect.left,
+                  top: listBottom < windowHeight
+                    ? props.selectorRect.bottom
+                    : props.selectorRect.top - currentListHeight,
+                }
               : {
                   height: windowHeight - 40,
                   marginTop: 40,
