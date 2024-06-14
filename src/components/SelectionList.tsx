@@ -19,11 +19,11 @@ const SelectionList = (props: ListProperties) => {
     windowHeight = Dimensions.get('window').height,
     windowWidth = Dimensions.get('window').width,
     [entries, setEntries] = useState<Data[]>(props.data),
+    [keyboardActive, setKeyboardActive] = useState<boolean>(false),
     listBottom = Math.min(
       props.listHeight,
       entries.length * style.item.height
-    ) + props.selectorRect.bottom,
-    [keyboardActive, setKeyboardActive] = useState<boolean>(false);
+    ) + props.selectorRect.bottom;
     
     Keyboard.addListener(
       'keyboardDidShow',
