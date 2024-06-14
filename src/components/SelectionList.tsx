@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dimensions,
   FlatList,
@@ -16,25 +16,9 @@ const SelectionList = (props: ListProperties) => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0],
     windowHeight = Dimensions.get('window').height,
     windowWidth = Dimensions.get('window').width,
-    listBottom = Math.min(
-      props.listHeight,
-      props.data.length * style.item.height
-    ) + props.selectorRect.bottom,
-    centeredListX = () => {
-      const listX = props.selectorRect.left;
-      let listWidth: number;
-      if (props.styles.list?.width) {
-        if (typeof props.styles.list.width === 'number') {
-          listWidth = props.styles.list.width;
-        }
-        else {
-          listWidth = Number(props.styles.list.width.replace('%', '')) / 100 * windowWidth;
-        }
-        const offset = (props.selectorRect.right - props.selectorRect.left - listWidth) / 2;
-        return listX + offset;
-      }
-      return listX;
-    };
+    [currentListHeight, setCurrentListHeight] = useState<number>(0),
+    [currentListWidth, setCurrentListWidth] = useState<number>(0),
+    listBottom = currentListHeight + props.selectorRect.bottom;
 
   return (
     <Modal
@@ -56,28 +40,30 @@ const SelectionList = (props: ListProperties) => {
         onPress={props.hide}
       >
         <View
+          onLayout={({ nativeEvent }) => {
+            setCurrentListHeight(nativeEvent.layout.height);
+            setCurrentListWidth(nativeEvent.layout.width);
+          }}
           style={[
             style.list,
             props.styles.list,
             windowHeight > windowWidth
-              ? [
-                  {
-                    maxHeight: props.listHeight,
-                    width: props.styles.list?.width
-                      ?? props.selectorRect.right - props.selectorRect.left,
+              ? {
+                  maxHeight: props.listHeight,
+                  width: props.styles.list?.width
+                    ?? props.selectorRect.right - props.selectorRect.left,
                     marginLeft: props.styles.list?.alignSelf === 'center'
-                      ? 0
-                      : centeredListX(),
-                  },
-                  listBottom < windowHeight
-                    ? {
-                        top: props.selectorRect.bottom,
-                      }
-                    : {
-                        bottom: windowHeight - props.selectorRect.top,
-                        marginTop: 'auto',
-                      },
-                ]
+                    ? 0
+                    : props.styles.list?.width
+                    ? props.selectorRect.left
+                      + (props.selectorRect.right
+                        - props.selectorRect.left
+                        - currentListWidth) / 2
+                    : props.selectorRect.left,
+                  top: listBottom < windowHeight
+                    ? props.selectorRect.bottom
+                    : props.selectorRect.top - currentListHeight,
+                }
               : {
                   height: windowHeight - 40,
                   marginTop: 40,

@@ -53,9 +53,7 @@ const MultiSelect = (props: MultiSelectProperties) => {
         style={[
           style.selectorBox,
           props.boxStyle,
-          {opacity: props.disabled ? .5 : 1},
         ]}
-        disabled={props.disabled}
         onPress={() => updatePos(true)}
         ref={ref}
         onLayout={() => updatePos()}
