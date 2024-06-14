@@ -158,15 +158,20 @@ function App(): JSX.Element {
           }}
           dropdownArrowColor='darkgreen'
           searchBoxStyle={{
-            borderTopLeftRadius: 26,
-            borderTopRightRadius: 14,
-            borderBottomLeftRadius: 14,
-            borderBottomRightRadius: 26,
+            backgroundColor: 'lightgray',
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 16,
+            borderBottomLeftRadius: 16,
+            borderBottomRightRadius: 30,
             borderColor: 'darkgreen',
             borderTopWidth: 4,
             borderLeftWidth: 2,
             borderRightWidth: 2,
+            color: 'brown',
+            fontSize: 16,
+            height: 46,
             paddingHorizontal: 12,
+            paddingTop: 14,
           }}
         />
         <View style={{height: 50}} />
@@ -251,15 +256,20 @@ function App(): JSX.Element {
           }}
           clearButtonIconColor='#abc'
           searchBoxStyle={{
-            borderTopLeftRadius: 26,
-            borderTopRightRadius: 14,
-            borderBottomLeftRadius: 14,
-            borderBottomRightRadius: 26,
+            backgroundColor: 'lightgray',
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 16,
+            borderBottomLeftRadius: 16,
+            borderBottomRightRadius: 30,
             borderColor: 'darkgreen',
             borderTopWidth: 4,
             borderLeftWidth: 2,
             borderRightWidth: 2,
+            color: 'brown',
+            fontSize: 16,
+            height: 46,
             paddingHorizontal: 12,
+            paddingTop: 14,
           }}
         />
         <View style={{ height: 400 }} />
