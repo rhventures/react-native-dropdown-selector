@@ -62,6 +62,7 @@ const light = StyleSheet.create({
     margin: 8,
   },
   list: {
+    position: 'absolute',
     backgroundColor: 'white',
     borderColor: 'black',
     borderWidth: 0.5,
@@ -148,6 +149,7 @@ const dark = StyleSheet.create({
     margin: 8,
   },
   list: {
+    position: 'absolute',
     backgroundColor: '#444',
     borderColor: 'black',
     borderWidth: 0.5,

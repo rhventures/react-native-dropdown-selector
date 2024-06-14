@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Dimensions,
   FlatList,
+  Keyboard,
   Modal,
   Text,
   TextInput,
@@ -21,7 +22,17 @@ const SelectionList = (props: ListProperties) => {
     listBottom = Math.min(
       props.listHeight,
       entries.length * style.item.height
-    ) + props.selectorRect.bottom;
+    ) + props.selectorRect.bottom,
+    [keyboardActive, setKeyboardActive] = useState<boolean>(false);
+    
+    Keyboard.addListener(
+      'keyboardDidShow',
+      () => setKeyboardActive(true)
+    );
+    Keyboard.addListener(
+      'keyboardDidHide',
+      () => setKeyboardActive(false)
+    );
 
   return (
     <Modal
@@ -66,12 +77,16 @@ const SelectionList = (props: ListProperties) => {
                         / 2
                       : props.selectorRect.left,
                   },
-                  listBottom < windowHeight
+                  keyboardActive && listBottom > (Keyboard.metrics()?.screenY ?? 0) - 100
+                    ? {
+                        bottom: 5,
+                      }
+                    : listBottom < windowHeight
                     ? {
                         top: props.selectorRect.bottom,
                       }
                     : {
-                        top: props.selectorRect.top - props.listHeight,
+                        bottom: windowHeight - props.selectorRect.top,
                       },
                 ]
               : {
