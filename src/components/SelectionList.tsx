@@ -8,43 +8,23 @@ import {
   Text,
   TouchableOpacity,
   View,
-  type LayoutChangeEvent,
 } from 'react-native';
 import styles from '../styles';
 import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): JSX.Element => {
-  if (!props.display) {
-    return <View />;
-  }
-  const [listHeight, setListHeight]: [
-      number,
-      React.Dispatch<React.SetStateAction<number>>
-    ] = useState<number>(0),
-    [heightChecked, setHeightChecked]: [
-      boolean,
-      React.Dispatch<React.SetStateAction<boolean>>
-    ] = useState<boolean>(false),
+  const style = useColorScheme() === 'dark' ? styles[1] : styles[0],
     windowHeight: number = Dimensions.get('window').height,
     windowWidth: number = Dimensions.get('window').width,
     [orientation, setOrientation]: [
       string,
       React.Dispatch<React.SetStateAction<string>>
-    ] = useState<string>(windowHeight > windowWidth ? 'portrait' : 'landscape'),
-    pos: {
-      top: number;
-      bottom: number;
-    } = { top: 0, bottom: 0 },
-    style = useColorScheme() === 'dark' ? styles[1] : styles[0];
-
-  props.selectorRef.current?.measureInWindow((_x, y, _width, height) => {
-    pos.top = y - props.listHeight;
-    pos.bottom = y + height;
-  });
+    ] = useState<string>(windowHeight > windowWidth ? 'portrait' : 'landscape');
 
   return (
     <Modal
+      visible={props.display}
       transparent={true}
       onRequestClose={() => props.setDisplay(false)}
       supportedOrientations={[
@@ -70,24 +50,15 @@ const SelectionList = (props: ListProperties): JSX.Element => {
         onPress={() => props.setDisplay(false)}
       >
         <View
-          onLayout={(e: LayoutChangeEvent) => {
-            const newHeight =
-              windowHeight - pos.bottom < props.listHeight
-                ? pos.top - 5
-                : pos.bottom + 5;
-            setHeightChecked(
-              listHeight === newHeight || windowWidth > windowHeight
-            );
-            setListHeight(newHeight);
-          }}
           style={StyleSheet.flatten([
             style.list,
             props.styles.list,
             windowHeight > windowWidth
               ? {
                   maxHeight: props.listHeight,
-                  marginTop: listHeight + props.overflowNotif,
-                  opacity: heightChecked ? 1 : 0,
+                  marginTop: props.selectorPos.bottom + props.listHeight < windowHeight
+                    ? props.selectorPos.bottom
+                    : props.selectorPos.top,
                 }
               : {
                   height: windowHeight - 40,
@@ -105,7 +76,6 @@ const SelectionList = (props: ListProperties): JSX.Element => {
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
-                  if (!heightChecked) return;
                   if (props.type === 'single') {
                     (props.onSelect as (e: Data) => void)(item);
                     props.setDisplay(false);

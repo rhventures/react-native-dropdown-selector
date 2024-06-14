@@ -20,9 +20,6 @@ const Select = (props: SelectorProperties): JSX.Element => {
         ? props.placeholderText
         : 'Click me'
     ),
-    clickSelector = (): void => {
-      setListDisplay(!listDisplay);
-    },
     selectItem = (item: Data): void => {
       setSelected(item.label);
       props.onSelect(item);
@@ -34,14 +31,27 @@ const Select = (props: SelectorProperties): JSX.Element => {
       ];
     },
     ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
-    style = useColorScheme() === 'dark' ? styles[1] : styles[0];
+    style = useColorScheme() === 'dark' ? styles[1] : styles[0],
+    [pos, setPos]: [
+      {'top': number, 'bottom': number},
+      React.Dispatch<React.SetStateAction<{'top': number, 'bottom': number}>>
+    ] = useState<{'top': number, 'bottom': number}>({'top': 0, 'bottom': 0}),
+    updatePos = (): void => {
+      ref.current?.measureInWindow((_x, y, _width, height) => {
+        setPos({
+          'top': y - (props.listHeight ?? 200) - 5,
+          'bottom': y + height + 5
+        });
+        setListDisplay(true);
+      });
+    };
 
   return (
     <View>
       <TouchableOpacity
         activeOpacity={1}
         style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
-        onPress={clickSelector}
+        onPress={updatePos}
         ref={ref}
       >
         <Text
@@ -73,7 +83,7 @@ const Select = (props: SelectorProperties): JSX.Element => {
         display={listDisplay}
         setDisplay={setListDisplay}
         selectorRef={ref}
-        overflowNotif={0}
+        selectorPos={pos}
       />
     </View>
   );
