@@ -18,18 +18,18 @@ const SelectionList = (props: ListProperties) => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0],
     windowHeight = Dimensions.get('window').height,
     windowWidth = Dimensions.get('window').width,
+    [keyboardHeight, setKeyboardHeight] = useState<number>(0),
     [entries, setEntries] = useState<Data[]>(props.data),
-    [keyboardActive, setKeyboardActive] = useState<boolean>(false),
-    [currentHeight, setCurrentHeight] = useState<number>(0),
-    listBottom = currentHeight + props.selectorRect.bottom;
+    [currentListHeight, setCurrentListHeight] = useState<number>(0),
+    listBottom = currentListHeight + props.selectorRect.bottom;
     
   Keyboard.addListener(
     'keyboardDidShow',
-    () => setKeyboardActive(true)
+    () => setKeyboardHeight(Keyboard.metrics()?.height ?? 0)
   );
   Keyboard.addListener(
     'keyboardDidHide',
-    () => setKeyboardActive(false)
+    () => setKeyboardHeight(0)
   );
 
   return (
@@ -54,7 +54,7 @@ const SelectionList = (props: ListProperties) => {
         <View
           onLayout={
             ({ nativeEvent }) =>
-              setCurrentHeight(nativeEvent.layout.height)
+              setCurrentListHeight(nativeEvent.layout.height)
           }
           style={[
             style.list,
@@ -79,16 +79,16 @@ const SelectionList = (props: ListProperties) => {
                         / 2
                       : props.selectorRect.left,
                   },
-                  keyboardActive && listBottom > (Keyboard.metrics()?.screenY ?? 0) - 50
+                  keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
                     ? {
-                        bottom: 5,
+                        top: windowHeight - keyboardHeight - currentListHeight - 5,
                       }
                     : listBottom < windowHeight
                     ? {
                         top: props.selectorRect.bottom,
                       }
                     : {
-                        top: props.selectorRect.top - currentHeight,
+                        top: props.selectorRect.top - currentListHeight,
                       },
                 ]
               : {
