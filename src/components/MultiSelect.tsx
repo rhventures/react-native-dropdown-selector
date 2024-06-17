@@ -7,7 +7,6 @@ import SelectionList from './SelectionList';
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
 const MultiSelect = (props: MultiSelectProperties) => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
-  const defaultText = props.placeholderText ?? 'Click me';
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
   const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
@@ -62,7 +61,7 @@ const MultiSelect = (props: MultiSelectProperties) => {
           : <Text
               style={[style.selectorText, props.boxTextStyle]}
             >
-              {defaultText}
+              {props.placeholderText ?? 'Click me'}
             </Text>
         }
         <Text
