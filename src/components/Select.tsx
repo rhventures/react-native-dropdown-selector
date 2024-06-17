@@ -6,7 +6,10 @@ import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
 const Select = (props: SelectProperties) => {
+  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
+  const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
+  const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
   const [selected, setSelected] = useState<Data>(
     props.defaultValue && props.data.includes(props.defaultValue)
       ? props.defaultValue
@@ -20,9 +23,6 @@ const Select = (props: SelectProperties) => {
     ...data.filter((d: Data) => d.priority),
     ...data.filter((d: Data) => !d.priority),
   ];
-  const ref = useRef<TouchableOpacity>(null);
-  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
-  const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
   const updatePos = () =>
     ref.current?.measureInWindow((_x, y, _width, height) => {
       setPos({

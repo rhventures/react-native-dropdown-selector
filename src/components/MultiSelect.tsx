@@ -6,8 +6,11 @@ import SelectionList from './SelectionList';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
 const MultiSelect = (props: MultiSelectProperties) => {
-  const [listDisplay, setListDisplay] = useState<boolean>(false);
+  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
   const defaultText = props.placeholderText ?? 'Click me';
+  const ref = useRef<TouchableOpacity>(null);
+  const [listDisplay, setListDisplay] = useState<boolean>(false);
+  const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
   const [selected, setSelected] = useState<Data[]>([]);
   const selectItem = (items: Data[]) => {
     setSelected(items);
@@ -17,9 +20,6 @@ const MultiSelect = (props: MultiSelectProperties) => {
     ...data.filter((d: Data) => d.priority),
     ...data.filter((d: Data) => !d.priority),
   ];
-  const ref = useRef<TouchableOpacity>(null);
-  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
-  const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
   const updatePos = (display = false) => 
     ref.current?.measureInWindow((_x, y, _width, height) => {
       setPos({

@@ -14,8 +14,8 @@ import type { Data, ListProperties } from '../types';
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties) => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
-  const windowHeight = Dimensions.get('window').height;
   const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
 
   return (
     <Modal
