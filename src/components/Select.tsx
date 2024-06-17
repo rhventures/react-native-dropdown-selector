@@ -5,7 +5,7 @@ import type { Data, SelectorPos, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
-const Select = (props: SelectProperties) => {
+const Select = (props: SelectProperties): React.JSX.Element => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
