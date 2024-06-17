@@ -14,8 +14,8 @@ const data: Data[] = [
 ];
 
 function App(): JSX.Element {
-  const [item, setItem] = React.useState<string | JSX.Element>(''),
-    onDataSelect = (e: Data): void => setItem(e.label);
+  const [item, setItem] = React.useState<string | JSX.Element>('');
+  const onDataSelect = (e: Data): void => setItem(e.label);
 
   return (
     <>
