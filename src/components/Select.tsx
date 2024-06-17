@@ -6,32 +6,31 @@ import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
 const Select = (props: SelectProperties) => {
-  const [listDisplay, setListDisplay] = useState<boolean>(false),
-    [selected, setSelected] = useState<Data>(
-      props.defaultValue && props.data.includes(props.defaultValue)
-        ? props.defaultValue
-        : {label: props.placeholderText ?? 'Click me'}
-    ),
-    selectItem = (item: Data) => {
-      setSelected(item);
-      props.onSelect(item);
-    },
-    updatePriorities = (data: Data[]) => [
-      ...data.filter((d: Data) => d.priority),
-      ...data.filter((d: Data) => !d.priority),
-    ],
-    ref = useRef<TouchableOpacity>(null),
-    style = styles[useColorScheme() === 'dark' ? 1 : 0],
-    [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0}),
-    updatePos = () => {
-      ref.current?.measureInWindow((_x, y, _width, height) => {
-        setPos({
-          top: y - (props.listHeight ?? 200) - 5,
-          bottom: y + height + 5,
-        });
-        setListDisplay(true);
+  const [listDisplay, setListDisplay] = useState<boolean>(false);
+  const [selected, setSelected] = useState<Data>(
+    props.defaultValue && props.data.includes(props.defaultValue)
+      ? props.defaultValue
+      : {label: props.placeholderText ?? 'Click me'}
+  );
+  const selectItem = (item: Data) => {
+    setSelected(item);
+    props.onSelect(item);
+  };
+  const updatePriorities = (data: Data[]) => [
+    ...data.filter((d: Data) => d.priority),
+    ...data.filter((d: Data) => !d.priority),
+  ];
+  const ref = useRef<TouchableOpacity>(null);
+  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
+  const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
+  const updatePos = () =>
+    ref.current?.measureInWindow((_x, y, _width, height) => {
+      setPos({
+        top: y - (props.listHeight ?? 200) - 5,
+        bottom: y + height + 5,
       });
-    };
+      setListDisplay(true);
+    });
 
   return (
     <View>
