@@ -13,7 +13,7 @@ const data: Data[] = [
   { label: 'Item 8' },
 ];
 
-function App(): JSX.Element {
+function App(): React.JSX.Element {
   const [item, setItem] = React.useState<string | JSX.Element>('');
   const onDataSelect = (e: Data): void => setItem(e.label);
 
