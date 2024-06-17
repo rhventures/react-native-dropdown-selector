@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { MultiSelect, Select, type Data } from 'react-native-dropdown-selector';
 
@@ -18,11 +18,10 @@ const options: Data[] = [
   { label: 'Searchable' },
 ];
 
-const [disabled, setDisabled] = useState(false);
-const [searchable, setSearchable] = useState(false);
-
 function App(): JSX.Element {
   const [item, setItem] = React.useState<string | JSX.Element>(''),
+    [disabled, setDisabled] = React.useState(false),
+    [searchable, setSearchable] = React.useState(false),
     onDataSelect = (e: Data): void => setItem(e.label);
 
   return (
@@ -30,7 +29,12 @@ function App(): JSX.Element {
       <View style={{ height: 40 }} />
       <ScrollView style={{ paddingHorizontal: 8 }}>
         <View style={{ height: 40 }} />
-        <Select data={data} onSelect={onDataSelect} />
+        <Select
+          data={data}
+          onSelect={onDataSelect}
+          disabled={disabled}
+          searchable={searchable}
+        />
         <Text>Selected: {item || 'None'} (scroll down)</Text>
         <View style={{ height: 500 }} />
         <Text
@@ -45,6 +49,8 @@ function App(): JSX.Element {
         <Select
           data={data}
           onSelect={console.log}
+          disabled={disabled}
+          searchable={searchable}
           placeholderText="Select an item"
           boxStyle={{
             alignSelf: 'center',
@@ -54,6 +60,8 @@ function App(): JSX.Element {
         <MultiSelect
           data={data}
           onSelect={console.log}
+          disabled={disabled}
+          searchable={searchable}
         />
         <View style={{ height: 400 }}/>
         <Text>Single Selects:</Text>
@@ -62,18 +70,24 @@ function App(): JSX.Element {
             <Select
               data={data}
               onSelect={console.log}
+              disabled={disabled}
+              searchable={searchable}
             />
           </View>
           <View style={{ flex: 1 }}>
             <Select
               data={data}
               onSelect={console.log}
+              disabled={disabled}
+              searchable={searchable}
             />
           </View>
           <View style={{ flex: 1 }}>
             <Select
               data={data}
               onSelect={console.log}
+              disabled={disabled}
+              searchable={searchable}
             />
           </View>
         </View>
@@ -84,36 +98,56 @@ function App(): JSX.Element {
               <MultiSelect
                 data={data}
                 onSelect={console.log}
+                disabled={disabled}
+                searchable={searchable}
               />
             </View>
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
                 onSelect={console.log}
+                disabled={disabled}
+                searchable={searchable}
               />
             </View>
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
                 onSelect={console.log}
+                disabled={disabled}
+                searchable={searchable}
               />
             </View>
           </View>
-          <Text style={{ textAlign: 'center' }}>
+          <Text style={{ textAlign: 'center', height: 100 }}>
             Select more than one item and see me move!
           </Text>
           <MultiSelect
             data={options}
-            onSelect={()=>1}
+            onSelect={(data: Data[]) => {
+              if (data.includes(options[0])) {
+                setDisabled(true);
+              } else {
+                setDisabled(false);
+              }
+              if (data.includes(options[1])) {
+                setSearchable(true);
+              } else {
+                setSearchable(false);
+              }
+            }}
+            placeholderText='Selector Settings'
+
           />
         </View>
         <Text>Styled Single Select:</Text>
         <Select
           data={data}
           onSelect={console.log}
+          disabled={disabled}
+          searchable={searchable}
           defaultValue={data[0]}
           listHeight={300}
-          searchable
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
@@ -189,9 +223,10 @@ function App(): JSX.Element {
         <MultiSelect
           data={data}
           onSelect={console.log}
+          disabled={disabled}
+          searchable={searchable}
           defaultValue={data}
           listHeight={300}
-          searchable
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
