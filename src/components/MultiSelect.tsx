@@ -1,5 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View, useColorScheme,
+  type LayoutChangeEvent
+} from 'react-native';
 import styles from '../styles';
 import type { Data, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
@@ -11,26 +17,11 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
     ] = useState<boolean>(false),
     defaultText: string | JSX.Element = props.placeholderText ?? 'Click me',
     [selected, setSelected]: [
-      string | JSX.Element,
-      React.Dispatch<React.SetStateAction<string | JSX.Element>>
-    ] = useState<string | JSX.Element>(
-      props.defaultValue
-        ? props.defaultValue
-            .map((item: Data): string | JSX.Element => item.label)
-            .join(', ')
-        : defaultText
-    ),
-    clickSelector = (): void => {
-      setListDisplay(!listDisplay);
-    },
+      Data[],
+      React.Dispatch<React.SetStateAction<Data[]>>
+    ] = useState<Data[]>([]),
     selectItem = (items: Data[]): void => {
-      setSelected(
-        items.length > 0
-          ? items
-              .map((item: Data): string | JSX.Element => item?.label)
-              .join(', ')
-          : defaultText
-      );
+      setSelected(items);
       props.onSelect(items);
     },
     updatePriorities = (data: Data[]): Data[] => {
@@ -40,39 +31,58 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
       ];
     },
     ref: React.MutableRefObject<TouchableOpacity | null> = useRef(null),
-    style = useColorScheme() === 'dark' ? styles[1] : styles[0];
+    style = useColorScheme() === 'dark' ? styles[1] : styles[0],
+    [pos, setPos]: [
+      {'top': number, 'bottom': number},
+      React.Dispatch<React.SetStateAction<{'top': number, 'bottom': number}>>
+    ] = useState<{'top': number, 'bottom': number}>({'top': 0, 'bottom': 0}),
+    updatePos = (display: boolean = false): void => {
+      ref.current?.measureInWindow((_x, y, _width, height) => {
+        setPos({
+          'top': y - (props.listHeight ?? 200) - 5,
+          'bottom': y + height + 5
+        });
+        if (display) setListDisplay(true);
+      });
+    };
 
   return (
     <View>
       <TouchableOpacity
         activeOpacity={1}
         style={StyleSheet.flatten([style.selectorBox, props.boxStyle])}
-        onPress={clickSelector}
+        onPress={() => updatePos(true)}
         ref={ref}
+        onLayout={() => updatePos()}
       >
-        {selected === defaultText
-          ? <Text
+        {selected.length > 0
+          ? selected.map((data) =>
+              <View
+                style={StyleSheet.flatten([
+                  style.selectedInMultiHighlight,
+                  props.boxTextHighlightStyle])}
+                key={data.label.toString()}
+              >
+                <Text
+                  style={StyleSheet.flatten([
+                    style.selectorText,
+                    {marginVertical: 0},
+                    props.boxTextStyle])}
+                >
+                  {data.label}
+                </Text>
+              </View>
+            )
+          : <Text
               style={StyleSheet.flatten([style.selectorText, props.boxTextStyle])}
-              numberOfLines={1}
             >
               {defaultText}
             </Text>
-          : (selected as string)
-            .split(', ')
-            .map((str) =>
-              <View 
-                style={style.selectedInMultiHighlight}
-                key={str}
-              >
-                <Text
-                  style={style.selectedInMulti}
-                >
-                  {str}
-                </Text>
-              </View>
-            )}
+        }
         <Text
-          style={style.arrow}
+          style={StyleSheet.flatten([
+            style.arrow,
+            {color: props.dropdownArrowColor ?? style.arrow.color}])}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>
@@ -88,11 +98,12 @@ const MultiSelect = (props: MultiSelectProperties): JSX.Element => {
         data={updatePriorities(props.data)}
         type="multi"
         onSelect={selectItem}
-        selected={selected || ''}
-        listHeight={props.listHeight ? props.listHeight : 200}
+        selected={selected}
+        listHeight={props.listHeight ?? 200}
         display={listDisplay}
         setDisplay={setListDisplay}
         selectorRef={ref}
+        selectorPos={pos}
       />
     </View>
   );
