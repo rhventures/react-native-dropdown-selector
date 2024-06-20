@@ -7,7 +7,7 @@ import {
   type NativeScrollRectangle,
 } from 'react-native';
 import styles from '../styles';
-import type { Data, SelectorPos, MultiSelectProperties } from '../types';
+import type { Data, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
@@ -16,10 +16,10 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
   const [refRect, setRefRect] = useState<NativeScrollRectangle>({
-    top: 0,
     left: 0,
-    bottom: 0,
+    top: 0,
     right: 0,
+    bottom: 0,
   });
   const [selected, setSelected] = useState<Data[]>([]);
   const selectItem = (items: Data[]) => {
