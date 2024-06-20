@@ -5,37 +5,36 @@ import type { Data, SelectorPos, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
-const Select = (props: SelectProperties) => {
-  const [listDisplay, setListDisplay] = useState<boolean>(false),
-    [selected, setSelected] = useState<Data>(
-      props.defaultValue && props.data.includes(props.defaultValue)
-        ? props.defaultValue
-        : {label: props.placeholderText ?? 'Click me'}
-    ),
-    selectItem = (item: Data) => {
-      setSelected(item);
-      props.onSelect(item);
-    },
-    updatePriorities = (data: Data[]) => [
-      ...data.filter((d: Data) => d.priority),
-      ...data.filter((d: Data) => !d.priority),
-    ],
-    ref = useRef<TouchableOpacity>(null),
-    [listWidth, setListWidth] = useState<number>(0),
-    [listX, setListX] = useState<number>(0),
-    style = styles[useColorScheme() === 'dark' ? 1 : 0],
-    [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0}),
-    updatePos = () => {
-      ref.current?.measureInWindow((x, y, width, height) => {
-        setListX(x);
-        setListWidth(width);
-        setPos({
-          top: y - (props.listHeight ?? 200) - 5,
-          bottom: y + height + 5,
-        });
-        setListDisplay(true);
+const Select = (props: SelectProperties): React.JSX.Element => {
+  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
+  const ref = useRef<TouchableOpacity>(null);
+  const [listWidth, setListWidth] = useState<number>(0);
+  const [listX, setListX] = useState<number>(0);
+  const [listDisplay, setListDisplay] = useState<boolean>(false);
+  const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
+  const [selected, setSelected] = useState<Data>(
+    props.defaultValue && props.data.includes(props.defaultValue)
+      ? props.defaultValue
+      : {label: props.placeholderText ?? 'Click me'}
+  );
+  const selectItem = (item: Data) => {
+    setSelected(item);
+    props.onSelect(item);
+  };
+  const updatePriorities = (data: Data[]) => [
+    ...data.filter((d: Data) => d.priority),
+    ...data.filter((d: Data) => !d.priority),
+  ];
+  const updatePos = () =>
+    ref.current?.measureInWindow((x, y, width, height) => {
+      setListX(x);
+      setListWidth(width);
+      setPos({
+        top: y - (props.listHeight ?? 200) - 5,
+        bottom: y + height + 5,
       });
-    };
+      setListDisplay(true);
+    });
 
   return (
     <View>
