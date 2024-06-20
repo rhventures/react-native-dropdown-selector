@@ -78,8 +78,8 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
           list: props.listStyle,
           text: props.listTextStyle,
           itemSelected: props.selectedItemStyle,
-          clearButtonStyle: props.clearButtonStyle,
-          clearButtonIconColor: props.clearButtonIconColor,
+          clearButton: props.clearButtonStyle,
+          clearButtonIcon: props.clearButtonIconColor,
         }}
         data={updatePriorities(props.data)}
         type="multi"
