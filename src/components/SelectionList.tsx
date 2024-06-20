@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Dimensions,
   FlatList,
@@ -12,10 +12,10 @@ import styles from '../styles';
 import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
-const SelectionList = (props: ListProperties) => {
-  const style = styles[useColorScheme() === 'dark' ? 1 : 0],
-    windowHeight = Dimensions.get('window').height,
-    windowWidth = Dimensions.get('window').width;
+const SelectionList = (props: ListProperties): React.JSX.Element => {
+  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
 
   return (
     <Modal

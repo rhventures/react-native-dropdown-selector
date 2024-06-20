@@ -5,31 +5,29 @@ import type { Data, SelectorPos, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
-const MultiSelect = (props: MultiSelectProperties) => {
-  const [listDisplay, setListDisplay] = useState<boolean>(false),
-    defaultText = props.placeholderText ?? 'Click me',
-    [selected, setSelected] = useState<Data[]>([]),
-    selectItem = (items: Data[]) => {
-      setSelected(items);
-      props.onSelect(items);
-    },
-    updatePriorities = (data: Data[]) => [
-        ...data.filter((d: Data) => d.priority),
-        ...data.filter((d: Data) => !d.priority),
-    ],
-    ref = useRef<TouchableOpacity>(null),
-    style = styles[useColorScheme() === 'dark' ? 1 : 0],
-    [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0}),
-    updatePos = (display = false) => {
-      ref.current?.measureInWindow((_x, y, _width, height) => {
-        setPos({
-          top: y - (props.listHeight ?? 200) - 5,
-          bottom: y + height + 5,
-        });
-        if (display)
-          setListDisplay(true);
+const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
+  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
+  const ref = useRef<TouchableOpacity>(null);
+  const [listDisplay, setListDisplay] = useState<boolean>(false);
+  const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
+  const [selected, setSelected] = useState<Data[]>([]);
+  const selectItem = (items: Data[]) => {
+    setSelected(items);
+    props.onSelect(items);
+  };
+  const updatePriorities = (data: Data[]) => [
+    ...data.filter((d: Data) => d.priority),
+    ...data.filter((d: Data) => !d.priority),
+  ];
+  const updatePos = (display = false) => 
+    ref.current?.measureInWindow((_x, y, _width, height) => {
+      setPos({
+        top: y - (props.listHeight ?? 200) - 5,
+        bottom: y + height + 5,
       });
-    };
+      if (display)
+        setListDisplay(true);
+    });
 
   return (
     <View>
@@ -63,7 +61,7 @@ const MultiSelect = (props: MultiSelectProperties) => {
           : <Text
               style={[style.selectorText, props.boxTextStyle]}
             >
-              {defaultText}
+              {props.placeholderText ?? 'Click me'}
             </Text>
         }
         <Text
