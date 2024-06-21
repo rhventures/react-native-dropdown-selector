@@ -83,6 +83,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         type="multi"
         onSelect={selectItem}
         selected={selected}
+        clearSelected={() => setSelected([])}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}

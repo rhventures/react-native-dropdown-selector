@@ -92,6 +92,26 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             )}
           />
         </View>
+        {props.type === 'multi' && (props.selected as Data[]).length > 0 &&
+          <View
+            style={{
+              ...style.clearButton,
+              top: props.selectorPos.bottom + props.listHeight < windowHeight
+                ? props.selectorPos.top + props.listHeight - 40
+                : props.selectorPos.bottom,
+            }}
+          >
+            <TouchableOpacity
+              onPress={props.clearSelected}
+            >
+              <Text
+                style={style.clearIcon}
+              >
+                {'×'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        }
       </TouchableOpacity>
     </Modal>
   );
