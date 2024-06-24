@@ -39,7 +39,7 @@ appium -v
 For Appium to work, the necessary downloads must be checked.
 run:
 ```
-npm install appium doctor -g
+npm install appium-doctor -g
 ```
 and then run:
 ```
