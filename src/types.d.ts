@@ -11,6 +11,11 @@ export interface Data {
   data?: object;
 }
 
+export interface SelectorPos {
+  top: number;
+  bottom: number;
+}
+
 export interface ListProperties {
   styles: {
     list?: ViewStyle;
