@@ -12,9 +12,9 @@
   "dependencies": {
     "@tsconfig/react-native": "^2.0.3",
     "@types/react": "^18.2.7",
-    "cocoapods": "^0.0.0",
+    "pod": "^0.9.0",
     "react": "^18.2.0",
-    "react-native": "^0.74.1",
+    "react-native": "0.74.1",
     "react-native-dropdown-selector": "file:.."
   },
   "devDependencies": {
