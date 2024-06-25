@@ -42,7 +42,9 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             props.styles.list,
             windowHeight > windowWidth
               ? {
-                  left: props.listX,
+                  left: props.styles.list?.alignSelf === 'center'
+                    ? 0
+                    : props.listX,
                   width: props.listWidth,
                   maxHeight: props.listHeight,
                   marginTop: props.selectorPos.bottom + props.listHeight < windowHeight
