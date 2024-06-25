@@ -104,7 +104,8 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
               top: props.selectorPos.bottom + props.listHeight < windowHeight
                 ? props.selectorPos.top + props.listHeight - 40
                 : props.selectorPos.bottom,
-              left: props.listX + props.listWidth - 40,
+              left: props.listX - 40,
+              marginLeft: props.listWidth,
             }}
           >
             <TouchableOpacity

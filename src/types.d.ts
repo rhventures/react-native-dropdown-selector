@@ -29,7 +29,7 @@ export interface ListProperties {
   selected: Data[] | Data;
   clearSelected?: () => void;
   listX: number;
-  listWidth: number;
+  listWidth: string | number;
   listHeight: number;
   display: boolean;
   hide: () => void;
