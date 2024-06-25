@@ -1,7 +1,13 @@
 import React, { useRef, useState } from 'react';
-import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+  type NativeScrollRectangle,
+} from 'react-native';
 import styles from '../styles';
-import type { Data, SelectorPos, SelectProperties } from '../types';
+import type { Data, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
@@ -34,14 +40,17 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         top: y - (props.listHeight ?? 200) - 5,
         bottom: y + height + 5,
       });
-      setListDisplay(true);
-    });
 
   return (
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={[style.selectorBox, props.boxStyle]}
+        style={[
+          style.selectorBox,
+          props.boxStyle,
+          {opacity: props.disabled ? .5 : 1},
+        ]}
+        disabled={props.disabled}
         onPress={updatePos}
         ref={ref}
       >
@@ -74,7 +83,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}
-        selectorPos={pos}
+        selectorRect={refRect}
       />
     </View>
   );

@@ -1,5 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+  type NativeScrollRectangle,
+} from 'react-native';
 import styles from '../styles';
 import type { Data, SelectorPos, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
@@ -30,15 +36,17 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         top: y - (props.listHeight ?? 200) - 5,
         bottom: y + height + 5,
       });
-      if (display)
-        setListDisplay(true);
-    });
 
   return (
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={[style.selectorBox, props.boxStyle]}
+        style={[
+          style.selectorBox,
+          props.boxStyle,
+          {opacity: props.disabled ? .5 : 1},
+        ]}
+        disabled={props.disabled}
         onPress={() => updatePos(true)}
         ref={ref}
         onLayout={() => updatePos()}
@@ -83,8 +91,8 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
           list: props.listStyle,
           text: props.listTextStyle,
           itemSelected: props.selectedItemStyle,
-          clearButton: props.clearButtonStyle,
-          clearButtonIcon: props.clearButtonIconColor,
+          clearButtonStyle: props.clearButtonStyle,
+          clearButtonIconColor: props.clearButtonIconColor,
         }}
         data={updatePriorities(props.data)}
         type="multi"
@@ -96,7 +104,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}
-        selectorPos={pos}
+        selectorRect={refRect}
       />
     </View>
   );
