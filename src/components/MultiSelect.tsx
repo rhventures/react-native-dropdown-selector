@@ -1,39 +1,61 @@
 import React, { useRef, useState } from 'react';
-import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+  type NativeScrollRectangle,
+} from 'react-native';
 import styles from '../styles';
 import type { Data, SelectorPos, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
-const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
-  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
-  const ref = useRef<TouchableOpacity>(null);
-  const [listDisplay, setListDisplay] = useState<boolean>(false);
-  const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
-  const [selected, setSelected] = useState<Data[]>([]);
-  const selectItem = (items: Data[]) => {
-    setSelected(items);
-    props.onSelect(items);
-  };
-  const updatePriorities = (data: Data[]) => [
-    ...data.filter((d: Data) => d.priority),
-    ...data.filter((d: Data) => !d.priority),
-  ];
-  const updatePos = (display = false) => 
-    ref.current?.measureInWindow((_x, y, _width, height) => {
-      setPos({
-        top: y - (props.listHeight ?? 200) - 5,
-        bottom: y + height + 5,
+const MultiSelect = (props: MultiSelectProperties) => {
+  const [listDisplay, setListDisplay] = useState<boolean>(false),
+    defaultText = props.placeholderText ?? 'Click me',
+    [selected, setSelected] = useState<Data[]>(
+      props.data.filter((d: Data) =>
+        props.defaultValue?.includes(d))
+    ),
+    selectItem = (items: Data[]) => {
+      setSelected(items);
+      props.onSelect(items);
+    },
+    updatePriorities = (data: Data[]) => [
+        ...data.filter((d: Data) => d.priority),
+        ...data.filter((d: Data) => !d.priority),
+    ],
+    ref = useRef<TouchableOpacity>(null),
+    style = styles[useColorScheme() === 'dark' ? 1 : 0],
+    [refRect, setRefRect] = useState<NativeScrollRectangle>({
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+    }),
+    updatePos = (display = false) =>
+      ref.current?.measureInWindow((x, y, width, height) => {
+        setRefRect({
+          left: x,
+          top: y - 5,
+          right: x + width,
+          bottom: y + height + 5,
+        });
+        if (display)
+          setListDisplay(true);
       });
-      if (display)
-        setListDisplay(true);
-    });
 
   return (
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={[style.selectorBox, props.boxStyle]}
+        style={[
+          style.selectorBox,
+          props.boxStyle,
+          {opacity: props.disabled ? .5 : 1},
+        ]}
+        disabled={props.disabled}
         onPress={() => updatePos(true)}
         ref={ref}
         onLayout={() => updatePos()}
@@ -78,8 +100,8 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
           list: props.listStyle,
           text: props.listTextStyle,
           itemSelected: props.selectedItemStyle,
-          clearButton: props.clearButtonStyle,
-          clearButtonIcon: props.clearButtonIconColor,
+          clearButtonStyle: props.clearButtonStyle,
+          clearButtonIconColor: props.clearButtonIconColor,
         }}
         data={updatePriorities(props.data)}
         type="multi"
@@ -89,7 +111,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}
-        selectorPos={pos}
+        selectorRect={refRect}
       />
     </View>
   );
