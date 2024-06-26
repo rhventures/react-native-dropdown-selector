@@ -12,29 +12,10 @@ import styles from '../styles';
 import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
-const SelectionList = (props: ListProperties) => {
-  const style = styles[useColorScheme() === 'dark' ? 1 : 0],
-    windowHeight = Dimensions.get('window').height,
-    windowWidth = Dimensions.get('window').width,
-    listBottom = Math.min(
-      props.listHeight,
-      props.data.length * style.item.height
-    ) + props.selectorRect.bottom,
-    centeredListX = () => {
-      const listX = props.selectorRect.left;
-      let listWidth: number;
-      if (props.styles.list?.width) {
-        if (typeof props.styles.list.width === 'number') {
-          listWidth = props.styles.list.width;
-        }
-        else {
-          listWidth = Number(props.styles.list.width.replace('%', '')) / 100 * windowWidth;
-        }
-        const offset = (props.selectorRect.right - props.selectorRect.left - listWidth) / 2;
-        return listX + offset;
-      }
-      return listX;
-    };
+const SelectionList = (props: ListProperties): React.JSX.Element => {
+  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
 
   return (
     <Modal
@@ -133,7 +114,7 @@ const SelectionList = (props: ListProperties) => {
               <Text
                 style={{
                   ...style.clearIcon,
-                  color: props.styles.clearButtonIconColor ?? style.clearIcon.color,
+                  color: props.styles.clearButtonIcon ?? style.clearIcon.color,
                 }}
               >
                 {'×'}
