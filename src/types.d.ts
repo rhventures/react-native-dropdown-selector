@@ -2,7 +2,6 @@ import {
   type ColorValue,
   type TextStyle,
   type ViewStyle,
-  type NativeScrollRectangle,
 } from 'react-native';
 
 export interface Data {
@@ -11,13 +10,20 @@ export interface Data {
   data?: object;
 }
 
+export interface SelectorRect {
+  x: number;
+  y: number;
+  width: string | number;
+  height: number;
+}
+
 export interface ListProperties {
   styles: {
     list?: ViewStyle;
     text?: TextStyle;
     itemSelected?: TextStyle;
-    clearButtonStyle?: ViewStyle;
-    clearButtonIconColor?: ColorValue;
+    clearButton?: ViewStyle;
+    clearButtonIcon?: ColorValue;
     searchBox?: TextStyle & ViewStyle;
   };
   data: Data[];
@@ -29,7 +35,7 @@ export interface ListProperties {
   display: boolean;
   searchable: boolean;
   hide: () => void;
-  selectorRect: NativeScrollRectangle;
+  selectorRect: SelectorRect;
 }
 
 export interface MultiSelectProperties {
