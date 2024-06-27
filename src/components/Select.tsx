@@ -4,24 +4,21 @@ import {
   TouchableOpacity,
   View,
   useColorScheme,
-  type NativeScrollRectangle,
 } from 'react-native';
 import styles from '../styles';
-import type { Data, SelectProperties } from '../types';
+import type { Data, SelectorRect, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
 const Select = (props: SelectProperties): React.JSX.Element => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
   const ref = useRef<TouchableOpacity>(null);
-  const [listWidth, setListWidth] = useState<string | number>(props.listStyle?.width ?? 0);
-  const [listX, setListX] = useState<number>(0);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
-  const [refRect, setRefRect] = useState<NativeScrollRectangle>({
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
+  const [refRect, setRefRect] = useState<SelectorRect>({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
   });
   const [selected, setSelected] = useState<Data>(
     props.defaultValue && props.data.includes(props.defaultValue)
@@ -39,10 +36,10 @@ const Select = (props: SelectProperties): React.JSX.Element => {
   const updatePos = () =>
     ref.current?.measureInWindow((x, y, width, height) => {
       setRefRect({
-        left: x,
-        top: y - 5,
-        right: x + width,
-        bottom: y + height + 5,
+        x: x,
+        y: y - 5,
+        width: props.boxStyle?.width ?? width,
+        height: height + 10,
       });
       setListDisplay(true);
     });
