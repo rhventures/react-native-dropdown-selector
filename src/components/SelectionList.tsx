@@ -42,7 +42,9 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             props.styles.list,
             windowHeight > windowWidth
               ? {
-                  left: props.selectorRect.left,
+                  left: props.styles.list?.alignSelf === 'center'
+                  ? 0
+                  : props.selectorRect.left,
                   width: props.selectorRect.right - props.selectorRect.left,
                   maxHeight: props.listHeight,
                   marginTop: props.selectorRect.bottom + props.listHeight < windowHeight
@@ -102,7 +104,8 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
               top: props.selectorRect.bottom + props.listHeight < windowHeight
                 ? props.selectorRect.top - 40
                 : props.selectorRect.bottom,
-              left: props.selectorRect.right - 40,
+              left: props.selectorRect.left - 40,
+              marginLeft: props.listWidth,
             }}
           >
             <TouchableOpacity

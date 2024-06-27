@@ -14,6 +14,8 @@ import SelectionList from './SelectionList';
 const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
   const ref = useRef<TouchableOpacity>(null);
+  const [listWidth, setListWidth] = useState<string | number>(props.listStyle?.width ?? 0);
+  const [listX, setListX] = useState<number>(0);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
   const [refRect, setRefRect] = useState<NativeScrollRectangle>({
     left: 0,

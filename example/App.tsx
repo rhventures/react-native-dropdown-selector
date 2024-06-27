@@ -42,6 +42,10 @@ function App(): React.JSX.Element {
             alignSelf: 'center',
             width: 200,
           }}
+          listStyle={{
+            alignSelf: 'center',
+            width: 200,
+          }}
         />
         <MultiSelect
           data={data}
@@ -236,7 +240,7 @@ function App(): React.JSX.Element {
           }}
           clearButtonIconColor='#abc'
         />
-        <View style={{ height: 400 }} />
+        <View style={{ height: 700 }} />
       </ScrollView>
     </>
   );
