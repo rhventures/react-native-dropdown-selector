@@ -18,11 +18,11 @@ const options: Data[] = [
   { label: 'Searchable' },
 ];
 
-function App(): JSX.Element {
-  const [item, setItem] = React.useState<string | JSX.Element>(''),
-    [disabled, setDisabled] = React.useState(false),
-    [searchable, setSearchable] = React.useState(false),
-    onDataSelect = (e: Data): void => setItem(e.label);
+function App(): React.JSX.Element {
+  const [item, setItem] = React.useState<string | JSX.Element>('');
+  const [disabled, setDisabled] = React.useState(false);
+  const [searchable, setSearchable] = React.useState(false);
+  const onDataSelect = (e: Data): void => setItem(e.label);
 
   return (
     <>
