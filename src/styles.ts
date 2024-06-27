@@ -55,21 +55,6 @@ const light = StyleSheet.create({
     fontSize: 26,
     color: 'black',
   },
-  clearButton: {
-    width: 40,
-    height: 40,
-    backgroundColor: 'white',
-    position: 'absolute',
-    borderColor: 'black',
-    borderWidth: 0.5,
-    borderRadius: 8,
-    right: 5,
-  },
-  clearIcon: {
-    alignSelf: 'center',
-    fontSize: 26,
-    color: 'black',
-  },
   list: {
     backgroundColor: 'white',
     borderColor: 'black',
@@ -134,21 +119,6 @@ const dark = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-  },
-  clearButton: {
-    width: 40,
-    height: 40,
-    backgroundColor: '#444',
-    position: 'absolute',
-    borderColor: 'black',
-    borderWidth: 0.5,
-    borderRadius: 8,
-    right: 5,
-  },
-  clearIcon: {
-    alignSelf: 'center',
-    fontSize: 26,
-    color: 'white',
   },
   clearButton: {
     width: 40,

@@ -18,7 +18,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const windowHeight = Dimensions.get('window').height;
   const [currentListWidth, setCurrentListWidth] = useState<number>(0);
   const [currentListHeight, setCurrentListHeight] = useState<number>(0);
-  const listBottom = currentListHeight + props.selectorRect.bottom;
+  const listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
 
   return (
     <Modal
