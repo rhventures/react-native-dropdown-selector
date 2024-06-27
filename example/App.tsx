@@ -42,10 +42,6 @@ function App(): React.JSX.Element {
             alignSelf: 'center',
             width: 200,
           }}
-          listStyle={{
-            alignSelf: 'center',
-            width: 200,
-          }}
         />
         <MultiSelect
           data={data}
@@ -104,7 +100,7 @@ function App(): React.JSX.Element {
           data={data}
           onSelect={console.log}
           defaultValue={data[0]}
-          listHeight={250}
+          listHeight={300}
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
@@ -165,7 +161,7 @@ function App(): React.JSX.Element {
           data={data}
           onSelect={console.log}
           defaultValue={data}
-          listHeight={250}
+          listHeight={300}
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
