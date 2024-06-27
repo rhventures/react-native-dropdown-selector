@@ -12,13 +12,13 @@ import styles from '../styles';
 import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
-const SelectionList = (props: ListProperties) => {
-  const style = styles[useColorScheme() === 'dark' ? 1 : 0],
-    windowHeight = Dimensions.get('window').height,
-    windowWidth = Dimensions.get('window').width,
-    [currentListHeight, setCurrentListHeight] = useState<number>(0),
-    [currentListWidth, setCurrentListWidth] = useState<number>(0),
-    listBottom = currentListHeight + props.selectorRect.bottom;
+const SelectionList = (props: ListProperties): React.JSX.Element => {
+  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
+  const [currentListWidth, setCurrentListWidth] = useState<number>(0);
+  const [currentListHeight, setCurrentListHeight] = useState<number>(0);
+  const listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
 
   return (
     <Modal
@@ -41,28 +41,28 @@ const SelectionList = (props: ListProperties) => {
       >
         <View
           onLayout={({ nativeEvent }) => {
-            setCurrentListHeight(nativeEvent.layout.height);
             setCurrentListWidth(nativeEvent.layout.width);
+            setCurrentListHeight(nativeEvent.layout.height);
           }}
           style={[
             style.list,
             props.styles.list,
             windowHeight > windowWidth
               ? {
-                  maxHeight: props.listHeight,
-                  width: props.styles.list?.width
-                    ?? props.selectorRect.right - props.selectorRect.left,
-                    marginLeft: props.styles.list?.alignSelf === 'center'
+                  left: props.styles.list?.alignSelf === 'center'
                     ? 0
                     : props.styles.list?.width
-                    ? props.selectorRect.left
-                      + (props.selectorRect.right
-                        - props.selectorRect.left
-                        - currentListWidth) / 2
-                    : props.selectorRect.left,
+                    ? props.selectorRect.x
+                      + ((typeof props.selectorRect.width === 'string'
+                        ? Number(props.selectorRect.width.replace('%', '')) / 100 * windowWidth
+                        : props.selectorRect.width)
+                          - currentListWidth) / 2
+                    : props.selectorRect.x,
+                  width: props.styles.list?.width ?? props.selectorRect.width,
+                  maxHeight: props.listHeight,
                   top: listBottom < windowHeight
-                    ? props.selectorRect.bottom
-                    : props.selectorRect.top - currentListHeight,
+                    ? props.selectorRect.y + props.selectorRect.height
+                    : props.selectorRect.y - currentListHeight,
                 }
               : {
                   height: windowHeight - 40,
@@ -113,13 +113,14 @@ const SelectionList = (props: ListProperties) => {
           <View
             style={[
               style.clearButton,
-              props.styles.clearButtonStyle,
+              props.styles.clearButton,
               windowHeight > windowWidth
                 ? {
                     top: listBottom < windowHeight
-                      ? props.selectorRect.top - 40
-                      : props.selectorRect.bottom,
-                    left: props.selectorRect.right - 40,
+                      ? props.selectorRect.y - 40
+                      : props.selectorRect.y + props.selectorRect.height,
+                    left: props.selectorRect.x - 40,
+                    marginLeft: props.selectorRect.width,
                   }
                 : {
                     top: 40,
@@ -134,7 +135,7 @@ const SelectionList = (props: ListProperties) => {
               <Text
                 style={{
                   ...style.clearIcon,
-                  color: props.styles.clearButtonIconColor ?? style.clearIcon.color,
+                  color: props.styles.clearButtonIcon ?? style.clearIcon.color,
                 }}
               >
                 {'×'}
