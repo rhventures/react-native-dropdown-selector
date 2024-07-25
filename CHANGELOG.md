@@ -13,9 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - A row of 3 plain multi selectors (#19).
   - A customized single selector (#19).
   - A customized multi selector (#19).
+- Add an animated GIF showcasing the example app on README (#23).
 
 ### Changed
 - Content inside the dropdown list will now be cut off if it extends beyond the dropdown list boundaries (#22).
+- Technical detailes from README is now moved to GitHub Wiki (#23).
+- Old screenshots of the example app are replaced by new ones (#23).
 
 ### Removed
 - Background of the dropdown arrow is removed (#22).
