@@ -15,13 +15,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - A customized multi selector (#19).
 
 ### Changed
+- Content inside the dropdown list will now be cut off if it extends beyond the dropdown list boundaries (#22).
 
 ### Removed
+- Background of the dropdown arrow is removed (#22).
 
 ### Fixed
 - Width of the dropdown lists becomes equal with the selector box by default, rather than expanding as wide as the screen width regardless of the selector box width (#20).
 - Setting a custom `width` style for `listStyle` now works as intended (#20).
 - Setting `center` for a custom `alignSelf` style for `listStyle` will now center it correctly (#20).
+- The dropdown list offset now correctly aligns with the selector box when positioned above it with different default list height and when the list height is not max height (#22).
+- The clear button for multi select no longer blocks the dropdown list in landscape mode (#22).
+- Setting a default value for multi select now works as intended (#22).
+- The dropdown list now move above the selector box based on current dropdown list height, not max height (#22).
 
 ## [0.1.0] - 2024-06-28
 
