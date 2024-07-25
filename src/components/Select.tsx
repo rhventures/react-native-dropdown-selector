@@ -1,7 +1,12 @@
 import React, { useRef, useState } from 'react';
-import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from 'react-native';
 import styles from '../styles';
-import type { Data, SelectorPos, SelectProperties } from '../types';
+import type { Data, SelectorRect, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
@@ -9,7 +14,12 @@ const Select = (props: SelectProperties): React.JSX.Element => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
-  const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
+  const [refRect, setRefRect] = useState<SelectorRect>({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
   const [selected, setSelected] = useState<Data>(
     props.defaultValue && props.data.includes(props.defaultValue)
       ? props.defaultValue
@@ -24,10 +34,12 @@ const Select = (props: SelectProperties): React.JSX.Element => {
     ...data.filter((d: Data) => !d.priority),
   ];
   const updatePos = () =>
-    ref.current?.measureInWindow((_x, y, _width, height) => {
-      setPos({
-        top: y - (props.listHeight ?? 200) - 5,
-        bottom: y + height + 5,
+    ref.current?.measureInWindow((x, y, width, height) => {
+      setRefRect({
+        x: x,
+        y: y - 5,
+        width: props.boxStyle?.width ?? width,
+        height: height + 10,
       });
       setListDisplay(true);
     });
@@ -36,7 +48,12 @@ const Select = (props: SelectProperties): React.JSX.Element => {
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={[style.selectorBox, props.boxStyle]}
+        style={[
+          style.selectorBox,
+          props.boxStyle,
+          {opacity: props.disabled ? .5 : 1},
+        ]}
+        disabled={props.disabled}
         onPress={updatePos}
         ref={ref}
       >
@@ -67,7 +84,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}
-        selectorPos={pos}
+        selectorRect={refRect}
       />
     </View>
   );

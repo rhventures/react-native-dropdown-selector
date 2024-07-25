@@ -1,7 +1,12 @@
 import React, { useRef, useState } from 'react';
-import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from 'react-native';
 import styles from '../styles';
-import type { Data, SelectorPos, MultiSelectProperties } from '../types';
+import type { Data, SelectorRect, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
@@ -9,8 +14,16 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
-  const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
-  const [selected, setSelected] = useState<Data[]>([]);
+  const [refRect, setRefRect] = useState<SelectorRect>({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
+  const [selected, setSelected] = useState<Data[]>(
+    props.data.filter((d: Data) =>
+    props.defaultValue?.includes(d))
+  );
   const selectItem = (items: Data[]) => {
     setSelected(items);
     props.onSelect(items);
@@ -19,11 +32,13 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
     ...data.filter((d: Data) => d.priority),
     ...data.filter((d: Data) => !d.priority),
   ];
-  const updatePos = (display = false) => 
-    ref.current?.measureInWindow((_x, y, _width, height) => {
-      setPos({
-        top: y - (props.listHeight ?? 200) - 5,
-        bottom: y + height + 5,
+  const updatePos = (display = false) =>
+    ref.current?.measureInWindow((x, y, width, height) => {
+      setRefRect({
+        x: x,
+        y: y - 5,
+        width: props.boxStyle?.width ?? width,
+        height: height + 10,
       });
       if (display)
         setListDisplay(true);
@@ -33,7 +48,12 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={[style.selectorBox, props.boxStyle]}
+        style={[
+          style.selectorBox,
+          props.boxStyle,
+          {opacity: props.disabled ? .5 : 1},
+        ]}
+        disabled={props.disabled}
         onPress={() => updatePos(true)}
         ref={ref}
         onLayout={() => updatePos()}
@@ -89,7 +109,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}
-        selectorPos={pos}
+        selectorRect={refRect}
       />
     </View>
   );
