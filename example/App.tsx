@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
-import { MultiSelect, Select, type Data } from 'react-native-dropdown-selector';
+import { MultiSelect, Select, type Data } from '@rose-hulman/react-native-dropdown-selector';
 
 const data: Data[] = [
   { label: 'Item 1' },
@@ -39,10 +39,6 @@ function App(): React.JSX.Element {
           onSelect={console.log}
           placeholderText="Select an item"
           boxStyle={{
-            alignSelf: 'center',
-            width: 200,
-          }}
-          listStyle={{
             alignSelf: 'center',
             width: 200,
           }}
@@ -104,7 +100,7 @@ function App(): React.JSX.Element {
           data={data}
           onSelect={console.log}
           defaultValue={data[0]}
-          listHeight={250}
+          listHeight={300}
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
@@ -165,7 +161,7 @@ function App(): React.JSX.Element {
           data={data}
           onSelect={console.log}
           defaultValue={data}
-          listHeight={250}
+          listHeight={300}
           placeholderText='I am very stylish'
           boxStyle={{
             alignSelf: 'center',
