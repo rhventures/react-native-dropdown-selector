@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - A row of 3 plain multi selectors (#19).
   - A customized single selector (#19).
   - A customized multi selector (#19).
+  - A plain multi selector that toggles the `disabled` and `searchable` prop in all other selectors (#28).
 - Add an animated GIF showcasing the example app on README (#23).
 - Selectors are now able to be disabled via providing a boolean prop (#25).
 - Selectors are now able to have a search bar via providing a boolean prop (#27).
