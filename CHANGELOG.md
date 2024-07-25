@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Example app additions:
+  - A row of 3 plain single selectors (#19).
+  - A row of 3 plain multi selectors (#19).
+  - A customized single selector (#19).
+  - A customized multi selector (#19).
 
 ### Changed
 
