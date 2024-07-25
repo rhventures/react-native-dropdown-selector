@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - A customized multi selector (#19).
 - Add an animated GIF showcasing the example app on README (#23).
 - Selectors are now able to be disabled via providing a boolean prop (#25).
+- Selectors are now able to have a search bar via providing a boolean prop (#27).
 
 ### Changed
 - Content inside the dropdown list will now be cut off if it extends beyond the dropdown list boundaries (#22).
