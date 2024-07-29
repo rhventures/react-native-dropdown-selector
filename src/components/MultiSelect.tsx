@@ -8,6 +8,8 @@ import SelectionList from './SelectionList';
 const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
   const ref = useRef<TouchableOpacity>(null);
+  const [listWidth, setListWidth] = useState<string | number>(props.listStyle?.width ?? 0);
+  const [listX, setListX] = useState<number>(0);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
   const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
   const [selected, setSelected] = useState<Data[]>([]);
@@ -20,7 +22,10 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
     ...data.filter((d: Data) => !d.priority),
   ];
   const updatePos = (display = false) => 
-    ref.current?.measureInWindow((_x, y, _width, height) => {
+    ref.current?.measureInWindow((x, y, width, height) => {
+      setListX(x);
+      if (props.listStyle?.width === undefined)
+        setListWidth(width);
       setPos({
         top: y - (props.listHeight ?? 200) - 5,
         bottom: y + height + 5,
@@ -86,6 +91,8 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         onSelect={selectItem}
         selected={selected}
         clearSelected={() => setSelected([])}
+        listX={listX}
+        listWidth={listWidth}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}
