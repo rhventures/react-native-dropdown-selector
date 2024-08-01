@@ -1,12 +1,7 @@
 import React, { useRef, useState } from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  useColorScheme,
-} from 'react-native';
+import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
 import styles from '../styles';
-import type { Data, SelectorRect, SelectProperties } from '../types';
+import type { Data, SelectorPos, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
@@ -16,12 +11,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
   const [listWidth, setListWidth] = useState<string | number>(props.listStyle?.width ?? 0);
   const [listX, setListX] = useState<number>(0);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
-  const [refRect, setRefRect] = useState<SelectorRect>({
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
-  });
+  const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
   const [selected, setSelected] = useState<Data>(
     props.defaultValue && props.data.includes(props.defaultValue)
       ? props.defaultValue
@@ -37,11 +27,12 @@ const Select = (props: SelectProperties): React.JSX.Element => {
   ];
   const updatePos = () =>
     ref.current?.measureInWindow((x, y, width, height) => {
-      setRefRect({
-        x: x,
-        y: y - 5,
-        width: props.boxStyle?.width ?? width,
-        height: height + 10,
+      setListX(x);
+      if (props.listStyle?.width === undefined) 
+        setListWidth(width);
+      setPos({
+        top: y - (props.listHeight ?? 200) - 5,
+        bottom: y + height + 5,
       });
       setListDisplay(true);
     });
@@ -83,7 +74,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}
-        selectorRect={refRect}
+        selectorPos={pos}
       />
     </View>
   );

@@ -10,11 +10,9 @@ export interface Data {
   data?: object;
 }
 
-export interface SelectorRect {
-  x: number;
-  y: number;
-  width: string | number;
-  height: number;
+export interface SelectorPos {
+  top: number;
+  bottom: number;
 }
 
 export interface ListProperties {
@@ -35,7 +33,7 @@ export interface ListProperties {
   listHeight: number;
   display: boolean;
   hide: () => void;
-  selectorRect: SelectorRect;
+  selectorPos: SelectorPos;
 }
 
 export interface MultiSelectProperties {
