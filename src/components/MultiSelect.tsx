@@ -21,7 +21,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
     ...data.filter((d: Data) => d.priority),
     ...data.filter((d: Data) => !d.priority),
   ];
-  const updatePos = (display = false) =>
+  const updatePos = (display = false) => 
     ref.current?.measureInWindow((x, y, width, height) => {
       setListX(x);
       if (props.listStyle?.width === undefined)
