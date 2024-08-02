@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add a row of 3 plain single selectors to example app ([#19](https://github.com/rhventures/react-native-dropdown-selector/pull/19)).
+- Add a row of 3 plain multi selectors to example app ([#19](https://github.com/rhventures/react-native-dropdown-selector/pull/19)).
+- Add a customized single selector to example app ([#19](https://github.com/rhventures/react-native-dropdown-selector/pull/19)).
+- Add a customized multi selector to example app ([#19](https://github.com/rhventures/react-native-dropdown-selector/pull/19)).
+
 ### Changed
 
 ### Removed
