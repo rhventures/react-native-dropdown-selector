@@ -13,6 +13,8 @@ import SelectionList from './SelectionList';
 const Select = (props: SelectProperties): React.JSX.Element => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
   const ref = useRef<TouchableOpacity>(null);
+  const [listWidth, setListWidth] = useState<string | number>(props.listStyle?.width ?? 0);
+  const [listX, setListX] = useState<number>(0);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
   const [refRect, setRefRect] = useState<SelectorRect>({
     x: 0,
@@ -76,6 +78,8 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         type="single"
         onSelect={selectItem}
         selected={selected}
+        listX={listX}
+        listWidth={listWidth}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         hide={() => setListDisplay(false)}
