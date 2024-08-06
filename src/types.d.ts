@@ -30,8 +30,6 @@ export interface ListProperties {
   onSelect: ((e: Data) => void) | ((e: Data[]) => void);
   selected: Data[] | Data;
   clearSelected?: () => void;
-  listX: number;
-  listWidth: string | number;
   listHeight: number;
   display: boolean;
   hide: () => void;
