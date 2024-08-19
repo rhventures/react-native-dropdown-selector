@@ -1,10 +1,5 @@
 import React, { useRef, useState } from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  useColorScheme,
-} from 'react-native';
+import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
 import styles from '../styles';
 import type { Data, SelectorRect, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
