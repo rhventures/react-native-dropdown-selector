@@ -15,7 +15,12 @@ const data: Data[] = [
 
 function App(): React.JSX.Element {
   const [item, setItem] = React.useState<string | JSX.Element>('');
-  const onDataSelect = (e: Data): void => setItem(e.label);
+  const onDataSelect = (data: Data) =>
+    setItem(data.label);
+  const onMultiDataSelect = (datas: Data[]) =>
+    setItem(datas.map((data: Data) =>
+      data.label
+    ).join(", "));
 
   return (
     <>
@@ -36,7 +41,7 @@ function App(): React.JSX.Element {
         </Text>
         <Select
           data={data}
-          onSelect={console.log}
+          onSelect={onDataSelect}
           placeholderText="Select an item"
           boxStyle={{
             alignSelf: 'center',
@@ -45,7 +50,7 @@ function App(): React.JSX.Element {
         />
         <MultiSelect
           data={data}
-          onSelect={console.log}
+          onSelect={onMultiDataSelect}
         />
         <View style={{ height: 400 }}/>
         <Text>Single Selects:</Text>
@@ -53,19 +58,19 @@ function App(): React.JSX.Element {
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={console.log}
+              onSelect={onDataSelect}
             />
           </View>
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={console.log}
+              onSelect={onDataSelect}
             />
           </View>
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={console.log}
+              onSelect={onDataSelect}
             />
           </View>
         </View>
@@ -75,19 +80,19 @@ function App(): React.JSX.Element {
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={console.log}
+                onSelect={onMultiDataSelect}
               />
             </View>
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={console.log}
+                onSelect={onMultiDataSelect}
               />
             </View>
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={console.log}
+                onSelect={onMultiDataSelect}
               />
             </View>
           </View>
@@ -98,7 +103,7 @@ function App(): React.JSX.Element {
         <Text>Styled Single Select:</Text>
         <Select
           data={data}
-          onSelect={console.log}
+          onSelect={onDataSelect}
           defaultValue={data[0]}
           listHeight={300}
           placeholderText='I am very stylish'
@@ -137,7 +142,7 @@ function App(): React.JSX.Element {
             borderLeftWidth: 4,
             borderRightWidth: 4,
             borderTopWidth: 8,
-            borderBottomWidth: 1,
+            borderBottomWidth: 2,
             width: '50%',
           }}
           listTextStyle={{
@@ -159,7 +164,7 @@ function App(): React.JSX.Element {
         <Text>Styled Multi Select:</Text>
         <MultiSelect
           data={data}
-          onSelect={console.log}
+          onSelect={onMultiDataSelect}
           defaultValue={data}
           listHeight={300}
           placeholderText='I am very stylish'
@@ -209,7 +214,7 @@ function App(): React.JSX.Element {
             borderLeftWidth: 4,
             borderRightWidth: 4,
             borderTopWidth: 8,
-            borderBottomWidth: 1,
+            borderBottomWidth: 2,
             width: '50%',
           }}
           listTextStyle={{
