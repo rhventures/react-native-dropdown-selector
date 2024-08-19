@@ -10,144 +10,64 @@ A custom react native component for dropdown lists. Emulates some functionality 
 - Import data with versatile structure
 - Item prioritization
 
-## Demo
+## How Do I Use It?
 
-Create a react native project with `example/App.tsx` as the main file. Running the application will look similar to the screenshots below.
+There are 2 components available for use:
+[`Select`](https://github.com/rhventures/react-native-dropdown-selector/wiki/Select)
+and
+[`MultiSelect`](https://github.com/rhventures/react-native-dropdown-selector/wiki/MultiSelect)
 
-<img src="assets/demo-dropdown.png" height="350px" /> <img src="assets/demo-item-selected.png" height="350px" />
-
-## Usage
-
-All example code is written in TypeScript. <br />
-Begin by importing the Selector component and Data type.
-
+For example, the syntax for using `Select` would look something like the following:
 ```tsx
-import Selector, { Data } from 'react-native-dropdown-selector';
+<Select
+  data={data}
+  onSelect={console.log}
+/>
 ```
+The data prop takes in an array of the [`Data`](https://github.com/rhventures/react-native-dropdown-selector/wiki/Data) object, and the onSelect prop takes in a function that accepts an argument of type `Data`.
 
-Define your Data array. The label field is required for each entry, but priority and data are optional.
+There are other optional props too. For more information about how to use these components, check out the
+[wiki](https://github.com/rhventures/react-native-dropdown-selector/wiki).
 
+## How Do I *actually* Use It?
+
+We will use TypeScript for this example.
+
+First, begin by importing a selector component and the `Data` type. In this case, we will use `Select`:
+```tsx
+import { Select, type Data } from 'react-native-dropdown-selector';
+```
+Then, create an array of items of type `Data`. This will be used for the `data` prop of the selector:
 ```tsx
 const data: Data[] = [
   { label: 'Item 1' },
-  { label: 'Item 2', data: { additionalParam: 'value' } },
-  { label: 'Item 3', priority: true },
-];
+  { label: 'Item 2' },
+  { label: 'Item 3' },
+]
 ```
-
-Define your onSelect function. Your function will only take in a Data object.
-
+Next, define a function that we will use for the `onSelect` prop:
 ```tsx
-const onDataSelect = (data: Data) => {
-  // Do something
+const onDataSelected = (data: Data) => {
+  console.log(data.label + ' was selected!');
 };
 ```
-
-Add a Selector component to your view.
-
+Finally, piece it all together:
 ```tsx
-<>
-  <Selector.Select data={data} onSelect={onDataSelect} />
-  {/* or use the MultiSelect component */}
-  <Selector.MultiSelect data={data} onSelect={onMultiDataSelect} />
-</>
+<Select
+  data={data}
+  onSelect={onDataSelected}
+/>
 ```
+For a more detailed guide on how to use these components, make sure to read [Getting Started](https://github.com/rhventures/react-native-dropdown-selector/wiki/Getting-Started).
 
-That's it! Run your app to see the selector in action.
+## Demo
 
-## The `Data` Object
+Create a react native project with `example/App.tsx` as the main file. Running the example application will look similar to the screenshots below.
 
-You must follow the formatting of this object for the selector component to function.
+<img src="assets/demo-top.png" height="350px" /> <img src="assets/demo-bottom.png" height="350px" /> <img src="assets/demo-interaction.gif" height="350px" />
 
-### `label` **(required)**
-
-The value of the item shown in the selector. <br />
-Type: `string | JSX.Element`
-
-### `priority`
-
-If enabled, the element will move to the top of the list regardless of its current position. <br />
-Type: `boolean`
-
-### `data`
-
-Additional data for the item. This is not directly used by the Selector component. <br />
-Type: `object`
-
-## Props
-
-### `data` **(required)**
-
-Holds the items used for the Selector. <br />
-Type: `Data[]`
-
-### `defaultValue`
-
-Choose an item to be selected before the user interacts with the Selector. <br />
-Type: `Data` (single select) or `Data[]` (multi select)
-
-### `listHeight`
-
-The height of the dropdown list. Defaults to 200. <br />
-Type: `number`
-
-### `placeholderText`
-
-Replace the default Selector text when an item hasn't been selected. The default value is `Click me`. <br />
-Type: `string | JSX.Element`
-
-### `boxStyle`
-
-Custom styles for the main Selector box. <br />
-Type: `ViewStyle`
-
-### `boxTextStyle`
-
-Custom styles for the text inside the main Selector box. <br />
-Type: `ViewStyle`
-
-### `boxTextHighlightStyle` (MultiSelect only)
-
-Custom styles for the text highlight inside the main Selector box. <br />
-Type: `ViewStyle`
-
-### `listStyle`
-
-Custom styles for the Selector dropdown list. <br />
-Type: `ViewStyle`
-
-### `listTextStyle`
-
-Custom styles for the text inside the Selector dropdown list. <br />
-Type: `ViewStyle`
-
-### `selectedItemStyle`
-
-Custom styles for the active item inside the Selector dropdown list. <br />
-Type: `ViewStyle`
-
-### `dropdownArrowColor`
-
-Custom color for the dropdown arrow inside the main Selector box. <br />
-Type: `ColorValue`
-
-### `clearButtonStyle` (MultiSelect only)
-
-Custom color for the clear button. <br />
-Type: `ViewStyle`
-
-### `clearButtonIconColor` (MultiSelect only)
-
-Custom color for the icon inside the clear button. <br />
-Type: `ColorValue`
-
-## Callbacks
-
-### `onSelect` **(required)**
-
-Called when the user selects an item from the selector. <br />
-Type: `Function (e: Data) => void` (single select) or `Function (e: Data[]) => void` (multi select)
+For an in-depth walkthrough, follow the link in the Development section.
 
 ## Development
 
-To contribute to the development of this project, please refer to the [development guide](./docs/Development.md).
+To contribute to the development of this project, please refer to the [development guide](https://github.com/rhventures/react-native-dropdown-selector/wiki/Development).

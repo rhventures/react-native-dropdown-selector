@@ -13,11 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a row of 3 plain multi selectors to example app ([#19](https://github.com/rhventures/react-native-dropdown-selector/pull/19)).
 - Add a customized single selector to example app ([#19](https://github.com/rhventures/react-native-dropdown-selector/pull/19)).
 - Add a customized multi selector to example app ([#19](https://github.com/rhventures/react-native-dropdown-selector/pull/19)).
+- Add an animated GIF showcasing the example app on README ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
 
 ### Changed
 
 - Internal: Replaced `SelectorPos`, `listWidth`, and `listX` with `SelectorRect` ([#21](https://github.com/rhventures/react-native-dropdown-selector/pull/21))
 - Content inside the dropdown list will now be cut off if it extends beyond the dropdown list boundaries ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
+- Technical detailes from README is now moved to GitHub Wiki ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
+- Old screenshots of the example app are replaced by new ones ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
 
 ### Removed
 
