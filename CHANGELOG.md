@@ -17,8 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Internal: Replaced `SelectorPos`, `listWidth`, and `listX` with `SelectorRect` ([#21](https://github.com/rhventures/react-native-dropdown-selector/pull/21))
+- Content inside the dropdown list will now be cut off if it extends beyond the dropdown list boundaries ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
 
 ### Removed
+
+- Background of the dropdown arrow is removed ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
 
 ### Fixed
 
@@ -26,6 +29,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Setting a custom numeric `width` style for `listStyle` now works as intended ([#20](https://github.com/rhventures/react-native-dropdown-selector/pull/20)).
 - Setting `center` for a custom `alignSelf` style for `listStyle` will now center it correctly ([#20](https://github.com/rhventures/react-native-dropdown-selector/pull/20)).
 - Specifying a percentage for a custom `width` style for `listStyle` will now be properly handled ([#21](https://github.com/rhventures/react-native-dropdown-selector/pull/21))
+- The dropdown list offset now correctly aligns with the selector box when positioned above it with different default list height and when the list height is not max height ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
+- The clear button for multi select no longer blocks the dropdown list in landscape mode ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
+- Setting a default value for multi select now works as intended ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
+- The dropdown list now move above the selector box based on current dropdown list height, not max height ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
 
 ## [0.1.0] - 2024-06-28
 

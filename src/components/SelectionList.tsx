@@ -17,6 +17,8 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
   const [currentListWidth, setCurrentListWidth] = useState<number>(0);
+  const [currentListHeight, setCurrentListHeight] = useState<number>(0);
+  const listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
 
   return (
     <Modal
@@ -40,6 +42,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
         <View
           onLayout={({ nativeEvent }) => {
             setCurrentListWidth(nativeEvent.layout.width);
+            setCurrentListHeight(nativeEvent.layout.height);
           }}
           style={[
             style.list,
@@ -57,9 +60,9 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                     : props.selectorRect.x,
                   width: props.styles.list?.width ?? props.selectorRect.width,
                   maxHeight: props.listHeight,
-                  marginTop: props.selectorRect.y + props.selectorRect.height + props.listHeight < windowHeight
+                  top: listBottom < windowHeight
                     ? props.selectorRect.y + props.selectorRect.height
-                    : props.selectorRect.y - props.listHeight,
+                    : props.selectorRect.y - currentListHeight,
                 }
               : {
                   height: windowHeight - 40,
@@ -108,15 +111,23 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
         </View>
         {props.type === 'multi' && (props.selected as Data[]).length > 0 &&
           <View
-            style={{
-              ...style.clearButton,
-              ...props.styles.clearButton,
-              top: props.selectorRect.y + props.selectorRect.height + props.listHeight < windowHeight
-                ? props.selectorRect.y - 40
-                : props.selectorRect.y + props.selectorRect.height,
-              left: props.selectorRect.x - 40,
-              marginLeft: props.selectorRect.width,
-            }}
+            style={[
+              style.clearButton,
+              props.styles.clearButton,
+              windowHeight > windowWidth
+                ? {
+                    top: listBottom < windowHeight
+                      ? props.selectorRect.y - 40
+                      : props.selectorRect.y + props.selectorRect.height,
+                    left: props.selectorRect.x - 40,
+                    marginLeft: props.selectorRect.width,
+                  }
+                : {
+                    top: 40,
+                    right: 10,
+                  }
+              
+            ]}
           >
             <TouchableOpacity
               onPress={props.clearSelected}

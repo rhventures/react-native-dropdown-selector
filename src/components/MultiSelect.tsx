@@ -15,7 +15,10 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
     width: 0,
     height: 0,
   });
-  const [selected, setSelected] = useState<Data[]>([]);
+  const [selected, setSelected] = useState<Data[]>(
+    props.data.filter((d: Data) =>
+    props.defaultValue?.includes(d))
+  );
   const selectItem = (items: Data[]) => {
     setSelected(items);
     props.onSelect(items);
