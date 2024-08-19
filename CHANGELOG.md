@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Internal: Replaced `SelectorPos`, `listWidth`, and `listX` with `SelectorRect` ([#21](https://github.com/rhventures/react-native-dropdown-selector/pull/21))
+
 ### Removed
 
 ### Fixed
