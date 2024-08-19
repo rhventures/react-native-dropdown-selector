@@ -57,7 +57,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                         ? Number(props.selectorRect.width.slice(0, -1)) * windowWidth
                         : props.selectorRect.width
                         - currentListWidth) / 2
-                      : props.selectorRect.x,
+                    : props.selectorRect.x,
                   width: props.styles.list?.width ?? props.selectorRect.width,
                   maxHeight: props.listHeight,
                   top: listBottom < windowHeight
