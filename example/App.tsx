@@ -241,7 +241,7 @@ function App(): React.JSX.Element {
           }}
           clearButtonIconColor='#abc'
         />
-        <View style={{ height: 400 }} />
+        <View style={{ height: 700 }} />
       </ScrollView>
     </>
   );
