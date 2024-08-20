@@ -44,7 +44,6 @@ export interface MultiSelectProperties {
   defaultValue?: Data[];
   listHeight?: number;
   placeholderText?: string | React.JSX.Element;
-  disabled?: boolean;
   searchable?: boolean;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
@@ -64,7 +63,6 @@ export interface SelectProperties {
   defaultValue?: Data;
   listHeight?: number;
   placeholderText?: string | React.JSX.Element;
-  disabled?: boolean;
   searchable?: boolean;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
