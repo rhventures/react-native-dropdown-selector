@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a customized single selector to example app ([#19](https://github.com/rhventures/react-native-dropdown-selector/pull/19)).
 - Add a customized multi selector to example app ([#19](https://github.com/rhventures/react-native-dropdown-selector/pull/19)).
 - Add an animated GIF showcasing the example app on README ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
+- Selectors are now able to be disabled via providing a boolean prop ([#25](https://github.com/rhventures/react-native-dropdown-selector/pull/25)).
 - Selectors are now able to have a search bar via providing a boolean prop ([#27](https://github.com/rhventures/react-native-dropdown-selector/pull/27)).
 
 ### Changed
