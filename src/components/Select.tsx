@@ -71,6 +71,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
           list: props.listStyle,
           text: props.listTextStyle,
           itemSelected: props.selectedItemStyle,
+          searchBox: props.searchBoxStyle,
         }}
         data={updatePriorities(props.data)}
         type="single"
@@ -78,6 +79,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         selected={selected}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
+        searchable={!!props.searchable}
         hide={() => setListDisplay(false)}
         selectorRect={refRect}
       />

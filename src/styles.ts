@@ -55,7 +55,14 @@ const light = StyleSheet.create({
     fontSize: 26,
     color: 'black',
   },
+  searchBox: {
+    paddingHorizontal: 8,
+    height: 40,
+    borderWidth: 1,
+    margin: 8,
+  },
   list: {
+    position: 'absolute',
     backgroundColor: 'white',
     borderColor: 'black',
     borderWidth: 0.5,
@@ -135,7 +142,14 @@ const dark = StyleSheet.create({
     fontSize: 26,
     color: 'white',
   },
+  searchBox: {
+    paddingHorizontal: 8,
+    height: 40,
+    borderWidth: 1,
+    margin: 8,
+  },
   list: {
+    position: 'absolute',
     backgroundColor: '#444',
     borderColor: 'black',
     borderWidth: 0.5,

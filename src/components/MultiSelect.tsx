@@ -95,6 +95,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
           itemSelected: props.selectedItemStyle,
           clearButton: props.clearButtonStyle,
           clearButtonIcon: props.clearButtonIconColor,
+          searchBox: props.searchBoxStyle,
         }}
         data={updatePriorities(props.data)}
         type="multi"
@@ -103,6 +104,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         clearSelected={() => setSelected([])}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
+        searchable={!!props.searchable}
         hide={() => setListDisplay(false)}
         selectorRect={refRect}
       />

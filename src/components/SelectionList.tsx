@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import {
   Dimensions,
   FlatList,
+  Keyboard,
   Modal,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
   useColorScheme
@@ -16,9 +18,20 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
+  const [keyboardHeight, setKeyboardHeight] = useState<number>(0);
+  const [entries, setEntries] = useState<Data[]>(props.data);
   const [currentListWidth, setCurrentListWidth] = useState<number>(0);
   const [currentListHeight, setCurrentListHeight] = useState<number>(0);
   const listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
+
+  Keyboard.addListener(
+    'keyboardDidShow',
+    () => setKeyboardHeight(Keyboard.metrics()?.height ?? 0)
+  );
+  Keyboard.addListener(
+    'keyboardDidHide',
+    () => setKeyboardHeight(0)
+  );
 
   return (
     <Modal
@@ -60,7 +73,9 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                     : props.selectorRect.x,
                   width: props.styles.list?.width ?? props.selectorRect.width,
                   maxHeight: props.listHeight,
-                  top: listBottom < windowHeight
+                  top: keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
+                    ? windowHeight - keyboardHeight - currentListHeight - 5
+                    : listBottom < windowHeight
                     ? props.selectorRect.y + props.selectorRect.height
                     : props.selectorRect.y - currentListHeight,
                 }
@@ -73,9 +88,21 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                   borderBottomRightRadius: 0,
                 },
           ]}
-        >
+        > 
+          {props.searchable &&
+            <TextInput
+              placeholder='Search'
+              style={[style.searchBox, props.styles.searchBox]}
+              onChangeText={(input: string) => 
+                setEntries(props.data.filter((data: Data) => 
+                  typeof data.label === 'string' &&
+                  data.label.toLowerCase().includes(input.toLowerCase())
+              ))}
+              onLayout={() => setEntries(props.data)}
+            />
+          }
           <FlatList
-            data={props.data}
+            data={entries}
             style={windowWidth > windowHeight && { marginBottom: 20 }}
             renderItem={({ item }) => (
               <TouchableOpacity
@@ -121,6 +148,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                       : props.selectorRect.y + props.selectorRect.height,
                     left: props.selectorRect.x - 40,
                     marginLeft: props.selectorRect.width,
+                    opacity: keyboardHeight > 0 ? 0 : 1,
                   }
                 : {
                     top: 40,
