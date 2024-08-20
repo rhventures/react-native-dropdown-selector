@@ -1,10 +1,5 @@
 import React, { useRef, useState } from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  useColorScheme,
-} from 'react-native';
+import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
 import styles from '../styles';
 import type { Data, SelectorRect, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
@@ -48,12 +43,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={[
-          style.selectorBox,
-          props.boxStyle,
-          {opacity: props.disabled ? .5 : 1},
-        ]}
-        disabled={props.disabled}
+        style={[style.selectorBox, props.boxStyle]}
         onPress={() => updatePos(true)}
         ref={ref}
         onLayout={() => updatePos()}

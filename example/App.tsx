@@ -22,7 +22,12 @@ function App(): React.JSX.Element {
   const [item, setItem] = React.useState<string | JSX.Element>('');
   const [disabled, setDisabled] = React.useState(false);
   const [searchable, setSearchable] = React.useState(false);
-  const onDataSelect = (e: Data): void => setItem(e.label);
+  const onDataSelect = (datum: Data) =>
+    setItem(datum.label);
+  const onMultiDataSelect = (data: Data[]) =>
+    setItem(data.map((datum: Data) =>
+      datum.label
+    ).join(", "));
 
   return (
     <>
@@ -48,7 +53,7 @@ function App(): React.JSX.Element {
         </Text>
         <Select
           data={data}
-          onSelect={console.log}
+          onSelect={onDataSelect}
           disabled={disabled}
           searchable={searchable}
           placeholderText="Select an item"
@@ -59,7 +64,7 @@ function App(): React.JSX.Element {
         />
         <MultiSelect
           data={data}
-          onSelect={console.log}
+          onSelect={onMultiDataSelect}
           disabled={disabled}
           searchable={searchable}
         />
@@ -69,7 +74,7 @@ function App(): React.JSX.Element {
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={console.log}
+              onSelect={onDataSelect}
               disabled={disabled}
               searchable={searchable}
             />
@@ -77,7 +82,7 @@ function App(): React.JSX.Element {
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={console.log}
+              onSelect={onDataSelect}
               disabled={disabled}
               searchable={searchable}
             />
@@ -85,7 +90,7 @@ function App(): React.JSX.Element {
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={console.log}
+              onSelect={onDataSelect}
               disabled={disabled}
               searchable={searchable}
             />
@@ -97,7 +102,7 @@ function App(): React.JSX.Element {
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={console.log}
+                onSelect={onMultiDataSelect}
                 disabled={disabled}
                 searchable={searchable}
               />
@@ -105,7 +110,7 @@ function App(): React.JSX.Element {
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={console.log}
+                onSelect={onMultiDataSelect}
                 disabled={disabled}
                 searchable={searchable}
               />
@@ -113,7 +118,7 @@ function App(): React.JSX.Element {
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={console.log}
+                onSelect={onMultiDataSelect}
                 disabled={disabled}
                 searchable={searchable}
               />
@@ -143,7 +148,7 @@ function App(): React.JSX.Element {
         <Text>Styled Single Select:</Text>
         <Select
           data={data}
-          onSelect={console.log}
+          onSelect={onDataSelect}
           disabled={disabled}
           searchable={searchable}
           defaultValue={data[0]}
@@ -184,7 +189,7 @@ function App(): React.JSX.Element {
             borderLeftWidth: 4,
             borderRightWidth: 4,
             borderTopWidth: 8,
-            borderBottomWidth: 1,
+            borderBottomWidth: 2,
             width: '50%',
           }}
           listTextStyle={{
@@ -222,7 +227,7 @@ function App(): React.JSX.Element {
         <Text>Styled Multi Select:</Text>
         <MultiSelect
           data={data}
-          onSelect={console.log}
+          onSelect={onMultiDataSelect}
           disabled={disabled}
           searchable={searchable}
           defaultValue={data}
@@ -274,7 +279,7 @@ function App(): React.JSX.Element {
             borderLeftWidth: 4,
             borderRightWidth: 4,
             borderTopWidth: 8,
-            borderBottomWidth: 1,
+            borderBottomWidth: 2,
             width: '50%',
           }}
           listTextStyle={{
@@ -317,7 +322,7 @@ function App(): React.JSX.Element {
             paddingTop: 14,
           }}
         />
-        <View style={{ height: 400 }} />
+        <View style={{ height: 700 }} />
       </ScrollView>
     </>
   );
