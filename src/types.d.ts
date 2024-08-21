@@ -42,9 +42,9 @@ export interface MultiSelectProperties {
   data: Data[];
   onSelect: (e: Data[]) => void;
   defaultValue?: Data[];
+  disabled?: boolean;
   listHeight?: number;
   placeholderText?: string | React.JSX.Element;
-  disabled?: boolean;
   searchable?: boolean;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
@@ -62,9 +62,9 @@ export interface SelectProperties {
   data: Data[];
   onSelect: (e: Data) => void;
   defaultValue?: Data;
+  disabled?: boolean;
   listHeight?: number;
   placeholderText?: string | React.JSX.Element;
-  disabled?: boolean;
   searchable?: boolean;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
