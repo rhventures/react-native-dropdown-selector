@@ -10,9 +10,11 @@ export interface Data {
   data?: object;
 }
 
-export interface SelectorPos {
-  top: number;
-  bottom: number;
+export interface SelectorRect {
+  x: number;
+  y: number;
+  width: string | number;
+  height: number;
 }
 
 export interface ListProperties {
@@ -22,26 +24,28 @@ export interface ListProperties {
     itemSelected?: TextStyle;
     clearButton?: ViewStyle;
     clearButtonIcon?: ColorValue;
+    searchBox?: TextStyle & ViewStyle;
   };
   data: Data[];
   type: 'single' | 'multi';
   onSelect: ((e: Data) => void) | ((e: Data[]) => void);
   selected: Data[] | Data;
   clearSelected?: () => void;
-  listX: number;
-  listWidth: string | number;
   listHeight: number;
   display: boolean;
+  searchable: boolean;
   hide: () => void;
-  selectorPos: SelectorPos;
+  selectorRect: SelectorRect;
 }
 
 export interface MultiSelectProperties {
   data: Data[];
   onSelect: (e: Data[]) => void;
   defaultValue?: Data[];
+  disabled?: boolean;
   listHeight?: number;
   placeholderText?: string | React.JSX.Element;
+  searchable?: boolean;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
   boxTextHighlightStyle?: ViewStyle;
@@ -51,18 +55,22 @@ export interface MultiSelectProperties {
   dropdownArrowColor?: ColorValue;
   clearButtonStyle?: ViewStyle;
   clearButtonIconColor?: ColorValue;
+  searchBoxStyle?: TextStyle & ViewStyle;
 }
 
 export interface SelectProperties {
   data: Data[];
   onSelect: (e: Data) => void;
   defaultValue?: Data;
+  disabled?: boolean;
   listHeight?: number;
   placeholderText?: string | React.JSX.Element;
+  searchable?: boolean;
   boxStyle?: ViewStyle;
   boxTextStyle?: TextStyle;
   listStyle?: ViewStyle;
   listTextStyle?: TextStyle;
   selectedItemStyle?: TextStyle;
   dropdownArrowColor?: ColorValue;
+  searchBoxStyle?: TextStyle & ViewStyle;
 }

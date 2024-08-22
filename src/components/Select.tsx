@@ -1,17 +1,20 @@
 import React, { useRef, useState } from 'react';
 import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
 import styles from '../styles';
-import type { Data, SelectorPos, SelectProperties } from '../types';
+import type { Data, SelectorRect, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
 const Select = (props: SelectProperties): React.JSX.Element => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
   const ref = useRef<TouchableOpacity>(null);
-  const [listWidth, setListWidth] = useState<string | number>(props.listStyle?.width ?? 0);
-  const [listX, setListX] = useState<number>(0);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
-  const [pos, setPos] = useState<SelectorPos>({top: 0, bottom: 0});
+  const [refRect, setRefRect] = useState<SelectorRect>({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
   const [selected, setSelected] = useState<Data>(
     props.defaultValue && props.data.includes(props.defaultValue)
       ? props.defaultValue
@@ -27,12 +30,11 @@ const Select = (props: SelectProperties): React.JSX.Element => {
   ];
   const updatePos = () =>
     ref.current?.measureInWindow((x, y, width, height) => {
-      setListX(x);
-      if (props.listStyle?.width === undefined) 
-        setListWidth(width);
-      setPos({
-        top: y - (props.listHeight ?? 200) - 5,
-        bottom: y + height + 5,
+      setRefRect({
+        x: x,
+        y: y - 5,
+        width: props.boxStyle?.width ?? width,
+        height: height + 10,
       });
       setListDisplay(true);
     });
@@ -41,7 +43,12 @@ const Select = (props: SelectProperties): React.JSX.Element => {
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        style={[style.selectorBox, props.boxStyle]}
+        style={[
+          style.selectorBox,
+          props.boxStyle,
+          {opacity: props.disabled ? .5 : 1},
+        ]}
+        disabled={props.disabled}
         onPress={updatePos}
         ref={ref}
       >
@@ -64,17 +71,17 @@ const Select = (props: SelectProperties): React.JSX.Element => {
           list: props.listStyle,
           text: props.listTextStyle,
           itemSelected: props.selectedItemStyle,
+          searchBox: props.searchBoxStyle,
         }}
         data={updatePriorities(props.data)}
         type="single"
         onSelect={selectItem}
         selected={selected}
-        listX={listX}
-        listWidth={listWidth}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
+        searchable={!!props.searchable}
         hide={() => setListDisplay(false)}
-        selectorPos={pos}
+        selectorRect={refRect}
       />
     </View>
   );
