@@ -1,6 +1,6 @@
 {
-  "name": "react-native-dropdown-selector",
-  "version": "0.1.3",
+  "name": "@rose-hulman/react-native-dropdown-selector",
+  "version": "0.1.0",
   "description": "A react native component for creating dropdown lists",
   "main": "index.tsx",
   "scripts": {
@@ -48,5 +48,13 @@
   },
   "dependencies": {
     "cocoapods": "^0.0.0"
-  }
+  },
+  "directories": {
+    "doc": "docs",
+    "example": "example"
+  },
+  "keywords": [
+    "react-native",
+    "dropdown"
+  ]
 }
