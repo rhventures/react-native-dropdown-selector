@@ -13,13 +13,20 @@ const data: Data[] = [
   { label: 'Item 8' },
 ];
 
+const options: Data[] = [
+  { label: 'Disabled' },
+  { label: 'Searchable' },
+];
+
 function App(): React.JSX.Element {
   const [item, setItem] = React.useState<string | JSX.Element>('');
-  const onDataSelect = (data: Data) =>
-    setItem(data.label);
-  const onMultiDataSelect = (datas: Data[]) =>
-    setItem(datas.map((data: Data) =>
-      data.label
+  const [disabled, setDisabled] = React.useState(false);
+  const [searchable, setSearchable] = React.useState(false);
+  const onDataSelect = (datum: Data) =>
+    setItem(datum.label);
+  const onMultiDataSelect = (data: Data[]) =>
+    setItem(data.map((datum: Data) =>
+      datum.label
     ).join(", "));
 
   return (
@@ -27,7 +34,12 @@ function App(): React.JSX.Element {
       <View style={{ height: 40 }} />
       <ScrollView style={{ paddingHorizontal: 8 }}>
         <View style={{ height: 40 }} />
-        <Select data={data} onSelect={onDataSelect} />
+        <Select
+          data={data}
+          onSelect={onDataSelect}
+          disabled={disabled}
+          searchable={searchable}
+        />
         <Text>Selected: {item || 'None'} (scroll down)</Text>
         <View style={{ height: 500 }} />
         <Text
@@ -42,6 +54,8 @@ function App(): React.JSX.Element {
         <Select
           data={data}
           onSelect={onDataSelect}
+          disabled={disabled}
+          searchable={searchable}
           placeholderText="Select an item"
           boxStyle={{
             alignSelf: 'center',
@@ -51,6 +65,8 @@ function App(): React.JSX.Element {
         <MultiSelect
           data={data}
           onSelect={onMultiDataSelect}
+          disabled={disabled}
+          searchable={searchable}
         />
         <View style={{ height: 400 }}/>
         <Text>Single Selects:</Text>
@@ -59,18 +75,24 @@ function App(): React.JSX.Element {
             <Select
               data={data}
               onSelect={onDataSelect}
+              disabled={disabled}
+              searchable={searchable}
             />
           </View>
           <View style={{ flex: 1 }}>
             <Select
               data={data}
               onSelect={onDataSelect}
+              disabled={disabled}
+              searchable={searchable}
             />
           </View>
           <View style={{ flex: 1 }}>
             <Select
               data={data}
               onSelect={onDataSelect}
+              disabled={disabled}
+              searchable={searchable}
             />
           </View>
         </View>
@@ -81,29 +103,54 @@ function App(): React.JSX.Element {
               <MultiSelect
                 data={data}
                 onSelect={onMultiDataSelect}
+                disabled={disabled}
+                searchable={searchable}
               />
             </View>
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
                 onSelect={onMultiDataSelect}
+                disabled={disabled}
+                searchable={searchable}
               />
             </View>
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
                 onSelect={onMultiDataSelect}
+                disabled={disabled}
+                searchable={searchable}
               />
             </View>
           </View>
-          <Text style={{ textAlign: 'center' }}>
+          <Text style={{ textAlign: 'center', height: 100 }}>
             Select more than one item and see me move!
           </Text>
+          <MultiSelect
+            data={options}
+            onSelect={(data: Data[]) => {
+              if (data.includes(options[0])) {
+                setDisabled(true);
+              } else {
+                setDisabled(false);
+              }
+              if (data.includes(options[1])) {
+                setSearchable(true);
+              } else {
+                setSearchable(false);
+              }
+            }}
+            placeholderText='Selector Settings'
+
+          />
         </View>
         <Text>Styled Single Select:</Text>
         <Select
           data={data}
           onSelect={onDataSelect}
+          disabled={disabled}
+          searchable={searchable}
           defaultValue={data[0]}
           listHeight={300}
           placeholderText='I am very stylish'
@@ -159,12 +206,30 @@ function App(): React.JSX.Element {
             borderBottomWidth: 2,
           }}
           dropdownArrowColor='darkgreen'
+          searchBoxStyle={{
+            backgroundColor: 'lightgray',
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 16,
+            borderBottomLeftRadius: 16,
+            borderBottomRightRadius: 30,
+            borderColor: 'darkgreen',
+            borderTopWidth: 4,
+            borderLeftWidth: 2,
+            borderRightWidth: 2,
+            color: 'brown',
+            fontSize: 16,
+            height: 46,
+            paddingHorizontal: 12,
+            paddingTop: 14,
+          }}
         />
         <View style={{height: 50}} />
         <Text>Styled Multi Select:</Text>
         <MultiSelect
           data={data}
           onSelect={onMultiDataSelect}
+          disabled={disabled}
+          searchable={searchable}
           defaultValue={data}
           listHeight={300}
           placeholderText='I am very stylish'
@@ -240,6 +305,22 @@ function App(): React.JSX.Element {
             borderColor: 'darkgreen'
           }}
           clearButtonIconColor='#abc'
+          searchBoxStyle={{
+            backgroundColor: 'lightgray',
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 16,
+            borderBottomLeftRadius: 16,
+            borderBottomRightRadius: 30,
+            borderColor: 'darkgreen',
+            borderTopWidth: 4,
+            borderLeftWidth: 2,
+            borderRightWidth: 2,
+            color: 'brown',
+            fontSize: 16,
+            height: 46,
+            paddingHorizontal: 12,
+            paddingTop: 14,
+          }}
         />
         <View style={{ height: 700 }} />
       </ScrollView>
