@@ -1,7 +1,9 @@
 import path from 'path';
 const androidAltermateAppPath = path.join(process.cwd(), "app/app-debug.apk");
 const androidAppPath = "C:/Users/jungh/app-debug.apk"
+
 export const config = {
+
     //
     // ====================
     // Runner Configuration
@@ -25,18 +27,12 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        // './test/SingleSelect.js',
-        // './test/SmallSingleSelect.js',
-        // './test/MultiSelect.js',
-        // './test/Technical.js',
-        //  './test/IntegrationSingle.js',
-        // './test/IntegrationMulti.js',
-        // './test/IntegrationDynamics.js'
-         './test/System_Algorithm.js'
+        // ToDo: define location for spec files here
+         "./test/System_Algorithm.js"
     ],
     // Patterns to exclude.
     exclude: [
-        // 'path/to/excluded/files'
+       
     ],
     //
     // ============
@@ -68,7 +64,6 @@ export const config = {
         'appium:automationName': 'UiAutomator2',
         'appium:app': androidAppPath,
     }],
-
     //
     // ===================
     // Test Configurations
@@ -117,6 +112,7 @@ export const config = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: [['appium', {args: {}, command: 'appium'}]],
+
 
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
