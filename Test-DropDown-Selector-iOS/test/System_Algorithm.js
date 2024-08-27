@@ -103,7 +103,7 @@ describe('Multi Select Testing Including Scrolling Capability', () => {
                 await clickScreen().perform();
                 await driver.pause(500);
 
-                const selector = await driver.$(`-ios class chain:**/XCUIElementTypeOther[\`name == "${selectedItems.join(', ')} ᨆ"\`][2]`);
+                const selector = await driver.$(`-ios class chain:**/XCUIElementTypeOther[\`name == "${selectedItems.join(' ')} ᨆ"\`][2]`);
                 await driver.pause(500);
                 //The order does not matter here.
                 for(let i = 0; i < items.length; i++){

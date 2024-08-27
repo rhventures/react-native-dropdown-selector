@@ -92,7 +92,7 @@ Installing "/path/to/your/debug/app/example.app"
 -   Create a new folder named like "Test-<'CustomName'> under your root project directory
 -   My folder heirarchy looks like: 
 -   ![alt text](Hierarchy.png)
--   In my case, it would be the **Test-iOS**
+-   In my case, it would be the **Test-DropDown-Selector-iOS**
 2. Run the following command in the new folder you just created
 ```
 npm init wdio
