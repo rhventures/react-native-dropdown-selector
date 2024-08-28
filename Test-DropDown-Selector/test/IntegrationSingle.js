@@ -29,7 +29,6 @@ describe("Integration Test", () => {
             await expect(selector).toExist();
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
-            //console.log(selectorDisplay);
             await selectorDisplay.waitForExist(500);
             await expect(selectorDisplay).toHaveText(itemToTest[0])
         })
@@ -44,7 +43,6 @@ describe("Integration Test", () => {
             await expect(selector).toExist();
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
-            //console.log(selectorDisplay);
             await selectorDisplay.waitForExist(500);
             await expect(selectorDisplay).toHaveText(itemToTest[1])
         })        
@@ -66,7 +64,6 @@ describe("Integration Test", () => {
             await expect(selector).toExist();
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
-            //console.log(selectorDisplay);
             await selectorDisplay.waitForExist(500);
             await expect(selectorDisplay).toHaveText(itemToTest[2])
         })
@@ -88,7 +85,6 @@ describe("Integration Test", () => {
             await expect(selector).toExist();
             
             const selectorDisplay = await selector.$$('.android.widget.TextView')[0];
-            //console.log(selectorDisplay);
             await selectorDisplay.waitForExist(500);
             await expect(selectorDisplay).toHaveText(itemToTest[3])
             })

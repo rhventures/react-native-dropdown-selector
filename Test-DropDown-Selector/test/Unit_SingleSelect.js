@@ -3,14 +3,12 @@ describe("Click Me Demo", () => {
     context("single select", () => {
 
         beforeEach("When drop down selector is down",async () => { //setting the condition
-            //click the dropdown menu bar
             const selector = await driver.$("-android uiautomator:new UiSelector().text(\"ᨆ\").instance(0)");
             await selector.click();
             await driver.pause(1000);
         })
         
         it("should show item 3 selected", async () => {
-            //click item 3
             const Item3 = await driver.$("accessibility id:Item 3");
             await Item3.click();
             await driver.pause(500);

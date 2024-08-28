@@ -1,10 +1,7 @@
 describe("Click Me Demo", () => {
     context("multi-select demo with arrow button", () => {
         beforeEach(async () => {
-            // const ScrollView = await driver.$("class name:android.widget.ScrollView");
-            // const selector = ScrollView.selectByIndex(0).selectByAttribute('elementId', "00000000-0000-0234-ffff-ffff00000015");
-            //const FrameLayout = await driver.$('#android:id/content');
-            //const selector = await driver.$(page.dropDownSelector);
+           
             const selector = await driver.$("-android uiautomator:new UiSelector().text(\"ᨆ\").instance(2)");
             await selector.click();
         })

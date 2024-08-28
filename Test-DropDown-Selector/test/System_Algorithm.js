@@ -119,7 +119,6 @@ describe("Integration test for the multi selector", () => {
                     
                     await driver.pause(500);
                     const multiSelector = await driver.$(getDropDownArrow());
-                    //await multiSelector.waitForExist(1000);
                     multiSelector.click();
                     await driver.pause(1000);
 
@@ -141,7 +140,6 @@ describe("Integration test for the multi selector", () => {
                             for(let i = 1; i< displayedContent.length; i+=2){
                                 displayedItemList.push(await displayedContent[i].getAttribute('content-desc'));
                             }
-                            //console.log(displayedItemList);
                             top = false;
                             await driver.pause(1000);
                         }
@@ -154,13 +152,11 @@ describe("Integration test for the multi selector", () => {
                             for(let i = 1; i< displayedContent.length; i+=2){
                                 displayedItemList.push(await displayedContent[i].getAttribute('content-desc'));
                             }
-                            //console.log(displayedItemList);
                             top = true;
                             await driver.pause(1000);
                         }
                         
                         const item = await driver.$(`accessibility id:${items[i]}`);
-                        //await item.waitForExist(1000);
                         item.click();
                         await driver.pause(500);
                     }

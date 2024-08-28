@@ -26,7 +26,6 @@ describe("Integration test for the multi selector", () => {
             beforeEach(async () => {
                 await driver.pause(2000);
                 const multiSelector = await driver.$(dropDownArrow);
-                //multiSelector.waitForExist(1000);
                 multiSelector.click();
                 await driver.pause(3000);
             })
@@ -46,26 +45,21 @@ describe("Integration test for the multi selector", () => {
 
                     for(let i = 0; i < items.length; i ++){
                         const item = await driver.$(`accessibility id:${items[i]}`);
-                        //await item.waitForExist(1000);
                         item.click();
                         await driver.pause(1000);
                     }
 
                     const backScreen = await driver.$(getBackScreen());
-                    //await backScreen.waitForExist(1000);
                     backScreen.click();
                     await driver.pause(500);
 
                     const selector = await driver.$(`accessibility id:${items.join(', ')}, ᨆ`);
-                    //await selector.waitForExist(1000);
                     const selectorDisplay = await selector.$$('.android.widget.TextView');
-                    //await selectorDisplay.waitForExist(500);
 
                     for(let i = 0; i < items.length; i++){
                         await expect(selectorDisplay[i]).toHaveText(items[i]);                    
                     }
                     const multiSelector = await driver.$(dropDownArrow);
-                    //await multiSelector.waitForExist(1000);
                     multiSelector.click();
                     await driver.pause(1000);
 
@@ -76,12 +70,10 @@ describe("Integration test for the multi selector", () => {
 
                     for(let i = 0; i < items.length; i ++){
                         const item = await driver.$(`accessibility id:${items[i]}`);
-                        //await item.waitForExist(1000);
                         item.click();
                         await driver.pause(500);
                     } 
                     const Screen = await driver.$(getBackScreen());
-                    //await Screen.waitForExist(1000);
                     Screen.click();
                     await driver.pause(500);
 

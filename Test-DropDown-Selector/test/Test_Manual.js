@@ -5,11 +5,9 @@ describe("Click Me Demo", () => {
         const selectorUI = await $(`android=${selector}`);
         selectorUI.click();
 
-        //await driver.pause(3000);
     })
     
     it("should show item 3 selected", async () => {
-        //click item 3
         await $('~Item 3').click();
 
         const selectedItem = 'new UiSelector().text("Selected: Item 3 (scroll down)")'

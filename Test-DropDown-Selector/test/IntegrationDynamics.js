@@ -11,7 +11,6 @@ describe("Integration test for the multi selector", () => {
             beforeEach(async () => {
                 await driver.pause(2000);
                 const multiSelector = await driver.$(dropDownArrow);
-                //multiSelector.waitForExist(1000);
                 multiSelector.click();
                 await driver.pause(3000);
             })
@@ -49,7 +48,6 @@ describe("Integration test for the multi selector", () => {
         
             function multipleItemTest(items){
                 it(`should have ${items.join(', ')} selected`, async () => {
-                    //Finding the Currently displaying Items on the list
                     var top = true;
                     var group = await driver.$(getItemGroup());
                     var displayedContent = await group.$$('.android.view.ViewGroup');
@@ -57,7 +55,6 @@ describe("Integration test for the multi selector", () => {
                     for(let i = 1; i< displayedContent.length; i+=2){
                         displayedItemList.push(await displayedContent[i].getAttribute('content-desc'));
                     }
-                    //console.log(displayedItemList);
 
                     for(let i = 0; i < items.length; i ++){
                         if(displayedItemList.indexOf(items[i]) == -1 && top){
@@ -69,7 +66,6 @@ describe("Integration test for the multi selector", () => {
                             for(let i = 1; i< displayedContent.length; i+=2){
                                 displayedItemList.push(await displayedContent[i].getAttribute('content-desc'));
                             }
-                            //console.log(displayedItemList);
                             top = false;
                             await driver.pause(1000);
                         }
@@ -82,24 +78,20 @@ describe("Integration test for the multi selector", () => {
                             for(let i = 1; i< displayedContent.length; i+=2){
                                 displayedItemList.push(await displayedContent[i].getAttribute('content-desc'));
                             }
-                            //console.log(displayedItemList);
                             top = true;
                             await driver.pause(1000);
                         }
                         
                         const item = await driver.$(`accessibility id:${items[i]}`);
-                        //await item.waitForExist(1000);
                         item.click();
                         await driver.pause(1000);
                     }
 
                     const backScreen = await driver.$(getBackScreen());
-                    //await backScreen.waitForExist(1000);
                     backScreen.click();
                     await driver.pause(1000);
 
                     const selector = await driver.$(`accessibility id:${items.join(', ')}, ᨆ`);
-                    //await selector.waitForExist(1000);
                     const selectorDisplay = await selector.$$('.android.widget.TextView');
 
                     for(let i = 0; i < items.length; i++){
@@ -108,7 +100,6 @@ describe("Integration test for the multi selector", () => {
 
                     await driver.pause(500);
                     const multiSelector = await driver.$(getDropDownArrow());
-                    //await multiSelector.waitForExist(1000);
                     multiSelector.click();
                     await driver.pause(1000);
 
@@ -130,7 +121,6 @@ describe("Integration test for the multi selector", () => {
                             for(let i = 1; i< displayedContent.length; i+=2){
                                 displayedItemList.push(await displayedContent[i].getAttribute('content-desc'));
                             }
-                            //console.log(displayedItemList);
                             top = false;
                             await driver.pause(1000);
                         }
@@ -143,13 +133,11 @@ describe("Integration test for the multi selector", () => {
                             for(let i = 1; i< displayedContent.length; i+=2){
                                 displayedItemList.push(await displayedContent[i].getAttribute('content-desc'));
                             }
-                            //console.log(displayedItemList);
                             top = true;
                             await driver.pause(1000);
                         }
                         
                         const item = await driver.$(`accessibility id:${items[i]}`);
-                        //await item.waitForExist(1000);
                         item.click();
                         await driver.pause(500);
                     }
