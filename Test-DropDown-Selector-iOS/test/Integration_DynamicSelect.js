@@ -1,0 +1,134 @@
+describe('Multi Select Testing Including Scrolling Capability', () => {
+    
+    context('Using dynamics', () => {
+    
+        const topItemCoordinates = {'Item 3' : {'x': 200 , 'y': 550}, 'Item 7': {'x': 200, 'y': 590}, 
+        'Item 1': {'x': 200, 'y': 630}, 'Item 2': {'x': 200, 'y': 670}, 
+        'Item 4': {'x': 200, 'y': 710}}
+        const bottomItemCoordinates = {'Item 2' : {'x': 200 , 'y': 550}, 'Item 4': {'x': 200, 'y': 590}, 
+        'Item 5': {'x': 200, 'y': 630}, 'Item 6': {'x': 200, 'y': 670}, 
+        'Item 8': {'x': 200, 'y': 710}};
+        const topItems = ['Item 3', 'Item 7', 'Item 1', 'Item 2', 'Item 4'];
+        const bottomItems = ['Item 2', 'Item 4', 'Item 5', 'Item 6', 'Item 8'];
+        const itemsToTest = [['Item 3', 'Item 4', 'Item 8', 'Item 7'],['Item 1', 'Item 6', 'Item 2', 'Item 5']]
+
+        function upScroll(){
+            return driver.action('pointer', {parameters: {pointerType: 'touch'}})
+            .move({duration : 100, x: 200 , y: 560})
+            .down({button: 0})
+            .move({duration : 500, x: 200 , y: 720})
+            .up({button: 0});
+        }
+        function downScroll(){
+            return driver.action('pointer', {parameters: {pointerType: 'touch'}})
+            .move({duration : 100, x: 200 , y: 720})
+            .down({button: 0})
+            .move({duration : 500, x: 200 , y: 560})
+            .up({button: 0});
+        }
+
+        function clickItem(itemCoordinates){
+            return driver.action('pointer', {parameters: {pointerType: 'touch'}})
+            .move({duration : 100, x: itemCoordinates['x'] , y: itemCoordinates['y']})
+            .down({button: 0})
+            .up({button: 0});
+        }
+
+        function clickSelector(){
+            return driver.action('pointer', {parameters: {pointerType: 'touch'}})
+            .move({duration : 100, x: 200 , y: 750})
+            .down({button: 0})
+            .up({button: 0});
+        }
+
+        function clickScreen(){
+            return driver.action('pointer', {parameters: {pointerType: 'touch'}})
+            .move({duration : 100, x: 200 , y: 400})
+            .down({button: 0})
+            .up({button: 0});
+        }
+
+        beforeEach(async () => {
+            await driver.pause(1500);
+            await clickSelector().perform();
+            await driver.pause(2000);
+        })
+
+        // selectAndScrollTest(itemsToTest[0])
+        selectAndScrollTest(itemsToTest[1])
+
+        function selectAndScrollTest(items){
+            it(`should have ${items.join(', ')} selected`, async () => {                
+                var top = true;
+                var displayedItems= topItems
+                for(let i = 0; i < items.length; i++){
+                    if(displayedItems.indexOf(items[i]) == -1 && top){
+                        await downScroll().perform();
+                        await driver.pause(1000);
+                        await clickItem(bottomItemCoordinates[items[i]]).perform();
+                        displayedItems = bottomItems;
+                        top = false;
+                    }
+                    else if(displayedItems.indexOf(items[i]) == -1 && !top){
+                        await upScroll().perform();
+                        await driver.pause(1000);
+                        await clickItem(topItemCoordinates[items[i]]).perform();
+                        displayedItems = topItems;
+                        top = true;
+                    }
+                    else{
+                        if(top){
+                            await clickItem(topItemCoordinates[items[i]]).perform();
+                        }
+                        else{
+                            await clickItem(bottomItemCoordinates[items[i]]).perform();
+                        }
+                    }
+                    await driver.pause(500);
+                }
+                await clickScreen().perform();
+                await driver.pause(500);
+
+                const selector = await driver.$(`-ios class chain:**/XCUIElementTypeOther[\`name == "${items.join(', ')} ᨆ"\`][2]`);
+                expect(selector).toExist();
+                await driver.pause(500);
+                //reset
+                await clickSelector().perform();
+                await driver.pause(1000);
+                var top = true;
+                var displayedItems= topItems
+                for(let i = 0; i < items.length; i++){
+                    if(displayedItems.indexOf(items[i]) == -1 && top){
+                        await downScroll().perform();
+                        await driver.pause(1000);
+                        await clickItem(bottomItemCoordinates[items[i]]).perform();
+                        displayedItems = bottomItems;
+                        top = false;
+                    }
+                    else if(displayedItems.indexOf(items[i]) == -1 && !top){
+                        await upScroll().perform();
+                        await driver.pause(1000);
+                        await clickItem(topItemCoordinates[items[i]]).perform();
+                        displayedItems = topItems;
+                        top = true;
+                    }
+                    else{
+                        if(top){
+                            await clickItem(topItemCoordinates[items[i]]).perform();
+                        }
+                        else{
+                            await clickItem(bottomItemCoordinates[items[i]]).perform();
+                        }
+                    }
+                    await driver.pause(500);
+                }
+                await clickScreen().perform();
+                await driver.pause(500);
+
+                const final = await driver.$(`-ios class chain:**/XCUIElementTypeOther[\`name == "Click me ᨆ"\`][4]`);
+                expect(final).toExist();
+                await driver.pause(500);
+            })
+        }
+    })
+})

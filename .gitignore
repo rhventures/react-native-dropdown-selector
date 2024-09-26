@@ -63,3 +63,5 @@ yarn-error.log
 .metro-health-check*
 
 react-native-dropdown-selector-*.tgz
+
+.apk
