@@ -88,13 +88,13 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                   borderBottomRightRadius: 0,
                 },
           ]}
-        > 
+        >
           {props.searchable &&
             <TextInput
               placeholder='Search'
               style={[style.searchBox, props.styles.searchBox]}
-              onChangeText={(input: string) => 
-                setEntries(props.data.filter((data: Data) => 
+              onChangeText={(input: string) =>
+                setEntries(props.data.filter((data: Data) =>
                   typeof data.label === 'string' &&
                   data.label.toLowerCase().includes(input.toLowerCase())
               ))}
@@ -154,7 +154,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                     top: 40,
                     right: 10,
                   }
-              
+
             ]}
           >
             <TouchableOpacity
