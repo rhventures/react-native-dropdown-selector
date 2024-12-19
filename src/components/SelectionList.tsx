@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dimensions,
   FlatList,
@@ -24,14 +24,19 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const [currentListHeight, setCurrentListHeight] = useState<number>(0);
   const listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
 
-  Keyboard.addListener(
-    'keyboardDidShow',
-    () => setKeyboardHeight(Keyboard.metrics()?.height ?? 0)
-  );
-  Keyboard.addListener(
-    'keyboardDidHide',
-    () => setKeyboardHeight(0)
-  );
+  useEffect(() => {
+    const showListener = Keyboard.addListener('keyboardDidShow', (e) =>
+      setKeyboardHeight(e.endCoordinates.height)
+    );
+    const hideListener = Keyboard.addListener('keyboardDidHide', () =>
+      setKeyboardHeight(0)
+    );
+
+    return () => {
+      showListener.remove();
+      hideListener.remove();
+    };
+  }, []);
 
   return (
     <Modal
