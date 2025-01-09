@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View, Button } from 'react-native';
 import { MultiSelect, Select, type Data } from '@rose-hulman/react-native-dropdown-selector';
 
 const data: Data[] = [
@@ -22,6 +22,7 @@ function App(): React.JSX.Element {
   const [item, setItem] = React.useState<string | JSX.Element>('');
   const [disabled, setDisabled] = React.useState(false);
   const [searchable, setSearchable] = React.useState(false);
+  const [theme, setTheme] = React.useState<'light' | 'dark' | 'system'>('system');
   const onDataSelect = (datum: Data) =>
     setItem(datum.label);
   const onMultiDataSelect = (data: Data[]) =>
@@ -34,11 +35,18 @@ function App(): React.JSX.Element {
       <View style={{ height: 40 }} />
       <ScrollView style={{ paddingHorizontal: 8 }}>
         <View style={{ height: 40 }} />
+        <Text style={{ fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>Theme Selector</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 16 }}>
+          <Button title="Light Theme" onPress={() => setTheme('light')} />
+          <Button title="Dark Theme" onPress={() => setTheme('dark')} />
+          <Button title="System Theme" onPress={() => setTheme('system')} />
+        </View>
         <Select
           data={data}
           onSelect={onDataSelect}
           disabled={disabled}
           searchable={searchable}
+          theme={theme}
         />
         <Text>Selected: {item || 'None'} (scroll down)</Text>
         <View style={{ height: 500 }} />
@@ -57,6 +65,7 @@ function App(): React.JSX.Element {
           disabled={disabled}
           searchable={searchable}
           placeholderText="Select an item"
+          theme={theme}
           boxStyle={{
             alignSelf: 'center',
             width: 200,
@@ -67,6 +76,7 @@ function App(): React.JSX.Element {
           onSelect={onMultiDataSelect}
           disabled={disabled}
           searchable={searchable}
+          theme={theme}
         />
         <View style={{ height: 400 }}/>
         <Text>Single Selects:</Text>
@@ -77,6 +87,7 @@ function App(): React.JSX.Element {
               onSelect={onDataSelect}
               disabled={disabled}
               searchable={searchable}
+              theme={theme}
             />
           </View>
           <View style={{ flex: 1 }}>
@@ -85,6 +96,7 @@ function App(): React.JSX.Element {
               onSelect={onDataSelect}
               disabled={disabled}
               searchable={searchable}
+              theme={theme}
             />
           </View>
           <View style={{ flex: 1 }}>
@@ -93,6 +105,7 @@ function App(): React.JSX.Element {
               onSelect={onDataSelect}
               disabled={disabled}
               searchable={searchable}
+              theme={theme}
             />
           </View>
         </View>
@@ -105,6 +118,7 @@ function App(): React.JSX.Element {
                 onSelect={onMultiDataSelect}
                 disabled={disabled}
                 searchable={searchable}
+                theme={theme}
               />
             </View>
             <View style={{ flex: 1 }}>
@@ -113,6 +127,7 @@ function App(): React.JSX.Element {
                 onSelect={onMultiDataSelect}
                 disabled={disabled}
                 searchable={searchable}
+                theme={theme}
               />
             </View>
             <View style={{ flex: 1 }}>
@@ -121,6 +136,7 @@ function App(): React.JSX.Element {
                 onSelect={onMultiDataSelect}
                 disabled={disabled}
                 searchable={searchable}
+                theme={theme}
               />
             </View>
           </View>
@@ -142,7 +158,7 @@ function App(): React.JSX.Element {
               }
             }}
             placeholderText='Selector Settings'
-
+            theme={theme}
           />
         </View>
         <Text>Styled Single Select:</Text>
