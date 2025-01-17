@@ -32,7 +32,6 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
     if (props.display === false)
       return;
     const listBottom = props.selectorRect.y + props.selectorRect.height + listHeight;
-    console.log('props.selectorRect.y:', props.selectorRect.y, ', props.selectorRect.height:', props.selectorRect.height, ', currentListHeight:', listHeight);
     setListTop(
       keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
         ? windowHeight - keyboardHeight - listHeight - 5
