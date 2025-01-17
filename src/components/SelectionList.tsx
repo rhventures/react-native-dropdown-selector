@@ -20,23 +20,25 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const windowHeight = Dimensions.get('window').height;
   const [keyboardHeight, setKeyboardHeight] = useState<number>(0);
   const [entries, setEntries] = useState<Data[]>(props.data);
-  const [currentListWidth, setCurrentListWidth] = useState<number>(0);
-  const [currentListHeight, setCurrentListHeight] = useState<number>(0);
   const [listTop, setListTop] = useState<number>(0);
   const [listLeft, setListLeft] = useState<number>(0);
   const [buttonTop, setButtonTop] = useState<number>(0);
+  const width = props.styles.list?.width ?? props.selectorRect.width;
+  const listWidth = typeof width === 'string' ? windowWidth*Number(width.slice(0, -1))/100 : width;
+  const itemHeight = (props.styles.text?.fontSize ?? 20) * 2;
+  const listHeight = Math.min(props.listHeight, props.data.length * itemHeight);
 
   useLayoutEffect(() => {
     if (props.display === false)
       return;
-    const listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
-    console.log('props.selectorRect.y: ', props.selectorRect.y, ', props.selectorRect.height: ', props.selectorRect.height, ', currentListHeight: ', currentListHeight);
+    const listBottom = props.selectorRect.y + props.selectorRect.height + listHeight;
+    console.log('props.selectorRect.y:', props.selectorRect.y, ', props.selectorRect.height:', props.selectorRect.height, ', currentListHeight:', listHeight);
     setListTop(
       keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
-        ? windowHeight - keyboardHeight - currentListHeight - 5
+        ? windowHeight - keyboardHeight - listHeight - 5
         : listBottom < windowHeight
         ? props.selectorRect.y + props.selectorRect.height
-        : props.selectorRect.y - currentListHeight
+        : props.selectorRect.y - listHeight
     );
     setListLeft(
       props.styles.list?.alignSelf === 'center'
@@ -46,7 +48,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
           + (typeof props.selectorRect.width === 'string'
             ? Number(props.selectorRect.width.slice(0, -1)) * windowWidth
             : props.selectorRect.width
-            - currentListWidth) / 2
+            - listWidth) / 2
         : props.selectorRect.x
     );
     setButtonTop(
@@ -85,10 +87,6 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
         onPress={props.hide}
       >
         <View
-          onLayout={({ nativeEvent }) => {
-            setCurrentListWidth(nativeEvent.layout.width);
-            setCurrentListHeight(nativeEvent.layout.height);
-          }}
           style={[
             style.list,
             props.styles.list,
