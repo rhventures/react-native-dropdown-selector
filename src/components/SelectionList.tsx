@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import {
   Dimensions,
   FlatList,
@@ -22,7 +22,39 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const [entries, setEntries] = useState<Data[]>(props.data);
   const [currentListWidth, setCurrentListWidth] = useState<number>(0);
   const [currentListHeight, setCurrentListHeight] = useState<number>(0);
-  const listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
+  const [listTop, setListTop] = useState<number>(0);
+  const [listLeft, setListLeft] = useState<number>(0);
+  const [buttonTop, setButtonTop] = useState<number>(0);
+
+  useLayoutEffect(() => {
+    if (props.display === false)
+      return;
+    const listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
+    console.log('props.selectorRect.y: ', props.selectorRect.y, ', props.selectorRect.height: ', props.selectorRect.height, ', currentListHeight: ', currentListHeight);
+    setListTop(
+      keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
+        ? windowHeight - keyboardHeight - currentListHeight - 5
+        : listBottom < windowHeight
+        ? props.selectorRect.y + props.selectorRect.height
+        : props.selectorRect.y - currentListHeight
+    );
+    setListLeft(
+      props.styles.list?.alignSelf === 'center'
+        ? 0
+        : props.styles.list?.width
+        ? props.selectorRect.x
+          + (typeof props.selectorRect.width === 'string'
+            ? Number(props.selectorRect.width.slice(0, -1)) * windowWidth
+            : props.selectorRect.width
+            - currentListWidth) / 2
+        : props.selectorRect.x
+    );
+    setButtonTop(
+      listBottom < windowHeight
+        ? props.selectorRect.y - 40
+        : props.selectorRect.y + props.selectorRect.height
+    );
+  }, [props.display]);
 
   Keyboard.addListener(
     'keyboardDidShow',
@@ -62,22 +94,10 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             props.styles.list,
             windowHeight > windowWidth
               ? {
-                  left: props.styles.list?.alignSelf === 'center'
-                    ? 0
-                    : props.styles.list?.width
-                    ? props.selectorRect.x
-                      + (typeof props.selectorRect.width === 'string'
-                        ? Number(props.selectorRect.width.slice(0, -1)) * windowWidth
-                        : props.selectorRect.width
-                        - currentListWidth) / 2
-                    : props.selectorRect.x,
+                  left: listLeft,
                   width: props.styles.list?.width ?? props.selectorRect.width,
                   maxHeight: props.listHeight,
-                  top: keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
-                    ? windowHeight - keyboardHeight - currentListHeight - 5
-                    : listBottom < windowHeight
-                    ? props.selectorRect.y + props.selectorRect.height
-                    : props.selectorRect.y - currentListHeight,
+                  top: listTop,
                 }
               : {
                   height: windowHeight - 40,
@@ -143,9 +163,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
               props.styles.clearButton,
               windowHeight > windowWidth
                 ? {
-                    top: listBottom < windowHeight
-                      ? props.selectorRect.y - 40
-                      : props.selectorRect.y + props.selectorRect.height,
+                    top: buttonTop,
                     left: props.selectorRect.x - 40,
                     marginLeft: props.selectorRect.width,
                     opacity: keyboardHeight > 0 ? 0 : 1,
@@ -154,7 +172,6 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                     top: 40,
                     right: 10,
                   }
-              
             ]}
           >
             <TouchableOpacity
