@@ -22,12 +22,9 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const [entries, setEntries] = useState<Data[]>(props.data);
   const [currentListWidth, setCurrentListWidth] = useState<number>(0);
   const [currentListHeight, setCurrentListHeight] = useState<number>(0);
-  const [posReady, setPosReady] = useState<boolean>(true);
-  const listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
-
-  useLayoutEffect(() => {
-    setPosReady(false);
-  }, [currentListWidth, currentListHeight]);
+  const [isAbove, setIsAbove] = useState<boolean>(false);
+  const [posReady, setPosReady] = useState<boolean>(false);
+  let listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
 
   Keyboard.addListener(
     'keyboardDidShow',
@@ -42,7 +39,10 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
     <Modal
       visible={props.display}
       transparent={true}
-      onRequestClose={props.hide}
+      onRequestClose={() => {
+        setPosReady(false);
+        props.hide();
+      }}
       supportedOrientations={[
         'portrait',
         'portrait-upside-down',
@@ -55,17 +55,22 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
       <TouchableOpacity
         activeOpacity={1}
         style={style.modalBackground}
-        onPress={props.hide}
+        onPress={() => {
+          setPosReady(false);
+          props.hide();
+        }}
       >
         <View
           onLayout={({ nativeEvent }) => {
-            if (currentListWidth === nativeEvent.layout.width
-            && currentListHeight === nativeEvent.layout.height) {
-              setPosReady(true);
-              return;
-            }
             setCurrentListWidth(nativeEvent.layout.width);
             setCurrentListHeight(nativeEvent.layout.height);
+            listBottom = props.selectorRect.y + props.selectorRect.height + nativeEvent.layout.height;
+            const above = listBottom > windowHeight;
+            if (above !== isAbove) {
+              setIsAbove(above);
+            } else {
+              setPosReady(true);
+            }
           }}
           style={[
             style.list,
@@ -85,9 +90,9 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                   maxHeight: props.listHeight,
                   top: keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
                     ? windowHeight - keyboardHeight - currentListHeight - 5
-                    : listBottom < windowHeight
-                    ? props.selectorRect.y + props.selectorRect.height
-                    : props.selectorRect.y - currentListHeight,
+                    : isAbove
+                    ? props.selectorRect.y - currentListHeight
+                    : props.selectorRect.y + props.selectorRect.height,
                   opacity: posReady ? 1 : 0,
                 }
               : {
