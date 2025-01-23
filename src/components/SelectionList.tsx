@@ -65,9 +65,8 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             setCurrentListWidth(nativeEvent.layout.width);
             setCurrentListHeight(nativeEvent.layout.height);
             listBottom = props.selectorRect.y + props.selectorRect.height + nativeEvent.layout.height;
-            const above = listBottom > windowHeight;
-            if (above !== isAbove) {
-              setIsAbove(above);
+            if (listBottom > windowHeight !== isAbove) {
+              setIsAbove(!isAbove);
             } else {
               setPosReady(true);
             }
