@@ -24,6 +24,8 @@ function App(): React.JSX.Element {
   const [searchable, setSearchable] = React.useState(false);
   const onDataSelect = (datum: Data) =>
     setItem(datum.label);
+  const onDataRemove = (datum: Data) =>
+    console.log('removed', datum.label);
   const onMultiDataSelect = (data: Data[]) =>
     setItem(data.map((datum: Data) =>
       datum.label
@@ -65,6 +67,7 @@ function App(): React.JSX.Element {
         <MultiSelect
           data={data}
           onSelect={onMultiDataSelect}
+          onRemove={onDataRemove}
           disabled={disabled}
           searchable={searchable}
         />

@@ -19,10 +19,6 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
     props.data.filter((d: Data) =>
     props.defaultValue?.includes(d))
   );
-  const selectItem = (items: Data[]) => {
-    setSelected(items);
-    props.onSelect(items);
-  };
   const updatePriorities = (data: Data[]) => [
     ...data.filter((d: Data) => d.priority),
     ...data.filter((d: Data) => !d.priority),
@@ -99,8 +95,10 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         }}
         data={updatePriorities(props.data)}
         type="multi"
-        onSelect={selectItem}
+        onSelect={props.onSelect}
+        onRemove={props.onRemove}
         selected={selected}
+        setSelected={setSelected}
         clearSelected={() => setSelected([])}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}

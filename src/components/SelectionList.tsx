@@ -108,14 +108,21 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
               <TouchableOpacity
                 onPress={() => {
                   if (props.type === 'single') {
+                    (props.setSelected as (d: Data) => void)(item);
                     (props.onSelect as (d: Data) => void)(item);
                     props.hide();
                   } else {
-                    const selected = props.selected as Data[],
-                      newSelected = selected.includes(item)
-                        ? selected.filter((d: Data) => d !== item)
-                        : [...selected, item];
-                    (props.onSelect as (d: Data[]) => void)(newSelected);
+                    const selected = props.selected as Data[];
+                    let newSelected: Data[];
+                    if (selected.includes(item)) {
+                      newSelected = selected.filter((d: Data) => d !== item);
+                      if (props.onRemove !== undefined)
+                        props.onRemove(item);
+                    } else {
+                      newSelected = [...selected, item];
+                      (props.onSelect as (d: Data[]) => void)(newSelected);
+                    }
+                    (props.setSelected as (d: Data[]) => void)(newSelected);
                   }
                 }}
                 style={[
