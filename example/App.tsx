@@ -19,17 +19,17 @@ const options: Data[] = [
 ];
 
 function App(): React.JSX.Element {
-  const [selected, setSelected] = React.useState<string | JSX.Element>('');
-  const [removed, setRemoved] = React.useState<string | JSX.Element>('');
+  const [selected, setSelected] = React.useState<string>('');
+  const [removed, setRemoved] = React.useState<string>('');
   const [disabled, setDisabled] = React.useState(false);
   const [searchable, setSearchable] = React.useState(false);
   const onDataSelect = (datum: Data) => {
-    setSelected(datum.label);
+    setSelected(datum.label as string);
     setRemoved('');
   };
   const onDataRemove = (datum: Data) => {
-    setSelected((selected as string).split(', ').filter(item => item !== datum.label).join(', '));
-    setRemoved(datum.label);
+    setSelected(selected.split(', ').filter(item => item !== datum.label).join(', '));
+    setRemoved(removed => removed + (removed.length === 0 ? '' : ', ') + datum.label);
   };
   const onMultiDataSelect = (data: Data[]) => {
     setSelected(data.map(datum => datum.label).join(", "));
