@@ -99,7 +99,12 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         onRemove={props.onRemove}
         selected={selected}
         setSelected={setSelected}
-        clearSelected={() => setSelected([])}
+        clearSelected={() => {
+          for (const item of selected) {
+            props.onRemove?.(item);
+          }
+          setSelected([]);
+        }}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         searchable={!!props.searchable}
