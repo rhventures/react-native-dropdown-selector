@@ -135,12 +135,15 @@ function App(): React.JSX.Element {
             onSelect={(data: Data[]) => {
               if (data.includes(options[0])) {
                 setDisabled(true);
-              } else {
-                setDisabled(false);
               }
               if (data.includes(options[1])) {
                 setSearchable(true);
-              } else {
+              }
+            }}
+            onRemove={(data: Data) => {
+              if (data === options[0]) {
+                setDisabled(false);
+              } else if (data === options[1]) {
                 setSearchable(false);
               }
             }}
