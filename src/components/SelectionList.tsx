@@ -116,8 +116,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                     let newSelected: Data[];
                     if (selected.includes(item)) {
                       newSelected = selected.filter((d: Data) => d !== item);
-                      if (props.onRemove !== undefined)
-                        props.onRemove(item);
+                      props.onRemove?.(item);
                     } else {
                       newSelected = [...selected, item];
                       (props.onSelect as (d: Data[]) => void)(newSelected);
