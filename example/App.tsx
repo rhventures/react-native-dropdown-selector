@@ -19,17 +19,22 @@ const options: Data[] = [
 ];
 
 function App(): React.JSX.Element {
-  const [item, setItem] = React.useState<string | JSX.Element>('');
+  const [selected, setSelected] = React.useState<string | JSX.Element>('');
+  const [removed, setRemoved] = React.useState<string | JSX.Element>('');
   const [disabled, setDisabled] = React.useState(false);
   const [searchable, setSearchable] = React.useState(false);
-  const onDataSelect = (datum: Data) =>
-    setItem(datum.label);
-  const onDataRemove = (datum: Data) =>
-    console.log('removed', datum.label);
-  const onMultiDataSelect = (data: Data[]) =>
-    setItem(data.map((datum: Data) =>
-      datum.label
-    ).join(", "));
+  const onDataSelect = (datum: Data) => {
+    setSelected(datum.label);
+    setRemoved('');
+  };
+  const onDataRemove = (datum: Data) => {
+    setSelected((selected as string).split(', ').filter(item => item !== datum.label).join(', '));
+    setRemoved(datum.label);
+  };
+  const onMultiDataSelect = (data: Data[]) => {
+    setSelected(data.map(datum => datum.label).join(", "));
+    setRemoved('');
+  };
 
   return (
     <>
@@ -42,7 +47,11 @@ function App(): React.JSX.Element {
           disabled={disabled}
           searchable={searchable}
         />
-        <Text>Selected: {item || 'None'} (scroll down)</Text>
+        <Text>
+          Selected: {(selected || 'None')+'\n'}
+          Removed: {(removed || 'None')+'\n'}
+          (scroll down to see more examples)
+        </Text>
         <View style={{ height: 500 }} />
         <Text
           style={{
@@ -106,6 +115,7 @@ function App(): React.JSX.Element {
               <MultiSelect
                 data={data}
                 onSelect={onMultiDataSelect}
+                onRemove={onDataRemove}
                 disabled={disabled}
                 searchable={searchable}
               />
@@ -114,6 +124,7 @@ function App(): React.JSX.Element {
               <MultiSelect
                 data={data}
                 onSelect={onMultiDataSelect}
+                onRemove={onDataRemove}
                 disabled={disabled}
                 searchable={searchable}
               />
@@ -122,6 +133,7 @@ function App(): React.JSX.Element {
               <MultiSelect
                 data={data}
                 onSelect={onMultiDataSelect}
+                onRemove={onDataRemove}
                 disabled={disabled}
                 searchable={searchable}
               />
@@ -234,6 +246,7 @@ function App(): React.JSX.Element {
         <MultiSelect
           data={data}
           onSelect={onMultiDataSelect}
+          onRemove={onDataRemove}
           disabled={disabled}
           searchable={searchable}
           defaultValue={data}
