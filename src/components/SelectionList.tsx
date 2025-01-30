@@ -13,7 +13,7 @@ import { useThemeStyles } from '../styles';
 import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
-const SelectionList = (props: ListProperties & { theme?: 'dark' | 'light' | 'system' }): React.JSX.Element => {
+const SelectionList = (props: ListProperties): React.JSX.Element => {
   const style = useThemeStyles(props.theme ?? 'system');
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
@@ -87,14 +87,14 @@ const SelectionList = (props: ListProperties & { theme?: 'dark' | 'light' | 'sys
                   borderBottomRightRadius: 0,
                 },
           ]}
-        > 
+        >
           {props.searchable &&
             <TextInput
               placeholder='Search'
               style={[style.searchBox, props.styles.searchBox]}
               placeholderTextColor={style.searchBox.color}
-              onChangeText={(input: string) => 
-                setEntries(props.data.filter((data: Data) => 
+              onChangeText={(input: string) =>
+                setEntries(props.data.filter((data: Data) =>
                   typeof data.label === 'string' &&
                   data.label.toLowerCase().includes(input.toLowerCase())
               ))}
@@ -154,7 +154,7 @@ const SelectionList = (props: ListProperties & { theme?: 'dark' | 'light' | 'sys
                     top: 40,
                     right: 10,
                   }
-              
+
             ]}
           >
             <TouchableOpacity

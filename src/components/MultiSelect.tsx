@@ -5,7 +5,7 @@ import type { Data, SelectorRect, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
-const MultiSelect = (props: MultiSelectProperties & { theme?: 'dark' | 'light' | 'system' }): React.JSX.Element => {
+const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
   const style = useThemeStyles(props.theme ?? 'system');
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);

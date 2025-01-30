@@ -36,6 +36,7 @@ export interface ListProperties {
   searchable: boolean;
   hide: () => void;
   selectorRect: SelectorRect;
+  theme?: 'light' | 'dark' | 'system';
 }
 
 export interface MultiSelectProperties {
