@@ -8,7 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  useColorScheme
+  useColorScheme,
 } from 'react-native';
 import styles from '../styles';
 import type { Data, ListProperties } from '../types';
@@ -22,16 +22,13 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const [entries, setEntries] = useState<Data[]>(props.data);
   const [currentListWidth, setCurrentListWidth] = useState<number>(0);
   const [currentListHeight, setCurrentListHeight] = useState<number>(0);
-  const listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
+  const listBottom =
+    props.selectorRect.y + props.selectorRect.height + currentListHeight;
 
-  Keyboard.addListener(
-    'keyboardDidShow',
-    () => setKeyboardHeight(Keyboard.metrics()?.height ?? 0)
+  Keyboard.addListener('keyboardDidShow', () =>
+    setKeyboardHeight(Keyboard.metrics()?.height ?? 0)
   );
-  Keyboard.addListener(
-    'keyboardDidHide',
-    () => setKeyboardHeight(0)
-  );
+  Keyboard.addListener('keyboardDidHide', () => setKeyboardHeight(0));
 
   return (
     <Modal
@@ -62,22 +59,29 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             props.styles.list,
             windowHeight > windowWidth
               ? {
-                  left: props.styles.list?.alignSelf === 'center'
-                    ? 0
-                    : props.styles.list?.width
-                    ? props.selectorRect.x
-                      + (typeof props.selectorRect.width === 'string'
-                        ? Number(props.selectorRect.width.slice(0, -1)) * windowWidth
-                        : props.selectorRect.width
-                        - currentListWidth) / 2
-                    : props.selectorRect.x,
-                  width: props.styles.list?.width ?? props.selectorRect.width,
+                  left:
+                    props.styles.list?.alignSelf === 'center'
+                      ? 0
+                      : props.styles.list?.width
+                        ? props.selectorRect.x +
+                          (typeof props.selectorRect.width === 'string'
+                            ? Number(props.selectorRect.width.slice(0, -1)) *
+                              windowWidth
+                            : (props.selectorRect.width - currentListWidth) / 2)
+                        : props.selectorRect.x,
+                  width:
+                    typeof props.selectorRect.width === 'string'
+                      ? (parseFloat(props.selectorRect.width) * windowWidth) /
+                        100
+                      : (props.selectorRect.width ?? '100%'),
                   maxHeight: props.listHeight,
-                  top: keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
-                    ? windowHeight - keyboardHeight - currentListHeight - 5
-                    : listBottom < windowHeight
-                    ? props.selectorRect.y + props.selectorRect.height
-                    : props.selectorRect.y - currentListHeight,
+                  top:
+                    keyboardHeight > 0 &&
+                    listBottom > windowHeight - keyboardHeight
+                      ? windowHeight - keyboardHeight - currentListHeight - 5
+                      : listBottom < windowHeight
+                        ? props.selectorRect.y + props.selectorRect.height
+                        : props.selectorRect.y - currentListHeight,
                 }
               : {
                   height: windowHeight - 40,
@@ -88,19 +92,23 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                   borderBottomRightRadius: 0,
                 },
           ]}
-        > 
-          {props.searchable &&
+        >
+          {props.searchable && (
             <TextInput
-              placeholder='Search'
+              placeholder="Search"
               style={[style.searchBox, props.styles.searchBox]}
-              onChangeText={(input: string) => 
-                setEntries(props.data.filter((data: Data) => 
-                  typeof data.label === 'string' &&
-                  data.label.toLowerCase().includes(input.toLowerCase())
-              ))}
+              onChangeText={(input: string) =>
+                setEntries(
+                  props.data.filter(
+                    (data: Data) =>
+                      typeof data.label === 'string' &&
+                      data.label.toLowerCase().includes(input.toLowerCase())
+                  )
+                )
+              }
               onLayout={() => setEntries(props.data)}
             />
-          }
+          )}
           <FlatList
             data={entries}
             style={windowWidth > windowHeight && { marginBottom: 20 }}
@@ -122,11 +130,10 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                   style.item,
                   (props.type === 'single'
                     ? props.selected === item
-                    : (props.selected as Data[]).includes(item))
-                    && [
-                      style.itemSelected,
-                      props.styles.itemSelected,
-                    ],
+                    : (props.selected as Data[]).includes(item)) && [
+                    style.itemSelected,
+                    props.styles.itemSelected,
+                  ],
                 ]}
               >
                 <Text style={[style.text, props.styles.text]}>
@@ -136,30 +143,31 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             )}
           />
         </View>
-        {props.type === 'multi' && (props.selected as Data[]).length > 0 &&
+        {props.type === 'multi' && (props.selected as Data[]).length > 0 && (
           <View
             style={[
               style.clearButton,
               props.styles.clearButton,
               windowHeight > windowWidth
                 ? {
-                    top: listBottom < windowHeight
-                      ? props.selectorRect.y - 40
-                      : props.selectorRect.y + props.selectorRect.height,
+                    top:
+                      listBottom < windowHeight
+                        ? props.selectorRect.y - 40
+                        : props.selectorRect.y + props.selectorRect.height,
                     left: props.selectorRect.x - 40,
-                    marginLeft: props.selectorRect.width,
+                    marginLeft:
+                      typeof props.selectorRect.width === 'number'
+                        ? props.selectorRect.width
+                        : 0,
                     opacity: keyboardHeight > 0 ? 0 : 1,
                   }
                 : {
                     top: 40,
                     right: 10,
-                  }
-              
+                  },
             ]}
           >
-            <TouchableOpacity
-              onPress={props.clearSelected}
-            >
+            <TouchableOpacity onPress={props.clearSelected}>
               <Text
                 style={{
                   ...style.clearIcon,
@@ -170,7 +178,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
               </Text>
             </TouchableOpacity>
           </View>
-        }
+        )}
       </TouchableOpacity>
     </Modal>
   );

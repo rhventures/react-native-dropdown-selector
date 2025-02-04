@@ -7,7 +7,7 @@ import SelectionList from './SelectionList';
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
 const Select = (props: SelectProperties): React.JSX.Element => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
-  const ref = useRef<TouchableOpacity>(null);
+  const ref = useRef<React.ElementRef<typeof TouchableOpacity>>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
   const [refRect, setRefRect] = useState<SelectorRect>({
     x: 0,
@@ -18,22 +18,22 @@ const Select = (props: SelectProperties): React.JSX.Element => {
   const [selected, setSelected] = useState<Data>(
     props.defaultValue && props.data.includes(props.defaultValue)
       ? props.defaultValue
-      : {label: props.placeholderText ?? 'Click me'}
+      : { label: props.placeholderText ?? 'Click me' }
   );
-  const selectItem = (item: Data) => {
+  const selectItem = (item: Data): void => {
     setSelected(item);
     props.onSelect(item);
   };
-  const updatePriorities = (data: Data[]) => [
+  const updatePriorities = (data: Data[]): Data[] => [
     ...data.filter((d: Data) => d.priority),
     ...data.filter((d: Data) => !d.priority),
   ];
-  const updatePos = () =>
+  const updatePos = (): void =>
     ref.current?.measureInWindow((x, y, width, height) => {
       setRefRect({
-        x: x,
+        x,
         y: y - 5,
-        width: props.boxStyle?.width ?? width,
+        width: (props.boxStyle?.width as number) ?? width,
         height: height + 10,
       });
       setListDisplay(true);
@@ -46,15 +46,13 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         style={[
           style.selectorBox,
           props.boxStyle,
-          {opacity: props.disabled ? .5 : 1},
+          { opacity: props.disabled ? 0.5 : 1 },
         ]}
         disabled={props.disabled}
         onPress={updatePos}
         ref={ref}
       >
-        <Text
-          style={[style.selectorText, props.boxTextStyle]}
-        >
+        <Text style={[style.selectorText, props.boxTextStyle]}>
           {selected.label}
         </Text>
         <Text

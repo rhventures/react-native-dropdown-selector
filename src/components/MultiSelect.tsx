@@ -7,7 +7,7 @@ import SelectionList from './SelectionList';
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
 const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
   const style = styles[useColorScheme() === 'dark' ? 1 : 0];
-  const ref = useRef<TouchableOpacity>(null);
+  const ref = useRef<React.ElementRef<typeof TouchableOpacity>>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
   const [refRect, setRefRect] = useState<SelectorRect>({
     x: 0,
@@ -15,29 +15,33 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
     width: 0,
     height: 0,
   });
+
   const [selected, setSelected] = useState<Data[]>(
-    props.data.filter((d: Data) =>
-    props.defaultValue?.includes(d))
+    props.data.filter((d: Data) => props.defaultValue?.includes(d))
   );
-  const selectItem = (items: Data[]) => {
+
+  const selectItem = (items: Data[]): void => {
     setSelected(items);
     props.onSelect(items);
   };
-  const updatePriorities = (data: Data[]) => [
+
+  const updatePriorities = (data: Data[]): Data[] => [
     ...data.filter((d: Data) => d.priority),
     ...data.filter((d: Data) => !d.priority),
   ];
-  const updatePos = (display = false) =>
-    ref.current?.measureInWindow((x, y, width, height) => {
-      setRefRect({
-        x: x,
-        y: y - 5,
-        width: props.boxStyle?.width ?? width,
-        height: height + 10,
-      });
-      if (display)
-        setListDisplay(true);
-    });
+
+  const updatePos = (display = false): void =>
+    ref.current?.measureInWindow(
+      (x: number, y: number, width: number, height: number) => {
+        setRefRect({
+          x,
+          y: y - 5,
+          width: (props.boxStyle?.width as number) ?? width,
+          height: height + 10,
+        });
+        if (display) setListDisplay(true);
+      }
+    );
 
   return (
     <View>
@@ -46,39 +50,38 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         style={[
           style.selectorBox,
           props.boxStyle,
-          {opacity: props.disabled ? .5 : 1},
+          { opacity: props.disabled ? 0.5 : 1 },
         ]}
         disabled={props.disabled}
         onPress={() => updatePos(true)}
         ref={ref}
         onLayout={() => updatePos()}
       >
-        {selected.length > 0
-          ? selected.map((data) =>
-              <View
-                key={data.label as string}
-                style={[
-                  style.selectedInMultiHighlight,
-                  props.boxTextHighlightStyle,
-                ]}
-              >
-                <Text
-                  style={{
-                    ...style.selectorText,
-                    marginVertical: 0,
-                    ...props.boxTextStyle,
-                  }}
-                >
-                  {data.label}
-                </Text>
-              </View>
-            )
-          : <Text
-              style={[style.selectorText, props.boxTextStyle]}
+        {selected.length > 0 ? (
+          selected.map((data) => (
+            <View
+              key={data.label as string}
+              style={[
+                style.selectedInMultiHighlight,
+                props.boxTextHighlightStyle,
+              ]}
             >
-              {props.placeholderText ?? 'Click me'}
-            </Text>
-        }
+              <Text
+                style={{
+                  ...style.selectorText,
+                  marginVertical: 0,
+                  ...props.boxTextStyle,
+                }}
+              >
+                {data.label}
+              </Text>
+            </View>
+          ))
+        ) : (
+          <Text style={[style.selectorText, props.boxTextStyle]}>
+            {props.placeholderText ?? 'Click me'}
+          </Text>
+        )}
         <Text
           style={{
             ...style.arrow,
