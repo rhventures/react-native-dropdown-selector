@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, View, Button } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { MultiSelect, Select, type Data } from '@rose-hulman/react-native-dropdown-selector';
 
 const data: Data[] = [
@@ -18,6 +18,12 @@ const options: Data[] = [
   { label: 'Searchable' },
 ];
 
+const themes: Data[] = [
+  { label: 'light' },
+  { label: 'dark' },
+  { label: 'system' },
+];
+
 function App(): React.JSX.Element {
   const [item, setItem] = React.useState<string | JSX.Element>('');
   const [disabled, setDisabled] = React.useState(false);
@@ -29,18 +35,14 @@ function App(): React.JSX.Element {
     setItem(data.map((datum: Data) =>
       datum.label
     ).join(", "));
+  const onThemeSelect = (datum: Data) =>
+    setTheme(datum.label as 'light' | 'dark' | 'system');
 
   return (
     <>
       <View style={{ height: 40 }} />
       <ScrollView style={{ paddingHorizontal: 8 }}>
         <View style={{ height: 40 }} />
-        <Text style={{ fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>Theme Selector</Text>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 16 }}>
-          <Button title="Light Theme" onPress={() => setTheme('light')} />
-          <Button title="Dark Theme" onPress={() => setTheme('dark')} />
-          <Button title="System Theme" onPress={() => setTheme('system')} />
-        </View>
         <Select
           data={data}
           onSelect={onDataSelect}
@@ -110,7 +112,7 @@ function App(): React.JSX.Element {
           </View>
         </View>
         <Text>Multi Selects:</Text>
-        <View style={{ height: 400 }}>
+        <View style={{ height: 350 }}>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1 }}>
               <MultiSelect
@@ -160,6 +162,19 @@ function App(): React.JSX.Element {
             placeholderText='Selector Settings'
             theme={theme}
           />
+        </View>
+        <View style={{ height: 200 }}>
+          <Select
+            data={themes}
+            onSelect={onThemeSelect}
+            disabled={disabled}
+            searchable={searchable}
+            placeholderText={`Select a theme`}
+            theme={theme}
+          />
+          <Text style={{ textAlign: 'center'}}>
+            Select a theme to see all the dropdowns change! Current theme is "{theme}"
+          </Text>
         </View>
         <Text>Styled Single Select:</Text>
         <Select
