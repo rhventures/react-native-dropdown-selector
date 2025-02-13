@@ -51,6 +51,6 @@ export const Searchable: Story = {
 
 export const WithPreselectedOption: Story = {
   args: {
-    defaultValue: { label: 'Option 2' },
+    defaultValue: data[3],
   },
 };
