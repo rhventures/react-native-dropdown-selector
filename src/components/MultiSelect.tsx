@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
-import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
-import styles from '../styles';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { useThemeStyles } from '../styles';
 import type { Data, SelectorRect, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
 const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
-  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
+  const style = useThemeStyles(props.theme ?? 'system');
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
   const [refRect, setRefRect] = useState<SelectorRect>({
@@ -105,6 +105,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         searchable={!!props.searchable}
         hide={() => setListDisplay(false)}
         selectorRect={refRect}
+        theme={props.theme}
       />
     </View>
   );

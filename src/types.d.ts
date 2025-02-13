@@ -38,6 +38,7 @@ export interface ListProperties {
   searchable: boolean;
   hide: () => void;
   selectorRect: SelectorRect;
+  theme?: 'light' | 'dark' | 'system';
 }
 
 export interface MultiSelectProperties {
@@ -59,6 +60,7 @@ export interface MultiSelectProperties {
   clearButtonStyle?: ViewStyle;
   clearButtonIconColor?: ColorValue;
   searchBoxStyle?: TextStyle & ViewStyle;
+  theme?: 'light' | 'dark' | 'system';
 }
 
 export interface SelectProperties {
@@ -76,4 +78,5 @@ export interface SelectProperties {
   selectedItemStyle?: TextStyle;
   dropdownArrowColor?: ColorValue;
   searchBoxStyle?: TextStyle & ViewStyle;
+  theme?: 'light' | 'dark' | 'system';
 }
