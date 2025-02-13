@@ -7,15 +7,14 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View,
-  useColorScheme
+  View
 } from 'react-native';
-import styles from '../styles';
+import { useThemeStyles } from '../styles';
 import type { Data, ListProperties } from '../types';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): React.JSX.Element => {
-  const style = styles[useColorScheme() === 'dark' ? 1 : 0];
+  const style = useThemeStyles(props.theme ?? 'system');
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
   const [keyboardHeight, setKeyboardHeight] = useState<number>(0);
@@ -88,13 +87,14 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                   borderBottomRightRadius: 0,
                 },
           ]}
-        > 
+        >
           {props.searchable &&
             <TextInput
               placeholder='Search'
               style={[style.searchBox, props.styles.searchBox]}
-              onChangeText={(input: string) => 
-                setEntries(props.data.filter((data: Data) => 
+              placeholderTextColor={style.searchBox.color}
+              onChangeText={(input: string) =>
+                setEntries(props.data.filter((data: Data) =>
                   typeof data.label === 'string' &&
                   data.label.toLowerCase().includes(input.toLowerCase())
               ))}
@@ -160,7 +160,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                     top: 40,
                     right: 10,
                   }
-              
+
             ]}
           >
             <TouchableOpacity

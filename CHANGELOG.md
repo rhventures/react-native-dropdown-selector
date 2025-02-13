@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Selectors are now able to have a search bar via providing a boolean prop ([#27](https://github.com/rhventures/react-native-dropdown-selector/pull/27)).
 - Add a plain multi selector to example app that toggles the `disabled` and `searchable` prop in all other selectors ([#28](https://github.com/rhventures/react-native-dropdown-selector/pull/28)).
 - Add pre-commit hooks to ensure code quality ([#53](https://github.com/rhventures/react-native-dropdown-selector/pull/53)).
+- Added a new string prop `theme` to allow explicit customization of `Select` and `MultiSelect` components. Options are `system`, `light`, and `dark` ([#55](https://github.com/rhventures/react-native-dropdown-selector/pull/55)).
 
 ### Changed
 
