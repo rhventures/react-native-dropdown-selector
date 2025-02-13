@@ -2,6 +2,7 @@ import {
   type ColorValue,
   type TextStyle,
   type ViewStyle,
+  type NativeScrollRectangle,
 } from 'react-native';
 
 export interface Data {

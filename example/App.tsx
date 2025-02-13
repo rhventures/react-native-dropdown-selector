@@ -220,6 +220,20 @@ function App(): React.JSX.Element {
             borderLeftWidth: 4,
             borderRightWidth: 4,
             borderTopWidth: 8,
+            borderBottomWidth: 1,
+            height: 250,
+            width: '50%',
+          }}
+          listTextStyle={{
+            backgroundColor: '#abc',
+            borderTopRightRadius: 16,
+            borderBottomRightRadius: 34,
+            borderTopLeftRadius: 34,
+            borderBottomLeftRadius: 16,
+            borderColor: 'darkgreen',
+            borderLeftWidth: 4,
+            borderRightWidth: 4,
+            borderTopWidth: 8,
             borderBottomWidth: 2,
             width: '50%',
           }}
@@ -258,6 +272,83 @@ function App(): React.JSX.Element {
         <Text>Styled Multi Select:</Text>
         <MultiSelect
           data={data}
+          onSelect={console.log}
+          defaultValue={data}
+          listHeight={300}
+          placeholderText='I am very stylish'
+          boxStyle={{
+            alignSelf: 'center',
+            backgroundColor: '#48c',
+            borderTopRightRadius: 34,
+            borderBottomRightRadius: 16,
+            borderTopLeftRadius: 16,
+            borderBottomLeftRadius: 34,
+            borderColor: 'darkgreen',
+            borderLeftWidth: 2,
+            borderRightWidth: 2,
+            borderTopWidth: 1,
+            borderBottomWidth: 4,
+            width: 300,
+          }}
+          boxTextStyle={{
+            color: 'limegreen',
+            fontFamily: 'courier new',
+            fontSize: 24,
+            fontStyle: 'italic',
+            fontWeight: 'bold',
+            paddingHorizontal: 8,
+            textShadowColor: 'brown',
+            textShadowOffset: { width: -2, height: 2 },
+            textShadowRadius: 4,
+          }}
+          boxTextHighlightStyle={{
+            backgroundColor: 'darkgreen',
+            borderColor: '#abc',
+            borderLeftWidth: 4,
+            borderRightWidth: 4,
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 20,
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 10,
+            paddingHorizontal: 2,
+          }}
+          listStyle={{
+            backgroundColor: '#abc',
+            borderTopRightRadius: 16,
+            borderBottomRightRadius: 34,
+            borderTopLeftRadius: 34,
+            borderBottomLeftRadius: 16,
+            borderColor: 'darkgreen',
+            borderLeftWidth: 4,
+            borderRightWidth: 4,
+            borderTopWidth: 8,
+            borderBottomWidth: 1,
+            height: 250,
+            width: '50%',
+          }}
+          listTextStyle={{
+            alignSelf: 'center',
+            color: 'brown',
+            fontFamily: 'times new roman',
+            fontSize: 20,
+          }}
+          selectedItemStyle={{
+            backgroundColor: 'limegreen',
+            borderTopColor: 'darkgreen',
+            borderBottomColor: 'darkgreen',
+            borderTopWidth: 2,
+            borderBottomWidth: 2,
+          }}
+          dropdownArrowColor='darkgreen'
+          clearButtonStyle={{
+            backgroundColor: 'darkgreen',
+            borderTopLeftRadius: 34,
+            borderBottomRightRadius: 34,
+            borderTopRightRadius: 6,
+            borderBottomLeftRadius: 6,
+            borderColor: 'darkgreen'
+          }}
+          clearButtonIconColor='#abc'
           onSelect={onMultiDataSelect}
           disabled={disabled}
           searchable={searchable}
@@ -353,7 +444,7 @@ function App(): React.JSX.Element {
             paddingTop: 14,
           }}
         />
-        <View style={{ height: 700 }} />
+        <View style={{ height: 400 }} />
       </ScrollView>
     </>
   );
