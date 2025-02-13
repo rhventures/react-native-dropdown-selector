@@ -18,16 +18,25 @@ const options: Data[] = [
   { label: 'Searchable' },
 ];
 
+const themes: Data[] = [
+  { label: 'light' },
+  { label: 'dark' },
+  { label: 'system' },
+];
+
 function App(): React.JSX.Element {
   const [item, setItem] = React.useState<string | JSX.Element>('');
   const [disabled, setDisabled] = React.useState(false);
   const [searchable, setSearchable] = React.useState(false);
+  const [theme, setTheme] = React.useState<'light' | 'dark' | 'system'>('system');
   const onDataSelect = (datum: Data) =>
     setItem(datum.label);
   const onMultiDataSelect = (data: Data[]) =>
     setItem(data.map((datum: Data) =>
       datum.label
     ).join(", "));
+  const onThemeSelect = (datum: Data) =>
+    setTheme(datum.label as 'light' | 'dark' | 'system');
 
   return (
     <>
@@ -39,6 +48,7 @@ function App(): React.JSX.Element {
           onSelect={onDataSelect}
           disabled={disabled}
           searchable={searchable}
+          theme={theme}
         />
         <Text>Selected: {item || 'None'} (scroll down)</Text>
         <View style={{ height: 500 }} />
@@ -57,6 +67,7 @@ function App(): React.JSX.Element {
           disabled={disabled}
           searchable={searchable}
           placeholderText="Select an item"
+          theme={theme}
           boxStyle={{
             alignSelf: 'center',
             width: 200,
@@ -67,6 +78,7 @@ function App(): React.JSX.Element {
           onSelect={onMultiDataSelect}
           disabled={disabled}
           searchable={searchable}
+          theme={theme}
         />
         <View style={{ height: 400 }}/>
         <Text>Single Selects:</Text>
@@ -77,6 +89,7 @@ function App(): React.JSX.Element {
               onSelect={onDataSelect}
               disabled={disabled}
               searchable={searchable}
+              theme={theme}
             />
           </View>
           <View style={{ flex: 1 }}>
@@ -85,6 +98,7 @@ function App(): React.JSX.Element {
               onSelect={onDataSelect}
               disabled={disabled}
               searchable={searchable}
+              theme={theme}
             />
           </View>
           <View style={{ flex: 1 }}>
@@ -93,11 +107,12 @@ function App(): React.JSX.Element {
               onSelect={onDataSelect}
               disabled={disabled}
               searchable={searchable}
+              theme={theme}
             />
           </View>
         </View>
         <Text>Multi Selects:</Text>
-        <View style={{ height: 400 }}>
+        <View style={{ height: 350 }}>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1 }}>
               <MultiSelect
@@ -105,6 +120,7 @@ function App(): React.JSX.Element {
                 onSelect={onMultiDataSelect}
                 disabled={disabled}
                 searchable={searchable}
+                theme={theme}
               />
             </View>
             <View style={{ flex: 1 }}>
@@ -113,6 +129,7 @@ function App(): React.JSX.Element {
                 onSelect={onMultiDataSelect}
                 disabled={disabled}
                 searchable={searchable}
+                theme={theme}
               />
             </View>
             <View style={{ flex: 1 }}>
@@ -121,6 +138,7 @@ function App(): React.JSX.Element {
                 onSelect={onMultiDataSelect}
                 disabled={disabled}
                 searchable={searchable}
+                theme={theme}
               />
             </View>
           </View>
@@ -142,8 +160,21 @@ function App(): React.JSX.Element {
               }
             }}
             placeholderText='Selector Settings'
-
+            theme={theme}
           />
+        </View>
+        <View style={{ height: 200 }}>
+          <Select
+            data={themes}
+            onSelect={onThemeSelect}
+            disabled={disabled}
+            searchable={searchable}
+            placeholderText={`Select a theme`}
+            theme={theme}
+          />
+          <Text style={{ textAlign: 'center'}}>
+            Select a theme to see all the dropdowns change! Current theme is "{theme}"
+          </Text>
         </View>
         <Text>Styled Single Select:</Text>
         <Select
