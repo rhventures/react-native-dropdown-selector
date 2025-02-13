@@ -4,7 +4,9 @@
   "description": "A react native component for creating dropdown lists",
   "main": "index.tsx",
   "scripts": {
-    "build-dev": "npm pack"
+    "build-dev": "npm pack",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "repository": {
     "type": "git",
@@ -16,33 +18,6 @@
     "url": "https://github.com/rhventures/react-native-dropdown-selector/issues"
   },
   "homepage": "https://github.com/rhventures/react-native-dropdown-selector#readme",
-  "peerDependencies": {
-    "@tsconfig/react-native": "^2.0.3",
-    "@types/react": "^18.2.7",
-    "react": "^18.2.0",
-    "react-native": "^0.71.19"
-  },
-  "devDependencies": {
-    "@tsconfig/react-native": "^3.0.2",
-    "@types/jest": "^29.5.2",
-    "@types/react": "^18.2.9",
-    "@types/react-test-renderer": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.59.9",
-    "eslint": "^8.42.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-config-standard-with-typescript": "^35.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.7.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-native": "^4.0.0",
-    "metro-react-native-babel-preset": "0.73.9",
-    "typescript": "^5.1.3"
-  },
-  "dependencies": {
-    "cocoapods": "^0.0.0"
-  },
   "directories": {
     "doc": "docs",
     "example": "example"
@@ -50,5 +25,50 @@
   "keywords": [
     "react-native",
     "dropdown"
-  ]
+  ],
+  "dependencies": {
+    "cocoapods": "^0.0.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
+    "@chromatic-com/storybook": "^3.2.4",
+    "@storybook/addon-actions": "^8.5.0",
+    "@storybook/addon-essentials": "^8.5.0",
+    "@storybook/addon-interactions": "^8.5.0",
+    "@storybook/addon-knobs": "^8.0.1",
+    "@storybook/addon-onboarding": "^8.5.0",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
+    "@storybook/addon-webpack5-compiler-swc": "^2.0.0",
+    "@storybook/blocks": "^8.5.0",
+    "@storybook/react": "^8.5.0",
+    "@storybook/react-webpack5": "^8.5.0",
+    "@storybook/test": "^8.5.0",
+    "@tsconfig/react-native": "^3.0.5",
+    "@types/jest": "^29.5.14",
+    "@types/react-test-renderer": "^19.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-promise": "^6.6.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-native": "^5.0.0",
+    "eslint-plugin-storybook": "^0.11.2",
+    "metro-react-native-babel-preset": "^0.77.0",
+    "react-native-web": "^0.19.13",
+    "storybook": "^8.5.0",
+    "typescript": "^5.7.3"
+  },
+  "peerDependencies": {
+    "@tsconfig/react-native": "^3.0.5",
+    "@types/react": "^18.3.18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-native": "^0.77.0"
+  }
 }

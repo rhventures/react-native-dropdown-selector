@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
     'react-native/react-native': true,
   },
-  extends: ['standard-with-typescript', 'plugin:react/recommended', 'prettier'],
+  extends: ['standard-with-typescript', 'plugin:react/recommended', 'prettier', 'plugin:storybook/recommended'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
