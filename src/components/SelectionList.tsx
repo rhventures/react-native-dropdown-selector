@@ -26,6 +26,15 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const [posReady, setPosReady] = useState<boolean>(false);
   let listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
 
+  const updateListState = (listHeight: number) => {
+    listBottom = props.selectorRect.y + props.selectorRect.height + listHeight;
+    if (listBottom > windowHeight !== isAbove) {
+      setIsAbove(!isAbove);
+    } else {
+      setPosReady(true);
+    }
+  }
+
   Keyboard.addListener(
     'keyboardDidShow',
     () => setKeyboardHeight(Keyboard.metrics()?.height ?? 0)
@@ -64,12 +73,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
           onLayout={({ nativeEvent }) => {
             setCurrentListWidth(nativeEvent.layout.width);
             setCurrentListHeight(nativeEvent.layout.height);
-            listBottom = props.selectorRect.y + props.selectorRect.height + nativeEvent.layout.height;
-            if (listBottom > windowHeight !== isAbove) {
-              setIsAbove(!isAbove);
-            } else {
-              setPosReady(true);
-            }
+            updateListState(nativeEvent.layout.height);
           }}
           style={[
             style.list,
