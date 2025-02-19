@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Selectors are now able to be disabled via providing a boolean prop ([#25](https://github.com/rhventures/react-native-dropdown-selector/pull/25)).
 - Selectors are now able to have a search bar via providing a boolean prop ([#27](https://github.com/rhventures/react-native-dropdown-selector/pull/27)).
 - Add a plain multi selector to example app that toggles the `disabled` and `searchable` prop in all other selectors ([#28](https://github.com/rhventures/react-native-dropdown-selector/pull/28)).
+- Add pre-commit hooks to ensure code quality ([#53](https://github.com/rhventures/react-native-dropdown-selector/pull/53)).
+- Added a new string prop `theme` to allow explicit customization of `Select` and `MultiSelect` components. Options are `system`, `light`, and `dark` ([#55](https://github.com/rhventures/react-native-dropdown-selector/pull/55)).
 
 ### Changed
 
@@ -24,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Content inside the dropdown list will now be cut off if it extends beyond the dropdown list boundaries ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
 - Technical detailes from README is now moved to GitHub Wiki ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
 - Old screenshots of the example app are replaced by new ones ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
+- Cleanup npm packages in preparation for a 0.2.0 release. ([#67](https://github.com/rhventures/react-native-dropdown-selector/pull/67))
 
 ### Removed
 
