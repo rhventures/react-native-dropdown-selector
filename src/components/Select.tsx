@@ -20,10 +20,6 @@ const Select = (props: SelectProperties): React.JSX.Element => {
       ? props.defaultValue
       : {label: props.placeholderText ?? 'Click me'}
   );
-  const selectItem = (item: Data) => {
-    setSelected(item);
-    props.onSelect(item);
-  };
   const updatePriorities = (data: Data[]) => [
     ...data.filter((d: Data) => d.priority),
     ...data.filter((d: Data) => !d.priority),
@@ -75,8 +71,9 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         }}
         data={updatePriorities(props.data)}
         type="single"
-        onSelect={selectItem}
+        onSelect={props.onSelect}
         selected={selected}
+        setSelected={setSelected}
         listHeight={props.listHeight ?? 200}
         display={listDisplay}
         searchable={!!props.searchable}

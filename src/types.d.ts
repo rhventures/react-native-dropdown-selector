@@ -29,7 +29,9 @@ export interface ListProperties {
   data: Data[];
   type: 'single' | 'multi';
   onSelect: ((e: Data) => void) | ((e: Data[]) => void);
+  onRemove?: (e: Data) => void;
   selected: Data[] | Data;
+  setSelected: ((e: Data) => void) | ((e: Data[]) => void);
   clearSelected?: () => void;
   listHeight: number;
   display: boolean;
@@ -42,6 +44,7 @@ export interface ListProperties {
 export interface MultiSelectProperties {
   data: Data[];
   onSelect: (e: Data[]) => void;
+  onRemove?: (e: Data) => void;
   defaultValue?: Data[];
   disabled?: boolean;
   listHeight?: number;
