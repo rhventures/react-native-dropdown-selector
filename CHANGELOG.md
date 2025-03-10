@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The clear button for multi select no longer blocks the dropdown list in landscape mode ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
 - Setting a default value for multi select now works as intended ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
 - The dropdown list now move above the selector box based on current dropdown list height, not max height ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
+- The styling of the example app's background and text now update dynamically based on light/dark mode. ([#69](https://github.com/rhventures/react-native-dropdown-selector/pull/69))
 
 ## [0.1.0] - 2024-06-28
 
