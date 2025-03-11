@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Technical detailes from README is now moved to GitHub Wiki ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
 - Old screenshots of the example app are replaced by new ones ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
 - The `onRemove` prop is added to the selector components to be triggered when items are removed, rather than triggering `onSelect` ([#60](https://github.com/rhventures/react-native-dropdown-selector/pull/60)).
+- Cleanup npm packages in preparation for a 0.2.0 release. ([#67](https://github.com/rhventures/react-native-dropdown-selector/pull/67))
 
 ### Removed
 
