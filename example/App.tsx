@@ -90,7 +90,6 @@ function App(): React.JSX.Element {
         <MultiSelect
           data={data}
           onSelect={onSimpleMultiDataSelect}
-          onRemove={onDataRemove}
           disabled={disabled}
           searchable={searchable}
           theme={theme}
