@@ -21,7 +21,18 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const [entries, setEntries] = useState<Data[]>(props.data);
   const [currentListWidth, setCurrentListWidth] = useState<number>(0);
   const [currentListHeight, setCurrentListHeight] = useState<number>(0);
-  const listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
+  const [isAbove, setIsAbove] = useState<boolean>(false);
+  const [posReady, setPosReady] = useState<boolean>(false);
+  let listBottom = props.selectorRect.y + props.selectorRect.height + currentListHeight;
+
+  const updateListState = (listHeight: number) => {
+    listBottom = props.selectorRect.y + props.selectorRect.height + listHeight;
+    if (listBottom > windowHeight !== isAbove) {
+      setIsAbove(!isAbove);
+    } else {
+      setPosReady(true);
+    }
+  }
 
   Keyboard.addListener(
     'keyboardDidShow',
@@ -36,7 +47,10 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
     <Modal
       visible={props.display}
       transparent={true}
-      onRequestClose={props.hide}
+      onRequestClose={() => {
+        setPosReady(false);
+        props.hide();
+      }}
       supportedOrientations={[
         'portrait',
         'portrait-upside-down',
@@ -49,12 +63,16 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
       <TouchableOpacity
         activeOpacity={1}
         style={style.modalBackground}
-        onPress={props.hide}
+        onPress={() => {
+          setPosReady(false);
+          props.hide();
+        }}
       >
         <View
           onLayout={({ nativeEvent }) => {
             setCurrentListWidth(nativeEvent.layout.width);
             setCurrentListHeight(nativeEvent.layout.height);
+            updateListState(nativeEvent.layout.height);
           }}
           style={[
             style.list,
@@ -74,9 +92,10 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                   maxHeight: props.listHeight,
                   top: keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
                     ? windowHeight - keyboardHeight - currentListHeight - 5
-                    : listBottom < windowHeight
-                    ? props.selectorRect.y + props.selectorRect.height
-                    : props.selectorRect.y - currentListHeight,
+                    : isAbove
+                    ? props.selectorRect.y - currentListHeight
+                    : props.selectorRect.y + props.selectorRect.height,
+                  opacity: posReady ? 1 : 0,
                 }
               : {
                   height: windowHeight - 40,
@@ -155,7 +174,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                       : props.selectorRect.y + props.selectorRect.height,
                     left: props.selectorRect.x - 40,
                     marginLeft: props.selectorRect.width,
-                    opacity: keyboardHeight > 0 ? 0 : 1,
+                    opacity: keyboardHeight === 0 && posReady ? 1 : 0,
                   }
                 : {
                     top: 40,
