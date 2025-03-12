@@ -24,10 +24,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Internal: Replaced `SelectorPos`, `listWidth`, and `listX` with `SelectorRect` ([#21](https://github.com/rhventures/react-native-dropdown-selector/pull/21))
 - Content inside the dropdown list will now be cut off if it extends beyond the dropdown list boundaries ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
-- Technical detailes from README is now moved to GitHub Wiki ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
+- Technical details from README is now moved to GitHub Wiki ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
 - Old screenshots of the example app are replaced by new ones ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
-- The `onRemove` prop is added to the selector components to be triggered when items are removed, rather than triggering `onSelect` ([#60](https://github.com/rhventures/react-native-dropdown-selector/pull/60)).
 - Cleanup npm packages in preparation for a 0.2.0 release. ([#67](https://github.com/rhventures/react-native-dropdown-selector/pull/67))
+- The `onRemove` prop is added to the selector components to be triggered when items are removed, rather than triggering `onSelect` ([#60](https://github.com/rhventures/react-native-dropdown-selector/pull/60)).
 
 ### Removed
 
