@@ -44,12 +44,21 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
   const [searchable, setSearchable] = React.useState(false);
   const style = useThemeStyles(theme);
 
-  const onDataSelect = (datum: Data) =>
+  const onSimpleDataSelect = (datum: Data) =>
     setItem(datum.label);
-  const onMultiDataSelect = (data: Data[]) =>
+  const onSimpleMultiDataSelect = (data: Data[]) =>
     setItem(data.map((datum: Data) =>
       datum.label
     ).join(", "));
+  const onDataSelect = (id: number) => (datum: Data) => {
+    console.log(`selector ${id}: ${datum.label} selected`);
+  };
+  const onDataRemove = (id: number) => (datum: Data) => {
+    console.log(`selector ${id}: ${datum.label} removed`);
+  };
+  const onMultiDataSelect = (id: number) => (data: Data[]) => {
+    console.log(`selector ${id}: currently contains ${data.map(datum => datum.label).join(", ")}.`);
+  };
 
   return (
     <SafeAreaView style={style.background}>
@@ -57,7 +66,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
         <View style={{ height: 40 }} />
         <Select
           data={data}
-          onSelect={onDataSelect}
+          onSelect={onSimpleDataSelect}
           disabled={disabled}
           searchable={searchable}
           theme={theme}
@@ -79,7 +88,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
         </Text>
         <Select
           data={data}
-          onSelect={onDataSelect}
+          onSelect={onSimpleDataSelect}
           disabled={disabled}
           searchable={searchable}
           placeholderText="Select an item"
@@ -91,7 +100,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
         />
         <MultiSelect
           data={data}
-          onSelect={onMultiDataSelect}
+          onSelect={onSimpleMultiDataSelect}
           disabled={disabled}
           searchable={searchable}
           theme={theme}
@@ -102,7 +111,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={onDataSelect}
+              onSelect={onDataSelect(1)}
               disabled={disabled}
               searchable={searchable}
               theme={theme}
@@ -111,7 +120,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={onDataSelect}
+              onSelect={onDataSelect(2)}
               disabled={disabled}
               searchable={searchable}
               theme={theme}
@@ -120,7 +129,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={onDataSelect}
+              onSelect={onDataSelect(3)}
               disabled={disabled}
               searchable={searchable}
               theme={theme}
@@ -133,7 +142,8 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={onMultiDataSelect}
+                onSelect={onMultiDataSelect(4)}
+                onRemove={onDataRemove(4)}
                 disabled={disabled}
                 searchable={searchable}
                 theme={theme}
@@ -142,7 +152,8 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={onMultiDataSelect}
+                onSelect={onMultiDataSelect(5)}
+                onRemove={onDataRemove(5)}
                 disabled={disabled}
                 searchable={searchable}
                 theme={theme}
@@ -151,7 +162,8 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={onMultiDataSelect}
+                onSelect={onMultiDataSelect(6)}
+                onRemove={onDataRemove(6)}
                 disabled={disabled}
                 searchable={searchable}
                 theme={theme}
@@ -166,12 +178,15 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
             onSelect={(data: Data[]) => {
               if (data.includes(options[0])) {
                 setDisabled(true);
-              } else {
-                setDisabled(false);
               }
               if (data.includes(options[1])) {
                 setSearchable(true);
-              } else {
+              }
+            }}
+            onRemove={(data: Data) => {
+              if (data === options[0]) {
+                setDisabled(false);
+              } else if (data === options[1]) {
                 setSearchable(false);
               }
             }}
@@ -195,7 +210,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
         <Text style={style.text}>Styled Single Select:</Text>
         <Select
           data={data}
-          onSelect={onDataSelect}
+          onSelect={onSimpleDataSelect}
           disabled={disabled}
           searchable={searchable}
           defaultValue={data[0]}
@@ -274,7 +289,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
         <Text style={style.text}>Styled Multi Select:</Text>
         <MultiSelect
           data={data}
-          onSelect={onMultiDataSelect}
+          onSelect={onSimpleMultiDataSelect}
           disabled={disabled}
           searchable={searchable}
           defaultValue={data}
