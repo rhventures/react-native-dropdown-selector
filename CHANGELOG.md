@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The dropdown list now move above the selector box based on current dropdown list height, not max height ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
 - The dropdown list now no longer lags behind when trying to render in a new position ([#59](https://github.com/rhventures/react-native-dropdown-selector/pull/59)).
 - Pressing the clear button now also triggers `onRemove` prop for all items removed ([#62](https://github.com/rhventures/react-native-dropdown-selector/pull/62)).
+- The styling of the example app's background and text now update dynamically based on light/dark mode. ([#69](https://github.com/rhventures/react-native-dropdown-selector/pull/69))
 
 ## [0.1.0] - 2024-06-28
 
