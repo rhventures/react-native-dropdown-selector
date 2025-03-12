@@ -26,8 +26,6 @@ const themes: Data[] = [
 
 function App(): React.JSX.Element {
   const [item, setItem] = React.useState<string | JSX.Element>('');
-  const [selected, setSelected] = React.useState<string | JSX.Element>('');
-  const [removed, setRemoved] = React.useState<string | JSX.Element>('');
   const [disabled, setDisabled] = React.useState(false);
   const [searchable, setSearchable] = React.useState(false);
   const [theme, setTheme] = React.useState<'light' | 'dark' | 'system'>('system');
@@ -37,17 +35,14 @@ function App(): React.JSX.Element {
     setItem(data.map((datum: Data) =>
       datum.label
     ).join(", "));
-  const onDataSelect = (datum: Data) => {
-    setSelected(datum.label);
-    setRemoved('');
+  const onDataSelect = (id: number) => (datum: Data) => {
+    console.log(`selector ${id}: ${datum.label} selected`);
   };
-  const onDataRemove = (datum: Data) => {
-    setSelected((selected as string).split(', ').filter(item => item !== datum.label).join(', '));
-    setRemoved(datum.label);
+  const onDataRemove = (id: number) => (datum: Data) => {
+    console.log(`selector ${id}: ${datum.label} removed`);
   };
-  const onMultiDataSelect = (data: Data[]) => {
-    setSelected(data.map(datum => datum.label).join(", "));
-    setRemoved('');
+  const onMultiDataSelect = (id: number) => (data: Data[]) => {
+    console.log(`selector ${id}: currently contains ${data.map(datum => datum.label).join(", ")}.`);
   };
   const onThemeSelect = (datum: Data) =>
     setTheme(datum.label as 'light' | 'dark' | 'system');
@@ -95,18 +90,12 @@ function App(): React.JSX.Element {
           theme={theme}
         />
         <View style={{ height: 400 }}/>
-        <Text>
-          The selected and removed items from the next 2 rows of selectors will be displayed here.
-          {'\n\n'}
-          Selected: {(selected || 'None')+'\n'}
-          Removed: {(removed || 'None')+'\n\n'}
-          Single Selects:
-        </Text>
+        <Text>Single Selects:</Text>
         <View style={{ flexDirection: 'row', height: 100 }}>
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={onDataSelect}
+              onSelect={onDataSelect(1)}
               disabled={disabled}
               searchable={searchable}
               theme={theme}
@@ -115,7 +104,7 @@ function App(): React.JSX.Element {
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={onDataSelect}
+              onSelect={onDataSelect(2)}
               disabled={disabled}
               searchable={searchable}
               theme={theme}
@@ -124,7 +113,7 @@ function App(): React.JSX.Element {
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={onDataSelect}
+              onSelect={onDataSelect(3)}
               disabled={disabled}
               searchable={searchable}
               theme={theme}
@@ -137,8 +126,8 @@ function App(): React.JSX.Element {
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={onMultiDataSelect}
-                onRemove={onDataRemove}
+                onSelect={onMultiDataSelect(4)}
+                onRemove={onDataRemove(4)}
                 disabled={disabled}
                 searchable={searchable}
                 theme={theme}
@@ -147,8 +136,8 @@ function App(): React.JSX.Element {
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={onMultiDataSelect}
-                onRemove={onDataRemove}
+                onSelect={onMultiDataSelect(5)}
+                onRemove={onDataRemove(5)}
                 disabled={disabled}
                 searchable={searchable}
                 theme={theme}
@@ -157,8 +146,8 @@ function App(): React.JSX.Element {
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={onMultiDataSelect}
-                onRemove={onDataRemove}
+                onSelect={onMultiDataSelect(6)}
+                onRemove={onDataRemove(6)}
                 disabled={disabled}
                 searchable={searchable}
                 theme={theme}
