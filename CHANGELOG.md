@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Content inside the dropdown list will now be cut off if it extends beyond the dropdown list boundaries ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
 - Technical detailes from README is now moved to GitHub Wiki ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
 - Old screenshots of the example app are replaced by new ones ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
+- Cleanup npm packages in preparation for a 0.2.0 release. ([#67](https://github.com/rhventures/react-native-dropdown-selector/pull/67))
 
 ### Removed
 
@@ -41,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The clear button for multi select no longer blocks the dropdown list in landscape mode ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
 - Setting a default value for multi select now works as intended ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
 - The dropdown list now move above the selector box based on current dropdown list height, not max height ([#22](https://github.com/rhventures/react-native-dropdown-selector/pull/22)).
+- The dropdown list now no longer lags behind when trying to render in a new position ([#59](https://github.com/rhventures/react-native-dropdown-selector/pull/59)).
 - Pressing the clear button now also triggers `onRemove` prop for all items removed ([#62](https://github.com/rhventures/react-native-dropdown-selector/pull/62)).
 
 ## [0.1.0] - 2024-06-28
