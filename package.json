@@ -18,6 +18,24 @@
     "url": "https://github.com/rhventures/react-native-dropdown-selector/issues"
   },
   "homepage": "https://github.com/rhventures/react-native-dropdown-selector#readme",
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-native": "^0.71.19"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.9",
+    "@typescript-eslint/eslint-plugin": "^8.24.0",
+    "eslint": "^9.20.1",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^17.15.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-native": "^5.0.0",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {},
   "directories": {
     "doc": "docs",
     "example": "example"

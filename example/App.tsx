@@ -1,6 +1,7 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View, SafeAreaView } from 'react-native';
 import { MultiSelect, Select, type Data } from '@rose-hulman/react-native-dropdown-selector';
+import { useThemeStyles } from './styles';
 
 const data: Data[] = [
   { label: 'Item 1' },
@@ -25,45 +26,69 @@ const themes: Data[] = [
 ];
 
 function App(): React.JSX.Element {
+  const [theme, setTheme] = React.useState<'light' | 'dark' | 'system'>('system');
+  const onThemeSelect = (datum: Data) => {
+    setTheme(datum.label as 'light' | 'dark' | 'system');
+  }
+
+  return (
+    <Content
+      onThemeSelect={onThemeSelect}
+      theme={theme}
+    />);
+}
+
+const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element => {
   const [item, setItem] = React.useState<string | JSX.Element>('');
   const [disabled, setDisabled] = React.useState(false);
   const [searchable, setSearchable] = React.useState(false);
-  const [theme, setTheme] = React.useState<'light' | 'dark' | 'system'>('system');
-  const onDataSelect = (datum: Data) =>
+  const style = useThemeStyles(theme);
+
+  const onSimpleDataSelect = (datum: Data) =>
     setItem(datum.label);
-  const onMultiDataSelect = (data: Data[]) =>
+  const onSimpleMultiDataSelect = (data: Data[]) =>
     setItem(data.map((datum: Data) =>
       datum.label
     ).join(", "));
-  const onThemeSelect = (datum: Data) =>
-    setTheme(datum.label as 'light' | 'dark' | 'system');
+  const onDataSelect = (id: number) => (datum: Data) => {
+    console.log(`selector ${id}: ${datum.label} selected`);
+  };
+  const onDataRemove = (id: number) => (datum: Data) => {
+    console.log(`selector ${id}: ${datum.label} removed`);
+  };
+  const onMultiDataSelect = (id: number) => (data: Data[]) => {
+    console.log(`selector ${id}: currently contains ${data.map(datum => datum.label).join(", ")}.`);
+  };
 
   return (
-    <>
-      <View style={{ height: 40 }} />
+    <SafeAreaView style={style.background}>
       <ScrollView style={{ paddingHorizontal: 8 }}>
         <View style={{ height: 40 }} />
         <Select
           data={data}
-          onSelect={onDataSelect}
+          onSelect={onSimpleDataSelect}
           disabled={disabled}
           searchable={searchable}
           theme={theme}
         />
-        <Text>Selected: {item || 'None'} (scroll down)</Text>
+        <Text style={style.text}>
+          Selected: {item || 'None'} (scroll down)
+        </Text>
         <View style={{ height: 500 }} />
         <Text
-          style={{
+          style={[
+            style.text,
+            {
             alignSelf: 'center',
             width: 350,
-          }}
+          }]}
         >
           The dropdown menu will display above the input box when there
           isn&apos;t enough space below
         </Text>
         <Select
           data={data}
-          onSelect={onDataSelect}
+          onSelect={onSimpleDataSelect}
           disabled={disabled}
           searchable={searchable}
           placeholderText="Select an item"
@@ -75,18 +100,18 @@ function App(): React.JSX.Element {
         />
         <MultiSelect
           data={data}
-          onSelect={onMultiDataSelect}
+          onSelect={onSimpleMultiDataSelect}
           disabled={disabled}
           searchable={searchable}
           theme={theme}
         />
         <View style={{ height: 400 }}/>
-        <Text>Single Selects:</Text>
+        <Text style={style.text}>Single Selects:</Text>
         <View style={{ flexDirection: 'row', height: 100 }}>
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={onDataSelect}
+              onSelect={onDataSelect(1)}
               disabled={disabled}
               searchable={searchable}
               theme={theme}
@@ -95,7 +120,7 @@ function App(): React.JSX.Element {
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={onDataSelect}
+              onSelect={onDataSelect(2)}
               disabled={disabled}
               searchable={searchable}
               theme={theme}
@@ -104,20 +129,21 @@ function App(): React.JSX.Element {
           <View style={{ flex: 1 }}>
             <Select
               data={data}
-              onSelect={onDataSelect}
+              onSelect={onDataSelect(3)}
               disabled={disabled}
               searchable={searchable}
               theme={theme}
             />
           </View>
         </View>
-        <Text>Multi Selects:</Text>
+        <Text style={style.text}>Multi Selects:</Text>
         <View style={{ height: 350 }}>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={onMultiDataSelect}
+                onSelect={onMultiDataSelect(4)}
+                onRemove={onDataRemove(4)}
                 disabled={disabled}
                 searchable={searchable}
                 theme={theme}
@@ -126,7 +152,8 @@ function App(): React.JSX.Element {
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={onMultiDataSelect}
+                onSelect={onMultiDataSelect(5)}
+                onRemove={onDataRemove(5)}
                 disabled={disabled}
                 searchable={searchable}
                 theme={theme}
@@ -135,14 +162,15 @@ function App(): React.JSX.Element {
             <View style={{ flex: 1 }}>
               <MultiSelect
                 data={data}
-                onSelect={onMultiDataSelect}
+                onSelect={onMultiDataSelect(6)}
+                onRemove={onDataRemove(6)}
                 disabled={disabled}
                 searchable={searchable}
                 theme={theme}
               />
             </View>
           </View>
-          <Text style={{ textAlign: 'center', height: 100 }}>
+          <Text style={[style.text, { textAlign: 'center', height: 100 }]}>
             Select more than one item and see me move!
           </Text>
           <MultiSelect
@@ -150,12 +178,15 @@ function App(): React.JSX.Element {
             onSelect={(data: Data[]) => {
               if (data.includes(options[0])) {
                 setDisabled(true);
-              } else {
-                setDisabled(false);
               }
               if (data.includes(options[1])) {
                 setSearchable(true);
-              } else {
+              }
+            }}
+            onRemove={(data: Data) => {
+              if (data === options[0]) {
+                setDisabled(false);
+              } else if (data === options[1]) {
                 setSearchable(false);
               }
             }}
@@ -172,14 +203,14 @@ function App(): React.JSX.Element {
             placeholderText={`Select a theme`}
             theme={theme}
           />
-          <Text style={{ textAlign: 'center'}}>
+          <Text style={[style.text, { textAlign: 'center'}]}>
             Select a theme to see all the dropdowns change! Current theme is "{theme}"
           </Text>
         </View>
-        <Text>Styled Single Select:</Text>
+        <Text style={style.text}>Styled Single Select:</Text>
         <Select
           data={data}
-          onSelect={onDataSelect}
+          onSelect={onSimpleDataSelect}
           disabled={disabled}
           searchable={searchable}
           defaultValue={data[0]}
@@ -255,10 +286,10 @@ function App(): React.JSX.Element {
           }}
         />
         <View style={{height: 50}} />
-        <Text>Styled Multi Select:</Text>
+        <Text style={style.text}>Styled Multi Select:</Text>
         <MultiSelect
           data={data}
-          onSelect={onMultiDataSelect}
+          onSelect={onSimpleMultiDataSelect}
           disabled={disabled}
           searchable={searchable}
           defaultValue={data}
@@ -355,8 +386,13 @@ function App(): React.JSX.Element {
         />
         <View style={{ height: 700 }} />
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
+}
+
+interface ContentProperties {
+  onThemeSelect: (e: Data) => void;
+  theme: 'light' | 'dark' | 'system';
 }
 
 export default App;
