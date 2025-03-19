@@ -4,7 +4,9 @@
   "description": "A react native component for creating dropdown lists",
   "main": "index.tsx",
   "scripts": {
-    "build-dev": "npm pack"
+    "build-dev": "npm pack",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,15 @@
     "react-native": "^0.71.19"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.6",
+    "@storybook/addon-essentials": "^8.6.7",
+    "@storybook/addon-interactions": "^8.6.7",
+    "@storybook/addon-onboarding": "^8.6.7",
+    "@storybook/blocks": "^8.6.7",
+    "@storybook/react": "^8.6.7",
+    "@storybook/react-native-web-vite": "^8.6.7",
+    "@storybook/react-vite": "^8.6.7",
+    "@storybook/test": "^8.6.7",
     "@types/react": "^18.2.9",
     "@typescript-eslint/eslint-plugin": "^8.24.0",
     "eslint": "^9.20.1",
@@ -31,9 +42,13 @@
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-native": "^5.0.0",
-    "typescript": "^5.7.3"
+    "eslint-plugin-storybook": "^0.11.6",
+    "react-dom": "^19.0.0",
+    "react-native-web": "^0.19.13",
+    "storybook": "^8.6.7",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.2"
   },
-  "dependencies": {},
   "directories": {
     "doc": "docs",
     "example": "example"
