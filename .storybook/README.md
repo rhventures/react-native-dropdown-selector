@@ -58,8 +58,7 @@ rm src/stories/*
 
 The instructions on how to create stories are the same as the official documentation. You can find them [here](https://storybook.js.org/docs/writing-stories?renderer=react-native-web). Make sure the renderer is selected as `React Native Web` on the Storybook documentation.
 
-## Compatability Resources
-
+## Compatibility Resources
 Compatibility between React Native and React Native Web is a bit tricky for some native components. Below are some resources that can help you understand the compatibility between the two.
 
 - [Storybook for React Native vs React Native Web](https://storybook.js.org/docs/get-started/frameworks/react-native-web-vite#react-native-vs-react-native-web)
