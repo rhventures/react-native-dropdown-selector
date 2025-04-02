@@ -1,7 +1,51 @@
 import React from 'react';
-import { ScrollView, Text, View, SafeAreaView } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
+import { SafeAreaView, SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MultiSelect, Select, type Data } from '@rose-hulman/react-native-dropdown-selector';
 import { useThemeStyles } from './styles';
+
+const DEBUG_INSETS = false; // Set to true to show the safe area insets
+
+const SafeAreaDebugOverlay = () => {
+  const insets = useSafeAreaInsets();
+
+  return (
+    <>
+      <View
+        pointerEvents='none'
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: insets.top,
+          backgroundColor: 'rgba(255, 0, 0, 0.3)',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 9999,
+        }}
+      >
+        <Text style={{ color: 'white', fontSize: 12 }}>TopInset: {insets.top.toFixed(0)}</Text>
+      </View>
+      <View
+        pointerEvents='none'
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: insets.bottom,
+          backgroundColor: 'rgba(0, 0, 255, 0.3)',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 9999,
+        }}
+      >
+        <Text style={{ color: 'white', fontSize: 12 }}>BottomInset: {insets.bottom.toFixed(0)}</Text>
+      </View>
+    </>
+  );
+};
 
 const data: Data[] = [
   { label: 'Item 1' },
@@ -32,10 +76,11 @@ function App(): React.JSX.Element {
   }
 
   return (
-    <Content
-      onThemeSelect={onThemeSelect}
-      theme={theme}
-    />);
+    <SafeAreaProvider>
+      {__DEV__ && DEBUG_INSETS && <SafeAreaDebugOverlay />}
+      <Content onThemeSelect={onThemeSelect} theme={theme} />
+    </SafeAreaProvider>
+  );
 }
 
 const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element => {
@@ -64,6 +109,9 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
     <SafeAreaView style={style.background}>
       <ScrollView style={{ paddingHorizontal: 8 }}>
         <View style={{ height: 40 }} />
+        <Text style={[style.text, { textAlign: 'center' }]}>
+          Safe area support is active if your app uses <Text style={{ fontWeight: 'bold' }}>SafeAreaProvider</Text>.
+        </Text>
         <Select
           data={data}
           onSelect={onSimpleDataSelect}
