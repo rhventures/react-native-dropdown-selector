@@ -15,10 +15,12 @@ import { useThemeStyles } from '../styles';
 import type { Data, ListProperties } from '../types';
 
 // Gracefully import useSafeAreaInsets from 'react-native-safe-area-context' if available
-let useSafeAreaInsets: undefined | (() => { top: number; bottom: number });
+let useSafeAreaInsets: undefined | (() => { top: number; bottom: number; left: number; right: number });
 try {
   useSafeAreaInsets = require('react-native-safe-area-context').useSafeAreaInsets;
-} catch {}
+} catch {
+  console.log('useSafeAreaInsets not available');
+}
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): React.JSX.Element => {
@@ -32,6 +34,9 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   // Fall back to somewhat safe values if insets are not available
   const topInset = Math.max(insets?.top ?? (Platform.OS === 'android' ? StatusBar.currentHeight ?? 0 : 45), 25);
   const bottomInset = Math.max(insets?.bottom ?? (Platform.OS === 'ios' ? 34 : 0), 20);
+  const leftInset = insets?.left ?? 0;
+  const rightInset = insets?.right ?? 0;
+
   const safeAreaHeight = windowHeight - topInset - bottomInset;
 
   const [keyboardHeight, setKeyboardHeight] = useState<number>(0);
@@ -100,8 +105,8 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                 ? props.selectorRect.x +
                   (typeof props.selectorRect.width === 'string'
                     ? Number(props.selectorRect.width.slice(0, -1)) * windowWidth
-                    : props.selectorRect.width - currentListWidth) / 2
-                : props.selectorRect.x,
+                    : props.selectorRect.width - currentListWidth) / 2 - leftInset
+                : props.selectorRect.x - leftInset,
               width: props.styles.list?.width ?? props.selectorRect.width,
               maxHeight: props.listHeight,
               top: keyboardHeight > 0 && listBottom > safeAreaHeight - keyboardHeight
@@ -129,6 +134,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
               onLayout={() => setEntries(props.data)}
             />
           }
+
           <FlatList
             data={entries}
             contentContainerStyle={{ marginBottom: bottomInset }}
@@ -171,6 +177,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             )}
           />
         </View>
+
         {props.type === 'multi' && (props.selected as Data[]).length > 0 &&
           <View
             style={[

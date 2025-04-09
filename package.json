@@ -18,7 +18,8 @@
   "homepage": "https://github.com/rhventures/react-native-dropdown-selector#readme",
   "peerDependencies": {
     "react": "^18.2.0",
-    "react-native": "^0.71.19"
+    "react-native": "^0.71.19",
+    "react-native-safe-area-context": "^5.3.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.9",
@@ -35,9 +36,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.27.0"
-  },
-  "optionalDependencies": {
-    "react-native-safe-area-context": "^5.3.0"
   },
   "directories": {
     "doc": "docs",

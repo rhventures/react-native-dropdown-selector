@@ -1,10 +1,10 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView, SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MultiSelect, Select, type Data } from '@rose-hulman/react-native-dropdown-selector';
 import { useThemeStyles } from './styles';
 
-const DEBUG_INSETS = false; // Set to true to show the safe area insets
+const DEBUG_INSETS = true; // Set to true to show the safe area insets
 
 const SafeAreaDebugOverlay = () => {
   const insets = useSafeAreaInsets();
@@ -25,8 +25,11 @@ const SafeAreaDebugOverlay = () => {
           zIndex: 9999,
         }}
       >
-        <Text style={{ color: 'white', fontSize: 12 }}>TopInset: {insets.top.toFixed(0)}</Text>
+        <Text style={{ color: 'white', fontSize: 12 }}>
+          TopInset: {insets.top.toFixed(0)}
+        </Text>
       </View>
+
       <View
         pointerEvents='none'
         style={{
@@ -41,7 +44,59 @@ const SafeAreaDebugOverlay = () => {
           zIndex: 9999,
         }}
       >
-        <Text style={{ color: 'white', fontSize: 12 }}>BottomInset: {insets.bottom.toFixed(0)}</Text>
+        <Text style={{ color: 'white', fontSize: 12 }}>
+          BottomInset: {insets.bottom.toFixed(0)}
+        </Text>
+      </View>
+
+      <View
+        pointerEvents="none"
+        style={{
+          position: 'absolute',
+          top: insets.top,
+          bottom: insets.bottom,
+          left: 0,
+          width: insets.left,
+          backgroundColor: 'rgba(0, 255, 0, 0.3)',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 9999,
+        }}
+      >
+        <Text
+          style={{
+            transform: [{ rotate: '-90deg' }],
+            color: 'white',
+            fontSize: 12,
+          }}
+        >
+          Left: {insets.left.toFixed(0)}
+        </Text>
+      </View>
+
+      <View
+        pointerEvents="none"
+        style={{
+          position: 'absolute',
+          top: insets.top,
+          bottom: insets.bottom,
+          right: 0,
+          width: insets.right,
+          backgroundColor: 'rgba(255, 255, 0, 0.3)',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 9999,
+        }}
+      >
+        <Text
+          style={{
+            transform: [{ rotate: '90deg' }],
+            color: 'black',
+            fontSize: 12,
+          }}
+        >
+          Right: {insets.right.toFixed(0)}
+        </Text>
       </View>
     </>
   );

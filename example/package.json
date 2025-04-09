@@ -12,9 +12,7 @@
   "dependencies": {
     "@rose-hulman/react-native-dropdown-selector": "file:..",
     "react": "19.0.0",
-    "react-native": "0.78.0"
-  },
-  "optionalDependencies": {
+    "react-native": "^0.78.0",
     "react-native-safe-area-context": "^5.3.0"
   },
   "devDependencies": {
