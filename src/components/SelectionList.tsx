@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, ListProperties } from '../types';
+import { parseWidth } from '../utils/conversions';
 
 // Gracefully import useSafeAreaInsets from 'react-native-safe-area-context' if available
 let useSafeAreaInsets: undefined | (() => { top: number; bottom: number; left: number; right: number });
@@ -29,7 +30,12 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const windowHeight = Dimensions.get('window').height;
 
   // Get the safe area insets if available
-  const insets = useSafeAreaInsets?.();
+  let insets: { top: number; bottom: number; left: number; right: number } | undefined;
+  try {
+    insets = useSafeAreaInsets?.();
+  } catch (e) {
+    insets = undefined;
+  }
 
   // Fall back to somewhat safe values if insets are not available
   const topInset = Math.max(insets?.top ?? (Platform.OS === 'android' ? StatusBar.currentHeight ?? 0 : 45), 25);
@@ -103,11 +109,9 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                 ? 0
                 : props.styles.list?.width
                 ? props.selectorRect.x +
-                  (typeof props.selectorRect.width === 'string'
-                    ? Number(props.selectorRect.width.slice(0, -1)) * windowWidth
-                    : props.selectorRect.width - currentListWidth) / 2 - leftInset
+                    (parseWidth(props.selectorRect.width, windowWidth) - currentListWidth) / 2 - leftInset
                 : props.selectorRect.x - leftInset,
-              width: props.styles.list?.width ?? props.selectorRect.width,
+              width: props.styles.list?.width ?? parseWidth(props.selectorRect.width, windowWidth),
               maxHeight: props.listHeight,
               top: keyboardHeight > 0 && listBottom > safeAreaHeight - keyboardHeight
                 ? safeAreaHeight - keyboardHeight - currentListHeight - 5
@@ -192,12 +196,23 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                         : props.selectorRect.y + props.selectorRect.height
                     ),
                     left: props.selectorRect.x - 40,
-                    marginLeft: props.selectorRect.width,
+                    marginLeft: parseWidth(props.selectorRect.width, windowWidth),
                     opacity: keyboardHeight === 0 && posReady ? 1 : 0,
                   }
                 : {
-                    top: Math.max(topInset, 40),
-                    right: 10,
+                    // top: Math.max(topInset, props.selectorRect.y - 40),
+                    // left: Math.min(
+                    //   windowWidth - 40,
+                    //   props.selectorRect.x + parseWidth(props.selectorRect.width, windowWidth) - 10
+                    // ),
+                    left: props.selectorRect.x + parseWidth(props.selectorRect.width, windowWidth) - 40 - leftInset,
+                    top: Math.min(
+                      windowHeight - bottomInset - 40,
+                      listBottom < safeAreaHeight
+                        ? Math.max(topInset, props.selectorRect.y - 40 - topInset)
+                        : props.selectorRect.y + props.selectorRect.height
+                    ),
+                    opacity: keyboardHeight === 0 && posReady ? 1 : 0,
                   }
 
             ]}

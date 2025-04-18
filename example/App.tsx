@@ -130,19 +130,24 @@ function App(): React.JSX.Element {
     setTheme(datum.label as 'light' | 'dark' | 'system');
   }
 
+  const [useSafeArea, setUseSafeArea] = React.useState(true);
+  const Wrapper = useSafeArea ? SafeAreaProvider : React.Fragment;
+
   return (
-    <SafeAreaProvider>
-      {__DEV__ && DEBUG_INSETS && <SafeAreaDebugOverlay />}
-      <Content onThemeSelect={onThemeSelect} theme={theme} />
-    </SafeAreaProvider>
+    <Wrapper>
+      {__DEV__ && DEBUG_INSETS && useSafeArea && <SafeAreaDebugOverlay />}
+      <Content onThemeSelect={onThemeSelect} theme={theme} setUseSafeArea={setUseSafeArea} useSafeArea={useSafeArea} />
+    </Wrapper>
   );
 }
 
-const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element => {
+const Content = ({ onThemeSelect, theme, setUseSafeArea, useSafeArea }: ContentProperties): React.JSX.Element => {
   const [item, setItem] = React.useState<string | JSX.Element>('');
   const [disabled, setDisabled] = React.useState(false);
   const [searchable, setSearchable] = React.useState(false);
   const style = useThemeStyles(theme);
+
+  const Container = useSafeArea ? SafeAreaView : View;
 
   const onSimpleDataSelect = (datum: Data) =>
     setItem(datum.label);
@@ -161,8 +166,23 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
   };
 
   return (
-    <SafeAreaView style={style.background}>
+    <Container style={style.background}>
       <ScrollView style={{ paddingHorizontal: 8 }}>
+        <View style={{ height: 40 }} />
+        <Text style={[style.text, { textAlign: 'center' }]}>
+          Safe area support is <Text style={{ fontWeight: 'bold' }}>{useSafeArea ? 'enabled' : 'disabled'}</Text>.
+        </Text>
+        <Select
+          data={[
+            { label: 'Enable SafeArea' },
+            { label: 'Disable SafeArea' },
+          ]}
+          onSelect={(datum) => {
+            setUseSafeArea(datum.label === 'Enable SafeArea');
+          }}
+          placeholderText="Toggle Safe Area"
+          theme={theme}
+        />
         <View style={{ height: 40 }} />
         <Text style={[style.text, { textAlign: 'center' }]}>
           Safe area support is active if your app uses <Text style={{ fontWeight: 'bold' }}>SafeAreaProvider</Text>.
@@ -489,13 +509,15 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
         />
         <View style={{ height: 700 }} />
       </ScrollView>
-    </SafeAreaView>
+    </Container>
   );
 }
 
 interface ContentProperties {
   onThemeSelect: (e: Data) => void;
   theme: 'light' | 'dark' | 'system';
+  setUseSafeArea: React.Dispatch<React.SetStateAction<boolean>>;
+  useSafeArea: boolean;
 }
 
 export default App;
