@@ -4,7 +4,9 @@
   "description": "A react native component for creating dropdown lists",
   "main": "index.tsx",
   "scripts": {
-    "build-dev": "npm pack"
+    "build-dev": "npm pack",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "repository": {
     "type": "git",

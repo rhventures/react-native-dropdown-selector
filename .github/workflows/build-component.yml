@@ -1,0 +1,31 @@
+name: Build & typecheck & lint component
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-component:
+    name: Build & typecheck & lint the component
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Pack for npm
+        run: npm run build-dev

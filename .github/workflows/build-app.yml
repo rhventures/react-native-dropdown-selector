@@ -1,0 +1,65 @@
+name: Build Example App
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-app:
+    name: Build Example App (${{ matrix.platform }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - platform: android
+            runner: ubuntu-latest
+          - platform: ios
+            runner: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install component dependencies
+        run: npm ci
+
+      - name: Install example app dependencies
+        working-directory: example
+        run: npm ci
+
+      - name: Set up Java for Android
+        if: matrix.platform == 'android'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Set up Android SDK
+        if: matrix.platform == 'android'
+        uses: android-actions/setup-android@v3
+
+      - name: Build Android app
+        if: matrix.platform == 'android'
+        working-directory: example/android
+        run: ./gradlew assembleDebug
+
+      - name: Install CocoaPods for iOS
+        if: matrix.platform == 'ios'
+        run: |
+          sudo gem install cocoapods
+          cd example/ios && pod install
+
+      - name: Build iOS app
+        if: matrix.platform == 'ios'
+        working-directory: example/ios
+        run: |
+          xcodebuild -workspace example.xcworkspace \
+                     -scheme example \
+                     -sdk iphonesimulator \
+                     -configuration Debug \
+                     build | xcpretty
