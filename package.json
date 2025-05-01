@@ -6,7 +6,7 @@
   "scripts": {
     "build-dev": "npm pack",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
