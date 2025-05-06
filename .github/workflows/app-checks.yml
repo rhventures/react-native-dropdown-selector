@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: 22
 
+      - name: Install component dependencies
+        run: npm ci
+
       - name: Install example app dependencies
         working-directory: example
         run: npm ci
