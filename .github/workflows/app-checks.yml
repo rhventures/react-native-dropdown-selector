@@ -1,4 +1,4 @@
-name: Build & typecheck & lint component
+name: Example App Checks
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-component:
-    name: Build & typecheck & lint the component
+  component-checks:
+    name: Run checks on the example app
     runs-on: ubuntu-latest
 
     steps:
@@ -18,15 +18,19 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
+      - name: Install example app dependencies
+        working-directory: example
         run: npm ci
 
       - name: TypeScript check
+        working-directory: example
         run: npm run typecheck
 
     # Re-add this when the eslint migration is complete
     #   - name: Lint
+    #     working-directory: example
     #     run: npm run lint
 
-      - name: Pack for npm
-        run: npm run build-dev
+      - name: Run tests
+        working-directory: example
+        run: npm run test

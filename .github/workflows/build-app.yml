@@ -50,9 +50,10 @@ jobs:
 
       - name: Install CocoaPods for iOS
         if: matrix.platform == 'ios'
+        working-directory: example/ios
         run: |
           sudo gem install cocoapods
-          cd example/ios && pod install
+          pod install
 
       - name: Build iOS app
         if: matrix.platform == 'ios'
