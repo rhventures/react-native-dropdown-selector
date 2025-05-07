@@ -5,9 +5,16 @@
 
 version: 2
 updates:
+  # Enable version updates for npm
   - package-ecosystem: "npm" # See documentation for possible values
     directories: # Location of package manifests
       - "/" # package manifest for component itself
       - "/example" # package manifest for example app
+    schedule:
+      interval: "monthly"
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
     schedule:
       interval: "monthly"
