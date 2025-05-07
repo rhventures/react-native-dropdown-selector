@@ -1,7 +1,106 @@
 import React from 'react';
-import { ScrollView, Text, View, SafeAreaView } from 'react-native';
+import { ScrollView, Text, useWindowDimensions, View } from 'react-native';
+import { SafeAreaView, SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MultiSelect, Select, type Data } from '@rose-hulman/react-native-dropdown-selector';
 import { useThemeStyles } from './styles';
+
+const DEBUG_INSETS = true; // Set to true to show the safe area insets
+
+const SafeAreaDebugOverlay = () => {
+  const insets = useSafeAreaInsets();
+
+  return (
+    <>
+      <View
+        pointerEvents='none'
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: insets.top,
+          backgroundColor: 'rgba(255, 0, 0, 0.3)',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 9999,
+        }}
+      >
+        <Text style={{ color: 'white', fontSize: 12 }}>
+          TopInset: {insets.top.toFixed(0)}
+        </Text>
+      </View>
+
+      <View
+        pointerEvents='none'
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: insets.bottom,
+          backgroundColor: 'rgba(0, 0, 255, 0.3)',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 9999,
+        }}
+      >
+        <Text style={{ color: 'white', fontSize: 12 }}>
+          BottomInset: {insets.bottom.toFixed(0)}
+        </Text>
+      </View>
+
+      <View
+        pointerEvents="none"
+        style={{
+          position: 'absolute',
+          top: insets.top,
+          bottom: insets.bottom,
+          left: 0,
+          width: insets.left,
+          backgroundColor: 'rgba(0, 255, 0, 0.3)',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 9999,
+        }}
+      >
+        <Text
+          style={{
+            transform: [{ rotate: '-90deg' }],
+            color: 'white',
+            fontSize: 12,
+          }}
+        >
+          Left: {insets.left.toFixed(0)}
+        </Text>
+      </View>
+
+      <View
+        pointerEvents="none"
+        style={{
+          position: 'absolute',
+          top: insets.top,
+          bottom: insets.bottom,
+          right: 0,
+          width: insets.right,
+          backgroundColor: 'rgba(255, 255, 0, 0.3)',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 9999,
+        }}
+      >
+        <Text
+          style={{
+            transform: [{ rotate: '90deg' }],
+            color: 'black',
+            fontSize: 12,
+          }}
+        >
+          Right: {insets.right.toFixed(0)}
+        </Text>
+      </View>
+    </>
+  );
+};
 
 const data: Data[] = [
   { label: 'Item 1' },
@@ -31,18 +130,24 @@ function App(): React.JSX.Element {
     setTheme(datum.label as 'light' | 'dark' | 'system');
   }
 
+  const [useSafeArea, setUseSafeArea] = React.useState(true);
+  const Wrapper = useSafeArea ? SafeAreaProvider : React.Fragment;
+
   return (
-    <Content
-      onThemeSelect={onThemeSelect}
-      theme={theme}
-    />);
+    <Wrapper>
+      {__DEV__ && DEBUG_INSETS && useSafeArea && <SafeAreaDebugOverlay />}
+      <Content onThemeSelect={onThemeSelect} theme={theme} setUseSafeArea={setUseSafeArea} useSafeArea={useSafeArea} />
+    </Wrapper>
+  );
 }
 
-const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element => {
+const Content = ({ onThemeSelect, theme, setUseSafeArea, useSafeArea }: ContentProperties): React.JSX.Element => {
   const [item, setItem] = React.useState<string | JSX.Element>('');
   const [disabled, setDisabled] = React.useState(false);
   const [searchable, setSearchable] = React.useState(false);
   const style = useThemeStyles(theme);
+
+  const Container = useSafeArea ? SafeAreaView : View;
 
   const onSimpleDataSelect = (datum: Data) =>
     setItem(datum.label);
@@ -61,9 +166,27 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
   };
 
   return (
-    <SafeAreaView style={style.background}>
+    <Container style={style.background}>
       <ScrollView style={{ paddingHorizontal: 8 }}>
         <View style={{ height: 40 }} />
+        <Text style={[style.text, { textAlign: 'center' }]}>
+          Safe area support is <Text style={{ fontWeight: 'bold' }}>{useSafeArea ? 'enabled' : 'disabled'}</Text>.
+        </Text>
+        <Select
+          data={[
+            { label: 'Enable SafeArea' },
+            { label: 'Disable SafeArea' },
+          ]}
+          onSelect={(datum) => {
+            setUseSafeArea(datum.label === 'Enable SafeArea');
+          }}
+          placeholderText="Toggle Safe Area"
+          theme={theme}
+        />
+        <View style={{ height: 40 }} />
+        <Text style={[style.text, { textAlign: 'center' }]}>
+          Safe area support is active if your app uses <Text style={{ fontWeight: 'bold' }}>SafeAreaProvider</Text>.
+        </Text>
         <Select
           data={data}
           onSelect={onSimpleDataSelect}
@@ -386,13 +509,15 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
         />
         <View style={{ height: 700 }} />
       </ScrollView>
-    </SafeAreaView>
+    </Container>
   );
 }
 
 interface ContentProperties {
   onThemeSelect: (e: Data) => void;
   theme: 'light' | 'dark' | 'system';
+  setUseSafeArea: React.Dispatch<React.SetStateAction<boolean>>;
+  useSafeArea: boolean;
 }
 
 export default App;

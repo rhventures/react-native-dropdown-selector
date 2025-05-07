@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Dimensions,
   FlatList,
@@ -7,16 +7,44 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
+  Platform,
+  StatusBar,
 } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, ListProperties } from '../types';
+import { parseWidth } from '../utils/conversions';
+
+// Gracefully import useSafeAreaInsets from 'react-native-safe-area-context' if available
+let useSafeAreaInsets: undefined | (() => { top: number; bottom: number; left: number; right: number });
+try {
+  useSafeAreaInsets = require('react-native-safe-area-context').useSafeAreaInsets;
+} catch {
+  console.log('useSafeAreaInsets not available');
+}
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): React.JSX.Element => {
   const style = useThemeStyles(props.theme ?? 'system');
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
+
+  // Get the safe area insets if available
+  let insets: { top: number; bottom: number; left: number; right: number } | undefined;
+  try {
+    insets = useSafeAreaInsets?.();
+  } catch (e) {
+    insets = undefined;
+  }
+
+  // Fall back to somewhat safe values if insets are not available
+  const topInset = Math.max(insets?.top ?? (Platform.OS === 'android' ? StatusBar.currentHeight ?? 0 : 45), 25);
+  const bottomInset = Math.max(insets?.bottom ?? (Platform.OS === 'ios' ? 34 : 0), 20);
+  const leftInset = insets?.left ?? 0;
+  const rightInset = insets?.right ?? 0; // currently not used, doesn't make a difference on the tested devices
+
+  const safeAreaHeight = windowHeight - topInset - bottomInset;
+
   const [keyboardHeight, setKeyboardHeight] = useState<number>(0);
   const [entries, setEntries] = useState<Data[]>(props.data);
   const [currentListWidth, setCurrentListWidth] = useState<number>(0);
@@ -27,7 +55,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
 
   const updateListState = (listHeight: number) => {
     listBottom = props.selectorRect.y + props.selectorRect.height + listHeight;
-    if (listBottom > windowHeight !== isAbove) {
+    if (listBottom > safeAreaHeight !== isAbove) {
       setIsAbove(!isAbove);
     } else {
       setPosReady(true);
@@ -42,6 +70,79 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
     'keyboardDidHide',
     () => setKeyboardHeight(0)
   );
+
+  const listStyle = useMemo(() => {
+    const width = props.styles.list?.width ?? parseWidth(props.selectorRect.width, windowWidth);
+    const centerAligned = props.styles.list?.alignSelf === 'center';
+    const left = centerAligned
+      ? 0
+      : props.styles.list?.width
+      ? props.selectorRect.x + (parseWidth(props.selectorRect.width, windowWidth) - currentListWidth) / 2 - leftInset
+      : props.selectorRect.x - leftInset;
+
+    const top = keyboardHeight > 0 && listBottom > safeAreaHeight - keyboardHeight
+      ? safeAreaHeight - keyboardHeight - currentListHeight - 5
+      : isAbove
+      ? Math.max(topInset, props.selectorRect.y - currentListHeight)
+      : Math.min(windowHeight - bottomInset - currentListHeight, props.selectorRect.y + props.selectorRect.height);
+
+    return {
+      left,
+      width,
+      maxHeight: props.listHeight,
+      top,
+      opacity: posReady ? 1 : 0,
+    };
+  }, [
+    props.styles.list,
+    props.selectorRect,
+    currentListWidth,
+    currentListHeight,
+    keyboardHeight,
+    safeAreaHeight,
+    isAbove,
+    posReady,
+    topInset,
+    bottomInset,
+    windowHeight,
+    leftInset,
+  ]);
+
+  const clearButtonStyle = useMemo(() => {
+    const isPortrait = windowHeight > windowWidth;
+    const selectorWidth = parseWidth(props.selectorRect.width, windowWidth);
+    const top = Math.min(
+      windowHeight - bottomInset - 40,
+      listBottom < safeAreaHeight
+        ? Math.max(topInset, props.selectorRect.y - 40 - (isPortrait ? 0 : topInset))
+        : props.selectorRect.y + props.selectorRect.height
+    );
+    const opacity = keyboardHeight === 0 && posReady ? 1 : 0;
+
+    return isPortrait
+      ? {
+          top,
+          left: props.selectorRect.x - 40,
+          marginLeft: selectorWidth,
+          opacity,
+        }
+      : {
+          top,
+          left: props.selectorRect.x + selectorWidth - 40 - leftInset,
+          opacity,
+        };
+  }, [
+    props.selectorRect,
+    windowWidth,
+    windowHeight,
+    topInset,
+    bottomInset,
+    leftInset,
+    safeAreaHeight,
+    keyboardHeight,
+    posReady,
+    listBottom,
+  ]);
 
   return (
     <Modal
@@ -58,7 +159,6 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
         'landscape-left',
         'landscape-right',
       ]}
-      animationType={windowWidth > windowHeight ? 'slide' : 'none'}
     >
       <TouchableOpacity
         activeOpacity={1}
@@ -74,38 +174,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             setCurrentListHeight(nativeEvent.layout.height);
             updateListState(nativeEvent.layout.height);
           }}
-          style={[
-            style.list,
-            props.styles.list,
-            windowHeight > windowWidth
-              ? {
-                  left: props.styles.list?.alignSelf === 'center'
-                    ? 0
-                    : props.styles.list?.width
-                    ? props.selectorRect.x
-                      + (typeof props.selectorRect.width === 'string'
-                        ? Number(props.selectorRect.width.slice(0, -1)) * windowWidth
-                        : props.selectorRect.width
-                        - currentListWidth) / 2
-                    : props.selectorRect.x,
-                  width: props.styles.list?.width ?? props.selectorRect.width,
-                  maxHeight: props.listHeight,
-                  top: keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
-                    ? windowHeight - keyboardHeight - currentListHeight - 5
-                    : isAbove
-                    ? props.selectorRect.y - currentListHeight
-                    : props.selectorRect.y + props.selectorRect.height,
-                  opacity: posReady ? 1 : 0,
-                }
-              : {
-                  height: windowHeight - 40,
-                  marginTop: 40,
-                  marginHorizontal: 60,
-                  borderRadius: 10,
-                  borderBottomLeftRadius: 0,
-                  borderBottomRightRadius: 0,
-                },
-          ]}
+          style={[style.list, props.styles.list, listStyle]}
         >
           {props.searchable &&
             <TextInput
@@ -120,9 +189,10 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
               onLayout={() => setEntries(props.data)}
             />
           }
+
           <FlatList
             data={entries}
-            style={windowWidth > windowHeight && { marginBottom: 20 }}
+            contentContainerStyle={{ marginBottom: bottomInset }}
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
@@ -162,27 +232,9 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             )}
           />
         </View>
-        {props.type === 'multi' && (props.selected as Data[]).length > 0 &&
-          <View
-            style={[
-              style.clearButton,
-              props.styles.clearButton,
-              windowHeight > windowWidth
-                ? {
-                    top: listBottom < windowHeight
-                      ? props.selectorRect.y - 40
-                      : props.selectorRect.y + props.selectorRect.height,
-                    left: props.selectorRect.x - 40,
-                    marginLeft: props.selectorRect.width,
-                    opacity: keyboardHeight === 0 && posReady ? 1 : 0,
-                  }
-                : {
-                    top: 40,
-                    right: 10,
-                  }
 
-            ]}
-          >
+        {props.type === 'multi' && (props.selected as Data[]).length > 0 &&
+          <View style={[style.clearButton, props.styles.clearButton, clearButtonStyle]}>
             <TouchableOpacity
               onPress={props.clearSelected}
             >
