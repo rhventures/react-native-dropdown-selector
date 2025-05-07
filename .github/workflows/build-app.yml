@@ -50,6 +50,13 @@ jobs:
         working-directory: example/android
         run: ./gradlew assembleDebug
 
+      - name: Cache iOS Build
+        if: matrix.platform == 'ios'
+        uses: irgaly/xcode-cache@v1
+        with:
+          key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-
+
       - name: Install CocoaPods for iOS
         if: matrix.platform == 'ios'
         working-directory: example/ios
