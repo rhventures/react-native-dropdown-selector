@@ -2,8 +2,7 @@ name: Build Example App
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -65,7 +64,7 @@ jobs:
         if: matrix.platform == 'ios'
         uses: irgaly/xcode-cache@v1
         with:
-          deriveddata-directory: ../xcode-derived-data
+          deriveddata-directory: xcode-derived-data
           key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
           restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-
 
