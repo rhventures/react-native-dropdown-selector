@@ -50,14 +50,26 @@ jobs:
         working-directory: example/android
         run: ./gradlew assembleDebug
 
+      - name: Cache CocoaPods
+        if: matrix.platform == 'ios'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cocoapods
+            example/ios/Pods
+          key: pods-${{ runner.os }}-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            pods-${{ runner.os }}-
+
       - name: Cache iOS Build
         if: matrix.platform == 'ios'
         uses: irgaly/xcode-cache@v1
         with:
+          deriveddata-directory: ../xcode-derived-data
           key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
           restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-
 
-      - name: Install CocoaPods for iOS
+      - name: Install CocoaPods
         if: matrix.platform == 'ios'
         working-directory: example/ios
         run: |
@@ -72,4 +84,5 @@ jobs:
                      -scheme example \
                      -sdk iphonesimulator \
                      -configuration Debug \
+                     -derivedDataPath ../../xcode-derived-data \
                      build | xcpretty
