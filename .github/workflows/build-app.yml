@@ -79,6 +79,7 @@ jobs:
         if: matrix.platform == 'ios'
         working-directory: example/ios
         run: |
+          set -o pipefail
           xcodebuild -workspace example.xcworkspace \
                      -scheme example \
                      -sdk iphonesimulator \
