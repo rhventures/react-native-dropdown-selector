@@ -1,3 +1,5 @@
+#error("Intentional build failure for CI test")
+
 import UIKit
 import React
 import React_RCTAppDelegate
