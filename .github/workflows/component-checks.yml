@@ -24,9 +24,8 @@ jobs:
       - name: TypeScript check
         run: npm run typecheck
 
-    # Re-add this when the eslint migration is complete
-    #   - name: Lint
-    #     run: npm run lint
+      - name: Lint
+        run: npm run lint
 
       - name: Pack for npm
         run: npm run build-dev

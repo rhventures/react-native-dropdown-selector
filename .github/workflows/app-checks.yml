@@ -29,10 +29,9 @@ jobs:
         working-directory: example
         run: npm run typecheck
 
-    # Re-add this when the eslint migration is complete
-    #   - name: Lint
-    #     working-directory: example
-    #     run: npm run lint
+      - name: Lint
+        working-directory: example
+        run: npm run lint
 
     # Re-add this when the tests are fixed
     #   - name: Run tests
