@@ -39,7 +39,7 @@ function App(): React.JSX.Element {
 }
 
 const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element => {
-  const [item, setItem] = React.useState<string | JSX.Element>('');
+  const [item, setItem] = React.useState<string | React.JSX.Element>('');
   const [disabled, setDisabled] = React.useState(false);
   const [searchable, setSearchable] = React.useState(false);
   const style = useThemeStyles(theme);

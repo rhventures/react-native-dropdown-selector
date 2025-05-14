@@ -35,7 +35,6 @@
     "eslint-plugin-react-native": "^5.0.0",
     "typescript": "^5.7.3"
   },
-  "dependencies": {},
   "directories": {
     "doc": "docs",
     "example": "example"
