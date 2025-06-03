@@ -6,6 +6,9 @@ import SelectionList from './SelectionList';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
 const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
+  const defaultPlaceholderText = 'Click me';
+  const disabledOpacity = .5;
+  const enabledOpacity = 1;
   const style = useThemeStyles(props.theme ?? 'system');
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
@@ -42,7 +45,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         style={[
           style.selectorBox,
           props.boxStyle,
-          {opacity: props.disabled ? .5 : 1},
+          {opacity: props.disabled ? disabledOpacity : enabledOpacity},
         ]}
         disabled={props.disabled}
         onPress={() => updatePos(true)}
@@ -72,7 +75,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
           : <Text
               style={[style.selectorText, props.boxTextStyle]}
             >
-              {props.placeholderText ?? 'Click me'}
+              {props.placeholderText ?? defaultPlaceholderText}
             </Text>
         }
         <Text

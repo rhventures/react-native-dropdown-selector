@@ -6,6 +6,9 @@ import SelectionList from './SelectionList';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
 const Select = (props: SelectProperties): React.JSX.Element => {
+  const defaultPlaceholderText = 'Click me';
+  const disabledOpacity = .5;
+  const enabledOpacity = 1;
   const style = useThemeStyles(props.theme ?? 'system');
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
@@ -18,7 +21,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
   const [selected, setSelected] = useState<Data>(
     props.defaultValue && props.data.includes(props.defaultValue)
       ? props.defaultValue
-      : {label: props.placeholderText ?? 'Click me'}
+      : {label: props.placeholderText ?? defaultPlaceholderText}
   );
   const updatePriorities = (data: Data[]) => [
     ...data.filter((d: Data) => d.priority),
@@ -42,7 +45,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         style={[
           style.selectorBox,
           props.boxStyle,
-          {opacity: props.disabled ? .5 : 1},
+          {opacity: props.disabled ? disabledOpacity : enabledOpacity},
         ]}
         disabled={props.disabled}
         onPress={updatePos}
