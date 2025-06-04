@@ -19,6 +19,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const sidewaysBorderRadius = 10;
   const sidewaysBorderRadiusBL = 0;
   const sidewaysBorderRadiusBR = 0;
+  const uprightTopMargin = 40;
   const style = useThemeStyles(props.theme ?? 'system');
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
@@ -170,14 +171,14 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
         {props.type === 'multi' && (props.selected as Data[]).length > 0 &&
           <View
             style={[
-              style.clearButton,
+              style.clearButton, //move the clear button to the right spot
               props.styles.clearButton,
               windowHeight > windowWidth
                 ? {//phone upright
                     top: listBottom < windowHeight
-                      ? props.selectorRect.y - 40
+                      ? props.selectorRect.y - uprightTopMargin
                       : props.selectorRect.y + props.selectorRect.height,
-                    left: props.selectorRect.x - 40,
+                    left: props.selectorRect.x - style.clearButton.width, 
                     marginLeft: props.selectorRect.width,
                     opacity: keyboardHeight === 0 && posReady ? 1 : 0,
                   }
@@ -195,7 +196,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                 style={{
                   ...style.clearIcon,
                   color: props.styles.clearButtonIcon ?? style.clearIcon.color,
-                }}
+                }}  
               >
                 {'×'}
               </Text>

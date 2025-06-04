@@ -9,6 +9,8 @@ const Select = (props: SelectProperties): React.JSX.Element => {
   const defaultPlaceholderText = 'Click me';
   const disabledOpacity = .5;
   const enabledOpacity = 1;
+  const refRectYOffset = 5;
+  const defaultListHeight = 200;
   const style = useThemeStyles(props.theme ?? 'system');
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
@@ -31,9 +33,9 @@ const Select = (props: SelectProperties): React.JSX.Element => {
     ref.current?.measureInWindow((x, y, width, height) => {
       setRefRect({
         x: x,
-        y: y - 5,
+        y: y - refRectYOffset,
         width: props.boxStyle?.width ?? width,
-        height: height + 10,
+        height: height + 2*refRectYOffset,
       });
       setListDisplay(true);
     });
@@ -77,7 +79,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         onSelect={props.onSelect}
         selected={selected}
         setSelected={setSelected}
-        listHeight={props.listHeight ?? 200}
+        listHeight={props.listHeight ?? defaultListHeight}
         display={listDisplay}
         searchable={!!props.searchable}
         hide={() => setListDisplay(false)}
