@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, Image } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, SelectorRect, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
+import Svg from 'react-native-svg';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
 const Select = (props: SelectProperties): React.JSX.Element => {
@@ -53,14 +54,26 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         >
           {selected.label}
         </Text>
-        <Text
+        {/* <Text
           style={{
             ...style.arrow,
             color: props.dropdownArrowColor ?? style.arrow.color,
           }}
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
-        </Text>
+        </Text> */}
+        <view style={{ position: 'absolute', right:0, paddingBottom: 4 }}>
+          {listDisplay
+            ? <Image 
+                style={{ width: 20, height: 20 }}
+                source={require('../../assets/icons/up.svg')} 
+              />
+            : <Image 
+                style={{ width: 20, height: 20 }}
+                source={require('../../assets/icons/down.svg')} 
+              />
+            }
+            </view>
       </TouchableOpacity>
       <SelectionList
         styles={{
