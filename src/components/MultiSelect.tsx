@@ -41,8 +41,12 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
     });
 
   return (
-    <View>
+    <View>     
       <TouchableOpacity
+        accessible = {true}
+        accessibilityRole='menu'
+        accessibilityLabel='multi-select dropdown'
+        accessibilityValue={{text: (selected.length>0 ?  selected.length + 'items selected' : 'no selection' )}}
         activeOpacity={1}
         style={[
           style.selectorBox,

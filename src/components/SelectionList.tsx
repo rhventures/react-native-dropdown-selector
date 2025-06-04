@@ -116,6 +116,8 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
           {props.searchable &&
             <TextInput
               placeholder='Search'
+              accessible = {true}
+              accessibilityRole='search'
               style={[style.searchBox, props.styles.searchBox]}
               placeholderTextColor={style.searchBox.color}
               onChangeText={(input: string) =>
@@ -161,7 +163,11 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                     ],
                 ]}
               >
-                <Text style={[style.text, props.styles.text]}>
+                <Text 
+                  accessible = {true}
+                  accessibilityRole='menuitem'
+                  accessibilityState={{selected : (props.type === 'single' ? props.selected === item : (props.selected as Data[]).includes(item))}}
+                  style={[style.text, props.styles.text]}>
                   {item.label}
                 </Text>
               </TouchableOpacity>
@@ -193,6 +199,9 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
               onPress={props.clearSelected}
             >
               <Text
+                accessible = {true}
+                accessibilityRole='button'
+                accessibilityLabel='clear list'
                 style={{
                   ...style.clearIcon,
                   color: props.styles.clearButtonIcon ?? style.clearIcon.color,

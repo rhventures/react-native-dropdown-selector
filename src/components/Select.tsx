@@ -43,6 +43,10 @@ const Select = (props: SelectProperties): React.JSX.Element => {
   return (
     <View>
       <TouchableOpacity
+        accessible = {true}
+        accessibilityRole='menu'
+        accessibilityLabel='single-select dropdown'
+        accessibilityValue={{text: (selected.label + ' selected' )}}
         activeOpacity={1}
         style={[
           style.selectorBox,
