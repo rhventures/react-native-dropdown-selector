@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, SelectorRect, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
+import Svg, { Path } from 'react-native-svg';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
 const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
@@ -75,14 +76,15 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
               {props.placeholderText ?? 'Click me'}
             </Text>
         }
-        <Text
-          style={{
-            ...style.arrow,
-            color: props.dropdownArrowColor ?? style.arrow.color,
-          }}
-        >
-          {listDisplay ? 'ᨈ' : 'ᨆ'}
-        </Text>
+        <View style={{ position: 'absolute', right: 0, paddingBottom: 4 }}>
+          {listDisplay ? (
+            <Svg width={25} height={25} viewBox="0 0 25 25" fill="none">
+              <Path d="M17 14l-5-5-5 5" stroke={props.dropdownArrowColor ?? style.arrow.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            </Svg>) : (
+            <Svg width={25} height={25} viewBox="0 0 25 25" fill="none">
+              <Path d="M7 10l5 5 5-5" stroke={props.dropdownArrowColor ?? style.arrow.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            </Svg>)}
+        </View>
       </TouchableOpacity>
       <SelectionList
         styles={{
