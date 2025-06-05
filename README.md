@@ -5,7 +5,7 @@ A custom React Native component for dropdown lists that emulates some functional
 ## Features
 
 - Cross-platform uniformity
-- Select one or more items from the list
+- Select one or more items from a list
 - Support for custom component styling
 - Import data with versatile structure
 - Item prioritization
@@ -23,23 +23,23 @@ There are 2 components available for use:
 and
 [`MultiSelect`](https://github.com/rhventures/react-native-dropdown-selector/wiki/MultiSelect)
 
-For example, the syntax for using `Select` would look something like the following:
+Using one of these components looks something like the following:
 ```tsx
 <Select
   data={data}
   onSelect={console.log}
 />
 ```
-The data prop takes in an array of the [`Data`](https://github.com/rhventures/react-native-dropdown-selector/wiki/Data) object, and the onSelect prop takes in a function that accepts an argument of type `Data`.
+The data prop takes in an array of the [`Data`](https://github.com/rhventures/react-native-dropdown-selector/wiki/Data) object to act as options for the Selector, and the onSelect prop takes in a function that accepts an argument of type `Data` to be called when a new item is selected.
 
-There are other optional props too. For more information about how to use these components, check out the
+These components may also take in optional props. For more information about the usage of these components, check out the
 [wiki](https://github.com/rhventures/react-native-dropdown-selector/wiki).
 
 ## How Do I *actually* Use It?
 
-We will use TypeScript for this example.
+The following example uses TypeScript.
 
-First, begin by importing a selector component and the `Data` type. In this case, we will use `Select`:
+First, import a selector component and the `Data` type. In this case, we use `Select`:
 ```tsx
 import { Select, type Data } from 'react-native-dropdown-selector';
 ```
@@ -51,20 +51,20 @@ const data: Data[] = [
   { label: 'Item 3' },
 ]
 ```
-Next, define a function that we will use for the `onSelect` prop:
+Next, define that function that will be used for the `onSelect` prop:
 ```tsx
 const onDataSelected = (data: Data) => {
   console.log(data.label + ' was selected!');
 };
 ```
-Finally, piece it all together:
+Finally, create the component with the previously defined props:
 ```tsx
 <Select
   data={data}
   onSelect={onDataSelected}
 />
 ```
-For a more detailed guide on how to use these components, make sure to read [Getting Started](https://github.com/rhventures/react-native-dropdown-selector/wiki/Getting-Started).
+For a more detailed guide on the usage of these components, please read [Getting Started](https://github.com/rhventures/react-native-dropdown-selector/wiki/Getting-Started).
 
 ## Demo
 
@@ -72,7 +72,7 @@ Create a react native project with `example/App.tsx` as the main file. Running t
 
 <img src="assets/demo-top.png" height="350px" /> <img src="assets/demo-bottom.png" height="350px" /> <img src="assets/demo-interaction.gif" height="350px" />
 
-For an in-depth walkthrough, follow the link in the Development section.
+For an in-depth walkthrough, read through the [development guide](https://github.com/rhventures/react-native-dropdown-selector/wiki/Development).
 
 ## Contributing
 
