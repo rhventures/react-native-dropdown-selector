@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, ListProperties } from '../types';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): React.JSX.Element => {
@@ -58,7 +59,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
         'landscape-left',
         'landscape-right',
       ]}
-      animationType={windowWidth > windowHeight ? 'slide' : 'none'}
+      animationType={windowWidth > windowHeight ? 'none' : 'none'}
     >
       <TouchableOpacity
         activeOpacity={1}
@@ -98,12 +99,23 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                   opacity: posReady ? 1 : 0,
                 }
               : {
-                  height: windowHeight - 40,
-                  marginTop: 40,
-                  marginHorizontal: 60,
-                  borderRadius: 10,
-                  borderBottomLeftRadius: 0,
-                  borderBottomRightRadius: 0,
+				          left: props.styles.list?.alignSelf === 'center'
+                    ? 0
+                    : props.styles.list?.width
+                    ? props.selectorRect.x
+                      + (typeof props.selectorRect.width === 'string'
+                        ? Number(props.selectorRect.width.slice(0, -1)) * windowWidth
+                        : props.selectorRect.width
+                        - currentListWidth) / 2
+                    : props.selectorRect.x,
+                  width: props.styles.list?.width ?? props.selectorRect.width,
+                  maxHeight: props.listHeight,
+                  top: keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
+                    ? windowHeight - keyboardHeight - currentListHeight - 5
+                    : isAbove
+                    ? props.selectorRect.y - currentListHeight
+                    : props.selectorRect.y + props.selectorRect.height,
+                  opacity: posReady ? 1 : 0,
                 },
           ]}
         >
@@ -177,8 +189,11 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                     opacity: keyboardHeight === 0 && posReady ? 1 : 0,
                   }
                 : {
-                    top: 40,
-                    right: 10,
+                    top: listBottom < windowHeight
+                      ? props.selectorRect.y - 40
+                      : props.selectorRect.y + props.selectorRect.height,
+                    left: props.selectorRect.x + Number(props.selectorRect.width) - 40,
+                    opacity: keyboardHeight === 0 && posReady ? 1 : 0,
                   }
 
             ]}
