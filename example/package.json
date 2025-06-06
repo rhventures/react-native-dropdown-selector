@@ -11,9 +11,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@rose-hulman/react-native-dropdown-selector": "file:..",
     "react": "19.0.0",
     "react-native": "0.78.0",
-    "@rose-hulman/react-native-dropdown-selector": "file:.."
+    "react-native-external-keyboard": "^0.5.5"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

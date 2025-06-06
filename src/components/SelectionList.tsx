@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, ListProperties } from '../types';
+import { withKeyboardFocus, ExternalKeyboardView} from 'react-native-external-keyboard';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): React.JSX.Element => {
@@ -20,6 +21,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
   const sidewaysBorderRadiusBL = 0;
   const sidewaysBorderRadiusBR = 0;
   const uprightTopMargin = 40;
+  const WrappedTouchable = withKeyboardFocus(TouchableOpacity);
   const style = useThemeStyles(props.theme ?? 'system');
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
@@ -74,7 +76,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
           props.hide();
         }}
       >
-        <View
+        <ExternalKeyboardView
           onLayout={({ nativeEvent }) => {
             setCurrentListWidth(nativeEvent.layout.width);
             setCurrentListHeight(nativeEvent.layout.height);
@@ -118,6 +120,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
               placeholder='Search'
               accessible = {true}
               accessibilityRole='search'
+              autoFocus
               style={[style.searchBox, props.styles.searchBox]}
               placeholderTextColor={style.searchBox.color}
               onChangeText={(input: string) =>
@@ -132,7 +135,8 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             data={entries}
             style={windowWidth > windowHeight && { marginBottom: 20 }}
             renderItem={({ item }) => (
-              <TouchableOpacity
+              <WrappedTouchable
+                autoFocus
                 onPress={() => {
                   if (props.type === 'single') {
                     (props.setSelected as (d: Data) => void)(item);
@@ -170,10 +174,10 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                   style={[style.text, props.styles.text]}>
                   {item.label}
                 </Text>
-              </TouchableOpacity>
+              </WrappedTouchable>
             )}
           />
-        </View>
+        </ExternalKeyboardView>
         {props.type === 'multi' && (props.selected as Data[]).length > 0 &&
           <View
             style={[

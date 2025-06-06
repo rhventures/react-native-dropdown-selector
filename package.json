@@ -35,7 +35,9 @@
     "eslint-plugin-react-native": "^5.0.0",
     "typescript": "^5.7.3"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-native-external-keyboard": "^0.5.5"
+  },
   "directories": {
     "doc": "docs",
     "example": "example"
