@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, ListProperties } from '../types';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): React.JSX.Element => {
