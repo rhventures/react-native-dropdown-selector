@@ -6,6 +6,11 @@ import SelectionList from './SelectionList';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
 const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
+  const defaultPlaceholderText = 'Click me';
+  const disabledOpacity = .5;
+  const enabledOpacity = 1;
+  const refRectYOffset = 5;
+  const defaultListHeight = 200;
   const style = useThemeStyles(props.theme ?? 'system');
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
@@ -27,9 +32,9 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
     ref.current?.measureInWindow((x, y, width, height) => {
       setRefRect({
         x: x,
-        y: y - 5,
+        y: y - refRectYOffset,
         width: props.boxStyle?.width ?? width,
-        height: height + 10,
+        height: height + 2*refRectYOffset,
       });
       if (display)
         setListDisplay(true);
@@ -42,7 +47,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         style={[
           style.selectorBox,
           props.boxStyle,
-          {opacity: props.disabled ? .5 : 1},
+          {opacity: props.disabled ? disabledOpacity : enabledOpacity},
         ]}
         disabled={props.disabled}
         onPress={() => updatePos(true)}
@@ -72,7 +77,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
           : <Text
               style={[style.selectorText, props.boxTextStyle]}
             >
-              {props.placeholderText ?? 'Click me'}
+              {props.placeholderText ?? defaultPlaceholderText}
             </Text>
         }
         <Text
@@ -105,7 +110,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
           }
           setSelected([]);
         }}
-        listHeight={props.listHeight ?? 200}
+        listHeight={props.listHeight ?? defaultListHeight}
         display={listDisplay}
         searchable={!!props.searchable}
         hide={() => setListDisplay(false)}
