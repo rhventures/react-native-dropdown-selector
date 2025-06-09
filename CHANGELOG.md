@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+
+### Changed
+- Many internal calculations have been retooled to use internal fields for easier readability ([#111]https://github.com/rhventures/react-native-dropdown-selector/pull/111).
+
+### Removed
+
+
+### Fixed
+
+
+## [0.2.0] - 2025-06-05
+
+### Added
+
 - Add a row of 3 plain single selectors to example app ([#19](https://github.com/rhventures/react-native-dropdown-selector/pull/19)).
 - Add a row of 3 plain multi selectors to example app ([#19](https://github.com/rhventures/react-native-dropdown-selector/pull/19)).
 - Add a customized single selector to example app ([#19](https://github.com/rhventures/react-native-dropdown-selector/pull/19)).
@@ -28,7 +42,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Old screenshots of the example app are replaced by new ones ([#23](https://github.com/rhventures/react-native-dropdown-selector/pull/23)).
 - Cleanup npm packages in preparation for a 0.2.0 release. ([#67](https://github.com/rhventures/react-native-dropdown-selector/pull/67))
 - The `onRemove` prop is added to the selector components to be triggered when items are removed, rather than triggering `onSelect` ([#60](https://github.com/rhventures/react-native-dropdown-selector/pull/60)).
-- Many internal calculations have been retooled to use internal fields for easier readability ([111]https://github.com/rhventures/react-native-dropdown-selector/pull/111).
 
 ### Removed
 
