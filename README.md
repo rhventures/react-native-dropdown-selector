@@ -1,6 +1,6 @@
 # React Native Dropdown Selector
 
-A custom react native component for dropdown lists. Emulates some functionality of the HTML `<select>` tag.
+A custom React Native component for dropdown lists that emulates some functionality of the HTML `<select>` tag.
 
 ## Features
 
@@ -9,6 +9,12 @@ A custom react native component for dropdown lists. Emulates some functionality 
 - Support for custom component styling
 - Import data with versatile structure
 - Item prioritization
+
+## Installation
+
+```bash
+npm i @rose-hulman/react-native-dropdown-selector
+```
 
 ## How Do I Use It?
 
@@ -68,6 +74,6 @@ Create a react native project with `example/App.tsx` as the main file. Running t
 
 For an in-depth walkthrough, read through the [development guide](https://github.com/rhventures/react-native-dropdown-selector/wiki/Development).
 
-## Development
+## Contributing
 
 To contribute to the development of this project, please refer to the [development guide](https://github.com/rhventures/react-native-dropdown-selector/wiki/Development).
