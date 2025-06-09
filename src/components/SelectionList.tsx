@@ -58,7 +58,6 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
         'landscape-left',
         'landscape-right',
       ]}
-      animationType={windowWidth > windowHeight ? 'none' : 'none'}
     >
       <TouchableOpacity
         activeOpacity={1}
