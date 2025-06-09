@@ -47,6 +47,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
     <Modal
       visible={props.display}
       transparent={true}
+      statusBarTranslucent={true}
       onRequestClose={() => {
         setPosReady(false);
         props.hide();
@@ -58,7 +59,6 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
         'landscape-left',
         'landscape-right',
       ]}
-      animationType={windowWidth > windowHeight ? 'slide' : 'none'}
     >
       <TouchableOpacity
         activeOpacity={1}
@@ -93,17 +93,28 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                   top: keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
                     ? windowHeight - keyboardHeight - currentListHeight - 5
                     : isAbove
-                    ? props.selectorRect.y - currentListHeight
-                    : props.selectorRect.y + props.selectorRect.height,
+                    ? props.selectorRect.y - currentListHeight + 50
+                    : props.selectorRect.y + props.selectorRect.height + 45,
                   opacity: posReady ? 1 : 0,
                 }
               : {
-                  height: windowHeight - 40,
-                  marginTop: 40,
-                  marginHorizontal: 60,
-                  borderRadius: 10,
-                  borderBottomLeftRadius: 0,
-                  borderBottomRightRadius: 0,
+				          left: props.styles.list?.alignSelf === 'center'
+                    ? 0
+                    : props.styles.list?.width
+                    ? props.selectorRect.x
+                      + (typeof props.selectorRect.width === 'string'
+                        ? Number(props.selectorRect.width.slice(0, -1)) * windowWidth
+                        : props.selectorRect.width
+                        - currentListWidth) / 2
+                    : props.selectorRect.x,
+                  width: props.styles.list?.width ?? props.selectorRect.width,
+                  maxHeight: props.listHeight,
+                  top: keyboardHeight > 0 && listBottom > windowHeight - keyboardHeight
+                    ? windowHeight - keyboardHeight - currentListHeight - 5
+                    : isAbove
+                    ? props.selectorRect.y - currentListHeight + 50
+                    : props.selectorRect.y + props.selectorRect.height + 50,
+                  opacity: posReady ? 1 : 0,
                 },
           ]}
         >
@@ -170,15 +181,18 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
               windowHeight > windowWidth
                 ? {
                     top: listBottom < windowHeight
-                      ? props.selectorRect.y - 40
-                      : props.selectorRect.y + props.selectorRect.height,
-                    left: props.selectorRect.x - 40,
+                      ? props.selectorRect.y + 10
+                      : props.selectorRect.y + props.selectorRect.height + Number(style.clearButton.height) + 10,
+                    left: props.selectorRect.x - Number(style.clearButton.height),
                     marginLeft: props.selectorRect.width,
                     opacity: keyboardHeight === 0 && posReady ? 1 : 0,
                   }
                 : {
-                    top: 40,
-                    right: 10,
+                    top: listBottom < windowHeight
+                      ? props.selectorRect.y + 10 
+                      : props.selectorRect.y + props.selectorRect.height + Number(style.clearButton.height) + 10,
+                    left: props.selectorRect.x + Number(props.selectorRect.width) - Number(style.clearButton.height),
+                    opacity: keyboardHeight === 0 && posReady ? 1 : 0,
                   }
 
             ]}
