@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ### Changed
+- Many internal calculations have been retooled to use internal fields for easier readability ([111]https://github.com/rhventures/react-native-dropdown-selector/pull/111).
 
 ### Removed
 
