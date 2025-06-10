@@ -190,6 +190,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
               <View style={{ position: 'absolute', right: 6, top: 6}}>
                 {<Svg width={25} height={25} viewBox="0 0 25 25" >
                   <Path d="M19,19,5,5M19,5,5,19" stroke={props.styles.clearButtonIcon ?? style.clearIcon.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                  {/* This is the cross "✖" */}
                 </Svg>}
               </View>
             </TouchableOpacity>
