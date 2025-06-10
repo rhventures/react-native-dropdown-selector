@@ -14,7 +14,7 @@
     "@rose-hulman/react-native-dropdown-selector": "file:..",
     "react": "19.0.0",
     "react-native": "0.78.0",
-    "react-native-svg": "^15.12.0"
+    "react-native-svg": "15.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
