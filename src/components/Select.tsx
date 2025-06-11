@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, SelectorRect, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
-import Svg, {Path} from 'react-native-svg';
+import { createMeasureHandler, updatePriorities, renderDropdownArrow } from '../utils/SelectorUtils';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
 const Select = (props: SelectProperties): React.JSX.Element => {
@@ -21,20 +21,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
       ? props.defaultValue
       : {label: props.placeholderText ?? 'Click me'}
   );
-  const updatePriorities = (data: Data[]) => [
-    ...data.filter((d: Data) => d.priority),
-    ...data.filter((d: Data) => !d.priority),
-  ];
-  const updatePos = () =>
-    ref.current?.measureInWindow((x, y, width, height) => {
-      setRefRect({
-        x: x,
-        y: y - 5,
-        width: props.boxStyle?.width ?? width,
-        height: height + 10,
-      });
-      setListDisplay(true);
-    });
+  const updatePos = createMeasureHandler(ref, setRefRect, setListDisplay, props.boxStyle?.width);
 
   return (
     <View>
@@ -46,7 +33,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
           {opacity: props.disabled ? .5 : 1},
         ]}
         disabled={props.disabled}
-        onPress={updatePos}
+        onPress={() => updatePos(true)}
         ref={ref}
       >
         <Text
@@ -54,17 +41,10 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         >
           {selected.label}
         </Text>
-        <View style={{ position: 'absolute', right: 0, paddingBottom: 4 }}>
-          {listDisplay ? (
-            <Svg width={25} height={25} viewBox="0 0 25 25" fill="none">
-              <Path d="M17 14l-5-5-5 5" stroke={props.dropdownArrowColor ?? style.arrow.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-              {/* This is the up arrow "ᨈ" */}
-            </Svg>) : (
-            <Svg width={25} height={25} viewBox="0 0 25 25" fill="none">
-              <Path d="M7 10l5 5 5-5" stroke={props.dropdownArrowColor ?? style.arrow.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-              {/* This is the up arrow "ᨆ" */}
-            </Svg>)}
-        </View>
+        {renderDropdownArrow(
+          listDisplay,
+          props.dropdownArrowColor ?? style.arrow?.color ?? '#000'
+        )}
       </TouchableOpacity>
       <SelectionList
         styles={{
