@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, SelectorRect, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
+import { createMeasureHandler, updatePriorities, renderDropdownArrow } from '../utils/SelectorUtils';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
 const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
@@ -19,21 +20,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
     props.data.filter((d: Data) =>
     props.defaultValue?.includes(d))
   );
-  const updatePriorities = (data: Data[]) => [
-    ...data.filter((d: Data) => d.priority),
-    ...data.filter((d: Data) => !d.priority),
-  ];
-  const updatePos = (display = false) =>
-    ref.current?.measureInWindow((x, y, width, height) => {
-      setRefRect({
-        x: x,
-        y: y - 5,
-        width: props.boxStyle?.width ?? width,
-        height: height + 10,
-      });
-      if (display)
-        setListDisplay(true);
-    });
+  const updatePos = createMeasureHandler(ref, setRefRect, setListDisplay, props.boxStyle?.width);
 
   return (
     <View>
@@ -75,14 +62,10 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
               {props.placeholderText ?? 'Click me'}
             </Text>
         }
-        <Text
-          style={{
-            ...style.arrow,
-            color: props.dropdownArrowColor ?? style.arrow.color,
-          }}
-        >
-          {listDisplay ? 'ᨈ' : 'ᨆ'}
-        </Text>
+        {renderDropdownArrow(
+          listDisplay,
+          props.dropdownArrowColor ?? style.arrow?.color ?? '#000'
+        )}
       </TouchableOpacity>
       <SelectionList
         styles={{
