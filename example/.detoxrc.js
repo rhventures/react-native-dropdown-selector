@@ -54,7 +54,7 @@ module.exports = {
     emulator: {
       type: 'android.emulator',
       device: {
-        avdName: 'P3a'
+        avdName: 'p9'
       }
     }
   },
