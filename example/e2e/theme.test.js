@@ -11,19 +11,19 @@ describe('Example', () => {
 
     it('Should Change Theme to "dark"', async () => {
         await element(by.id('ThemeSelect')).tap();
-        await element(by.text('dark')).tap();
+        await element(by.label('dark')).tap();
         await expect(element(by.text('Select a theme to see all the dropdowns change! Current theme is "dark"'))).toBeVisible();
     });
 
     it('Should Change Theme to "light"', async () => { 
         await element(by.id('ThemeSelect')).tap();
-        await element(by.text('light')).tap();
+        await element(by.label('light')).tap();
         await expect(element(by.text('Select a theme to see all the dropdowns change! Current theme is "light"'))).toBeVisible();
     });
 
     it('Should Change Theme to "system"', async () => {
         await element(by.id('ThemeSelect')).tap();
-        await element(by.text('system')).tap();
+        await element(by.label('system')).tap();
         await expect(element(by.text('Select a theme to see all the dropdowns change! Current theme is "system"'))).toBeVisible();
     });
 });
