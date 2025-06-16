@@ -9,6 +9,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
   const style = useThemeStyles(props.theme ?? 'system');
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
+  const testID = props.testID ?? 'selector';
   const [refRect, setRefRect] = useState<SelectorRect>({
     x: 0,
     y: 0,
@@ -83,6 +84,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         >
           {listDisplay ? 'ᨈ' : 'ᨆ'}
         </Text>
+        <Text testID={ testID }></Text>
       </TouchableOpacity>
       <SelectionList
         styles={{

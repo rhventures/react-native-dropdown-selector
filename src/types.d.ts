@@ -61,6 +61,7 @@ export interface MultiSelectProperties {
   clearButtonIconColor?: ColorValue;
   searchBoxStyle?: TextStyle & ViewStyle;
   theme?: 'light' | 'dark' | 'system';
+  testID: string;
 }
 
 export interface SelectProperties {
@@ -79,4 +80,5 @@ export interface SelectProperties {
   dropdownArrowColor?: ColorValue;
   searchBoxStyle?: TextStyle & ViewStyle;
   theme?: 'light' | 'dark' | 'system';
+  testID: string;
 }
