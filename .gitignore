@@ -63,3 +63,5 @@ yarn-error.log
 .metro-health-check*
 
 rose-hulman-react-native-dropdown-selector-*.tgz
+
+.fake
