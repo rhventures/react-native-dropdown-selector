@@ -185,6 +185,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
           >
             <TouchableOpacity
               onPress={props.clearSelected}
+              accessibilityLabel='ClearButton'
             >
               <Text
                 style={{
