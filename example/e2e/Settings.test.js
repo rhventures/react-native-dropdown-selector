@@ -35,11 +35,12 @@ describe('Settings Functionality Tests', () => {
         await expect(element(by.id('ThemeSelect'))).toBeVisible();
         await element(by.id('ThemeSelect')).tap();
         await expect(element(by.id('searchInput'))).toBeVisible();
+        await scrollView.scroll(100, 'down');
         await element(by.id('searchInput')).typeText('da');
         await expect(element(by.label('dark'))).toBeVisible();
         await element(by.label('dark')).tap();
         await expect(element(by.text('Select a theme to see all the dropdowns change! Current theme is "dark"'))).toBeVisible();
-        await scrollView.scroll(800, 'up');
+        await scrollView.scroll(600, 'up');
         await expect(element(by.id('SimpleMultiDataSelect'))).toBeVisible();
         await element(by.id('SimpleMultiDataSelect')).tap();
         await expect(element(by.id('searchInput'))).toBeVisible();
