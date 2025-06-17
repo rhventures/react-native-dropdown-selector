@@ -184,7 +184,7 @@ describe('All Tests for Example APP', () => {
         const scrollView = element(by.type('android.widget.ScrollView')); 
 
         await device.reloadReactNative();
-        await scrollView.scroll(800, 'down');
+        await scrollView.scroll(1200, 'down');
         await expect(element(by.id('SelectorSettings'))).toBeVisible();
         await element(by.id('SelectorSettings')).tap();
         await expect(element(by.label('Searchable'))).toBeVisible();
@@ -193,12 +193,11 @@ describe('All Tests for Example APP', () => {
         await expect(element(by.id('ThemeSelect'))).toBeVisible();
         await element(by.id('ThemeSelect')).tap();
         await expect(element(by.id('searchInput'))).toBeVisible();
-        await scrollView.scroll(100, 'down');
         await element(by.id('searchInput')).typeText('da');
         await expect(element(by.label('dark'))).toBeVisible();
         await element(by.label('dark')).tap();
         await expect(element(by.text('Select a theme to see all the dropdowns change! Current theme is "dark"'))).toBeVisible();
-        await scrollView.scroll(600, 'up');
+        await scrollView.scroll(1000, 'up');
         await expect(element(by.id('SimpleMultiDataSelect'))).toBeVisible();
         await element(by.id('SimpleMultiDataSelect')).tap();
         await expect(element(by.id('searchInput'))).toBeVisible();
@@ -212,4 +211,50 @@ describe('All Tests for Example APP', () => {
     });     
 
     /* ---------------Settings Functionality Tests End--------------- */
+    
+    /* --------------------Styled Selection Tests-------------------- */
+
+    it('------------Styled Selection Tests------------', async () => {
+        await device.reloadReactNative();
+    });
+    
+    it('Should Test Styled Single Selection', async () => {
+        const scrollView = element(by.type('android.widget.ScrollView'));
+        await scrollView.scroll(1500, 'down');
+        await expect(element(by.id('StyledSingleSelect'))).toBeVisible();
+        await element(by.id('StyledSingleSelect')).tap();
+        await element(by.label('Item 4')).swipe('up', 'fast');
+        await expect(element(by.label('Item 8'))).toBeVisible();
+        await element(by.label('Item 8')).tap();
+        await device.tap({x: 10, y: 10});
+        await element(by.id('StyledSingleSelect')).tap();
+        await element(by.label('Item 2')).tap();
+    });
+
+    it('Should Test Styled Multi Deselection', async () => {
+        const scrollView = element(by.type('android.widget.ScrollView'));
+        await device.reloadReactNative();
+        await scrollView.scroll(1500, 'down');
+        await expect(element(by.id('StyledMultiSelect'))).toBeVisible();
+        await element(by.id('StyledMultiSelect')).tap();
+        await element(by.label('Item 3')).tap();
+        await element(by.label('Item 5')).tap();
+        await element(by.label('Item 4')).tap();
+        await element(by.label('Item 1')).tap();
+    });
+   
+    it('Should Test Styled Multi Selection', async () => {
+        await element(by.label('Item 3')).tap();
+        await element(by.label('Item 5')).tap();
+        await element(by.label('Item 4')).tap();
+        await element(by.label('Item 1')).tap();
+    });
+
+    it('Should Test Styled Clear Button', async () => { 
+        await expect(element(by.label('ClearButton'))).toBeVisible;
+        await element(by.label('ClearButton')).tap(); 
+        await expect(element(by.text('I am very stylish'))).toBeVisible;
+    });
+    
+    /* ------------------Styled Selection Tests End------------------ */    
 });
