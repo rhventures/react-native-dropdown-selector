@@ -1,4 +1,4 @@
-describe('Example', () => {
+describe('Theme Change Functionality Tests', () => {
     beforeAll(async () => {
         await device.launchApp();
     });
