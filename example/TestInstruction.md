@@ -61,7 +61,7 @@ To run the tests for the Example App, follow these steps:
 
          Then re-run the tests. This should resolve the issue. If you still encounter issues, please try to restart the emulator or your computer, and make sure you followed all the instructions above.
 
-      3. First time when you run `Searchable Selection Tests` (in `Settings.test.js` and `testAll.test.js`), you may encounter an issue like `text not being found`, this is because the first time you try to **type in** something on a new Android emulator, there will be a pop-up window to show some tips about how to use the keyboard. You can just click on the ***Cancel*** button to close the pop-up window, and then re-run the tests. This should resolve the issue. If you still encounter issues, please try re-run the tests two to three times, or restart the emulator, and make sure you followed all the instructions above.
+      3. First time when you run `Searchable Selection Tests` (in `Settings.test.js` and `testAll.test.js`), you may encounter an issue like `text not being found`, this is because the first time you try to **type in** something on a new Android emulator, there will be a pop-up window to show some tips about how to use the keyboard. You can just click on the ***Cancel*** button to close the pop-up window, and then re-run the tests (you might need to re-run two to three times). This should resolve the issue. If you still encounter issues, please try to restart the emulator, and make sure you followed all the instructions above.
 
    - Commands to run tests:
 
