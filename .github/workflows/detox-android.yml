@@ -2,9 +2,9 @@ name: Detox Tests for Android
 
 on:
   push:
-    branches: [rhit-zhuy17/Add-Tests-Via-Detox]
+    branches: [rhit-zhuy17/Github-Action-For-Example-App-Test]
   pull_request:
-    branches: [rhit-zhuy17/Add-Tests-Via-Detox]
+    branches: [rhit-zhuy17/Github-Action-For-Example-App-Test]
   workflow_dispatch:
 
 jobs:
