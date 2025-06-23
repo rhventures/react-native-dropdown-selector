@@ -31,16 +31,15 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y libpulse0
         
       - name: Npm Install
-        working-directory: ./example 
         run: npm install
 
       - name: Npm ci
         working-directory: ./example
         run: npm ci
         
-      - name: Install Detox CLI
-        working-directory: ./example
-        run: npm install detox-cli --global
+      # - name: Install Detox CLI
+      #   working-directory: ./example
+      #   run: npm install detox-cli --global
 
       - name: Build Android app
         working-directory: ./example
@@ -57,4 +56,4 @@ jobs:
           force-avd-creation: true 
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-metrics
           disable-animations: true
-          script: detox test e2e/testAll.test.js --configuration android.emu.debug
+          script: detox test e2e/testAll.test.js --configuration android.emu.debug --headless --cleanup --loglevel verbose

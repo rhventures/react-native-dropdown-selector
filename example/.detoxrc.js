@@ -53,7 +53,6 @@ module.exports = {
     },
     emulator: {
       type: 'android.emulator',
-      headless: true,
       device: {
         avdName: 'demophone' //Replace it with your AVD name
       }
