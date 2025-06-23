@@ -21,9 +21,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Go to Example Directory
-        run: cd example
-
       - name: Set up Java for Android
         uses: actions/setup-java@v4
         with:
@@ -31,23 +28,25 @@ jobs:
           java-version: 17
 
       - name: Npm Install
+        working-directory: ./example 
         run: npm install
 
       - name: Npm ci
+        working-directory: ./example
         run: npm ci
-
-      - name: Install Detox
-        run: npm install detox --save-dev
         
       - name: Install Detox CLI
+        working-directory: ./example
         run: npm install detox-cli --global
 
       - name: Build Android app
+        working-directory: ./example
         run: detox build --configuration android.emu.debug
 
       - name: Run Detox tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
+          working-directory: ./example
           api-level: 31
           profile: pixel_2
           arch: x86_64
