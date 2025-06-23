@@ -21,14 +21,14 @@ jobs:
         with:
           node-version: 22
 
+      - name: Go to Example Directory
+        run: cd example
+
       - name: Set up Java for Android
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 17
-
-      - name: Go to Example Directory
-        run: cd example
 
       - name: Npm Install
         run: npm install
@@ -36,6 +36,9 @@ jobs:
       - name: Npm ci
         run: npm ci
 
+      - name: Install Detox
+        run: npm install detox --save-dev
+        
       - name: Install Detox CLI
         run: npm install detox-cli --global
 
