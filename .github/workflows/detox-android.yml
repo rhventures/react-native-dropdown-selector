@@ -27,6 +27,9 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
+      - name: Install PulseAudio library
+        run: sudo apt-get update && sudo apt-get install -y libpulse0
+        
       - name: Npm Install
         working-directory: ./example 
         run: npm install
