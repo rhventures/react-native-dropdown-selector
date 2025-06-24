@@ -43,7 +43,7 @@ jobs:
 
       - name: Build Android app
         working-directory: ./example
-        run: detox build --configuration android.emu.debug
+        run: npx react-native start & detox build --configuration android.emu.debug
 
       - name: Run Detox tests
         uses: reactivecircus/android-emulator-runner@v2
