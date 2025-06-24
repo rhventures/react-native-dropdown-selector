@@ -37,9 +37,9 @@ jobs:
         working-directory: ./example
         run: npm ci
         
-      # - name: Install Detox CLI
-      #   working-directory: ./example
-      #   run: npm install detox-cli --global
+      - name: Install Detox CLI
+        working-directory: ./example
+        run: npm install detox-cli --global
 
       - name: Build Android app
         working-directory: ./example
@@ -49,11 +49,11 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           working-directory: ./example
-          api-level: 31
-          profile: pixel_2
+          api-level: 30
+          # profile: pixel_2
           arch: x86_64
-          avd-name: demophone
-          force-avd-creation: true 
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-metrics
-          disable-animations: true
+          # avd-name: demophone
+          # force-avd-creation: true 
+          # emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-metrics
+          # disable-animations: true
           script: detox test e2e/testAll.test.js --configuration android.emu.debug --headless --cleanup --loglevel verbose
