@@ -54,7 +54,7 @@ module.exports = {
     emulator: {
       type: 'android.emulator',
       device: {
-        avdName: 'test' //Replace it with your AVD name
+        avdName: 'demophone' //Replace it with your AVD name
       }
     }
   },

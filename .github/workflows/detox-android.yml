@@ -10,7 +10,7 @@ on:
 jobs:
   component-checks:
     name: Run e2e tests on Android
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
@@ -27,8 +27,8 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - name: Install PulseAudio library
-        run: sudo apt-get update && sudo apt-get install -y libpulse0
+      # - name: Install PulseAudio library
+      #   run: sudo apt-get update && sudo apt-get install -y libpulse0
         
       - name: Npm Install
         run: npm install
@@ -52,7 +52,7 @@ jobs:
           api-level: 30
           # profile: pixel_2
           arch: x86_64
-          # avd-name: demophone
+          avd-name: demophone
           # force-avd-creation: true 
           # emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-metrics
           # disable-animations: true
