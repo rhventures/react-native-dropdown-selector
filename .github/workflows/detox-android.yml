@@ -5,12 +5,11 @@ on:
     branches: [rhit-zhuy17/Github-Action-For-Example-App-Test]
   pull_request:
     branches: [rhit-zhuy17/Github-Action-For-Example-App-Test]
-  workflow_dispatch:
 
 jobs:
   component-checks:
     name: Run e2e tests on Android
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -20,6 +19,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: 'npm'
+          cache-dependency-path: './example/package-lock.json'
 
       - name: Set up Java for Android
         uses: actions/setup-java@v4
@@ -27,33 +28,49 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      # - name: Install PulseAudio library
-      #   run: sudo apt-get update && sudo apt-get install -y libpulse0
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools platforms;android-30 build-tools;35.0.0 system-images;android-30;google_apis;x86_64 emulator"
+
+      - name: Install PulseAudio library
+        working-directory: ./example
+        run: sudo apt-get update && sudo apt-get install -y libpulse0
         
       - name: Npm Install
-        run: npm install
-
-      - name: Npm ci
         working-directory: ./example
-        run: npm ci
+        run: npm install
         
       - name: Install Detox CLI
         working-directory: ./example
         run: npm install detox-cli --global
 
+      - name: Make gradlew executable
+        working-directory: ./example/android
+        run: chmod +x gradlew
+
       - name: Build Android app
         working-directory: ./example
-        run: npx react-native start & detox build --configuration android.emu.debug
+        run: detox build --configuration android.emu.debug
+
+      - name: Create AVD
+        run: |
+          echo "no" | avdmanager create avd --force --name demophone --abi google_apis/x86_64 --package 'system-images;android-30;google_apis;x86_64'
+
+      - name: Start NPX React Native
+        working-directory: ./example
+        run: |
+          nohup npx react-native start --reset-cache > metro.log 2>&1 &
+          sleep 20
 
       - name: Run Detox tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           working-directory: ./example
           api-level: 30
-          # profile: pixel_2
           arch: x86_64
           avd-name: demophone
-          # force-avd-creation: true 
-          # emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-metrics
-          # disable-animations: true
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-metrics
+          disable-animations: true
           script: detox test e2e/testAll.test.js --configuration android.emu.debug --headless --cleanup --loglevel verbose
