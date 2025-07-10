@@ -78,13 +78,13 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         }
         <View style={{ position: 'absolute', right: 0, paddingBottom: 4 }}>
           {listDisplay ? (
+            // This is the up arrow "ᨈ"
             <Svg width={25} height={25} viewBox="0 0 25 25" fill="none">
               <Path d="M17 14l-5-5-5 5" stroke={props.dropdownArrowColor ?? style.arrow.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-              {/* This is the up arrow "ᨈ" */}
             </Svg>) : (
+            // This is the down arrow "ᨆ"
             <Svg width={25} height={25} viewBox="0 0 25 25" fill="none">
               <Path d="M7 10l5 5 5-5" stroke={props.dropdownArrowColor ?? style.arrow.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-              {/* This is the up arrow "ᨆ" */}
             </Svg>)}
         </View>
       </TouchableOpacity>
