@@ -19,8 +19,8 @@
   },
   "homepage": "https://github.com/rhventures/react-native-dropdown-selector#readme",
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-native": "^0.71.19"
+    "react": ">=18.2.0 <20.0.0",
+    "react-native": ">=0.71.0 <0.81.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.9",
