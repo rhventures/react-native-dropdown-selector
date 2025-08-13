@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Updated React and React Native peerDependency bounds([#131])(https://github.com/rhventures/react-native-dropdown-selector/pull/131).
 
 ### Removed
 
