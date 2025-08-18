@@ -43,7 +43,6 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
   const [disabled, setDisabled] = React.useState(false);
   const [searchable, setSearchable] = React.useState(false);
   const style = useThemeStyles(theme);
-
   const onSimpleDataSelect = (datum: Data) =>
     setItem(datum.label);
   const onSimpleMultiDataSelect = (data: Data[]) =>
@@ -70,6 +69,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
           disabled={disabled}
           searchable={searchable}
           theme={theme}
+          testID="SimpleDataSelect"
         />
         <Text style={style.text}>
           Selected: {item || 'None'} (scroll down)
@@ -97,6 +97,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
             alignSelf: 'center',
             width: 200,
           }}
+          testID='SimpleDataSelect2'
         />
         <MultiSelect
           data={data}
@@ -104,6 +105,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
           disabled={disabled}
           searchable={searchable}
           theme={theme}
+          testID='SimpleMultiDataSelect'
         />
         <View style={{ height: 400 }}/>
         <Text style={style.text}>Single Selects:</Text>
@@ -115,6 +117,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
               disabled={disabled}
               searchable={searchable}
               theme={theme}
+              testID='DataSelect(1)'
             />
           </View>
           <View style={{ flex: 1 }}>
@@ -124,6 +127,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
               disabled={disabled}
               searchable={searchable}
               theme={theme}
+              testID='DataSelect(2)'
             />
           </View>
           <View style={{ flex: 1 }}>
@@ -133,6 +137,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
               disabled={disabled}
               searchable={searchable}
               theme={theme}
+              testID='DataSelect(3)'
             />
           </View>
         </View>
@@ -147,6 +152,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
                 disabled={disabled}
                 searchable={searchable}
                 theme={theme}
+                testID='MultiDataSelect(4)'
               />
             </View>
             <View style={{ flex: 1 }}>
@@ -157,6 +163,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
                 disabled={disabled}
                 searchable={searchable}
                 theme={theme}
+                testID='MultiDataSelect(5)'
               />
             </View>
             <View style={{ flex: 1 }}>
@@ -167,6 +174,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
                 disabled={disabled}
                 searchable={searchable}
                 theme={theme}
+                testID='MultiDataSelect(6)'
               />
             </View>
           </View>
@@ -192,6 +200,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
             }}
             placeholderText='Selector Settings'
             theme={theme}
+            testID='SelectorSettings'
           />
         </View>
         <View style={{ height: 200 }}>
@@ -202,6 +211,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
             searchable={searchable}
             placeholderText={`Select a theme`}
             theme={theme}
+            testID='ThemeSelect'
           />
           <Text style={[style.text, { textAlign: 'center'}]}>
             Select a theme to see all the dropdowns change! Current theme is "{theme}"
@@ -284,6 +294,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
             paddingHorizontal: 12,
             paddingTop: 14,
           }}
+          testID='StyledSingleSelect'
         />
         <View style={{height: 50}} />
         <Text style={style.text}>Styled Multi Select:</Text>
@@ -383,6 +394,7 @@ const Content = ({ onThemeSelect, theme }: ContentProperties): React.JSX.Element
             paddingHorizontal: 12,
             paddingTop: 14,
           }}
+          testID='StyledMultiSelect'
         />
         <View style={{ height: 700 }} />
       </ScrollView>

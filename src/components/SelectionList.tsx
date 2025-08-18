@@ -118,6 +118,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                   data.label.toLowerCase().includes(input.toLowerCase())
               ))}
               onLayout={() => setEntries(props.data)}
+              testID='searchInput'
             />
           }
           <FlatList
@@ -185,6 +186,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
           >
             <TouchableOpacity
               onPress={props.clearSelected}
+              accessibilityLabel='ClearButton'
             >
               <Text
                 style={{
