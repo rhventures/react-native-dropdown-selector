@@ -72,7 +72,7 @@ Create a react native project with `example/App.tsx` as the main file. Running t
 
 <img src="assets/demo-top.png" height="350px" /> <img src="assets/demo-bottom.png" height="350px" /> <img src="assets/demo-interaction.gif" height="350px" />
 
-For an in-depth walkthrough, read through the [development guide](../../../wiki/wiki/Development).
+For an in-depth walkthrough, read through the [development guide](../../../wiki/Development).
 
 ## Contributing
 
