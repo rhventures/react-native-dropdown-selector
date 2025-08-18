@@ -19,9 +19,9 @@ npm i @rose-hulman/react-native-dropdown-selector
 ## How Do I Use It?
 
 There are 2 components available for use:
-[`Select`](https://github.com/rhventures/react-native-dropdown-selector/wiki/Select)
+[`Select`](../../../wiki/Select)
 and
-[`MultiSelect`](https://github.com/rhventures/react-native-dropdown-selector/wiki/MultiSelect)
+[`MultiSelect`](../../../wiki/MultiSelect)
 
 Using one of these components looks something like the following:
 ```tsx
@@ -30,10 +30,10 @@ Using one of these components looks something like the following:
   onSelect={console.log}
 />
 ```
-The data prop takes in an array of the [`Data`](https://github.com/rhventures/react-native-dropdown-selector/wiki/Data) object to act as options for the Selector, and the onSelect prop takes in a function that accepts an argument of type `Data` to be called when a new item is selected.
+The data prop takes in an array of the [`Data`](../../../wiki/Data) object to act as options for the Selector, and the onSelect prop takes in a function that accepts an argument of type `Data` to be called when a new item is selected.
 
 These components may also take in optional props. For more information about the usage of these components, check out the
-[wiki](https://github.com/rhventures/react-native-dropdown-selector/wiki).
+[wiki](../../../wiki).
 
 ## How Do I *actually* Use It?
 
@@ -64,7 +64,7 @@ Finally, create the component with the previously defined props:
   onSelect={onDataSelected}
 />
 ```
-For a more detailed guide on the usage of these components, please read [Getting Started](https://github.com/rhventures/react-native-dropdown-selector/wiki/Getting-Started).
+For a more detailed guide on the usage of these components, please read [Getting Started](../../../wiki/Getting-Started).
 
 ## Demo
 
@@ -72,8 +72,8 @@ Create a react native project with `example/App.tsx` as the main file. Running t
 
 <img src="assets/demo-top.png" height="350px" /> <img src="assets/demo-bottom.png" height="350px" /> <img src="assets/demo-interaction.gif" height="350px" />
 
-For an in-depth walkthrough, read through the [development guide](https://github.com/rhventures/react-native-dropdown-selector/wiki/Development).
+For an in-depth walkthrough, read through the [development guide](../../../wiki/wiki/Development).
 
 ## Contributing
 
-To contribute to the development of this project, please refer to the [development guide](https://github.com/rhventures/react-native-dropdown-selector/wiki/Development).
+To contribute to the development of this project, please refer to the [development guide](../../../wiki/Development).
