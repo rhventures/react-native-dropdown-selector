@@ -179,7 +179,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                     top: listBottom < windowHeight
                       ? props.selectorRect.y - uprightTopMargin
                       : props.selectorRect.y + props.selectorRect.height,
-                    left: props.selectorRect.x - uprightTopMargin, 
+                    left: props.selectorRect.x - uprightTopMargin,
                     marginLeft: props.selectorRect.width,
                     opacity: keyboardHeight === 0 && posReady ? 1 : 0,
                   }
