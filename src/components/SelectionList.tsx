@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, ListProperties } from '../types';
+import Svg, { Path } from 'react-native-svg';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): React.JSX.Element => {
@@ -184,7 +185,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                     top: listBottom < windowHeight
                       ? props.selectorRect.y - uprightTopMargin
                       : props.selectorRect.y + props.selectorRect.height,
-                    left: props.selectorRect.x - uprightTopMargin, 
+                    left: props.selectorRect.x - uprightTopMargin,
                     marginLeft: props.selectorRect.width,
                     opacity: keyboardHeight === 0 && posReady ? 1 : 0,
                   }
@@ -198,17 +199,16 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             <TouchableOpacity
               onPress={props.clearSelected}
             >
-              <Text
+              <View style={{ position: 'absolute', right: 6, top: 6}}>
                 accessible = {true}
                 accessibilityRole='button'
                 accessibilityLabel='clear list'
-                style={{
-                  ...style.clearIcon,
-                  color: props.styles.clearButtonIcon ?? style.clearIcon.color,
-                }}  
-              >
-                {'×'}
-              </Text>
+                { // This is the cross "✖"
+                  <Svg width={25} height={25} viewBox="0 0 25 25" >
+                    <Path d="M19,19,5,5M19,5,5,19" stroke={props.styles.clearButtonIcon ?? style.clearIcon.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                  </Svg>
+                }
+              </View>
             </TouchableOpacity>
           </View>
         }
