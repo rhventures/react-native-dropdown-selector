@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 
+## [0.2.1] - 2025-08-13
+
+### Fixed
+
+- Updated React and React Native peerDependency bounds ([#131](https://github.com/rhventures/react-native-dropdown-selector/pull/131)).
+
 ## [0.2.0] - 2025-06-05
 
 ### Added
