@@ -3,10 +3,16 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, SelectorRect, SelectProperties } from '../types';
 import SelectionList from './SelectionList';
+import Svg, {Path} from 'react-native-svg';
 import { createMeasureHandler, updatePriorities, renderDropdownArrow } from '../utils/SelectorUtils';
 
 /* Renders a selector component. Takes in props defined in the SelectProperties type. */
 const Select = (props: SelectProperties): React.JSX.Element => {
+  const defaultPlaceholderText = 'Click me';
+  const disabledOpacity = .5;
+  const enabledOpacity = 1;
+  const refRectYOffset = 5;
+  const defaultListHeight = 200;
   const style = useThemeStyles(props.theme ?? 'system');
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
@@ -19,7 +25,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
   const [selected, setSelected] = useState<Data>(
     props.defaultValue && props.data.includes(props.defaultValue)
       ? props.defaultValue
-      : {label: props.placeholderText ?? 'Click me'}
+      : {label: props.placeholderText ?? defaultPlaceholderText}
   );
   const updatePos = createMeasureHandler(ref, setRefRect, setListDisplay, props.boxStyle?.width);
 
@@ -30,7 +36,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         style={[
           style.selectorBox,
           props.boxStyle,
-          {opacity: props.disabled ? .5 : 1},
+          {opacity: props.disabled ? disabledOpacity : enabledOpacity},
         ]}
         disabled={props.disabled}
         onPress={() => updatePos(true)}
@@ -58,7 +64,7 @@ const Select = (props: SelectProperties): React.JSX.Element => {
         onSelect={props.onSelect}
         selected={selected}
         setSelected={setSelected}
-        listHeight={props.listHeight ?? 200}
+        listHeight={props.listHeight ?? defaultListHeight}
         display={listDisplay}
         searchable={!!props.searchable}
         hide={() => setListDisplay(false)}

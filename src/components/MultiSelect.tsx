@@ -3,10 +3,16 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, SelectorRect, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
+import Svg, { Path } from 'react-native-svg';
 import { createMeasureHandler, updatePriorities, renderDropdownArrow } from '../utils/SelectorUtils';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
 const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
+  const defaultPlaceholderText = 'Click me';
+  const disabledOpacity = .5;
+  const enabledOpacity = 1;
+  const refRectYOffset = 5;
+  const defaultListHeight = 200;
   const style = useThemeStyles(props.theme ?? 'system');
   const ref = useRef<TouchableOpacity>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
@@ -29,7 +35,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
         style={[
           style.selectorBox,
           props.boxStyle,
-          {opacity: props.disabled ? .5 : 1},
+          {opacity: props.disabled ? disabledOpacity : enabledOpacity},
         ]}
         disabled={props.disabled}
         onPress={() => updatePos(true)}
@@ -59,7 +65,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
           : <Text
               style={[style.selectorText, props.boxTextStyle]}
             >
-              {props.placeholderText ?? 'Click me'}
+              {props.placeholderText ?? defaultPlaceholderText}
             </Text>
         }
         {renderDropdownArrow(
@@ -88,7 +94,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
           }
           setSelected([]);
         }}
-        listHeight={props.listHeight ?? 200}
+        listHeight={props.listHeight ?? defaultListHeight}
         display={listDisplay}
         searchable={!!props.searchable}
         hide={() => setListDisplay(false)}
