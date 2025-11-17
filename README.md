@@ -16,6 +16,12 @@ A custom React Native component for dropdown lists that emulates some functional
 npm i @rose-hulman/react-native-dropdown-selector
 ```
 
+Since `react-native-svg` is a peer dependency, you will need to install it along with the component if you do not already have it in your project.
+
+```bash
+npm i react-native-svg
+```
+
 ## How Do I Use It?
 
 There are 2 components available for use:
