@@ -12,12 +12,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Many internal calculations have been retooled to use internal fields for easier readability ([#111](https://github.com/rhventures/react-native-dropdown-selector/pull/111)).
+- Update the icons of dropdown arrow and clear button to use SVGs instead of font icons ([#114](https://github.com/rhventures/react-native-dropdown-selector/pull/114)).
 
 ### Removed
 
 
 ### Fixed
 
+
+## [0.2.1] - 2025-08-13
+
+### Fixed
+
+- Updated React and React Native peerDependency bounds ([#131](https://github.com/rhventures/react-native-dropdown-selector/pull/131)).
 
 ## [0.2.0] - 2025-06-05
 

@@ -11,9 +11,16 @@ import {
 } from 'react-native';
 import { useThemeStyles } from '../styles';
 import type { Data, ListProperties } from '../types';
+import Svg, { Path } from 'react-native-svg';
 
 /* Renders a modal with a list of selectable items. Takes in props defined in the ListProperties type. */
 const SelectionList = (props: ListProperties): React.JSX.Element => {
+  const sidewaysTopMargin = 40;
+  const sidewaysHorizontalMargin = 60;
+  const sidewaysBorderRadius = 10;
+  const sidewaysBorderRadiusBL = 0;
+  const sidewaysBorderRadiusBR = 0;
+  const uprightTopMargin = 40;
   const style = useThemeStyles(props.theme ?? 'system');
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
@@ -78,7 +85,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             style.list,
             props.styles.list,
             windowHeight > windowWidth
-              ? {
+              ? {//phone is held vertical
                   left: props.styles.list?.alignSelf === 'center'
                     ? 0
                     : props.styles.list?.width
@@ -176,10 +183,10 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
         {props.type === 'multi' && (props.selected as Data[]).length > 0 &&
           <View
             style={[
-              style.clearButton,
+              style.clearButton, //move the clear button to the right spot
               props.styles.clearButton,
               windowHeight > windowWidth
-                ? {
+                ? {//phone upright
                     top: listBottom < windowHeight
                       ? props.selectorRect.y + 10
                       : props.selectorRect.y + props.selectorRect.height + Number(style.clearButton.height) + 10,
@@ -200,14 +207,13 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
             <TouchableOpacity
               onPress={props.clearSelected}
             >
-              <Text
-                style={{
-                  ...style.clearIcon,
-                  color: props.styles.clearButtonIcon ?? style.clearIcon.color,
-                }}
-              >
-                {'×'}
-              </Text>
+              <View style={{ position: 'absolute', right: 6, top: 6}}>
+                { // This is the cross "✖"
+                  <Svg width={25} height={25} viewBox="0 0 25 25" >
+                    <Path d="M19,19,5,5M19,5,5,19" stroke={props.styles.clearButtonIcon ?? style.clearIcon.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                  </Svg>
+                }
+              </View>
             </TouchableOpacity>
           </View>
         }
