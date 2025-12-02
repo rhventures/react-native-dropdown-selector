@@ -125,6 +125,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                   data.label.toLowerCase().includes(input.toLowerCase())
               ))}
               onLayout={() => setEntries(props.data)}
+              testID='searchInput'
             />
           }
           <FlatList
@@ -192,6 +193,7 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
           >
             <TouchableOpacity
               onPress={props.clearSelected}
+              accessibilityLabel='ClearButton'
             >
               <View style={{ position: 'absolute', right: 6, top: 6}}>
                 { // This is the cross "✖"
