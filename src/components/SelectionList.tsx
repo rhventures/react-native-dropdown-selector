@@ -117,6 +117,8 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
           {props.searchable &&
             <TextInput
               placeholder='Search'
+              accessible = {true}
+              accessibilityRole='search'
               style={[style.searchBox, props.styles.searchBox]}
               placeholderTextColor={style.searchBox.color}
               onChangeText={(input: string) =>
@@ -162,7 +164,11 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
                     ],
                 ]}
               >
-                <Text style={[style.text, props.styles.text]}>
+                <Text 
+                  accessible = {true}
+                  accessibilityRole='menuitem'
+                  accessibilityState={{selected : (props.type === 'single' ? props.selected === item : (props.selected as Data[]).includes(item))}}
+                  style={[style.text, props.styles.text]}>
                   {item.label}
                 </Text>
               </TouchableOpacity>
@@ -194,6 +200,9 @@ const SelectionList = (props: ListProperties): React.JSX.Element => {
               onPress={props.clearSelected}
             >
               <View style={{ position: 'absolute', right: 6, top: 6}}>
+                accessible = {true}
+                accessibilityRole='button'
+                accessibilityLabel='clear list'
                 { // This is the cross "✖"
                   <Svg width={25} height={25} viewBox="0 0 25 25" >
                     <Path d="M19,19,5,5M19,5,5,19" stroke={props.styles.clearButtonIcon ?? style.clearIcon.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
