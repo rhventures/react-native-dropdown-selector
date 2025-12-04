@@ -4,6 +4,7 @@ import { useThemeStyles } from '../styles';
 import type { Data, SelectorRect, MultiSelectProperties } from '../types';
 import SelectionList from './SelectionList';
 import Svg, { Path } from 'react-native-svg';
+import { createMeasureHandler, updatePriorities, renderDropdownArrow } from '../utils/SelectorUtils';
 
 /* Renders a multi-selector component. Takes in props defined in the MultiSelectProperties type. */
 const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
@@ -25,21 +26,7 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
     props.data.filter((d: Data) =>
     props.defaultValue?.includes(d))
   );
-  const updatePriorities = (data: Data[]) => [
-    ...data.filter((d: Data) => d.priority),
-    ...data.filter((d: Data) => !d.priority),
-  ];
-  const updatePos = (display = false) =>
-    ref.current?.measureInWindow((x, y, width, height) => {
-      setRefRect({
-        x: x,
-        y: y - refRectYOffset,
-        width: props.boxStyle?.width ?? width,
-        height: height + 2*refRectYOffset,
-      });
-      if (display)
-        setListDisplay(true);
-    });
+  const updatePos = createMeasureHandler(ref, setRefRect, setListDisplay, props.boxStyle?.width);
 
   return (
     <View>
@@ -81,17 +68,10 @@ const MultiSelect = (props: MultiSelectProperties): React.JSX.Element => {
               {props.placeholderText ?? defaultPlaceholderText}
             </Text>
         }
-        <View style={{ position: 'absolute', right: 0, paddingBottom: 4 }}>
-          {listDisplay ? (
-            // This is the up arrow "ᨈ"
-            <Svg width={25} height={25} viewBox="0 0 25 25" fill="none">
-              <Path d="M17 14l-5-5-5 5" stroke={props.dropdownArrowColor ?? style.arrow.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-            </Svg>) : (
-            // This is the down arrow "ᨆ"
-            <Svg width={25} height={25} viewBox="0 0 25 25" fill="none">
-              <Path d="M7 10l5 5 5-5" stroke={props.dropdownArrowColor ?? style.arrow.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-            </Svg>)}
-        </View>
+        {renderDropdownArrow(
+          listDisplay,
+          props.dropdownArrowColor ?? style.arrow?.color ?? '#000'
+        )}
       </TouchableOpacity>
       <SelectionList
         styles={{
