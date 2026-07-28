@@ -1,0 +1,59 @@
+name: Build Example App for iOS
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-app:
+    name: Build Example App (${{ matrix.platform }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - platform: ios
+            runner: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      
+      - name: Install component dependencies
+        run: npm ci
+      
+      - name: Install example app dependencies
+        working-directory: example
+        run: npm ci
+      
+      - name: Cache iOS Build
+        if: matrix.platform == 'ios'
+        uses: irgaly/xcode-cache@v1
+        with:
+          deriveddata-directory: xcode-derived-data
+          key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-
+      
+      - name: Install CocoaPods
+        if: matrix.platform == 'ios'
+        working-directory: example/ios
+        run: |
+          sudo gem install cocoapods
+          pod install
+      
+      - name: Build iOS app
+        if: matrix.platform == 'ios'
+        working-directory: example/ios
+        run: |
+          set -o pipefail
+          xcodebuild -workspace example.xcworkspace \
+                     -scheme example \
+                     -sdk iphonesimulator \
+                     -configuration Debug \
+                     -derivedDataPath ../../xcode-derived-data \
+                     build | xcpretty
