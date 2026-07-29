@@ -7,9 +7,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-app:
-    name: Build Example App (${{ matrix.platform }})
+  android-build:
+    name: Build Example App on Android (${{ matrix.platform }})
     runs-on: ${{ matrix.runner }}
+    timeout-minutes: 10
     strategy:
       matrix:
         include:
@@ -17,12 +18,14 @@ jobs:
             runner: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
       
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
           node-verson: 22
+          cache: 'npm'
       
       - name: Install component dependencies
         run: npm ci
@@ -37,6 +40,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
+          cache: 'gradle'
       
       - name: Set up Android SDK
         if: matrix.platform == 'android'
