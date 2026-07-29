@@ -69,7 +69,5 @@ jobs:
                      -scheme example \
                      -configuration Debug \
                      -sdk iphoneos \
-                     -archivePath $RUNNER_TEMP/example.xcarchive \
-                     -archive \
                      -derivedDataPath ../../xcode-derived-data \
                      build | xcpretty
