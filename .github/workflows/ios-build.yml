@@ -67,7 +67,7 @@ jobs:
           set -o pipefail
           xcodebuild -workspace example.xcworkspace \
                      -scheme example \
+                     -sdk iphonessimulator \
                      -configuration Debug \
-                     -sdk iphoneos \
                      -derivedDataPath ../../xcode-derived-data \
                      build | xcpretty
