@@ -27,6 +27,13 @@ jobs:
           node-version: 22
           cache: 'npm'
       
+      - name: Install component dependencies
+        run: npm ci
+      
+      - name: Install example app dependencies
+        working-directory: example
+        run: npm ci
+      
       - name: Install CocoaPods
         if: matrix.platform == 'ios'
         working-directory: example/ios
@@ -44,13 +51,6 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
-      
-      - name: Install component dependencies
-        run: npm ci
-      
-      - name: Install example app dependencies
-        working-directory: example
-        run: npm ci
       
       - name: Cache iOS Build
         if: matrix.platform == 'ios'
