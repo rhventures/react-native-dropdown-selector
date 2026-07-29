@@ -35,7 +35,7 @@ jobs:
         if: matrix.platform == 'android'
         uses: actions/setup-java@v5
         with:
-          distribution: 'termurin'
+          distribution: 'temurin'
           java-version: 17
       
       - name: Set up Android SDK
