@@ -1,0 +1,49 @@
+name: Build Example App for iOS
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch
+
+jobs:
+  build-app:
+    name: Build Example App (${{ matrix.platform }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - platform: android
+            runner: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-verson: 22
+      
+      - name: Install component dependencies
+        run: npm ci
+
+      - name: Install example app dependencies
+        working-directory: example
+        run: npm ci
+
+      - name: Set up Java for Android
+        if: matrix.platform == 'android'
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'termurin'
+          java-version: 17
+      
+      - name: Set up Android SDK
+        if: matrix.platform == 'android'
+        working-directory: example/android
+        run: ./gradlew assembleDebug
+
+      - name: Build Android App
+        if: matrix.platform == 'android'
+        working-directory: example/android
+        run: ./gradlew assembleDebug
