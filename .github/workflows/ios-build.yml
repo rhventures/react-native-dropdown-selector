@@ -27,12 +27,11 @@ jobs:
           node-version: 22
           cache: 'npm'
       
-      - name: Install CocoaPods
-        if: matrix.platform == 'ios'
+      - name: Install CocoaPods dependencies
         working-directory: example/ios
         run: |
-          sudo gem install cocoapods
-          pod install
+          bundle install
+          bundle exec pod install
       
       - name: Cache CocoaPods
         if: matrix.platform == 'ios'
@@ -41,9 +40,9 @@ jobs:
           path: |
             ~/.cocoapods
             example/ios/Pods
-          key: pods-${{ runner.os }}-${{ hashFiles('**/Podfile.lock') }}
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
-            pods-${{ runner.os }}-
+            ${{ runner.os }}-pods-
       
       - name: Install component dependencies
         run: npm ci
