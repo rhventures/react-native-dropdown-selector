@@ -60,11 +60,17 @@ jobs:
       #     key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
       #     restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-
       
+      - name: Listing available xcode version
+        run: ls /Applications | grep Xcode
+
+      - name: Listing current version of xcode being used by the MacOS image
+        run: xcodebuild -version
+
       - name: Build iOS app
         if: matrix.platform == 'ios'
         working-directory: example/ios
         run: |
-          rm ./example/ios/.xcode.env.local
+          rm .xcode.env.local
           set -o pipefail
           xcodebuild -workspace example.xcworkspace \
                      -scheme example \
