@@ -84,13 +84,15 @@ jobs:
       - name: Correctly fetch the metal toolchain
         run: xcodebuild -downloadComponent metalToolchain
       
-      - name: Pre-load iOS Platform SDK
+      - name: Pre-load iOS Platform SD
+        if: matrix.platform == 'ios'
         run: xcodebuild -downloadPlatform iOS
 
       - name: Build iOS app
         if: matrix.platform == 'ios'
         working-directory: example/ios
         run: |
+          rm .xcode.env.local
           set -o pipefail
           xcodebuild -workspace example.xcworkspace \
                      -scheme example \
