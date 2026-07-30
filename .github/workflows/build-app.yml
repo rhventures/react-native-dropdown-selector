@@ -81,13 +81,13 @@ jobs:
           sudo xcode-select -s \
           /Applications/Xcode_26.0.1.app/Contents/Developer
       
-      - name: Correctly fetch the metal toolchain
-        if: matrix.platform == 'ios'
-        run: xcodebuild -downloadComponent metalToolchain
-      
-      # - name: Pre-load iOS Platform SD
+      # - name: Correctly fetch the metal toolchain
       #   if: matrix.platform == 'ios'
-      #   run: xcodebuild -downloadPlatform iOS
+      #   run: xcodebuild -downloadComponent metalToolchain
+      
+      - name: Pre-load iOS Platform SD
+        if: matrix.platform == 'ios'
+        run: xcodebuild -downloadPlatform iOS
 
       - name: Build iOS app
         if: matrix.platform == 'ios'
