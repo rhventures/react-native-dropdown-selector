@@ -82,6 +82,7 @@ jobs:
           /Applications/Xcode_26.0.1.app/Contents/Developer
       
       - name: Correctly fetch the metal toolchain
+        if: matrix.platform == 'ios'
         run: xcodebuild -downloadComponent metalToolchain
       
       - name: Pre-load iOS Platform SD
