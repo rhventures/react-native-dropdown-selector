@@ -79,6 +79,10 @@ jobs:
 
       - name: Correctly fetch the metal toolchain
         run: xcodebuild -downloadComponent metalToolchain
+      
+      - name: Pre-load iOS Platform SDK
+        run: xcodebuild -downloadPlatform iOS
+
 
       - name: Build iOS app
         if: matrix.platform == 'ios'
@@ -91,4 +95,4 @@ jobs:
                      -sdk iphonesimulator \
                      -configuration Debug \
                      -derivedDataPath ../../xcode-derived-data \
-                     build | xcpretty
+                     clean build | xcpretty
