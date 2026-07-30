@@ -74,6 +74,11 @@ jobs:
         run: |
           sudo gem install cocoapods
           pod install
+      
+      - name: Set up the desired Xcode version
+        run: |
+          sudo xcode-select -s \
+          /Applications/Xcode_26.0.1.app/Contents/Developer
 
       - name: Build iOS app
         if: matrix.platform == 'ios'
