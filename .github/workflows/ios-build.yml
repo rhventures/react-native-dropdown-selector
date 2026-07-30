@@ -65,7 +65,18 @@ jobs:
 
       - name: Listing current version of xcode being used by the MacOS image
         run: xcodebuild -version
+      
+      - name: Set up the desired Xcode version
+        run: |
+          sudo xcode-select -s \
+          /Applications/Xcode_26.0.1.app/Contents/Developer
+      
+      - name: Listing current version of xcode being used by the MacOS image 2.0
+        run: xcodebuild -version
 
+      - name: Listing current version of xcode path being used
+        run: xcode-select -p
+        
       - name: Build iOS app
         if: matrix.platform == 'ios'
         working-directory: example/ios
