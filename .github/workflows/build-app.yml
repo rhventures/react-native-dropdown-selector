@@ -91,4 +91,4 @@ jobs:
                      -sdk iphonesimulator \
                      -configuration Debug \
                      -derivedDataPath ../../xcode-derived-data \
-                     build | xcpretty
+                     clean build | xcpretty
