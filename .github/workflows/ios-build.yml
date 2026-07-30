@@ -10,7 +10,7 @@ jobs:
   ios-build:
     name: Build Example App on iOS (${{ matrix.platform }})
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 10
+    timeout-minutes: 30
     strategy:
       matrix:
         include:
@@ -76,7 +76,7 @@ jobs:
 
       - name: Listing current version of xcode path being used
         run: xcode-select -p
-        
+
       - name: Build iOS app
         if: matrix.platform == 'ios'
         working-directory: example/ios
