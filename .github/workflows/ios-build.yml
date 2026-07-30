@@ -77,6 +77,9 @@ jobs:
       - name: Listing current version of xcode path being used
         run: xcode-select -p
 
+      - name: Correctly fetch the metal toolchain
+        run: xcodebuild -downloadComponent metalToolchain
+
       - name: Build iOS app
         if: matrix.platform == 'ios'
         working-directory: example/ios
