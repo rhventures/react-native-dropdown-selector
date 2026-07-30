@@ -80,6 +80,12 @@ jobs:
         run: |
           sudo xcode-select -s \
           /Applications/Xcode_26.0.1.app/Contents/Developer
+      
+      - name: Correctly fetch the metal toolchain
+        run: xcodebuild -downloadComponent metalToolchain
+      
+      - name: Pre-load iOS Platform SDK
+        run: xcodebuild -downloadPlatform iOS
 
       - name: Build iOS app
         if: matrix.platform == 'ios'
@@ -91,4 +97,4 @@ jobs:
                      -sdk iphonesimulator \
                      -configuration Debug \
                      -derivedDataPath ../../xcode-derived-data \
-                     clean build | xcpretty
+                     build | xcpretty
