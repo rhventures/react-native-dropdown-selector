@@ -75,11 +75,11 @@ jobs:
           sudo gem install cocoapods
           pod install
       
-      - name: Set up the desired Xcode version
+      - name: Set up the correct Xcode version
         if: matrix.platform == 'ios'
         run: |
           sudo xcode-select -s \
-          /Applications/Xcode_26.0.1.app/Contents/Developer
+          /Applications/Xcode_26.1.1.app/Contents/Developer
       
       - name: Pre-load iOS Platform SD
         if: matrix.platform == 'ios'
