@@ -81,10 +81,6 @@ jobs:
           sudo xcode-select -s \
           /Applications/Xcode_26.0.1.app/Contents/Developer
       
-      # - name: Correctly fetch the metal toolchain
-      #   if: matrix.platform == 'ios'
-      #   run: xcodebuild -downloadComponent metalToolchain
-      
       - name: Pre-load iOS Platform SD
         if: matrix.platform == 'ios'
         run: xcodebuild -downloadPlatform iOS
@@ -93,7 +89,6 @@ jobs:
         if: matrix.platform == 'ios'
         working-directory: example/ios
         run: |
-          rm .xcode.env.local
           set -o pipefail
           xcodebuild -workspace example.xcworkspace \
                      -scheme example \
