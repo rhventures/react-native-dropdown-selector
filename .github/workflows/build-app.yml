@@ -75,12 +75,10 @@ jobs:
           ruby-version: 2.6.10
           bundler-cache: true
 
-      - name: Install CocoaPods
+      - name: Install Pods
         if: matrix.platform == 'ios'
         working-directory: example/ios
         run: |
-          sudo gem install cocoapods -v 1.16.2
-          bundle exec pod --version || echo "no pod"
           bundle exec pod install
       
         # Multiple recent Xcode versions were tested.
