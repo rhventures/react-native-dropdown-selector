@@ -72,16 +72,16 @@ jobs:
         if: matrix.platform == 'ios'
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.6.10'
+          ruby-version: 2.6.x
           bundler-cache: true
 
       - name: Install Pods
         if: matrix.platform == 'ios'
         working-directory: example/ios
         run: |
-          ruby --version
-          pod --version
-          ${{ env.BUNDLE_BIN }}/bundle exec pod install
+          sudo gem install bundler -v 1.17.2
+          bundle --version
+          bundle exec pod install
       
         # Multiple recent Xcode versions were tested.
         # Working ones: 26.0.1, 26.2.0, 26.3.0
