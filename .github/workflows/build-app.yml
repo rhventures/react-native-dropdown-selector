@@ -73,8 +73,8 @@ jobs:
         working-directory: example/ios
         run: |
           sudo gem install cocoapods -v 1.16.2
-          pod --version || echo "no pod"
-          pod install
+          bundle exec pod --version || echo "no pod"
+          bundle exec pod install
       
         # Multiple recent Xcode versions were tested.
         # Working ones: 26.0.1, 26.2.0, 26.3.0
