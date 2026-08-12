@@ -73,6 +73,11 @@ jobs:
         working-directory: example/ios
         run: |
           sudo gem install cocoapods
+          node --version
+          npm --version
+          xcodebuild -version
+          ruby --version
+          pod --version
           pod install
       
         # Multiple recent Xcode versions were tested.
