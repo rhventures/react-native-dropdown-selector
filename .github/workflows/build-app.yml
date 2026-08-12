@@ -81,6 +81,7 @@ jobs:
         run: |
           sudo gem install bundler -v 1.17.2
           bundle --version
+          bundle install
           bundle exec pod install
       
         # Multiple recent Xcode versions were tested.
