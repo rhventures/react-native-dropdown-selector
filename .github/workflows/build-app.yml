@@ -73,6 +73,7 @@ jobs:
         working-directory: example/ios
         run: |
           sudo gem install cocoapods
+          pod --version || echo "no pod"
           pod install
       
         # Multiple recent Xcode versions were tested.
