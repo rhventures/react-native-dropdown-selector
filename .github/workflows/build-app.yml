@@ -81,7 +81,7 @@ jobs:
         run: |
           ruby --version
           pod --version
-          bundle exec pod install
+          ${{ env.BUNDLE_BIN }}/bundle exec pod install
       
         # Multiple recent Xcode versions were tested.
         # Working ones: 26.0.1, 26.2.0, 26.3.0
