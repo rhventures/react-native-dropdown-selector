@@ -79,11 +79,8 @@ jobs:
         if: matrix.platform == 'ios'
         working-directory: example/ios
         run: |
-          bundle --version
           bundle install
-          pod --version
           bundle exec pod install
-          grep "hermes-engine" Podfile.lock
       
         # Multiple recent Xcode versions were tested.
         # Working ones: 26.0.1, 26.2.0, 26.3.0

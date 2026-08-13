@@ -59,7 +59,6 @@ This is the main syntax to specify the jobs running as part of Github Actions. T
 **This was a new step added to install the correct version of Ruby as it didn't exist before.**
 
 4. ```
-    sudo gem install bundler -v 1.17.2
     bundle install
     bundle exec pod install
     ```
@@ -69,6 +68,8 @@ This is the main syntax to specify the jobs running as part of Github Actions. T
     The `bundle install` command is necessary to install CocoaPods following which the `bundle exec pod install` is what actually gets the specific versions of libraries we need from the Podfile.
 
     **Newly added step in the build pipeline. It is not evident as of now if this process can be simplified.**
+
+    **Additionally, for an initial successful CI pipeline run, I also included `pod update hermes-engine --no-repo-update` in between the two bundle commands based on a suggestion providd by Github post a hermes error message. In consequent runs this was no longer needed. But if in future we run into a similar issue we might need to temporarily include it again.**
 
 5. Setup correct Xcode version: It was found that versions before `26.3.0` don't work.
 
@@ -87,6 +88,8 @@ This is the main syntax to specify the jobs running as part of Github Actions. T
     ```
 
     The actual iOS build code. Use of **xcpretty** and `gem install xcpretty` is optional but useful for cleaner and concise output message.
+
+**Important Note: The `Podfile.lock` was generated using a newer version of cocoapods (1.16.2) locally and reflects the same at the end of the file, but when doing any operations such as `bundle exec pod install` it uses the version of cocoapods specified in the Gemfile.lock (1.15.2). Thus the versions are different and out of sync but do not appear to impact the application build as of now. There are newer cocoapod versions which we might have to switch to in future and reflect the same in `Gemfile` / `Gemfile.lock` as well but the process should be undertaken carefully because even for cocoapods `1.16.0` there's also a minimum version bump of `xcodeproj` to `1.26.0` which would require us to update that as well, currently our Gemfile restricts it to `< 1.26.0`, but the `1.26.0` version is known to cause CI/CD pipeline issues as seen in https://discuss.bitrise.io/t/sandbox-file-write-create-errors-after-the-xcodeproj-gem-was-auto-updated-to-1-26-0/24643.
 
 
 
