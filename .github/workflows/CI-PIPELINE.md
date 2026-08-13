@@ -1,0 +1,90 @@
+# CI Pipeline Build Workflow
+
+## Overview
+This file includes notes, details, and explanations for the CI pipeline workflow of the React Native Dropdown Selector example app in `build.yaml`.
+
+### Basic Pipeline Setup
+```
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+```
+The above code just specifies that GitHub actions with run upon every push on the *main* branch and any pull request made.
+
+```
+jobs:
+  build-app:
+    name: Build Example App (${{ matrix.platform }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - platform: android
+            runner: ubuntu-latest
+          - platform: ios
+            runner: macos-latest
+```
+This is the main syntax to specify the jobs running as part of Github Actions. They're both build jobs for building our example app, one for android and the other for iOS.
+
+### CI Pipeline Steps Common to Both Builds
+
+1. Checkout via **actions/checkout@v4**: Downloads repo code onto the GitHub actions runner so that our workflow cana access it.
+
+2. Setting up Node.js via **actions/setup-node@v6**: Installs the desired Node version, at time of writing `22`.
+
+3. Install component and example app dependencies: Done via `npm ci` in project root `/` and `example` directories.
+
+### Android Specific Build Steps
+
+1. Java Setup via **actions/setup-java@v5**: Java 17 is required.
+
+2. Android SDK setup via **android-actions/setup-android@v3**: Sets up required Android SDK tools
+
+3. Build Android App with `./gradlew assembleDebug` command
+
+#### So far, the Android Build workflow has been working successfully everytime and hasn't required modification in long time.
+
+### iOS Specific Build Steps
+
+1. Cache CocoaPods via **actions/cache@v4** to speed workflow - checks for the Podfile.lock file for dependencies. **No errors encountered with this step.**
+
+2. Cache iOS builds via **irgaly/xcode-cache@v1** to store/restore Xcode's build cache and speed up workflow. **No errors encountered witht this step.**
+
+3. Setup Ruby via **ruby/setup-ruby@v1** to download a prebuilt ruby and add it to the path. When building the app locally and as specified in `Gemfile.lock`, Ruby `2.6.10` was being used so the same is installed for CI as well.
+
+    The `bundle-cache: true` step runs `bundle install` behind the hood and caches the result to speed up subsequent runs.
+
+**This was a new step added to install the correct version of Ruby as it didn't exist before.**
+
+4. ```
+    sudo gem install bundler -v 1.17.2
+    bundle install
+    bundle exec pod install
+    ```
+
+    The first command installs correct version of bundler (same as one used locally and specified in Gemfile.lock). We then use this bundler to lock in the correct CocoaPods version and install Pods.
+
+    **Newly added step in the build pipeline. It is not evident as of now if this process can be simplified.**
+
+5. Setup correct Xcode version: It was found that versions before `26.3.0` don't work.
+
+6. Pre-load iOS platform SD via `xcodebuild -downloadPlatform iOS`: Downloads necessary iOS similator files and SDKs to build and test the app. Very important and cannot be ommitted (would result in errors).
+
+7. ```
+    run: |
+        set -o pipefail
+        gem install xcpretty
+        xcodebuild -workspace example.xcworkspace \
+                    -scheme example \
+                    -sdk iphonesimulator \
+                    -configuration Debug \
+                    -derivedDataPath ../../xcode-derived-data \
+                    build | xcpretty
+    ```
+
+    The actual iOS build code. Use of **xcpretty** and `gem install xcpretty` is optional but useful for cleaner and concise output message.
+
+
+
