@@ -64,7 +64,9 @@ This is the main syntax to specify the jobs running as part of Github Actions. T
     bundle exec pod install
     ```
 
-    The first command installs correct version of bundler (same as one used locally and specified in Gemfile.lock). We then use this bundler to lock in the correct CocoaPods version and install Pods.
+    The first command installs correct version of bundler (same as one used locally and specified in Gemfile.lock). We then use this bundler to lock in the correct CocoaPods version from the Gemfile.
+
+    The `bundle install` command is necessary to install CocoaPods following which the `bundle exec pod install` is what actually gets the specific versions of libraries we need from the Podfile.
 
     **Newly added step in the build pipeline. It is not evident as of now if this process can be simplified.**
 
