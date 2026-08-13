@@ -81,7 +81,6 @@ jobs:
         run: |
           sudo gem install bundler -v 1.17.2
           bundle install
-          pod update hermes-engine --no-repo-update
           bundle exec pod install
       
         # Multiple recent Xcode versions were tested.
