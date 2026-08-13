@@ -79,6 +79,8 @@ jobs:
         if: matrix.platform == 'ios'
         working-directory: example/ios
         run: |
+          bundle --version
+          pods --version
           sudo gem install bundler -v 1.17.2
           bundle install
           bundle exec pod install
