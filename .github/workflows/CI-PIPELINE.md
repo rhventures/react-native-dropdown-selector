@@ -91,5 +91,13 @@ This is the main syntax to specify the jobs running as part of Github Actions. T
 
 **Important Note: The `Podfile.lock` was generated using a newer version of cocoapods (1.16.2) locally and reflects the same at the end of the file, but when doing any operations such as `bundle exec pod install` it uses the version of cocoapods specified in the Gemfile.lock (1.15.2). Thus the versions are different and out of sync but do not appear to impact the application build as of now. There are newer cocoapod versions which we might have to switch to in future and reflect the same in `Gemfile` / `Gemfile.lock` as well but the process should be undertaken carefully because even for cocoapods `1.16.0` there's also a minimum version bump of `xcodeproj` to `1.26.0` which would require us to update that as well, currently our Gemfile restricts it to `< 1.26.0`, but the `1.26.0` version is known to cause CI/CD pipeline issues as seen in https://discuss.bitrise.io/t/sandbox-file-write-create-errors-after-the-xcodeproj-gem-was-auto-updated-to-1-26-0/24643.**
 
+### Things to watch out for future
+
+Unlike android build workflow, the iOS build workflow is very fragile due to the libraries and dependencies specific to iOS that need to undergo periodic updates and in some cases have to be maintained in sync. So in case of future errors in the pipeline for iOS builds, the following tools or dependencies serve as a good starting point of review.
+- Cocoapods
+- Ruby
+- Bundler
+- Xcode
+- Hermes
 
 
