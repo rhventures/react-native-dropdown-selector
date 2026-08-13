@@ -83,7 +83,7 @@ jobs:
           bundle install
           pod --version
           bundle exec pod install
-          grep "hermes-engine" ios/Podfile.lock
+          grep "hermes-engine" Podfile.lock
       
         # Multiple recent Xcode versions were tested.
         # Working ones: 26.0.1, 26.2.0, 26.3.0
