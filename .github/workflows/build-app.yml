@@ -68,12 +68,19 @@ jobs:
           key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
           restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-
 
-      - name: Install CocoaPods
+      - name: Set up Ruby
+        if: matrix.platform == 'ios'
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6.10
+          bundler-cache: true
+
+      - name: Install Pods
         if: matrix.platform == 'ios'
         working-directory: example/ios
         run: |
-          sudo gem install cocoapods
-          pod install
+          bundle install
+          bundle exec pod install
       
         # Multiple recent Xcode versions were tested.
         # Working ones: 26.0.1, 26.2.0, 26.3.0
@@ -93,6 +100,7 @@ jobs:
         working-directory: example/ios
         run: |
           set -o pipefail
+          gem install xcpretty
           xcodebuild -workspace example.xcworkspace \
                      -scheme example \
                      -sdk iphonesimulator \
