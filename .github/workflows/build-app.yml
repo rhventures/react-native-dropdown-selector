@@ -104,6 +104,7 @@ jobs:
         working-directory: example/ios
         run: |
           set -o pipefail
+          gem install xcpretty
           xcodebuild -workspace example.xcworkspace \
                      -scheme example \
                      -sdk iphonesimulator \
