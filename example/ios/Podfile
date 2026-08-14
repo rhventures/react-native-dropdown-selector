@@ -30,5 +30,15 @@ target 'example' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # Fix for fmt library C++20 related build errors for Xcode >= 26.4.0
+    # Credit goes to @Waseem Kurne for the fix -> https://stackoverflow.com/questions/79921402/xcode-26-4-build-error-call-to-consteval-function-fmtbasic-format-string-i
+    installer.pods_project.targets.each do |target|
+      if target.name == 'fmt'
+        target.build_configurations.each do |config|
+          config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
+        end
+      end
+    end
   end
 end
