@@ -72,7 +72,9 @@ jobs:
       
       - name: Pre-load iOS Platform SD
         if: matrix.platform == 'ios'
-        run: xcodebuild -downloadPlatform iOS
+        run: |
+          xcrun simctl list > /dev/null
+          xcodebuild -downloadPlatform iOS
 
       - name: Build iOS app
         if: matrix.platform == 'ios'
