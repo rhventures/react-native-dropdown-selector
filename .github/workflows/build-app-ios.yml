@@ -1,4 +1,4 @@
-name: Build Example App
+name: Build Example App on iOS
 
 on:
   push:
@@ -7,21 +7,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-app:
-    name: Build Example App (${{ matrix.platform }})
+  build-ios:
     runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
         include:
-          - platform: android
-            runner: ubuntu-latest
           - platform: ios
             runner: macos-latest
-
+    
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 22
@@ -33,24 +30,7 @@ jobs:
         working-directory: example
         run: npm ci
 
-      - name: Set up Java for Android
-        if: matrix.platform == 'android'
-        uses: actions/setup-java@v5
-        with:
-          distribution: 'temurin'
-          java-version: 17
-
-      - name: Set up Android SDK
-        if: matrix.platform == 'android'
-        uses: android-actions/setup-android@v3
-
-      - name: Build Android app
-        if: matrix.platform == 'android'
-        working-directory: example/android
-        run: ./gradlew assembleDebug
-
       - name: Cache CocoaPods
-        if: matrix.platform == 'ios'
         uses: actions/cache@v4
         with:
           path: |
@@ -61,7 +41,6 @@ jobs:
             pods-${{ runner.os }}-
 
       - name: Cache iOS Build
-        if: matrix.platform == 'ios'
         uses: irgaly/xcode-cache@v1
         with:
           deriveddata-directory: xcode-derived-data
@@ -93,7 +72,9 @@ jobs:
       
       - name: Pre-load iOS Platform SD
         if: matrix.platform == 'ios'
-        run: xcodebuild -downloadPlatform iOS
+        run: |
+          xcrun simctl list > /dev/null
+          xcodebuild -downloadPlatform iOS
 
       - name: Build iOS app
         if: matrix.platform == 'ios'
